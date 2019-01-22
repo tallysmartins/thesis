@@ -5,15 +5,30 @@
 % Apague as duas linhas abaixo (elas servem apenas para gerar um
 % aviso no arquivo PDF quando não há nenhum dado a imprimir) e
 % insira aqui o conteúdo dos capítulos do seu trabalho
+\newcommand\rurl[1]{%
+  \href{http://#1}{\nolinkurl{#1}}%
+}
 
-\input{extras/aviso-conteudo}
-\avisoCapitulos
+\lstdefinestyle{myxml}{
+  numbers=none,
+  xleftmargin=5pt,
+  framexleftmargin=10pt,
+}
 
-% Os capítulos de compõem a dissertação/tese, com numeração normal, podem
-% ser inseridos diretamente aqui ou "puxados" de outros arquivos
+\input{conteudo/capitulos/introducao}
+\par
 
-%\input{conteudo/01...}
-%\par
+\input{conteudo/capitulos/referencial-teorico}
+\par
 
-%\input{conteudo/02...}
-%\par
+\input{conteudo/capitulos/trabalhos-relacionados}
+\par
+
+\input{conteudo/capitulos/metodologia}
+\par
+
+\input{conteudo/capitulos/resultados}
+\par
+
+\input{conteudo/capitulos/plano-de-trabalho}
+\par

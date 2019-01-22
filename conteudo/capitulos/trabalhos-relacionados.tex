@@ -1,0 +1,100 @@
+\chapter{Trabalhos Relacionados}
+\label{cap:trabalhos-relacionados}
+
+  A técnica de agrupamento de arestas na visualização de grafos, redes e trajetórias
+tem sido utilizada em vários contextos. Neste capítulo apresentamos alguns trabalhos
+que utilizam Bundling para a visualização de trajetórias. Lembramos que a definição
+de trajetórias está ligada à codificação de informações espaciais intrínseca aos
+dados, como na movimentação de veículos ou em gráficos de coordenadas paralelas.
+De forma geral, tais trabalhos proporcionaram uma base para compor um conhecimento maior
+sobre a área.
+
+\begin{description}
+
+  \item[Visualization of vessel movements:]
+  Esse trabalho mostra a dinâmica do tráfego de embarcações. \citep{Willems2009}
+
+  \item[Visualizing Interchange Patterns in Massive Movement Data:] esse
+trabalho apresenta um diagrama circular que mostra a direção do fluxo entre
+diferentes nós que simbolizam um ponto de interesse. Ele utiliza como estudo de
+caso estações de metrô de Singapura com dados sigilosos do sistema de
+transporte. \citep{Zeng2013} 
+
+\item[Dynamic Multi Scale Visualization of Flight Data:]
+ Esse trabalho do apresenta como visualizar uma grande quantidade
+de dados do tráfego aéreo. \citep{Klein2014}
+
+\item[Untangling origin-destination flows in geographic information systems:]
+ Esse trabalho mostra a implementação do bundling como plugin de uma ferramenta GIS.
+O algoritmo apresentado ainda recebe uma modificação ao algoritmo de bundling FDEB. \citep{Anita2017}
+
+\item[Divided Edge Bundling for Directional Network Data:]
+  Esse trabalho mostra uma abordagem para diferenciar no bundling a direção do movimento.
+\citep{Selassie2011}
+\end{description}
+
+\begin{description}
+  \item[Design:] Os trabalhos encontrados utilizam um design diferente do que propomos a seguir.
+  Muitos deles fazem análises multinível, e com leiaute em linhas ou em circular, mas com outros tipos de dado
+  e em outros contextos, como avião, navios e pessoas.
+
+  \item[Tipo de Dado:] Os trabalhos de bundling encontrados utilizam bundling
+  apenas com as informações de origem-destino e não todos os dados da trajetória.
+  Fulano de tal faz o uso de mapas de tensores com dados mais granulares, mas
+  utiliza uma outra abordagem no design da visualização, o que difere do contexto
+  deste trabalho.
+
+  \item[Escala:] Poucos trabalhos utilizam uma grande quantidade de dados. A visualização
+  proposta, apesar de não estar focada em escalabilidade computacional, irá usar
+  uma grande quantidade de dados do trânsito, para lidar com aspectos de escalabilidade
+  visual.
+\end{description}
+
+\begin{table}[]
+\caption{Comparação entre visualizações baseadas em mapas}
+\begin{tabular}{|c|c|c|l|c|c|l|l|}
+\hline
+\textbf{Trabalho} & \textbf{Granularidade do dado} & \textbf{Tipo de Visualização} & /Tipo de Dado & \textbf{Direção} & \textbf{Dinâmica} & Nível de Detalhe & Interativa \\ \hline
+                  & OD                             & Baseada em linhas             & Avião         & Não              &                   & Multi nível      &            \\ \hline
+                  & OD                             & Mapa de OD                    & Carro         & Sim              &                   &                  &            \\ \hline
+                  & OD                             & Diagramas Circulares          &               &                  &                   &                  &            \\ \hline
+                  & Full                           & Tensor Fields                 &               & sim              & não               & único            &            \\ \hline
+\end{tabular}
+\end{table}
+
+%  Por razões críticas, a movimentação de aeronaves no tráfego aéreo é monitorada
+%  com grande cuidado. Sistemas avançados de localização registram em tempo real
+%  a posição de aeronaves que sobrevoam o planeta. Esses sistemas podem ainda
+%  conter outras informações como direção, altitude, velocidade, temperatura, pressão
+%  e diversos outros atributos ao longo do trajeto. O tráfego aéreo é de certa
+%  forma similar à movimentação de veículos sobre as vias da cidade e visualizar
+%  essas informações traz também grandes desafios.
+%
+%  cite{Alex}, mostra um trabalho onde ele descreve uma visualização que utiliza
+%  técnicas baseadas em imagem para análise exploratória de uma grande massa
+%  de dados do tráfego. Sua análise inclui a utilização de três técnicas, bundling,
+%  density maps e animações. Ele argumenta que, com essas técnicas, é possível visualizar
+%  uma grande quantidade de dados, tanto a posição instantânea dos aviões como também
+%  sua dinâmica ao longo do tempo, sem uma grande oclusão da visualização. 
+%  Dentre os resultados apresentados está a detecção de \textit{outliers}, padrões
+%  e congestionamentos durante vôos.
+%
+%  
+%  O seu sistema possui alguns parâmetros configuráveis que permitem uma exploração dos dados que
+%  trazem vários insights para visualização de padrões e outliers nos dados.
+%
+%-> Highlights:
+%  - exploração das informações disponíveis e detecção de outliers
+%  - visão de grandes áreas do tráfego e durante longos períodos (e.g. dados do mundo durante 1 mês)
+%  - adaptação de várias técnicas baseadas em imagem (bundling, animation, density maps) para visualizar
+%  padrões ao longo do tempo
+%  - visualização com pouca oclusão
+%  - análise em "tempo real" com processamento na GPU
+%  - real world datasets
+%
+%-> Limitações
+%  - Ainda gera alguma oclusão, como no dataset do mundo todo
+%  - Software não disponível
+%  - não implementa queries para filtros (e.g. aviões de altitude maior que X)
+%  - Suas trilhas apresentam apenas três atributos (velocidade, direção, altura)
+
