@@ -235,35 +235,34 @@
 % de cada um deles.
 
 %%%% Apêndices %%%%
-\makeatletter
-\if@openright\cleardoublepage\else\clearpage\fi
-\makeatother
-
-% Este formato está definido na package imeusp-headers.
-\pagestyle{appendix}
-
-\appendix
-
-%\input{conteudo-exemplo/apendices}
-\input{conteudo/apendices}
-\par
-
-%%%% Anexos %%%%
-\makeatletter
-\if@openright\cleardoublepage\else\clearpage\fi
-\makeatother
-
-% Este formato está definido na package imeusp-headers (note que é o mesmo
-% que o anterior; repetimos aqui caso você queira desabilitar toda a seção
-% de apêndices).
-\pagestyle{appendix}
-
-\annex
-
-%\input{conteudo-exemplo/anexos}
-\input{conteudo/anexos}
-\par
-
+%\makeatletter
+%\if@openright\cleardoublepage\else\clearpage\fi
+%\makeatother
+%
+%% Este formato está definido na package imeusp-headers.
+%\pagestyle{appendix}
+%
+%\appendix
+%
+%%\input{conteudo-exemplo/apendices}
+%\input{conteudo/apendices}
+%\par
+%
+%%%%% Anexos %%%%
+%\makeatletter
+%\if@openright\cleardoublepage\else\clearpage\fi
+%\makeatother
+%
+%% Este formato está definido na package imeusp-headers (note que é o mesmo
+%% que o anterior; repetimos aqui caso você queira desabilitar toda a seção
+%% de apêndices).
+%\pagestyle{appendix}
+%
+%\annex
+%
+%%\input{conteudo-exemplo/anexos}
+%\input{conteudo/anexos}
+%\par
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SEÇÕES FINAIS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -295,6 +294,6 @@
 ]
 
 % imprime o índice remissivo no documento (opcional)
-\printindex
+% \printindex
 
 \end{document}
