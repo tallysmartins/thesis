@@ -227,12 +227,15 @@ compreender e visualizar a estrutura global, padrões e tendências entre grupos
 de trajetórias que ligam áreas fortemente relacionadas \citep{Zhou2013}.  A
 Figura \ref{fig:bundling-hierarquico} mostra o uso de uma técnica de
 \emph{bundling} para visualização da hierarquia de módulos e arquivos de um
-software onde as arestas mostram suas relações de dependência.
+software onde as arestas mostram suas relações de dependência. A ligação
+acontece quando um módulo acessa atributos e/ou funções definidos em outras partes
+do software.
 
 \begin{figure}[!htb]
   \centering
-  \includegraphics[width=1\textwidth]{../figuras/hierarquical-edge-bundling.png}
-  \caption[Bundling hierárquico na visualização de dados de software]{Bundling hierárquico na visualização de dados de software. Fonte: \citep{Holten2006}.}
+  \includegraphics[width=.5\textwidth]{../figuras/hbundling.png}
+  \caption[Bundling hierárquico na visualização de dados de software]{Bundling hierárquico na visualização de dados de software. As cores mapeiam
+o sentido do acesso, verde é a origem, vermelho é o alvo. Fonte: \citep{Holten2006}.}
   \label{fig:bundling-hierarquico}
 \end{figure}
 
@@ -459,14 +462,6 @@ tempo de ocorrência do evento dentro da simulação. Esse atributo  é contabil
 em segundos. Na simulação de um dia do trânsito, por exemplo, temos então
 86400 segundos, correspondentes às 24 horas do dia.
 
-  A partir desse arquivo de saída e do mapa da cidade é possível montar o
-o rastro de mobilidade dos veículos ao longo do tempo,
-recuperando as posições de latitude e longitude dos \emph{links} sobre o qual
-eles se movimentam, como mostra a Tabela \ref{table:rastro}. O rastro de um veículo
-da simulação pode ser visto na Figura \ref{fig:rastro}. O ponto verde indica a origem na cor
-preta está marcado o destino. Já os pontos vermelhos marcam cada evento
-de movimentação que ele fez dentro da simulação.
-
 \begin{lstlisting}[style=myxml, caption={Exemplo de arquivo de saída events.xml com os eventos da simulação.}, label=events.xml]
 
 <events version="1.0">
@@ -480,6 +475,13 @@ de movimentação que ele fez dentro da simulação.
 </events>
 \end{lstlisting}
 
+  A partir desse arquivo de saída e do mapa da cidade é possível montar o
+o rastro de mobilidade dos veículos ao longo do tempo,
+recuperando as posições de latitude e longitude dos \emph{links} sobre o qual
+eles se movimentam, como mostra a Tabela \ref{table:rastro}. O rastro de um veículo
+da simulação pode ser visto na Figura \ref{fig:rastro}. O ponto verde indica a origem na cor
+preta está marcado o destino. Já os pontos vermelhos marcam cada evento
+de movimentação que ele fez dentro da simulação.
 
 \begin{table}[!htb]
 \centering
