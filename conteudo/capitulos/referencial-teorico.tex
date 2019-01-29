@@ -325,7 +325,7 @@ para descobrir quais são as mais próximas, afim de agrupá-las em
 \emph{bundles}.  Esse cálculo, no entanto, é bastante custoso e pode demorar
 minutos em cenários com milhares de trajetórias.
 
-\emph{Kernel density estimation edge bundling} (KDEEB, \citet{Hurter2012})
+\emph{Kernel Density Estimation Edge Bundling} (KDEEB, \citet{Hurter2012})
 observou que ao aplicar uma operação de \emph{bundling} $B$ qualquer sobre um
 grafo $G$, o resultado são áreas de maior densidade (dentro dos \emph{bundles})
 e áreas de menor densidade fora deles, em comparação ao grafo original. Assim,
@@ -373,7 +373,7 @@ iterações.
 %das arestas que cruzam o obstáculo e faz com que as arestas sejam movidas
 %na direção pra fora de suas bordas.
 
-  \textbf{\emph{Attribute-Driven Edge Bundling}} (ADEEB,
+  {\emph{Attribute-Driven Edge Bundling} (ADEEB,
 \citet{ZegarraFlores2016}) estenderam o algoritmo KDEEB permitindo separar as
 arestas conforme sua direção. Essa informação é obtida percorrendo cada aresta
 a partir do ponto de origem até o destino e armazenando para cada uma delas um
@@ -400,9 +400,11 @@ são tipicamente obtidos de fontes de dados online.
 visualização de grafos dinâmicos. Para grafos sequenciais o \emph{bundling} é
 aplicado a cada grafo $G^i$ de maneira estática. Já em grafos de fluxo, os
 dados são divididos em janelas de tempo e o algoritmo é aplicado em cada
-intervalo $\Delta t$. \cite{Hurter2014} mostram as operações de \emph{bundling} em
-grafos dinâmicos e como o uso de animações pode ser eficiente na visualização
-das mudanças em longas séries temporais.
+intervalo $\Delta t$, que podem ser colocados lado a lado para comparação em
+uma técnica conhecida como \emph{small multiples}. Uma outra maneira de se
+visualizar a dinâmica é com o uso de animações, como mostram
+\citet{Hurter2014}. A vantagem desse método sobre o anterior é que ele se
+adequa melhor à análise de longas séries temporais.
 
 \section{Simulação do Tráfego de Veículos}
 
@@ -443,86 +445,29 @@ interação entre os componentes e os arquivos de entrada e saída.
 
 \begin{figure}[!htb]
   \centering
-  \includegraphics[width=160mm]{../figuras/interscsimulator.png}
-  \caption{Componentes do InterSCSimulator. Fonte: \citet{mabs2017} \label{fig:interscsimulator}}
+  \includegraphics[width=\textwidth]{../figuras/arquitetura-simulador.png}
+  \caption[Componentes do InterSCSimulator]{Componentes do InterSCSimulator. Fonte: \citet{Melissa2018} \label{fig:interscsimulator}}
 \end{figure}
 
-\subsubsection{Arquivos de entrada}
-  O simulador utiliza três arquivos de entrada para definição do cenário, mas
-apenas dois merecem ser detalhados, são eles \emph{map.xml} e \emph{trips.xml}.
-O primeiro  contém a descrição da rede rodoviária da cidade e é construído com
-dados obtidos de serviços como \emph{Open Street Maps}
-(OSM)\footnote{\rurl{www.openstreetmap.org}}. O arquivo é composto por nós e
-links, que representam cruzamentos e ruas, respectivamente. A Listagem
-\ref{map.xml} mostra um exemplo de um arquivo \emph{map.xml} com 3 nós e 3
-links.
+  De todos os artefatos utilizados na simulação, nós utilizaremos apenas o
+arquivo de saída \emph{events.xml} que contém o rastro da movimentação dos
+veículos. A Listagem \ref{events.xml} mostra parte de um arquivo de saída
+gerado durante uma simulação. É possível ver os eventos de \emph{start\_trip},
+\emph{move} e \emph{finish\_trip} para dois veículos com os identificadores
+$2121$ e $2223$.  É importante notar também o atributo \emph{time}, que indica o
+tempo de ocorrência do evento dentro da simulação. Esse atributo  é contabilizado
+em segundos. Na simulação de um dia do trânsito, por exemplo, temos então
+86400 segundos, correspondentes às 24 horas do dia.
 
-\begin{lstlisting}[style=myxml, caption={Exemplo de arquivo map.xml que define a rede rodoviária da cidade. Fonte: \citet{mabs2017}}, label=map.xml]
-<network>
-  <nodes>
-   <node id ="1" x="-46.65805" y="-23.58162"/>
-   <node id ="2" x="-46.65828" y="-23.58342"/>
-   <node id ="3" x="-46.65228" y="-23.59341"/>
-  </nodes>
-  <links>
-    <link id="35985" from="1" to="2" length="100" free speed="40"/>
-    <link id="35985" from="2" to="3" length="200" free speed="40"/>
-    <link id="35985" from="3" to="1" length="80"  free speed="50"/>
-  </links>
-</network>
-\end{lstlisting}
+  A partir desse arquivo de saída e do mapa da cidade é possível montar o
+o rastro de mobilidade dos veículos ao longo do tempo,
+recuperando as posições de latitude e longitude dos \emph{links} sobre o qual
+eles se movimentam, como mostra a Tabela \ref{table:rastro}. O rastro de um veículo
+da simulação pode ser visto na Figura \ref{fig:rastro}. O ponto verde indica a origem na cor
+preta está marcado o destino. Já os pontos vermelhos marcam cada evento
+de movimentação que ele fez dentro da simulação.
 
-  O segundo arquivo de entrada, \emph{trips.xml}, descreve todas as viagens que devem ser
-simuladas. Cada viagem deve informar os nós de origem e destino e o horário da
-simulação em que ela será iniciada, como pode ser visto na Listagem
-\ref{trips.xml}. A trajetória pode ainda ser fixada previamente ou calculada
-pelo simulador em tempo de simulação, o qual fica responsável por determinar o
-melhor caminho.
-
-\begin{lstlisting}[style=myxml, caption={Exemplo de arquivo trips.xml que define a rede rodoviária da cidade. Fonte: \citet{mabs2017}}, label=trips.xml]
-
-<scsimulator_matrix>
-  <trip origin="247951669" destination="60641382"
-    type="car" start_time="28801"/>
-  <trip origin="60641382" destination="247951669"
-    type="car" start_time="63001"/>
-  <trip origin="4511105625" destination="2109902387"
-    type="car" start_time="16201"/>
-  <trip origin="247951669" destination="60641382"
-    type="car" start_time="54001"/>
-  <trip origin="246650787" destination="247951670"
-    type="car" start_time="54001"/>
-  <trip origin="247951670" destination="246650787"
-    type="car" start_time="66601"/>
-  <trip origin="246650787" destination="60641382"
-    type="bus" start_time="54001"/>
-</scsimulator_matrix>
-\end{lstlisting}
-
-  Cada veículo (carro ou ônibus) definido no arquivo \emph{trips.xml} é um ator
-dentro da simulação.  Então, ele percorre um trajeto dos nós de origem até os
-nós de destino através da rede rodoviária da cidade. Os veículos apresentam quatro
-ações dentro da simulação: \emph{Start}, quando o tempo da simulação atinge o
-tempo de início do veículo; \emph{Move}, quando a simulação atinge o tempo do
-próximo movimento do veículo; \emph{Wait}, quando o veículo tem que esperar até
-o próximo movimento; e \emph{Finish}, quando o veículo chega ao seu destino.
-
-  Atualmente é utilizado um modelo de fluxo livre para calcular o tempo em que
-um veículo gasta para percorrer um link: $tempo = tamanho\_do\_link/velocidade\_do\_veículo$.
-Cada link mantém o número de veículos que estão na rua em um dado instante. Se o número
-de carros no link é igual à sua capacidade, então nenhum outro veículo pode entrar naquele
-link até que pelo menos um veículo saia, o que caracteriza um congestionamento
-dentro da simulação.
-
-\subsubsection{Arquivos de saída}
-
-O InterSCSimulator gera um arquivo XML contendo todos os eventos ocorridos
-durante a simulação. A Listagem \ref{output.xml} mostra parte de um arquivo de
-saída gerado durante uma simulação. É possível ver os eventos de
-\emph{start\_trip}, \emph{move} e \emph{finish\_trip} para dois veículos com os
-identificadores $2121$ e $2223$.
-
-\begin{lstlisting}[style=myxml, caption={Exemplo de arquivo de saída output.xml com os eventos da simulação.}, label=output.xml]
+\begin{lstlisting}[style=myxml, caption={Exemplo de arquivo de saída events.xml com os eventos da simulação.}, label=events.xml]
 
 <events version="1.0">
   <event time="4" type="start_trip" vehicle="2121" link="5243" />
@@ -534,3 +479,34 @@ identificadores $2121$ e $2223$.
   <event time="52" type="finish_trip" vehicle="2223" link="5243" />
 </events>
 \end{lstlisting}
+
+
+\begin{table}[!htb]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{Horário} & \textbf{Ação} & \textbf{ID} & \textbf{Latitude} & \textbf{Longitude} \\
+\hline
+25 & start & 4858\_52 & -23.624235 & -46.648388 \\
+27 & start & 4858\_73 & -23.624235 & -46.648388 \\
+27 & start & 94\_17 & -23.535976 & -46.63561    \\
+31 & move & 4858\_52 & -23.624077 & -46.648453 \\
+33 & move & 4858\_73 & -23.624077 & -46.648453 \\
+35 & start & 8394\_43 & -23.561275 & -46.695423 \\
+\hline
+\end{tabular}
+\caption{Tabela com o rastro do tráfego montado a partir do arquivo de saída e o mapa da cidade. \label{table:rastro}}
+\end{table}
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=\textwidth]{../figuras/pontos.png}
+  \caption{Visualização dos pontos da trajetória do veículo com ID 4858\_52. \label{fig:rastro}}
+\end{figure}
+
+%\begin{figure}[!htb]
+%  \centering
+%  \includegraphics[width=\textwidth]{../figuras/linha.png}
+%  \caption{Visualização em pontos.}
+%\end{figure}
+
