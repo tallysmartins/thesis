@@ -1,9 +1,9 @@
 \chapter{Metodologia}
 \label{cap:metodologia}
- Apresentamos neste capítulo a nossa proposta de visualização para exploração
+ Este capítulo descreve a nossa proposta de visualização para exploração
 dos fluxos no tráfego de veículos. O objetivo principal da visualização é centrado
 nas propriedades espaciais e temporais dos dados para entender
-como os fluxos se deslocam pela cidade ao longo do tempo. Buscamos
+como são os fluxos de origem e destino pela cidade ao longo do tempo. Buscamos
 um maior nível de detalhes através de uma abordagem multinível para
 explorar padrões globais e locais do tráfego, com diferentes níveis de agregação
 temporais e espaciais.
@@ -16,12 +16,12 @@ InterSCityPlot.
 
 \section{Conjuntos de Dados}
    Os dados do tráfego que utilizaremos possuem o registro da posição ao longo
-de toda a trajetória, desde a origem até seu destino. Dentre as informações
-espaciais e temporais, esses conjuntos de dados usualmente também apresentam
-outras características, como direção e velocidade, formando um conjunto
-multidimensional. Cada trajetória $T$ de um veículo pode ser modelada como uma
-sequência de pontos $p_i$ que contém a sua posição, o instante de tempo e um
-vetor de possíveis outros atributos.
+de toda a trajetória, desde a origem até seu destino. Outros atributos como velocidade,
+direção, aceleração, podem ser derivados a partir dos dados brutos. Cada trajetória $T$ de um
+veículo pode ser modelada como uma sequência de pontos $p_i$ que contém a sua
+posição, o instante de tempo e um vetor $a$ contendo outros $n$ possíveis atributos. Em
+nosso estudo, esse vetor guarda a direção, dada pelo ângulo da reta
+entre os pontos de origem e destino de cada trajetória.
 
 \begin{center}
 $T = \left\langle p_i = ((latitude, longitude) \in \mathbb{R}^2, t \in \mathbb{R}^+, a^n \in \mathbb{R})_i \right\rangle$
@@ -33,23 +33,43 @@ pela prefeitura da cidade e que fornece dados da movimentação dos ônibus. A
 outra fonte é o simulador InterSCSimulator, o qual usaremos para obter dados
 do tráfego.
 
-\subsection{Tráfego dos Ônibus de São Paulo}
-São Paulo possui uma frota de  cerca de 15 mil ônibus que circulam diariamente
-nas vias da cidade e fazem mais de 70 mil viagens por dia. A posição dos ônibus
-durante seu percurso é registrada a cada 45 segundos com aparelhos de GPS e
-disponibilizada através de API pública. Os dados trazem o código da linha do
-ônibus, horário da coleta, a latitude e longitude, entre outras informações
-simples que não utilizaremos. A lista completa dos atributos podem ser vista na
-documentação da API que fornece os dados. Outros atributos, como direção e
-velocidade podem ainda ser calculados a partir das informações existentes.
+\subsection{Tráfego dos Ônibus de São Paulo} São Paulo possui uma frota de
+cerca de 15 mil ônibus que circulam diariamente nas vias da cidade e fazem mais
+de 70 mil viagens por dia em mais de 2 mil linhas diferentes. A posição dos
+ônibus durante seu percurso é registrada a cada 45 segundos com aparelhos de
+GPS e disponibilizada pela Secretaria de Transporte Público
+(SPTrans)\footnote{\rurl{www.sptrans.com.br}} através de API pública. As buscas
+dos dados são feitas pelo código da linha, que retorna naquele momento
+informações de todos os veículos daquela linha em operação nas ruas, retornando
+o código do veículo, horário da coleta, posição (latitude e longitude) e se o
+ônibus possui suporte para pessoas com deficiência. A lista de todas as linhas
+existentes também podem ser adquiridas pela API.  A Listagem
+\ref{olhovivo.json} mostra um exemplo de uma consulta na API para a linha de
+ônibus 2023. Mais detalhes podem ser vistos na documentação da
+API\footnote{\rurl{www.sptrans.com.br/desenvolvedores/APIOlhoVivo/Documentacao.aspx?1}}
+que fornece os dados.
 
-Para a visualização do tráfego serão coletados os dados de um dia do tráfego
-de ônibus. Embora não representem a totalidade do tráfego, esses dados compõe uma
+\begin{lstlisting}[style=myxml, caption={Parte da resposta obitida para a linha 2023}, label=olhovivo.json]
+{
+ "hr"=>"14:25", // Hora da requisição
+ "vs"=> [       // Lista de ônibus em circulaçao
+   {
+    "p"=>"82324", // Identificador do veículo
+    "a"=>true,    // Acessível a deficientes
+    "ta"=>"%*2019-01-30T16:25:05Z*)", // Hora da coleta dos dados em formato UTC
+    "py"=>-23.562566125000004, // Latitude
+    "px"=>-46.72267612500001   // Longitude
+   }]
+}
+\end{lstlisting}
+
+Para a visualização do tráfego serão coletados os dados de um dia do tráfego de
+ônibus. Embora não representem a totalidade do tráfego, esses dados compõe uma
 grande parte da movimentação que ocorre na cidade ao longo do dia e servem como
-uma linha de base para comparação com a visualização dos dados simuladas. A partir
-da visualização desses dados, pretendemos descobrir os padrões de movimentação
-no trânsito, como identificar regiões de maior fluxo e como ele se distribui ao longo
-do tempo.
+base para comparação com a visualização dos dados simuladas. Pretendemos
+explorar em nossa análise os padrões de movimentação no trânsito, como regiões
+de maior fluxo e como ele se comporta em diferentes momentos do dia, como
+horários de pico.
 
 \subsection{Tráfego Simulado de Veículos}
  \citet{santana2018courb} criaram um cenário de simulação do tráfego de carros
@@ -57,17 +77,17 @@ e ônibus na cidade de São Paulo. Eles utilizaram uma matriz de Origem-Destino
 (OD) feita pela Companhia do Metropolitano de São Paulo
 (Metrô)\footnote{Pesquisa Origem-Destino - \rurl{goo.gl/DNM8in}} que pesquisou
 como os cidadãos se locomovem pela cidade e usaram isso para determinar a
-movimentação dos carros. Além disso, utilizaram também dados públicos da
-Secretaria de Transporte Público (SPTrans)\footnote{\rurl{colocarurl}} para
-estabelecer viagens de ônibus mais realistas com base nos dados sobre as
-linhas, horários de saída, paradas e sua frequência.
+movimentação dos carros. Além disso, utilizaram também dados dos
+itinerários dos ônibus fornecidos pela SPTrans para estabelecer viagens de
+ônibus com horários, paradas e frequência mais realistas.
 
   A pesquisa OD catalogou 160 mil amostras de viagens realizadas em um dia de
-semana da cidade de São Paulo. Ela capta dados como a origem, o destino, a hora
-de início, o modo de transporte e um fator para a extrapolação de cada viagem.
+semana da cidade de São Paulo. Ela possui dados como a origem, o destino, a hora
+de início, o modo de transporte e um fator a extrapolação estatística dos dados
+usado para generalizar os valores da amostragem para toda a cidade.
 Destas viagens, cerca de 26 mil são feitas de carro, como mostram
-\citet{santana2018courb}. Utilizando o fator de extrapolação da pesquisa, eles
-chegam a uma quantia de mais de 4 milhões de viagens de carro e ônibus em um
+\citet{santana2018courb}. Utilizando o fator de extrapolação da pesquisa
+chega-se a uma quantia de mais de 4 milhões de viagens de carro e ônibus em um
 dia, as quais foram simuladas com o InterSCSimulator.
 
   A simulação gerou uma saída com mais de 31 milhões de eventos sobre a
@@ -136,8 +156,8 @@ espacial. A Figura \ref{fig:simulated-traffic} mostra uma simples visualização
 trajetórias do tráfego simulado com o InterSCSimulator. Utilizamos dados no
 intervalo de 1 hora do trânsito filtrando os dados cujos pontos estivessem
 entre os tempos $21600$ e $25200$, o que corresponde ao horário entre 6 e 7 da
-manhã. Note que há bastante oclusão, sendo impossível distinguir rotas com
-direções opostas ou identificar a quantidade de veículos nas vias.
+manhã. Note que há bastante oclusão, além disso aqui é impossível distinguir
+quais origens vão para quais destinos ou a quantidade de veículos nas vias.
 
 \begin{figure}[!htb]
   \centering
@@ -190,8 +210,8 @@ Depois de calcular o \emph{bundling} das trajetórias, é necessário projetar u
 maneira de mostrar a estrutura dos elementos e seus atributos. Destacamos
 diretamente na visualização os atributos de densidade e direção do fluxo.
 
-\textbf{Densidade}: a densidade do fluxo é uma informação importante na análise
-do fluxo. Essa informação dá uma visão sobre a quantidade de veículos se
+\textbf{Densidade}: a densidade é uma informação importante na análise
+do fluxo. Essa informação permite visualizar a quantidade de veículos se
 locomovendo de uma região para outra. Esse atributo é comumente destacado de
 duas formas principais, uma escala de cores, como um mapa de calor, ou através
 da espessura da linha. Escolhemos escalar a espessura da linha dos
@@ -199,7 +219,7 @@ da espessura da linha. Escolhemos escalar a espessura da linha dos
 Deixamos a coloração para demonstrar a direção das trajetórias, já que é uma
 forma mais intuitiva para esse atributo.
 
-\textbf{Direção}: como em \citet{Anita2017}, nos destacamos a direção das
+\textbf{Direção}: como em \citet{Anita2017}, iremos destacar a direção das
 trajetórias com um mapa de cores que indica se a trajetória está chegando ou
 saindo de um ponto no mapa. É necessário ainda um cuidado com a sobreposição de
 trajetórias paralelas que vão em direções opostas. \citet{Anita2017} resolvem
@@ -210,7 +230,7 @@ visualização, deixando mais clara a sua diferenciação.
 
 Mecanismos de interação são um excelente recurso em uma visualização de dados.
 Mais do que apenas informar, os usuários podem buscar seus próprios padrões e
-explorar o conteúdo à sua maneira. Adicionamos alguns meios de interação para
+explorar o conteúdo à sua maneira. Adicionaremos alguns meios de interação para
 facilitar o estudo das trajetórias e exploração das suas propriedades.
  
 \textbf{Parâmetros:} Todos os parâmetros mencionados anteriormente para a exploração
@@ -232,10 +252,10 @@ imagem, disparada pela interação do usuário que poderá inspecionar um
 \emph{bundle} para visualizar esses detalhes em uma caixa de diálogo com as
 estatísticas percentuais sobre as origens das trajetórias.
 
-\section{Correlação com Eventos Externos}
+\section{Visualização de Eventos Atípicos}
 
   Outra importante tarefa na análise do trânsito é o estudo de como a
-ocorrência de eventos externos impactam no tráfego. Para essa tarefa, propomos
+ocorrência de eventos atípicos impactam no tráfego. Para essa tarefa, propomos
 a utilização de dados que representem diferentes cenários do trânsito para
 explorar como a visualização proposta ajuda na identificação desses eventos
 atípicos no trânsito e como eles afetam o tráfego. Para isso, faremos uma
@@ -248,14 +268,14 @@ técnica pode ajudar em questões do dia a dia no trânsito, como a ocorrência 
 acidentes, alagamentos e mudanças na rede rodoviária da cidade.
 
 \section{Avaliação da Visualização}
-  Nós avaliamos a visualização de dois pontos de vista, um qualitativo e um
+  Nós avaliaremos a visualização de dois pontos de vista, um qualitativo e um
 quantitativo. Do ponto de vista qualitativo apontaremos o que foi alcançado com
 a visualização em relação os objetivos da pesquisa de utilizar técnicas de \emph{bundling}
 para visualização dos fluxos de OD no tráfego. Avaliaremos então se a visualização
 tornou possível a visualização dos fluxos de OD nos diferentes níveis de
-detalhe e quais foram suas limitações. Além disso, analisamos também o potencial da
+detalhe e quais foram suas limitações. Além disso, analisaremos também o potencial da
 visualização com \emph{bundling} em representar mudanças no trânsito na
-ocorrência de eventos externos, tais como o fechamento de uma rua importante do
+ocorrência de eventos atípicos, tais como o fechamento de uma rua importante do
 tráfego. Dentre essas avaliações, serão experimentados os diferentes parâmetros
 do algoritmo de \emph{bundling} e das técnicas de visualização utilizadas, com
 uma caracterização sobre quais valores dos parâmetros foram considerados mais adequados.
