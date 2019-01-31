@@ -10,9 +10,11 @@ espaciais.
 
  Apresentamos inicialmente a ferramenta que estamos desenvolvendo dentro da
 nossa proposta, dando uma visão geral dos seus componentes e dos artefatos de
-entrada e saída que irão resultar na visualização e análise dos dados. Em
-seguida detalhamos os conjuntos de dados que iremos utilizar e suas características, e
-por fim, explicamos as técnicas que pretendemos aplicar para destacar as propriedades
+entrada e saída que irão resultar na visualização e análise dos dados. A
+ferramenta faz parte do ecossistema de soluções para cidades inteligentes que
+são desenvolvidas no contexto do projeto InterSCity\footnote{\rurl{interscity.org}}. Em seguida detalhamos os
+conjuntos de dados que iremos utilizar e suas características, e por fim,
+explicamos as técnicas que pretendemos aplicar para destacar as propriedades
 dos dados dentro da visualização.
 
 \section{Implementação da Visualização}
@@ -20,18 +22,18 @@ dos dados dentro da visualização.
 bibliotecas de uso aberto. A maioria dos trabalhos pesquisados não apontam
 a fonte para as suas ferramentas e implementação dos seus algoritmos. Optamos
 então por partir de uma implementação própria para a visualização dos dados,
-apoiando-nos em bibliotecas já existentes para exploração de dados geoespaciais,
-que é uma área de pesquisa em iniciação no contexto do projeto InterSCity.
+apoiando-nos em bibliotecas já existentes para exploração de dados geoespaciais.
 
   Apresentamos então, o InterSCityPlotter, uma ferramenta para análise de dados
 do tráfego que permite a criação de múltiplas visualizações, como visualizações
 estáticas, ilustrado na Figura \ref{fig:simulated-traffic}, visualizações
-baseadas em pontos pontos, ilustrado na Figura \ref{fig:pontos}, e dentre
-elas, uma visualização que utiliza \emph{bundling}. A ferramenta foi idealizada para
-suportar estudos de simulações feitas com o InterSCSimulator, mas com o objetivo
-também de suportar outras fontes de dados de tráfego em geral. O diagrama da Figura
-\ref{fig:interscityplotter} mostra uma visão geral dos componentes da
-ferramenta os quais damos uma breve descrição em seguida.
+baseadas em pontos pontos, ilustrado na Figura \ref{fig:rastro}. Idealizamos a
+ferramenta com o objetivo de suportar estudos com dados do trânsito gerados
+pelo InterSCSimulator e também por outras fontes, com o propósito de abranger
+análises de dados geoespaciais de modo geral, tão importantes no planejamento
+das cidades. O diagrama da Figura \ref{fig:interscityplotter} mostra uma visão
+geral dos componentes da ferramenta os quais damos uma breve descrição em
+seguida.
 
 \begin{figure}[!htb]
   \centering
@@ -42,7 +44,7 @@ de múltiplas visualizações de dados geoespaciais.}
 \end{figure}
 
 \begin{description}
-  \item[\emph{Projects}:] A exploração de dados do tráfego começa com a criação de um
+  \item[\emph{ProjectManager}:] A exploração de dados do tráfego começa com a criação de um
 novo projeto de visualização a partir de um conjunto de dados de entrada. Esse
 componente é responsável pela criação, exclusão e outras ações de gerenciamento
 dos projetos. Para utilizar a ferramenta, é necessário criar um novo projeto
@@ -74,7 +76,7 @@ através da linha de comando. Essa interação se resume atualmente a comandos d
 gerenciamento dos projetos (criação, exclusão) e execução de uma das
 visualizações já desenvolvidas. A documentação completa pode ser vista no
 repositório da ferramenta, disponível no
-Github\footnote{\rurl{github.com/tallysmartins/interscity-plot}}.
+Github\footnote{\rurl{github.com/tallysmartins/interscity-plotter}}.
 
 \end{description}
 
@@ -186,6 +188,28 @@ seu destino pois a simulação foi finalizada ao fim das 24 horas.
 \caption{Resultado parcial da simulação. Fonte: \citet{santana2018courb} \label{table:output}}
 \end{table}
 
+\subsection{Pré-processamento dos dados}
+
+Os dados coletados irão momentaneamente precisar ser pré-processados. Por hora
+mapeamos alguns cuidados importantes a serem considerados na manipulação dos dados
+para a criação da visualização.
+
+Remover viagens não finalizadas da simulação devido ao tempo da simulação ter acabado
+e as viagens ainda estão no meio do percurso
+
+Buscar e remover dados de localização dos ônibus que estão inconsistentes com a trajetória
+do veículo.
+
+Observar o efeito de rotas circulares na visualização e se necessário, removê-las.
+
+Observar e remover possíveis anomalias nos dados: Rotas muito pequenas, pontos inconsistentes
+com a trajetória do veículo
+
+Além das tarefas de limpeza já mencionadas, também necessitamos calcular a direção
+de cada trajetória. Para obter essa informação calculamos o ângulo formado pelos
+pontos de origem e destino da trajetória. Esse processamento também é feito
+juntamente aos anteriores, dentro do módulo de \emph{Pipelines}.
+
 \section{Visualização do Tráfego de Veículos}
 
   Apresentamos a seguir as técnicas para exploração das propriedades temporais
@@ -220,7 +244,7 @@ espacial. A Figura \ref{fig:simulated-traffic} mostra uma simples visualização
 trajetórias do tráfego simulado com o InterSCSimulator. Utilizamos dados no
 intervalo de 1 hora do trânsito filtrando os dados cujos pontos estivessem
 entre os tempos $21600$ e $25200$, o que corresponde ao horário entre 6 e 7 da
-manhã. Note que há bastante oclusão, além disso aqui é impossível distinguir
+manhã. Note que há bastante oclusão, sendo também impossível distinguir
 quais origens vão para quais destinos ou a quantidade de veículos nas vias.
 
 \begin{figure}[!htb]
@@ -232,11 +256,14 @@ quais origens vão para quais destinos ou a quantidade de veículos nas vias.
 
 \textbf{\emph{Bundling}:} para os problemas da visualização apresentados
 anteriormente criaremos uma abstração com o uso do \emph{bundling} para agregar
-trajetórias com origem-destino e direção similares. Já o número de trajetórias
-em cada \emph{bundle} nos dá a informação da densidade do fluxo. Na escala da
-cidade, as linhas dos \emph{bundles} podem demonstrar viagens de longa
-distância ou desvios realizados por alguns veículos, sugerindo melhorias no
-projeto da rede rodoviária.
+trajetórias com origem-destino e direção similares. Utilizaremos o algoritmo
+ADEB, apresentado na Seção \ref{sec:modelos-de-bundling} para aglomerar as
+trajetórias em pontos de maior densidade. Com isso podemos ter uma perspectiva
+dos fluxos de veículos que saem e chegam de cada região da cidade. As áreas de
+maior densidade, por sua vez, informam uma quantidade maior de veículos na
+região em um dado instante. Na escala da cidade, as linhas dos \emph{bundles}
+podem demonstrar viagens de longa distância ou desvios realizados por alguns
+veículos, sugerindo melhorias no projeto da rede rodoviária.
 
 \textbf{\emph{Bundling} Multinível:} a dimensão espacial dos dados é o nosso
 segundo parâmetro multi escala dentro da visualização. Para observar os padrões
@@ -244,11 +271,15 @@ de OD em diferentes níveis de detalhe espaciais faremos agrupamentos baseados
 na escala da visualização, que está relacionada ao tamanho da área do mapa
 mostrada na imagem. Este mecanismo é comumente visto em visualizações
 interativas que permitem aos usuários mudar as configurações de zoom no mapa. A
-partir daí, é possível detectar os pontos das trajetórias dentro da área
-visualizada e em seguida aplicamos o \emph{bundling}. Quanto menor a escala,
-mais detalhes sobre o tráfego, que pode chegar ao nível de bairros, quadras ou
-até mesmo ruas. A Figura \ref{fig:multi-scale} ilustra os diferentes níveis de
-detalhe atingidos em escalas diferentes na visualização de um mapa.
+partir daí, propomos um conceito de sub-trajetória, que são as partes de uma
+trajetória dentro de uma sub área do mapa após um aumento do zoom.  Desta forma
+detectamos os pontos dentro do escopo da sub área do mapa que formam um
+subconjunto das trajetórias originais, cujas direções, origens e destinos se
+tornam relativos em relação ao novo escopo. Em seguida reaplicamos o
+\emph{bundling} no subconjunto. Quanto menor a escala, mais detalhes sobre o
+tráfego são obtidos, sendo possível observar bairros, quadras ou até mesmo
+ruas. A Figura \ref{fig:multi-scale} ilustra os diferentes níveis de detalhe
+atingidos em escalas diferentes na visualização de um mapa.
 
 \begin{figure}[!htb]
   \centering
@@ -257,22 +288,29 @@ detalhe atingidos em escalas diferentes na visualização de um mapa.
   \label{fig:multi-scale}
 \end{figure}
 
-\textbf{Parâmetros:} Grande parte dos algoritmos de \emph{bundling} possuem
-parâmetros que devem ser calibrados de acordo com o contexto de uso do
-algoritmo. \citet{Lhuillier2017} cita ainda que esse é ainda um grande desafio
-na área, já que não existem parâmetros ideais para todo tipo de aplicação. O
-CUbu, por exemplo, apresenta quatro parâmetros, raio do kernel $p_r$, número de
-interações do \emph{bundling} $p_n$, resolução da imagem $p_i$ e número de
-pontos de amostra $p_s$. Esses parâmetros afetam diretamente o grau de
-agrupamento e o desempenho do algoritmo. Outro parâmetro importante em nossa
-visualização é a escala espacial para variação do nível de detalhes do
-\emph{bundling}. Esse parâmetro age como um filtro, selecionando apenas os pontos
-dentro da área visualizada.
+\textbf{Parâmetros:} O algoritmo ADEB possui parâmetros que influenciam no grau
+de aglomeração do \emph{bundling} e velocidade do cálculo, como por exemplo,
+tamanho dos núcleos da função de densidade e tamanho da amostragem dos dados a
+serem utilizadas no processo. Esses parâmetros são discutidos pelos autores do
+método, e valores padrão são indicados por eles. Seguiremos inicialmente os
+valores indicados, mas atentos a detalhes ou modificações que se mostrarem
+necessárias. Outro parâmetro importante em nossa visualização é a escala
+espacial para variação do nível de detalhes do \emph{bundling}. Esse parâmetro
+age como um filtro para selecionarmos um subconjunto das trajetórias dentro de
+uma sub área visualizada. Exploraremos esse parâmetro apresentando os
+resultados e discussões sobre os diferentes resultados obtidos nos múltiplos
+níveis.
 
 \subsection{Visualização dos Atributos}
 Depois de calcular o \emph{bundling} das trajetórias, é necessário projetar uma
-maneira de mostrar a estrutura dos elementos e seus atributos. Destacamos
-diretamente na visualização os atributos de densidade e direção do fluxo.
+maneira de mostrar a estrutura dos elementos e seus atributos. Visualizar uma
+grande quantidade de atributos é ainda um desafio dentro do campo da
+visualização da informação. Em nosso estudo dos fluxos de OD consideramos dois
+atributos chave, densidade e fluxo, os quais destacamos diretamente na
+visualização. Reconhecemos que no tráfego existem ainda outras informações
+relevantes, como velocidade, aceleração, informações de gênero sobre
+motoristas, mas que estas não estão no escopo desta pesquisa e devem ser
+consideradas em estudos aprofundados no futuro.
 
 \textbf{Densidade}: a densidade é uma informação importante na análise
 do fluxo. Essa informação permite visualizar a quantidade de veículos se
@@ -296,7 +334,7 @@ Mecanismos de interação são um excelente recurso em uma visualização de dad
 Mais do que apenas informar, os usuários podem buscar seus próprios padrões e
 explorar o conteúdo à sua maneira. Adicionaremos alguns meios de interação para
 facilitar o estudo das trajetórias e exploração das suas propriedades.
- 
+
 \textbf{Parâmetros:} Todos os parâmetros mencionados anteriormente para a exploração
 multinível no tempo e no espaço serão configuráveis para os usuários da visualização,
 bem como os parâmetros do algoritmo de \emph{bundling}. Desta maneira ganha-se
@@ -347,5 +385,5 @@ uma caracterização sobre quais valores dos parâmetros foram considerados mais
   Do ponto de vista quantitativo pretendemos avaliar a escalabilidade da
 solução dado o tempo de processamento para gerar a visualização de um certo
 conjunto de dados. Para isso, iremos contar o tempo para gerar a visualização
-ignorando etapas de pré-processamento e carregamento dos dados. 
+ignorando etapas de pré-processamento e carregamento dos dados.
 
