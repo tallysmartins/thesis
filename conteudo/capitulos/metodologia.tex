@@ -8,31 +8,35 @@ nível de detalhes através de uma abordagem multinível para explorar padrões
 globais e locais do tráfego, com diferentes níveis de agregação temporais e
 espaciais.
 
- Apresentamos inicialmente a ferramenta para criação da visualização em uma
-visão geral dos seus componentes, os artefatos de entrada e produção da visualização
-como saída. Em seguida detalhamos os conjuntos de dados utilizados e suas
-características, e por fim, explicamos o projeto da visualização com as técnicas
-que pretendemos utilizar para destacar as propriedades dos dados.
+ Apresentamos inicialmente a ferramenta que estamos desenvolvendo dentro da
+nossa proposta, dando uma visão geral dos seus componentes e dos artefatos de
+entrada e saída que irão resultar na visualização e análise dos dados. Em
+seguida detalhamos os conjuntos de dados que iremos utilizar e suas características, e
+por fim, explicamos as técnicas que pretendemos aplicar para destacar as propriedades
+dos dados dentro da visualização.
 
 \section{Implementação da Visualização}
   Apenas alguns poucos algoritmos de \emph{bundling} são implementados em
 bibliotecas de uso aberto. A maioria dos trabalhos pesquisados não apontam
 a fonte para as suas ferramentas e implementação dos seus algoritmos. Optamos
 então por partir de uma implementação própria para a visualização dos dados,
-apoiando-nos em bibliotecas já existentes para exploração de dados geoespaciais. 
+apoiando-nos em bibliotecas já existentes para exploração de dados geoespaciais,
+que é uma área de pesquisa em iniciação no contexto do projeto InterSCity.
 
   Apresentamos então, o InterSCityPlotter, uma ferramenta para análise de dados
 do tráfego que permite a criação de múltiplas visualizações, como visualizações
 estáticas, ilustrado na Figura \ref{fig:simulated-traffic}, visualizações
-baseadas em pontos pontos, como ilustrado na Figura \ref{fig:pontos}, e dentre
-elas, uma visualização que utiliza \emph{bundling}. O diagrama da Figura
+baseadas em pontos pontos, ilustrado na Figura \ref{fig:pontos}, e dentre
+elas, uma visualização que utiliza \emph{bundling}. A ferramenta foi idealizada para
+suportar estudos de simulações feitas com o InterSCSimulator, mas com o objetivo
+também de suportar outras fontes de dados de tráfego em geral. O diagrama da Figura
 \ref{fig:interscityplotter} mostra uma visão geral dos componentes da
 ferramenta os quais damos uma breve descrição em seguida.
 
 \begin{figure}[!htb]
   \centering
-  \includegraphics[width=1\textwidth]{../figuras/interscityplot.pdf}
-  \caption{Visão geral da arquitetura da ferramenta InterSCityPlot que permite a criação
+  \includegraphics[width=1\textwidth]{../figuras/interscityplotter.pdf}
+  \caption{Visão geral da arquitetura da ferramenta InterSCityPlotter que permite a criação
 de múltiplas visualizações de dados geoespaciais.}
   \label{fig:interscityplotter}
 \end{figure}
@@ -41,24 +45,29 @@ de múltiplas visualizações de dados geoespaciais.}
   \item[\emph{Projects}:] A exploração de dados do tráfego começa com a criação de um
 novo projeto de visualização a partir de um conjunto de dados de entrada. Esse
 componente é responsável pela criação, exclusão e outras ações de gerenciamento
-dos projetos.
+dos projetos. Para utilizar a ferramenta, é necessário criar um novo projeto
+apontando o conjunto de dados em um formato CSV. Os dados irão passar por algumas
+etapas de pré-processamento definidos no componente \emph{Pipelines} para que
+estejam prontos para visualização junto com os arquivos do projeto criado.
 
-  \item[\emph{Pipelines}:] Os dados de entrada podem passar por uma ou mais
-etapas de pré-processamento do módulo \emph{Pipelines} antes de serem
-visualizados. Uma etapa padrão pela qual passam todos os projetos no momento de
-sua criação é uma análise inicial que contabiliza o número de trajetórias,
+  \item[\emph{Pipelines}:] Esse componente isola as
+etapas de pré-processamento necessárias para seu uso nas visualizações, como
+por exemplo limpeza e checagem de inconsistências, derivação de novos
+atributos nos dados, etc. Outras ações mais simples também são definidas nesse módulo,
+como por exemplo, uma análise inicial que contabiliza o número de trajetórias,
 quantidade média de pontos por trajetória e número total de pontos no conjunto
-de dados fornecido. Outras etapas de pré-processamento podem ser adicionadas
-conforme novas necessidades surgem, como por exemplo, limpeza dos dados para
-checagem de inconsistências, derivação de novos atributos nos dados, etc.
+de dados é feita assim que se cria um projeto. Essas informações ficam salvas
+e disponíveis juntamente aos dados do projeto.
 
-  \item[Geoplotlib:] A biblioteca Geoplotlib, apresentada em
+  \item[VisualizationLayers:] A biblioteca Geoplotlib, apresentada em
 \citet{Andrea2016}, fornece recursos para criação de visualizações de dados
 geoespaciais. Ela fornece todo o arcabouço em baixo nível para renderização de
 imagens a partir desses dados e possui também algumas visualizações
-pré-definidas para projetar pontos e linhas em um mapa.  Estendemos os recursos
-desta biblioteca dentro do InterSCityPlot para a implementação da visualização
-proposta.
+pré-definidas para projetar pontos e linhas em um mapa e é a base do componente
+VisualizationLayers. Os recursos do Geoplotlib serão estendidos dentro do
+InterSCityPlotter para a implementação de diferentes tipos de visualizações
+(Layers) customizadas. A visualização com \emph{bundling} que propomos será
+construída como uma nova \emph{layer}.
 
   \item[CLI:] O módulo CLI possui a lógica para interação com a ferramenta
 através da linha de comando. Essa interação se resume atualmente a comandos de
