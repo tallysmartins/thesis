@@ -317,31 +317,32 @@ discussões sobre seus efeitos nos resultados da visualização
 Depois de calcular o \emph{bundling} das trajetórias, é necessário projetar uma
 maneira de mostrar a estrutura dos elementos e seus atributos. Em nosso estudo
 dos fluxos de OD consideramos dois atributos chave, densidade e fluxo, os quais
-destacamos diretamente na visualização. 
+destacamos diretamente na visualização.
 
 \textbf{Densidade}: a densidade é uma informação importante na análise do
-fluxo. Essa informação nos ajuda a responder ``Qual a quantidade de veículos
-se locomovem de uma região para outra?''. Uma forma de destacar esse atributo é
+fluxo. Essa informação nos ajuda a responder ``Qual a quantidade de veículos se
+locomovem de uma região para outra?''. Uma forma de destacar esse atributo é
 usando uma escala de cores. A Figura \ref{fig:density-mappings} mostra o
-mapeamento da densidade com escala de cores feita de duas formas, uma escala
-gradiente e uma escala de opacidade, que funciona somando-se os valores de
-opacidade nos pontos de sobreposição. Uma outra forma de se mostrar esse
-atributo é simplesmente escalando a espessura das linhas dos \emph{bundles}
-proporcionalmente à densidade. 
+mapeamento da densidade com escalas de cores feita de duas formas, (a) ilustra
+uma escala de opacidade, que funciona somando-se os valores de opacidade nos
+pontos de sobreposição e (b) mostra uma escala gradiente multi cores. Uma outra
+forma comum de se mostrar esse atributo é simplesmente escalando a espessura
+das linhas dos \emph{bundles} proporcionalmente à densidade.
 
 \begin{figure}[ht!]
   \centering
   \begin{subfigure}[t]{\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{../figuras/color-density.pdf}
-    \caption{Densidade mapeada em escala de cores gradiente.}
+    \includegraphics[width=\textwidth]{../figuras/alpha-blending.pdf}
+    \caption{Densidade mapeada em escala opacidades, conhecida como combinação do canal alfa. À esquerda sem escala alfa, à direita com escala alfa.}
   \end{subfigure}
   ~
   \begin{subfigure}[t]{\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{../figuras/alpha-blending.pdf}
-    \caption{Densidade mapeada em escala opacidades, conhecida como combinação do canal alfa. À esquerda sem escala alfa, à direita com escala alfa.}
+    \includegraphics[width=\textwidth]{../figuras/color-density.pdf}
+    \caption{Densidade mapeada em escala de cores gradiente.}
   \end{subfigure}
+
   \caption[Densidade dos \emph{bundlings} mapeada em escalas de cores e
   opacidade.]{Densidade dos \emph{bundlings} mapeada em escalas de cores e
   opacidade. Fonte: \citet{Lhuillier2017} \label{fig:density-mappings}}
@@ -352,13 +353,13 @@ fluxos.  No algoritmo de \emph{bundling} ADEB, ela é indicada pelo ângulo da
 trajetória em relação a um eixo cartesiano. Para destacar esse atributo na
 visualização utilizaremos um mapa de ângulo-para-cor, como em
 \citet{ZegarraFlores2016}. A Figura \ref{fig:direction} ilustra como seria o
-destaque da direção e da densidade no \emph{bundling}, note que o círculo na
+destaque da direção e também da densidade no \emph{bundling}, note que o círculo na
 legenda indica o mapa de cores. Trajetórias saindo de leste para oeste estão em
 azul, norte para sul são representadas em verde, e assim por diante. No caso de
-atributos numéricos, como os ângulos das trajetórias, os valores que se sobrepõe
+atributos numéricos, como os ângulos da direção, os valores que se sobrepõe
 podem ser somados para dar um resultado final, ou simplesmente sobrescritos
-pela trajetória desenhada na camada mais superior, como ocorre na Figura
-\ref{fig:direction}. 
+pela trajetória desenhada na camada mais superior, como pode ser visto  na Figura
+\ref{fig:direction}.
 
 \begin{figure}[ht!]
   \centering
