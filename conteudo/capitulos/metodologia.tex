@@ -190,25 +190,38 @@ seu destino pois a simulação foi finalizada ao fim das 24 horas.
 
 \subsection{Pré-processamento dos dados}
 
-Os dados coletados irão momentaneamente precisar ser pré-processados. Por hora
-mapeamos alguns cuidados importantes a serem considerados na manipulação dos dados
-para a criação da visualização.
+  Os dados coletados estão sujeitos a erros, e por isso, algumas etapas de
+pré-processamento são necessárias. O módulo de \emph{Pipelines} da ferramenta
+InterSCityPlotter é o local destinado a armazenar as rotinas que fazem essas
+manipulações dos dados, tanto de limpeza quanto de derivação de novos
+atributos. Por hora algumas dessas rotinas já estão mapeadas para que seja
+possível prosseguir com o projeto da visualização, como apresentamos a seguir:
 
-Remover viagens não finalizadas da simulação devido ao tempo da simulação ter acabado
-e as viagens ainda estão no meio do percurso
+\begin{description}
+  \item[Viagens da simulação não finalizadas:] isso pode ocorrer
+quando o tempo da simulação acabado e uma viagens ainda está no meio do percurso,
+essas viagens devem ser identificadas e removidas da análise.
 
-Buscar e remover dados de localização dos ônibus que estão inconsistentes com a trajetória
-do veículo.
+  \item[Dados inconsistentes com a trajetória:] os dados dos ônibus fornecidos
+pela prefeitura podem conter inconsistências devido a erros nos sensores e/ou na transmissão,
+como por exemplo, pontos fora das vias. Esses dados devem ser identificados e removidos da análise.
 
-Observar o efeito de rotas circulares na visualização e se necessário, removê-las.
+  \item[Rotas circulares:] alguns ônibus têm rotas circulares, ou seja, o ponto
+de partida e de chegada são o mesmo. Deve-se observar esses casos e seus efeitos
+na visualização, para se necessário, removê-los.
 
-Observar e remover possíveis anomalias nos dados: Rotas muito pequenas, pontos inconsistentes
-com a trajetória do veículo
+  \item[Anomalias:] podem ocorrer que algumas trajetórias apresentem uma distância
+muito pequena, ou pontos esparsos. Essas possíveis anomalias devem ser identificadas
+e removidas da análise.
 
-Além das tarefas de limpeza já mencionadas, também necessitamos calcular a direção
-de cada trajetória. Para obter essa informação calculamos o ângulo formado pelos
-pontos de origem e destino da trajetória. Esse processamento também é feito
-juntamente aos anteriores, dentro do módulo de \emph{Pipelines}.
+  \item[Derivação da direção:] esse atributo será derivado a partir dos pontos
+de origem e destino de cada trajetória e será dado por um ângulo $\theta$ no
+plano cartesiano dado pelas latitudes e longitudes do globo.
+\end{description}
+
+  Outras necessidades de pré-processamento podem surgir ao longo da pesquisa.
+Estes são apenas itens já identificados até o momento, e que receberão atenção
+durante o processo de implementação da visualização.
 
 \section{Visualização do Tráfego de Veículos}
 
@@ -256,14 +269,16 @@ quais origens vão para quais destinos ou a quantidade de veículos nas vias.
 
 \textbf{\emph{Bundling}:} para os problemas da visualização apresentados
 anteriormente criaremos uma abstração com o uso do \emph{bundling} para agregar
-trajetórias com origem-destino e direção similares. Utilizaremos o algoritmo
-ADEB, apresentado na Seção \ref{sec:modelos-de-bundling} para aglomerar as
-trajetórias em pontos de maior densidade. Com isso podemos ter uma perspectiva
-dos fluxos de veículos que saem e chegam de cada região da cidade. As áreas de
-maior densidade, por sua vez, informam uma quantidade maior de veículos na
-região em um dado instante. Na escala da cidade, as linhas dos \emph{bundles}
-podem demonstrar viagens de longa distância ou desvios realizados por alguns
-veículos, sugerindo melhorias no projeto da rede rodoviária.
+trajetórias com origem-destino e direção similares. Essa abstração será
+implementada dentro do componente \emph{VisualizationLayers} na ferramenta
+InterSCityPlotter com o algoritmo ADEB, apresentado na Seção
+\ref{sec:modelo-imagem}. A visualização com \emph{bundling} acaba por aglomerar
+as trajetórias em áreas de maior densidade, o que nos dá perspectiva dos fluxos
+de veículos que saem e chegam de cada região da cidade, identificando também as
+áreas com uma quantidade maior de veículos em um dado instante. Na escala da
+cidade, as linhas dos \emph{bundles} podem demonstrar ainda viagens de longa
+distância ou desvios realizados por alguns veículos, sugerindo melhorias no
+projeto da rede rodoviária.
 
 \textbf{\emph{Bundling} Multinível:} a dimensão espacial dos dados é o nosso
 segundo parâmetro multi escala dentro da visualização. Para observar os padrões
@@ -272,14 +287,14 @@ na escala da visualização, que está relacionada ao tamanho da área do mapa
 mostrada na imagem. Este mecanismo é comumente visto em visualizações
 interativas que permitem aos usuários mudar as configurações de zoom no mapa. A
 partir daí, propomos um conceito de sub-trajetória, que são as partes de uma
-trajetória dentro de uma sub área do mapa após um aumento do zoom.  Desta forma
-detectamos os pontos dentro do escopo da sub área do mapa que formam um
-subconjunto das trajetórias originais, cujas direções, origens e destinos se
-tornam relativos em relação ao novo escopo. Em seguida reaplicamos o
-\emph{bundling} no subconjunto. Quanto menor a escala, mais detalhes sobre o
-tráfego são obtidos, sendo possível observar bairros, quadras ou até mesmo
-ruas. A Figura \ref{fig:multi-scale} ilustra os diferentes níveis de detalhe
-atingidos em escalas diferentes na visualização de um mapa.
+trajetória dentro da sub área do mapa após um aumento do zoom.  Desta forma
+detectamos os pontos dentro do escopo da sub área do mapa e obtemos um
+subconjunto das trajetórias originais. Os atributos de direção, origens e
+destinos do subconjunto se tornam relativos em relação ao novo escopo. Em
+seguida reaplicamos o \emph{bundling} no subconjunto. Quanto menor a escala,
+mais detalhes sobre o fluxo do tráfego são obtidos, sendo possível observar bairros,
+quadras ou até mesmo ruas. A Figura \ref{fig:multi-scale} ilustra os diferentes
+níveis de detalhe atingidos em escalas diferentes na visualização de um mapa.
 
 \begin{figure}[!htb]
   \centering
@@ -288,45 +303,70 @@ atingidos em escalas diferentes na visualização de um mapa.
   \label{fig:multi-scale}
 \end{figure}
 
-\textbf{Parâmetros:} O algoritmo ADEB possui parâmetros que influenciam no grau
-de aglomeração do \emph{bundling} e velocidade do cálculo, como por exemplo,
-tamanho dos núcleos da função de densidade e tamanho da amostragem dos dados a
-serem utilizadas no processo. Esses parâmetros são discutidos pelos autores do
-método, e valores padrão são indicados por eles. Seguiremos inicialmente os
-valores indicados, mas atentos a detalhes ou modificações que se mostrarem
-necessárias. Outro parâmetro importante em nossa visualização é a escala
-espacial para variação do nível de detalhes do \emph{bundling}. Esse parâmetro
-age como um filtro para selecionarmos um subconjunto das trajetórias dentro de
-uma sub área visualizada. Exploraremos esse parâmetro apresentando os
-resultados e discussões sobre os diferentes resultados obtidos nos múltiplos
-níveis.
+\textbf{Parâmetros:} O algoritmo ADEB é possui alguns parâmetros que
+influenciam o resultado \emph{bundling}. Esses parâmetros são discutidos pelos
+autores do método, e valores padrão são indicados por eles. Seguiremos
+inicialmente os valores indicados, mas atentos a detalhes ou modificações que
+se mostrarem necessárias. Outro parâmetro importante em nossa visualização é a
+escala espacial para variação do nível de detalhes do \emph{bundling}. Esse
+parâmetro age como um filtro para selecionarmos um subconjunto das trajetórias
+dentro de uma sub área visualizada. Exploraremos esses parâmetros apresentando
+discussões sobre seus efeitos nos resultados da visualização
 
 \subsection{Visualização dos Atributos}
 Depois de calcular o \emph{bundling} das trajetórias, é necessário projetar uma
-maneira de mostrar a estrutura dos elementos e seus atributos. Visualizar uma
-grande quantidade de atributos é ainda um desafio dentro do campo da
-visualização da informação. Em nosso estudo dos fluxos de OD consideramos dois
-atributos chave, densidade e fluxo, os quais destacamos diretamente na
-visualização. Reconhecemos que no tráfego existem ainda outras informações
-relevantes, como velocidade, aceleração, informações de gênero sobre
-motoristas, mas que estas não estão no escopo desta pesquisa e devem ser
-consideradas em estudos aprofundados no futuro.
+maneira de mostrar a estrutura dos elementos e seus atributos. Em nosso estudo
+dos fluxos de OD consideramos dois atributos chave, densidade e fluxo, os quais
+destacamos diretamente na visualização. 
 
-\textbf{Densidade}: a densidade é uma informação importante na análise
-do fluxo. Essa informação permite visualizar a quantidade de veículos se
-locomovendo de uma região para outra. Esse atributo é comumente destacado de
-duas formas principais, uma escala de cores, como um mapa de calor, ou através
-da espessura da linha. Escolhemos escalar a espessura da linha dos
-\emph{bundles} proporcionalmente à densidade do fluxo que ele representa.
-Deixamos a coloração para demonstrar a direção das trajetórias, já que é uma
-forma mais intuitiva para esse atributo.
+\textbf{Densidade}: a densidade é uma informação importante na análise do
+fluxo. Essa informação nos ajuda a responder ``Qual a quantidade de veículos
+se locomovem de uma região para outra?''. Uma forma de destacar esse atributo é
+usando uma escala de cores. A Figura \ref{fig:density-mappings} mostra o
+mapeamento da densidade com escala de cores feita de duas formas, uma escala
+gradiente e uma escala de opacidade, que funciona somando-se os valores de
+opacidade nos pontos de sobreposição. Uma outra forma de se mostrar esse
+atributo é simplesmente escalando a espessura das linhas dos \emph{bundles}
+proporcionalmente à densidade. 
 
-\textbf{Direção}: como em \citet{Anita2017}, iremos destacar a direção das
-trajetórias com um mapa de cores que indica se a trajetória está chegando ou
-saindo de um ponto no mapa. É necessário ainda um cuidado com a sobreposição de
-trajetórias paralelas que vão em direções opostas. \citet{Anita2017} resolvem
-esse problema criando um parâmetro de repulsão para deslocar as trajetórias na
-visualização, deixando mais clara a sua diferenciação.
+\begin{figure}[ht!]
+  \centering
+  \begin{subfigure}[t]{\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{../figuras/color-density.pdf}
+    \caption{Densidade mapeada em escala de cores gradiente.}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[t]{\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{../figuras/alpha-blending.pdf}
+    \caption{Densidade mapeada em escala opacidades, conhecida como combinação do canal alfa. À esquerda sem escala alfa, à direita com escala alfa.}
+  \end{subfigure}
+  \caption[Densidade dos \emph{bundlings} mapeada em escalas de cores e
+  opacidade.]{Densidade dos \emph{bundlings} mapeada em escalas de cores e
+  opacidade. Fonte: \citet{Lhuillier2017} \label{fig:density-mappings}}
+\end{figure}
+
+\textbf{Direção}: a direção é outra informação relevante para o estudo dos
+fluxos.  No algoritmo de \emph{bundling} ADEB, ela é indicada pelo ângulo da
+trajetória em relação a um eixo cartesiano. Para destacar esse atributo na
+visualização utilizaremos um mapa de ângulo-para-cor, como em
+\citet{ZegarraFlores2016}. A Figura \ref{fig:direction} ilustra como seria o
+destaque da direção e da densidade no \emph{bundling}, note que o círculo na
+legenda indica o mapa de cores. Trajetórias saindo de leste para oeste estão em
+azul, norte para sul são representadas em verde, e assim por diante. No caso de
+atributos numéricos, como os ângulos das trajetórias, os valores que se sobrepõe
+podem ser somados para dar um resultado final, ou simplesmente sobrescritos
+pela trajetória desenhada na camada mais superior, como ocorre na Figura
+\ref{fig:direction}. 
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=\textwidth]{../figuras/color-wheel.pdf}
+  \caption{Densidade mapeada em escala de cores gradiente. Fonte: \citet{Lhuillier2017}. \label{fig:direction}}
+\end{figure}
+
+
 
 \subsection{Visualização Interativa}
 
@@ -343,16 +383,16 @@ da visualização.
 
 \textbf{Inspecionando os \emph{bundles}}: analisando-se um \emph{bundle},
 podemos dar ainda mais detalhes sobre as trajetórias que o formam para
-responder duas questões importantes para análise dos fluxos: 'Qual o percentual
-das trajetórias veem de uma determinada região?' ou 'Qual região é maior
-responsável pelo fluxo naquele trecho?'.  Essa informação pode ser obtida
+responder duas questões importantes para análise dos fluxos: ``Qual o percentual
+das trajetórias veem de uma determinada região?'' ou ``Qual região é maior
+responsável pelo fluxo naquele trecho?''.  Essa informação pode ser obtida
 observando-se a composição do \emph{bundle} e oferece mais detalhes para que
 gestores da cidade entendam melhor a estrutura do trânsito e as relações de OD.
 
  Para inserir esse dado na visualização recorremos a uma nova
 imagem, disparada pela interação do usuário que poderá inspecionar um
 \emph{bundle} para visualizar esses detalhes em uma caixa de diálogo com as
-estatísticas percentuais sobre as origens das trajetórias.
+informações sobre as origens das trajetórias.
 
 \section{Visualização de Eventos Atípicos}
 
