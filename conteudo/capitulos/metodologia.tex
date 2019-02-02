@@ -367,8 +367,6 @@ pela trajetória desenhada na camada mais superior, como pode ser visto  na Figu
   \caption{Densidade mapeada em escala de cores gradiente. Fonte: \citet{Lhuillier2017}. \label{fig:direction}}
 \end{figure}
 
-
-
 \subsection{Visualização Interativa}
 
 Mecanismos de interação são um excelente recurso em uma visualização de dados.
@@ -414,17 +412,32 @@ acidentes, alagamentos e mudanças na rede rodoviária da cidade.
   Nós avaliaremos a visualização de dois pontos de vista, um qualitativo e um
 quantitativo. Do ponto de vista qualitativo apontaremos o que foi alcançado com
 a visualização em relação os objetivos da pesquisa de utilizar técnicas de \emph{bundling}
-para visualização dos fluxos de OD no tráfego. Avaliaremos então se a visualização
-tornou possível a visualização dos fluxos de OD nos diferentes níveis de
-detalhe e quais foram suas limitações. Além disso, analisaremos também o potencial da
-visualização com \emph{bundling} em representar mudanças no trânsito na
-ocorrência de eventos atípicos, tais como o fechamento de uma rua importante do
-tráfego. Dentre essas avaliações, serão experimentados os diferentes parâmetros
-do algoritmo de \emph{bundling} e das técnicas de visualização utilizadas, com
-uma caracterização sobre quais valores dos parâmetros foram considerados mais adequados.
+para visualização dos fluxos de OD no tráfego. Avaliaremos então as seguintes questões:
 
-  Do ponto de vista quantitativo pretendemos avaliar a escalabilidade da
-solução dado o tempo de processamento para gerar a visualização de um certo
-conjunto de dados. Para isso, iremos contar o tempo para gerar a visualização
-ignorando etapas de pré-processamento e carregamento dos dados.
+\begin{itemize}
+  \item \textbf{Q1:} Como o \emph{bundling}  ajuda a identificar os fluxos no trânsito
+que vão em diferentes direções?
 
+  \item \textbf{Q2:} Como o \emph{bundling}  ajuda a identificar áreas de fluxo
+denso no trânsito da cidade?s?
+
+  \item \textbf{Q3:} Como o \emph{bundling} ajuda na visualização dos fluxos no
+trânsito em níveis de detalhes das ruas da cidade?
+
+  \item \textbf{Q4:} Como o \emph{bundling} ajuda a identificar mudanças no
+tráfego em horários de pico e outros horários do dia, e também na ocorrência de
+eventos atípicos como fechamento de uma rua com grande fluxo?
+\end{itemize}
+
+  Do ponto de vista quantitativo pretendemos avaliar o desempenho da solução
+dado o tempo de processamento para gerar a visualização. Para isso, iremos
+contar o tempo para gerar a visualização desprezando as etapas de
+pré-processamento e carregamento dos dados. Os dados simulados é o conjunto com
+maior quantidade de pontos, com mais de 31 milhões de entradas distribuídas em
+em $585.374$ viagens feitas por veículos no trânsito e é considerado o teste de
+maior relevância para a avaliação do desempenho.
+
+ Dentre essas avaliações, serão experimentados os diferentes parâmetros do
+algoritmo de \emph{bundling} e das técnicas de visualização utilizadas, com uma
+caracterização sobre quais valores dos parâmetros foram considerados mais
+adequados, seus resultados e limitações.
