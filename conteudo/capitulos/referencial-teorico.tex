@@ -19,8 +19,8 @@ um levantamento de várias pesquisas de análise e visualização de dados do
 tráfego de pessoas, carros e embarcações. Eles apresentam uma taxonomia
 conforme algumas características observadas, como o objetivo da visualização,
 formato dos dados do tráfego e formas de apresentação de suas propriedades.
-Nesta seção apresentamos essa taxonomia de forma breve, que é importante para
-um melhor entendimento da área e dos esforços que têm sido feitos no campo da
+Nesta seção apresentamos essa taxonomia, que é importante para um melhor
+entendimento da área e dos esforços que têm sido feitos no campo da
 visualização de dados do tráfego.
 
 \subsection{Quanto ao Objetivo da Visualização}
@@ -75,19 +75,19 @@ transporte público de uma cidade.  \end{description}
 
   Uma série de posições de localização ao longo do tempo formam a trajetória de
 um objeto. Uma trajetória contém informações temporais, que permitem traçar uma
-linha do tempo da movimentação, e informações espaciais, que grava a posição em
-cada momento no tempo.    A frequência de armazenamento dessas informações também impacta a análise.
-Capturar e armazenar essas informações com um intervalo de tempo muito pequeno
-pode ser algo bastante custoso. Outro fator de impacto é a precisão das
-informações que dependente altamente de questões relacionadas ao hardware
-utilizado na coleta, o que pode requerer etapas de pré-processamento para
-extrair dados inconsistentes da análise.
+linha do tempo da movimentação, e informações espaciais, que contém a posição
+em cada momento no tempo. A frequência de armazenamento dessas informações
+também impacta a análise. Capturar e armazenar essas informações com um
+intervalo de tempo muito pequeno pode ser algo bastante custoso. Outro fator de
+impacto é a precisão das informações a qual depende de questões relacionadas ao
+hardware utilizado na coleta. Muitas vezes é necessária uma etapa de
+pré-processamento para extrair dados inconsistentes da análise.
 
 \subsection{Visualização das propriedades espaciais}
 
   As propriedades espaciais de localização são o principal componente de dados
 de tráfego. Elas referem-se aos locais onde ações, incidentes e eventos
-ocorrem. Diferentes níveis de agregação dessa informação levam a categorização
+ocorrem. Diferentes níveis de agregação dessa informação levam à categorização
 da visualização também em três classes, segundo \citet{Chen2015}: visualização
 baseada em pontos (nenhuma agregação), visualização baseada em linhas
 (agregação de primeira ordem), e agregação baseada em regiões (agregação de
@@ -139,15 +139,16 @@ de partida e chegada de cada voo, como pode ser visto na Figura
   A representação espacial das linhas pode ainda sofrer transformações
 geométricas e topológicas que geram novas abstrações. Por exemplo,
 \citet{Tarik2009} mostram uma proposta que transforma as trajetórias de um
-leiaute espacial para um leiaute abstrato para visualizar a movimentação de
-pessoas durante a fuga de uma explosão em um escritório.  A abordagem abstrata
-é usada para mostrar mais efetivamente os padrões de movimentação de pessoas
-que se movem ao mesmo tempo para as mesmas áreas. A Figura \ref{fig:tarik}
-mostra essa abstração, com ela é possível notar a movimentação de indivíduos
-antes da explosão, o que sugere possíveis suspeitos ou testemunhas do evento.
-Além disso, as informações temporais são difíceis de representar no leiaute
-espacial, enquanto no leiaute abstrato o eixo X denomina a sequência do tempo e
-o eixo Y os locais no espaço.
+leiaute espacial (Figura \ref{fig:viz-espacial}) para um leiaute abstrato
+(Figura \ref{fig:viz-abstrata}) para visualizar a movimentação de pessoas
+durante a fuga de uma explosão em um escritório.  A abordagem abstrata é usada
+para mostrar mais efetivamente os padrões de movimentação de pessoas que se
+movem ao mesmo tempo para as mesmas áreas. Na Figura \ref{fig:viz-abstrata} é
+possível notar a movimentação de indivíduos antes da explosão (linhas azuis), o
+que sugere possíveis suspeitos ou testemunhas do evento.  Além disso, as
+informações temporais são difíceis de representar no leiaute espacial, enquanto
+no leiaute abstrato o eixo X denomina a sequência do tempo e o eixo Y os locais
+no espaço.
 
 \begin{figure}[ht!]
   \centering
@@ -172,7 +173,7 @@ Visualização abstrata, baseada na proximidade.  Fonte: \citet{Tarik2009}.
 
   No entanto, a medida que o número de objetos cresce, aumenta também os
 problemas de oclusão, o que acaba afetando a estética da visualização e a
-obtenção de informações sobre os dados, \citep{Zhou2013}. Uma forma de reduzir
+obtenção de informações sobre os dados \citep{Zhou2013}. Uma forma de reduzir
 a complexidade de análise de um grande conjunto  trajetórias é utilizando
 outras formas de abstração dos dados, como uma visualização baseada em regiões.
 
@@ -199,7 +200,7 @@ cada trajetória em favor de uma visão condensada dos fluxos.
 \label{sec:bundling}
 
   Um grande problema na visualização de grafos e dados de trajetórias é a
-oclusão visual a medida que a quantidade de elementos aumenta. Uma pequena
+oclusão visual à medida que a quantidade de elementos aumenta. Uma pequena
 quantidade de dados já começa a apresentar problemas de sobreposição e
 cruzamento de arestas, o que dificulta a obtenção de informação sobre os dados.
 Uma maneira de contornar esse problema é através de filtros que determinam a
@@ -214,7 +215,7 @@ visualização das trajetórias entre as áreas da cidade.
 visualização de dados de tráfego é o uso de uma técnica chamada
 \emph{bundling}. A técnica ajuda a simplificar o desenho da visualização
 através da agregação espacial das arestas em conjuntos chamados
-\emph{bundles}, similar a algoritmos de clusterização. Os \emph{bundles} são
+\emph{bundles}, que funcionam de forma similar a algoritmos de clusterização. Os \emph{bundles} são
 definidos como um grupo de arestas similares, compatíveis o suficiente para
 serem representadas por um corpo único e compacto \citep{Lhuillier2017}. A
 compatibilidade é calculada a partir de uma função de similaridade usada para
@@ -329,8 +330,8 @@ para descobrir quais são as mais próximas, afim de agrupá-las em
 \emph{bundles}.  Esse cálculo, no entanto, é bastante custoso e pode demorar
 minutos em cenários com milhares de trajetórias.
 
-\emph{Kernel Density Estimation Edge Bundling} (KDEEB, \citet{Hurter2012})
-observou que ao aplicar uma operação de \emph{bundling} $B$ qualquer sobre um
+\emph{Kernel Density Estimation Edge Bundling} (KDEEB) é um algoritmo proposto
+por \citet{Hurter2012}. Eles observaram que ao aplicar uma operação de \emph{bundling} $B$ qualquer sobre um
 grafo $G$, o resultado são áreas de maior densidade (dentro dos \emph{bundles})
 e áreas de menor densidade fora deles, em comparação ao grafo original. Assim,
 essa operação \emph{bundling} $B$ pode ser moldada em função de uma operação
@@ -377,15 +378,16 @@ iterações.
 %das arestas que cruzam o obstáculo e faz com que as arestas sejam movidas
 %na direção pra fora de suas bordas.
 
-  {\emph{Attribute-Driven Edge Bundling} (ADEEB,
-\citet{ZegarraFlores2016}) estenderam o algoritmo KDEEB permitindo separar as
+  {\emph{Attribute-Driven Edge Bundling} (ADEEB) é uma extensão do algoritmo
+KDEEB, proposta por \citet{ZegarraFlores2016}, e que permite a separação das
 arestas conforme sua direção. Essa informação é obtida percorrendo cada aresta
-a partir do ponto de origem até o destino e armazenando para cada uma delas um
-vetor unitário que aponta a direção da aresta. Então, cria-se um mapa de
-densidade direcionado, onde são consideradas apenas as arestas cujo vetor
-unitário apontam para a mesma direção.  Esse algoritmo herda todos os
-benefícios de desempenho e robustez apresentados pelo KDEEB, o que o faz um
-método adequado para a análise do tráfego de veículos no trânsito da cidade.
+a partir do ponto de origem até o destino e calculando para cada uma delas um
+vetor unitário que aponta a sua direção, que é mapeado para o
+ângulo desse mesmo vetor. Então, cria-se um mapa de densidade direcionado, onde são
+consideradas apenas as arestas que vão na mesma direção (mesmo ângulo). Esse
+algoritmo herda todos os benefícios de desempenho e robustez apresentados pelo
+KDEEB, o que o faz um método adequado para a análise do tráfego de veículos no
+trânsito da cidade.
 
 \subsection{\emph{Bundling} em Dados Dinâmicos}
 
@@ -427,7 +429,7 @@ InterSCSimulator é uma destas ferramentas e o detalhamos a seguir.
 \subsection{InterSCSimulator}
 \label{sec:interscsimulator}
 
-\citet{mabs2017} apresentam o InterSCSimulator, um ferramenta de código livre,
+\citet{mabs2017} apresentam o InterSCSimulator, uma ferramenta de código livre,
 capaz de executar simulações com mais de 4 milhões de veículos em uma grande
 metrópole.  As simulações são feita em escala mesoscópica. Isso significa que
 ela segue um modelo onde cada veículo do trânsito é simulado individualmente. O
@@ -439,7 +441,7 @@ viagem.
   O simulador possui quatro componentes principais: o \textbf{cenário}, que
 recebe os arquivos de entrada e cria o grafo da cidade e os primeiros veículos;
 \textbf{o motor de simulação}, que executa os algoritmos e modelos da simulação
-para gerar os arquivos com os resultados; uma componente de
+para gerar os arquivos com os resultados; um componente de
 \textbf{visualização do mapa}, que recebe o arquivo de saída com os resultados
 e gera uma visualização da simulação baseada em pontos; e finalmente um
 componente de \textbf{visualização de gráficos} que gera uma série de gráficos
