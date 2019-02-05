@@ -455,17 +455,79 @@ interação entre os componentes e os arquivos de entrada e saída.
   \caption[Componentes do InterSCSimulator]{Componentes do InterSCSimulator. \label{fig:interscsimulator}}
 \end{figure}
 
-  De todos os artefatos utilizados na simulação, nós utilizaremos apenas o
-arquivo de saída \emph{events.xml} que contém o rastro da movimentação dos
-veículos. A Listagem \ref{events.xml} mostra parte de um arquivo de saída
-gerado durante uma simulação. É possível ver os eventos de \emph{start\_trip},
-\emph{move} e \emph{finish\_trip} para dois veículos com os identificadores
-$2121$ e $2223$.  É importante notar também o atributo \emph{time}, que indica o
-tempo de ocorrência do evento dentro da simulação. Esse atributo  é contabilizado
-em segundos. Na simulação de um dia do trânsito, por exemplo, temos então
-86400 segundos, correspondentes às 24 horas do dia.
+  O simulador utiliza dois arquivos principais de entrada para definição do
+cenário, são eles map.xml e trips.xml. O primeiro contém a descrição da rede
+rodoviária da cidade e é construído com dados obtidos de serviços como Open
+Street Maps (OSM)\footnote{\rurl{openstreetmap.org}}. O arquivo é composto por
+nós e links, que representam cruzamentos e ruas, respectivamente. A Listagem
+\ref{map.xml} mostra um exemplo de um arquivo map.xml com 3 nós e 3 links. Um
+usuário da simulação pode ainda fazer alterações nesse arquivo para alterar o
+mapa da cidade para atender a um novo cenário, como por exemplo, remover os nós
+e links de uma rua conhecida para simular o bloqueio causado por um acidente.
+Utilizaremos desse mecanismo para estudar diferentes cenários do trânsito.
 
-\begin{lstlisting}[style=myxml, caption={Exemplo de arquivo de saída events.xml com os eventos da simulação.}, label=events.xml]
+\begin{lstlisting}[style=myxml, caption={Exemplo de arquivo map.xml que define a rede rodoviária da cidade. Fonte: \citet{mabs2017}}, label=map.xml]
+<network>
+  <nodes>
+   <node id ="1" x="-46.65805" y="-23.58162"/>
+   <node id ="2" x="-46.65828" y="-23.58342"/>
+   <node id ="3" x="-46.65228" y="-23.59341"/>
+  </nodes>
+  <links>
+    <link id="35985" from="1" to="2" length="100" free speed="40"/>
+    <link id="35985" from="2" to="3" length="200" free speed="40"/>
+    <link id="35985" from="3" to="1" length="80"  free speed="50"/>
+  </links>
+</network>
+\end{lstlisting}
+
+  O segundo arquivo de entrada, \emph{trips.xml}, descreve todas as viagens que
+devem ser simuladas. Cada viagem deve informar os nós de origem e destino e o
+horário da simulação em que ela será iniciada, como pode ser visto na Listagem
+\ref{trips.xml}. O caminho entre a origem e o destino pode ainda ser fixada
+previamente nesse arquivo ou pode ser calculado pelo simulador, o qual fica
+responsável por determinar a rota a ser seguida. Um aspecto interessante é que
+se quisermos duplicar o tamanho da simulação, podemos fazer isso simplesmente
+duplicando as linhas desse arquivo.
+
+\begin{lstlisting}[style=myxml, caption={Exemplo de arquivo trips.xml que define a rede rodoviária da cidade. Fonte: \citet{mabs2017}}, label=trips.xml]
+
+<scsimulator_matrix>
+  <trip origin="247951669" destination="60641382"
+    type="car" start_time="28801"/>
+  <trip origin="60641382" destination="247951669"
+    type="car" start_time="63001"/>
+  <trip origin="4511105625" destination="2109902387"
+    type="car" start_time="16201"/>
+  <trip origin="247951669" destination="60641382"
+    type="car" start_time="54001"/>
+  <trip origin="246650787" destination="247951670"
+    type="car" start_time="54001"/>
+  <trip origin="247951670" destination="246650787"
+    type="car" start_time="66601"/>
+  <trip origin="246650787" destination="60641382"
+    type="bus" start_time="54001"/>
+</scsimulator_matrix>
+\end{lstlisting}
+
+  Cada veículo (carro ou ônibus) definido no arquivo \emph{trips.xml} é um
+elemento independente dentro da simulação. Eles percorrem seu trajeto do nó de
+origem até o nó de destino seguindo a rede rodoviária da cidade definida no
+arquivo \emph{map.xml}.  Cada veículo possui quatro estados dentro da
+simulação: \emph{Start}, quando o tempo da simulação atinge o tempo de início
+do veículo; \emph{Move}, quando a simulação atinge o tempo do próximo movimento
+do veículo; \emph{Wait}, quando o veículo tem que esperar até o próximo
+movimento; e \emph{Finish}, quando o veículo chega ao seu destino. Os estados
+representam eventos ocorridos dentro da simulação, que são registrados no
+arquivo de saída \emph{events.xml}. A Listagem \ref{events.xml} mostra parte de
+um arquivo de saída gerado durante uma simulação. É possível ver os eventos de
+\emph{start\_trip}, \emph{move} e \emph{finish\_trip} para dois veículos com os
+identificadores $2121$ e $2223$.  É importante notar também o atributo
+\emph{time}, que indica o tempo de ocorrência do evento dentro da simulação.
+Esse atributo  é contabilizado em segundos. Na simulação de um dia do trânsito,
+por exemplo, temos então 86400 segundos, correspondentes às 24 horas do dia.
+
+\begin{lstlisting}[style=XML, caption={Exemplo de arquivo de saída events.xml com os eventos da simulação. Fonte: \citet{mabs2017}}, label=events.xml]
 
 <events version="1.0">
   <event time="4" type="start_trip" vehicle="2121" link="5243" />
@@ -478,13 +540,13 @@ em segundos. Na simulação de um dia do trânsito, por exemplo, temos então
 </events>
 \end{lstlisting}
 
-  A partir desse arquivo de saída e do mapa da cidade é possível montar o
-o rastro de mobilidade dos veículos ao longo do tempo,
-recuperando as posições de latitude e longitude dos \emph{links} sobre o qual
-eles se movimentam, como mostra a Tabela \ref{table:rastro}. O rastro de um veículo
-da simulação pode ser visto na Figura \ref{fig:rastro}. O ponto verde indica a origem na cor
-preta está marcado o destino. Já os pontos vermelhos marcam cada evento
-de movimentação que ele fez dentro da simulação.
+  A partir desse arquivo de saída e do mapa da cidade é possível montar o o
+rastro de mobilidade dos veículos ao longo do tempo, recuperando as posições de
+latitude e longitude dos \emph{links} sobre o qual eles se movimentam, como
+mostra a Tabela \ref{table:rastro}. O rastro de um veículo da simulação pode
+ser visto na Figura \ref{fig:rastro}. O ponto verde indica a origem na cor
+preta está marcado o destino. Já os pontos vermelhos marcam cada evento de
+movimentação que ele fez dentro da simulação.
 
 \begin{table}[!htb]
 \centering
@@ -509,11 +571,27 @@ de movimentação que ele fez dentro da simulação.
   \caption{Visualização dos pontos da trajetória do veículo com ID 4858\_52. \label{fig:rastro}}
 \end{figure}
 
-  Os conceitos apresentados servirão de base para a nossa proposta de
+Já a Figura \ref{fig:simulated-traffic} mostra uma simples visualização em linhas
+de um conjunto de trajetórias do tráfego simulado. Os dados são resultado
+da pesquisa de \citet{santana2018courb}, que criaram uma simulação com milhares
+de veículos e disponibilizaram os arquivos com os resultados. Utilizamos dados
+no intervalo de 1 hora do trânsito filtrando pontos que estivessem entre os
+intervalos de tempo $21600$ e $25200$, o que corresponde ao horário entre 6 e 7
+da manhã. Note que há bastante oclusão, sendo também impossível distinguir
+quais origens vão para quais destinos ou a quantidade de veículos nas vias.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=1\textwidth]{../figuras/trafego-ocluso.png}
+  \caption{Simulação do tráfego entre 6 e 7 da manhã.}
+  \label{fig:simulated-traffic}
+\end{figure}
+
+  Os conceitos apresentados montaram de base para a nossa proposta de
 visualização dos dados do tráfego de veículos no trânsito. Inclui-se no
 processo de formulação da proposta a definição do tipo de visualização que
 iremos utilizar, domínio sobre os dados do trânsito e suas propriedades
 espaciais e temporais, para posteriormente chegarmos a uma análise dos fluxos
 de origem e destino em diferentes níveis de detalhe a partir de um modelo de
 \emph{bundling}, propondo também maneiras de destacar essas propriedades dentro
-da visualização.
+da visualização. No próximo capítulo apresentamos em detalhes a nossa proposta.
