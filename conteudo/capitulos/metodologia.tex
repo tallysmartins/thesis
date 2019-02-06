@@ -8,86 +8,110 @@ nível de detalhes através de uma abordagem multinível para explorar padrões
 globais e locais do tráfego, com diferentes níveis de agregação temporais e
 espaciais.
 
- Apresentamos inicialmente a ferramenta que estamos desenvolvendo dentro da
-nossa proposta, dando uma visão geral dos seus componentes e dos artefatos de
-entrada e saída que irão resultar na visualização e análise dos dados. A
-ferramenta faz parte do ecossistema de soluções para cidades inteligentes que
-são desenvolvidas no contexto do projeto InterSCity\footnote{\rurl{interscity.org}}. Em seguida detalhamos os
-conjuntos de dados que iremos utilizar e suas características, e por fim,
-explicamos as técnicas que pretendemos aplicar para destacar as propriedades
-dos dados dentro da visualização.
+ Apresentamos inicialmente a ferramenta que iremos utilizar para responder às
+questões de pesquisa levantas no Capítulo \ref{cap:introducao}, e que
+relembramos a seguir. Damos uma visão geral dos seus componentes e dos
+artefatos de entrada e saída que irão resultar na visualização e possibilitar a
+análise dos dados. A ferramenta faz parte do ecossistema de soluções para
+cidades inteligentes que são desenvolvidas no contexto do projeto
+InterSCity\footnote{\rurl{interscity.org}}. Em seguida detalhamos os conjuntos
+de dados que iremos utilizar e suas características, e por fim, explicamos as
+técnicas que pretendemos aplicar para destacar as propriedades dos dados dentro
+de uma visualização para responder às nossas questões:
+
+\begin{itemize}
+  \item \textbf{Q1:} Como o \emph{bundling} pode ser usado para identificar os
+fluxos de origem e destino no trânsito em diferentes escalas?
+
+  \item \textbf{Q2:} Como o \emph{bundling} pode ser usado para identificar
+mudanças no tráfego em horários de pico e outros horários do dia, e também na
+ocorrência de eventos atípicos como fechamento de uma rua com grande fluxo?
+
+  \item \textbf{Q3:} Como é o desempenho computacional do \emph{bundling} na
+visualização de uma grande quantidade de dados do trânsito?
+\end{itemize}
 
 \section{Implementação da Visualização}
-  Apenas alguns poucos algoritmos de \emph{bundling} são implementados em
-bibliotecas de uso aberto. A maioria dos trabalhos pesquisados não apontam
-a fonte para as suas ferramentas e implementação dos seus algoritmos. Optamos
-então por partir de uma implementação própria para a visualização dos dados,
-apoiando-nos em bibliotecas já existentes para exploração de dados geoespaciais.
+  Poucos algoritmos de \emph{bundling} são implementados em bibliotecas de uso
+aberto. A maioria dos trabalhos pesquisados não disponibilizam a fonte para as
+suas ferramentas e implementação dos seus algoritmos, e ainda que os algoritmos
+estivessem disponíveis seria necessário implementar a ferramenta para
+visualizar os dados da forma como queremos. Optamos então por partir de uma
+implementação própria para a visualização dos dados, apoiando-nos em
+bibliotecas já existentes para exploração de dados geoespaciais.
 
-  Apresentamos então, o InterSCityPlotter, uma ferramenta para análise de dados
-do tráfego que permite a criação de múltiplas visualizações, como visualizações
-estáticas, ilustrado na Figura \ref{fig:simulated-traffic}, visualizações
-baseadas em pontos pontos, ilustrado na Figura \ref{fig:rastro}. Idealizamos a
-ferramenta com o objetivo de suportar estudos com dados do trânsito gerados
-pelo InterSCSimulator e também por outras fontes, com o propósito de abranger
-análises de dados geoespaciais de modo geral, tão importantes no planejamento
-das cidades. O diagrama da Figura \ref{fig:interscityplotter} mostra uma visão
-geral dos componentes da ferramenta os quais damos uma breve descrição em
-seguida.
+  Apresentamos o InterSCityPlotter, uma ferramenta para análise de dados do
+tráfego que permite a criação de múltiplas visualizações, como visualizações
+estáticas (Figura \ref{fig:simulated-traffic}) e visualizações baseadas em
+pontos pontos (Figura \ref{fig:rastro}).  O objetivo da ferramenta é dar
+suporte a estudos com dados do trânsito gerados pelo InterSCSimulator e também
+por outras fontes, com o propósito de abranger análises de dados geoespaciais
+que representam deslocamentos de um ponto de origem até um ponto de destino. O
+diagrama da Figura \ref{fig:interscityplotter} mostra uma visão geral dos
+componentes da ferramenta os quais damos uma breve descrição em seguida.
 
 \begin{figure}[!htb]
   \centering
   \includegraphics[width=1\textwidth]{../figuras/interscityplotter.pdf}
-  \caption{Visão geral da arquitetura da ferramenta InterSCityPlotter que permite a criação
-de múltiplas visualizações de dados geoespaciais.}
+  \caption{Visão geral da arquitetura da ferramenta InterSCityPlotter.}
   \label{fig:interscityplotter}
 \end{figure}
 
 \begin{description}
-  \item[\emph{ProjectManager}:] A exploração de dados do tráfego começa com a criação de um
-novo projeto de visualização a partir de um conjunto de dados de entrada. Esse
-componente é responsável pela criação, exclusão e outras ações de gerenciamento
-dos projetos. Para utilizar a ferramenta, é necessário criar um novo projeto
-apontando o conjunto de dados em um formato CSV. Os dados irão passar por algumas
-etapas de pré-processamento definidos no componente \emph{Pipelines} para que
-estejam prontos para visualização junto com os arquivos do projeto criado.
+\item[\emph{ProjectManager}:] a exploração de dados do tráfego começa com a
+criação de um novo projeto de visualização a partir de um conjunto de dados de
+entrada. Esse componente é responsável pela criação, exclusão e outras ações de
+gerenciamento dos projetos. Para utilizar a ferramenta, é necessário criar um
+novo projeto apontando o conjunto de dados em um formato CSV. Os dados irão
+passar por algumas etapas de pré-processamento definidos no componente
+\emph{Pipelines} para que estejam prontos para visualização junto com os
+arquivos do projeto criado.
 
-  \item[\emph{Pipelines}:] Esse componente isola as
-etapas de pré-processamento necessárias para seu uso nas visualizações, como
-por exemplo limpeza e checagem de inconsistências, derivação de novos
-atributos nos dados, etc. Outras ações mais simples também são definidas nesse módulo,
-como por exemplo, uma análise inicial que contabiliza o número de trajetórias,
-quantidade média de pontos por trajetória e número total de pontos no conjunto
-de dados é feita assim que se cria um projeto. Essas informações ficam salvas
-e disponíveis juntamente aos dados do projeto.
+  \item[\emph{Pipelines}:] esse componente isola as etapas de pré-processamento
+necessárias para uso dos dados nas visualizações, como por exemplo limpeza e
+checagem de inconsistências, derivação de novos atributos, etc.  Outras ações
+também são definidas nesse módulo, como por exemplo, uma análise inicial que
+contabiliza o número de trajetórias, quantidade média de pontos por trajetória
+e número total de pontos no conjunto de dados é feita assim que se cria um
+projeto. Essas informações são salvas junto com os dados do projeto.
 
-  \item[VisualizationLayers:] A biblioteca Geoplotlib, apresentada em
-\citet{Andrea2016}, fornece recursos para criação de visualizações de dados
-geoespaciais. Ela fornece todo o arcabouço em baixo nível para renderização de
-imagens a partir desses dados e possui também algumas visualizações
-pré-definidas para projetar pontos e linhas em um mapa e é a base do componente
-VisualizationLayers. Os recursos do Geoplotlib serão estendidos dentro do
+  \item[VisualizationLayers:] o componente \emph{VisualizationLayers} baseia-se
+na biblioteca Geoplotlib, apresentada em \citet{Andrea2016}, que fornece
+recursos para criação de visualizações de dados geoespaciais. Ela fornece todo
+o arcabouço em baixo nível para renderização de imagens a partir desses dados e
+possui também algumas visualizações pré-definidas para projetar pontos e linhas
+em um mapa. Os recursos do Geoplotlib serão estendidos dentro do
 InterSCityPlotter para a implementação de diferentes tipos de visualizações
 (Layers) customizadas. A visualização com \emph{bundling} que propomos será
 construída como uma nova \emph{layer}.
 
-  \item[CLI:] O módulo CLI possui a lógica para interação com a ferramenta
+  \item[CLI:] o módulo CLI possui a lógica para interação com a ferramenta
 através da linha de comando. Essa interação se resume atualmente a comandos de
 gerenciamento dos projetos (criação, exclusão) e execução de uma das
 visualizações já desenvolvidas. A documentação completa pode ser vista no
 repositório da ferramenta, disponível no
 Github\footnote{\rurl{github.com/tallysmartins/interscity-plotter}}.
-
 \end{description}
 
+  A ferramenta se encontra em processo de desenvolvimento. Os módulos
+\emph{Project Manager}, \emph{Pipelines} e CLI já estão parcialmente
+implementados e já é possível criar um novo projeto a partir de dados do
+simulador, que posteriormente passam por um primeiro pré-processamento para
+contabilizar algumas estatísticas, como número de veículos totais, média de
+pontos por viagem, tempo total da simulação e outros. Ainda restam implementar
+todo o módulo \emph{VisualizationLayers} e também alguns pré-processamentos do
+módulo \emph{Pipelines} que iremos utilizar para tratamento dos dados de
+entrada e derivação de novos atributos.
+
 \section{Conjuntos de Dados}
-   Os dados do tráfego que utilizaremos possuem o registro da posição ao longo
-de toda a trajetória, desde a origem até seu destino. Outros atributos como velocidade,
-direção, aceleração, podem ser derivados a partir dos dados brutos. Cada trajetória $T$ de um
-veículo pode ser modelada como uma sequência de pontos $p_i$ que contém a sua
-posição, o instante de tempo e um vetor $a$ contendo outros $n$ possíveis atributos. Em
-nosso estudo, esse vetor guarda a direção, dada pelo ângulo da reta
-entre os pontos de origem e destino de cada trajetória.
+   Os dados do tráfego que utilizaremos possuem o registro da posição e o tempo
+ao longo de toda a trajetória, desde a origem até seu destino. Outros atributos
+como velocidade, direção, aceleração, podem ser derivados a partir dos dados
+brutos. Cada trajetória $T$ de um veículo pode ser modelada como uma sequência
+de pontos $p_i$ que contém a sua posição, o instante de tempo e um vetor $a$
+contendo outros $n$ possíveis atributos. Em nosso estudo, esse vetor guarda a
+direção, dada pelo ângulo da reta entre os pontos de origem e destino de cada
+trajetória.
 
 \begin{center}
 $T = \left\langle p_i = ((latitude, longitude) \in \mathbb{R}^2, t \in \mathbb{R}^+, a^n \in \mathbb{R})_i \right\rangle$
@@ -104,16 +128,15 @@ cerca de 15 mil ônibus que circulam diariamente nas vias da cidade e fazem mais
 de 70 mil viagens por dia em mais de 2 mil linhas diferentes. A posição dos
 ônibus durante seu percurso é registrada a cada 45 segundos com aparelhos de
 GPS e disponibilizada pela Secretaria de Transporte Público
-(SPTrans)\footnote{\rurl{www.sptrans.com.br}} através de API pública. As buscas
-dos dados são feitas pelo código da linha, que retorna naquele momento
-informações de todos os veículos daquela linha em operação nas ruas, retornando
-o código do veículo, horário da coleta, posição (latitude e longitude) e se o
-ônibus possui suporte para pessoas com deficiência. A lista de todas as linhas
-existentes também podem ser adquiridas pela API.  A Listagem
-\ref{olhovivo.json} mostra um exemplo de uma consulta na API para a linha de
-ônibus 2023. Mais detalhes podem ser vistos na documentação da
-API\footnote{\rurl{www.sptrans.com.br/desenvolvedores/APIOlhoVivo/Documentacao.aspx?1}}
-que fornece os dados.
+(SPTrans)\footnote{\rurl{www.sptrans.com.br/desenvolvedores/APIOlhoVivo/Documentacao.aspx?1}}
+através de API pública. As buscas dos dados são feitas pelo código da linha,
+que retorna naquele momento informações de todos os veículos daquela linha em
+operação nas ruas, retornando o código do veículo, horário da coleta, posição
+(latitude e longitude) e se o ônibus possui suporte para pessoas com
+deficiência. A lista de todas as linhas existentes também podem ser adquiridas
+pela API.  A Listagem \ref{olhovivo.json} mostra um exemplo de uma consulta na
+API para a linha de ônibus 2023. Mais detalhes podem ser vistos na documentação
+da API que fornece os dados.
 
 \begin{lstlisting}[style=myxml, caption={Parte da resposta obitida para a linha 2023}, label=olhovivo.json]
 {
@@ -138,55 +161,35 @@ de maior fluxo e como ele se comporta em diferentes momentos do dia, como
 horários de pico.
 
 \subsection{Tráfego Simulado de Veículos}
- \citet{santana2018courb} criaram um cenário de simulação do tráfego de carros
-e ônibus na cidade de São Paulo. Eles utilizaram uma matriz de Origem-Destino
-(OD) feita pela Companhia do Metropolitano de São Paulo
+  O uso de dados simulados nos trazem dois aspectos importantes levantados em
+nossas questões \textbf{Q2} e \textbf{Q3}. O primeiro é a possibilidade de
+obtermos cenários diferentes do trânsito com alterações na simulação, já o
+segundo aspecto é capacidade de obtermos uma grande quantidade de dados do
+tráfego de veículos no trânsito.
+
+  Utilizaremos um cenário de simulação do tráfego de carros e ônibus na cidade
+de São Paulo criado e disponibilizado por \citet{santana2018courb}, com cerca
+de 585 mil veículos e mais de 31 milhões de pontos. Para construir o arquivo
+\emph{trips.xml} com a lista de viagens, eles utilizaram uma matriz de
+Origem-Destino (OD) feita pela Companhia do Metropolitano de São Paulo
 (Metrô)\footnote{Pesquisa Origem-Destino - \rurl{goo.gl/DNM8in}} que pesquisou
 como os cidadãos se locomovem pela cidade e usaram isso para determinar a
-movimentação dos carros. Além disso, utilizaram também dados dos
-itinerários dos ônibus fornecidos pela SPTrans para estabelecer viagens de
-ônibus com horários, paradas e frequência mais realistas.
+movimentação dos carros.  Além disso, utilizaram também dados dos itinerários
+dos ônibus fornecidos pela SPTrans para estabelecer viagens de ônibus com
+horários, paradas e frequência mais realistas.
 
   A pesquisa OD catalogou 160 mil amostras de viagens realizadas em um dia de
-semana da cidade de São Paulo. Ela possui dados como a origem, o destino, a hora
-de início, o modo de transporte e um fator a extrapolação estatística dos dados
-usado para generalizar os valores da amostragem para toda a cidade.
+semana da cidade de São Paulo. Ela possui dados como a origem, o destino, a
+hora de início, o modo de transporte e um fator a extrapolação estatística dos
+dados usado para generalizar os valores da amostragem para toda a cidade.
 Destas viagens, cerca de 26 mil são feitas de carro, como mostram
-\citet{santana2018courb}. Utilizando o fator de extrapolação da pesquisa
-chega-se a uma quantia de mais de 4 milhões de viagens de carro e ônibus em um
-dia, as quais foram simuladas com o InterSCSimulator.
-
-  A simulação gerou uma saída com mais de 31 milhões de eventos sobre a
-movimentação dos veículos na cidade.  Cada evento contém informações básicas:
-id do veículo, horário, posição (latitude e longitude) e tipo de evento do
-veículo na simulação (início, movimento ou chegada). A Tabela
-\ref{table:output} mostra uma parte do arquivo de saída com os eventos gerados.
-O tempo da simulação corre em segundos e dura 24 horas, ou seja, 86399
-segundos.  Note que os últimos registros mostram veículos que não chegaram ao
-seu destino pois a simulação foi finalizada ao fim das 24 horas.
-
-\begin{table}[!htb]
-\centering
-\begin{tabular}{|c|c|c|c|c|}
-\hline
-\textbf{Horário} & \textbf{Ação} & \textbf{ID} & \textbf{Latitude} & \textbf{Longitude} \\
-\hline
-25 & start & 4858\_52 & -23.624235 & -46.648388 \\
-27 & start & 4858\_73 & -23.624235 & -46.648388 \\
-27 & start & 94\_17 & -23.535976 & -46.63561    \\
-31 & move & 4858\_52 & -23.624077 & -46.648453 \\
-33 & move & 4858\_73 & -23.624077 & -46.648453 \\
-35 & start & 8394\_43 & -23.561275 & -46.695423 \\
-... & ... & ... & ... & ... \\
-233 & arrival & 8062\_64 & -23.567131 & -46.68642 \\
-... & ... & ... & ... & ... \\
-86399 & move & 9548\_87 & -23.630016 & -46.627766 \\
-86399 & move & 9548\_89 & -23.613354 & -46.65802 \\
-86399 & move & 9548\_92 & -23.602781 & -46.65138 \\
-\hline
-\end{tabular}
-\caption{Resultado parcial da simulação. Fonte: \citet{santana2018courb} \label{table:output}}
-\end{table}
+\citet{santana2018courb}. Utilizando o fator máximo de extrapolação da pesquisa
+é possível chegar a uma quantia de mais de 4 milhões de viagens de carro e
+ônibus em um dia, mas é possível realizar simulações menores reduzindo esse
+fator.  Posteriormente, fazemos alterações no arquivo \emph{map.xml} para
+alterar o comportamento da simulação e obter um cenário diferente, que
+comparamos com o cenário original. Detalhamos essas alterações na Seção
+\ref{sec:vis-eventos}.
 
 \subsection{Pré-processamento dos dados}
 
@@ -230,71 +233,65 @@ e espaciais dos dados em diferentes níveis de detalhes. Algumas técnicas se
 inspiram em soluções apresentadas em outros trabalhos relacionados e algumas
 outras surgiram a partir das necessidades desta pesquisa.
 
-\subsection{Propriedades Temporais}
-O tráfego é um ambiente altamente dinâmico que varia ao longo do
-dia, principalmente em horários de pico, tendo horários de máximo fluxo em
-períodos do começo da manhã e ao fim da tarde. A análise dos fluxos ao
-longo do tempo é importante para identificar mudanças e eventos que alteram o
-comportamento do trânsito durante um certo período. Neste sentido, permitimos
-controle da dimensão temporal através de dois parâmetros, $t_{atual}$ e
-$\Delta~t$, similar ao definido por \citet{Klein2013}. A combinação dos
-parâmetros definem um filtro que funciona como um referência para selecionar um
-conjunto de trajetórias  ${T}$ que contenham pontos dentro do intervalo
-$t_{atual} + \Delta~t$, determinando uma janela de tempo. Valores de $\Delta~t$
-pequenos ou nulos acabam por selecionar os pontos instantâneos das trajetórias
-no instante de tempo definido por $t_{atual}$, enquanto valores maiores trazem
-os demais pontos ao longo do tempo. Com isso conseguimos um alcance multi
-escala dentro da dimensão temporal, permitindo a seleção de momentos
-instantâneos e também de um conjunto de pontos ao longo de um grande intervalo.
+\subsection{Leiaute da Visualização}
+  
+  Utilizaremos em nossa proposta uma projeção das trajetórias em formato de
+linhas sobre um mapa.  Como apresentamos na Seção \ref{sec:prop-espaciais},
+esse tipo de leiaute espacial mostra de maneira mais intuitiva as relações de
+localidade dos dados. Por outro lado, as propriedades temporais são também de
+grande importância em nossa análise dos fluxos, sendo um aspecto que
+possibilita identificar mudanças e eventos que alteram o comportamento do
+trânsito durante um certo período.  Neste sentido, permitimos controle da
+dimensão temporal através de dois parâmetros, $t_{atual}$ e $\Delta~t$, similar
+ao definido por \citet{Klein2013}.  A combinação dos parâmetros definem um
+filtro que funciona como um referência para selecionar um conjunto de
+trajetórias  ${T}$ que contenham pontos dentro do intervalo $t_{atual} +
+\Delta~t$, determinando uma janela de tempo. Valores de $\Delta~t$ pequenos ou
+nulos acabam por selecionar os pontos instantâneos das trajetórias no instante
+de tempo definido por $t_{atual}$, enquanto valores maiores trazem os demais
+pontos ao longo do tempo. Com isso conseguimos um alcance multi escala dentro
+da dimensão temporal, permitindo a seleção de momentos instantâneos e também de
+um conjunto de pontos ao longo de um grande intervalo.
 
-\subsection{Propriedades Espaciais}
+\subsection{Agregação Espacial com \emph{Bundling}}
 
-\textbf{Visualização baseada em mapa:} a representação das trajetórias em um
-leiaute de linhas sobre um mapa mostra intuitivamente as relações de OD entre
-as regiões da cidade em um determinado instante de tempo. Com essa projeção, as
-informações espaciais são o destaque, já que ela mapeia diretamente a dimensão
-espacial. A Figura \ref{fig:simulated-traffic} mostra uma simples visualização das
-trajetórias do tráfego simulado com o InterSCSimulator. Utilizamos dados no
-intervalo de 1 hora do trânsito filtrando os dados cujos pontos estivessem
-entre os tempos $21600$ e $25200$, o que corresponde ao horário entre 6 e 7 da
-manhã. Note que há bastante oclusão, sendo também impossível distinguir
-quais origens vão para quais destinos ou a quantidade de veículos nas vias.
+Para os problemas de oclusão na visualização de uma grande quantidade de dados
+do tráfego criaremos uma abstração com o uso do \emph{bundling} para agregar
+trajetórias com origem-destino e direção similares. Com isso, destacamos a
+estrutura geral dos fluxos para que seja possível identificar os padrões e
+relações de movimentação presentes nos  dados. Essa abstração será implementada
+dentro do componente \emph{VisualizationLayers} na ferramenta InterSCityPlotter
+com o algoritmo \emph{Attribut-Driven Edge Bundling} (ADEB), apresentado na
+Seção \ref{sec:modelo-imagem}.
 
-\begin{figure}[!htb]
-  \centering
-  \includegraphics[width=1\textwidth]{../figuras/trafego-ocluso.png}
-  \caption{Simulação do tráfego entre 6 e 7 da manhã.}
-  \label{fig:simulated-traffic}
-\end{figure}
+ A visualização com \emph{bundling} acaba por aglomerar as trajetórias em áreas
+de maior densidade, o que nos dá perspectiva dos fluxos de veículos que saem e
+chegam de cada região da cidade, identificando também as áreas com uma
+quantidade maior de veículos em um dado instante. A combinação dessa técnica
+com o parâmetro temporal apresentado na seção anterior possibilita obter essa
+agregação com \emph{bundling} em diferentes períodos do dia, como em horários
+de pico, para que possamos investigar sua estrutura e seu comportamento ao
+longo do tempo. Na escala da cidade, as linhas dos \emph{bundles} podem
+demonstrar ainda viagens de longa distância ou desvios realizados por alguns
+veículos, sugerindo melhorias no projeto da rede rodoviária.
 
-\textbf{\emph{Bundling}:} para os problemas da visualização apresentados
-anteriormente criaremos uma abstração com o uso do \emph{bundling} para agregar
-trajetórias com origem-destino e direção similares. Essa abstração será
-implementada dentro do componente \emph{VisualizationLayers} na ferramenta
-InterSCityPlotter com o algoritmo ADEB, apresentado na Seção
-\ref{sec:modelo-imagem}. A visualização com \emph{bundling} acaba por aglomerar
-as trajetórias em áreas de maior densidade, o que nos dá perspectiva dos fluxos
-de veículos que saem e chegam de cada região da cidade, identificando também as
-áreas com uma quantidade maior de veículos em um dado instante. Na escala da
-cidade, as linhas dos \emph{bundles} podem demonstrar ainda viagens de longa
-distância ou desvios realizados por alguns veículos, sugerindo melhorias no
-projeto da rede rodoviária.
+\subsection{Agregação Espacial Multinível}
 
-\textbf{\emph{Bundling} Multinível:} a dimensão espacial dos dados é o nosso
-segundo parâmetro multi escala dentro da visualização. Para observar os padrões
-de OD em diferentes níveis de detalhe espaciais faremos agrupamentos baseados
-na escala da visualização, que está relacionada ao tamanho da área do mapa
-mostrada na imagem. Este mecanismo é comumente visto em visualizações
-interativas que permitem aos usuários mudar as configurações de zoom no mapa. A
-partir daí, propomos um conceito de sub-trajetória, que são as partes de uma
-trajetória dentro da sub área do mapa após um aumento do zoom.  Desta forma
-detectamos os pontos dentro do escopo da sub área do mapa e obtemos um
-subconjunto das trajetórias originais. Os atributos de direção, origens e
-destinos do subconjunto se tornam relativos em relação ao novo escopo. Em
-seguida reaplicamos o \emph{bundling} no subconjunto. Quanto menor a escala,
-mais detalhes sobre o fluxo do tráfego são obtidos, sendo possível observar bairros,
-quadras ou até mesmo ruas. A Figura \ref{fig:multi-scale} ilustra os diferentes
-níveis de detalhe atingidos em escalas diferentes na visualização de um mapa.
+  A dimensão espacial dos dados é o nosso segundo parâmetro multi escala dentro
+da visualização. Para observar os padrões de OD em diferentes níveis de detalhe
+espaciais faremos agrupamentos baseados na escala da visualização, que está
+relacionada ao tamanho da área do mapa mostrada na imagem. Este mecanismo é
+comumente visto em visualizações interativas que permitem aos usuários mudar as
+configurações de zoom no mapa. A partir daí, propomos o conceito de
+sub-trajetória, que são as partes de uma trajetória dentro da sub área do mapa
+após um aumento do zoom. Desta forma detectamos os pontos dentro do escopo da
+sub área do mapa e obtemos um subconjunto das trajetórias originais. Os
+atributos de direção, origens e destinos do subconjunto se tornam relativos em
+relação ao novo escopo. Em seguida é possível reaplicar o \emph{bundling} no
+subconjunto. Quanto menor a escala, mais detalhes sobre o fluxo do tráfego são
+obtidos, sendo possível observar bairros, quadras ou até mesmo ruas. A Figura
+\ref{fig:multi-scale} ilustra os diferentes níveis de detalhe atingidos em
+escalas diferentes na visualização de um mapa.
 
 \begin{figure}[!htb]
   \centering
@@ -303,7 +300,7 @@ níveis de detalhe atingidos em escalas diferentes na visualização de um mapa.
   \label{fig:multi-scale}
 \end{figure}
 
-\textbf{Parâmetros:} O algoritmo ADEB é possui alguns parâmetros que
+\textbf{Parâmetros:} o algoritmo ADEB possui alguns parâmetros que
 influenciam o resultado \emph{bundling}. Esses parâmetros são discutidos pelos
 autores do método, e valores padrão são indicados por eles. Seguiremos
 inicialmente os valores indicados, mas atentos a detalhes ou modificações que
@@ -394,6 +391,7 @@ imagem, disparada pela interação do usuário que poderá inspecionar um
 informações sobre as origens das trajetórias.
 
 \section{Visualização de Eventos Atípicos}
+\label{sec:vis-eventos}
 
   Outra importante tarefa na análise do trânsito é o estudo de como a
 ocorrência de eventos atípicos impactam no tráfego. Para essa tarefa, propomos
@@ -413,21 +411,6 @@ acidentes, alagamentos e mudanças na rede rodoviária da cidade.
 quantitativo. Do ponto de vista qualitativo apontaremos o que foi alcançado com
 a visualização em relação os objetivos da pesquisa de utilizar técnicas de \emph{bundling}
 para visualização dos fluxos de OD no tráfego. Avaliaremos então as seguintes questões:
-
-\begin{itemize}
-  \item \textbf{Q1:} Como o \emph{bundling}  ajuda a identificar os fluxos no trânsito
-que vão em diferentes direções?
-
-  \item \textbf{Q2:} Como o \emph{bundling}  ajuda a identificar áreas de fluxo
-denso no trânsito da cidade?
-
-  \item \textbf{Q3:} Como o \emph{bundling} ajuda na visualização dos fluxos no
-trânsito em níveis de detalhes das ruas da cidade?
-
-  \item \textbf{Q4:} Como o \emph{bundling} ajuda a identificar mudanças no
-tráfego em horários de pico e outros horários do dia, e também na ocorrência de
-eventos atípicos como fechamento de uma rua com grande fluxo?
-\end{itemize}
 
   Do ponto de vista quantitativo pretendemos avaliar o desempenho da solução
 dado o tempo de processamento para gerar a visualização. Para isso, iremos

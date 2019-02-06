@@ -83,6 +83,27 @@ impacto é a precisão das informações a qual depende de questões relacionada
 hardware utilizado na coleta. Muitas vezes é necessária uma etapa de
 pré-processamento para extrair dados inconsistentes da análise.
 
+\textbf{Propriedades Temporais}:
+\ref{sec:prop-espaciais}
+
+O tráfego é um ambiente altamente dinâmico que varia ao longo do dia,
+principalmente em horários de pico, tendo horários de máximo fluxo em períodos
+do começo da manhã e ao fim da tarde. A análise dos fluxos ao longo do tempo é
+importante para identificar mudanças e eventos que alteram o comportamento do
+trânsito durante um certo período. Neste sentido, permitimos controle da
+dimensão temporal através de dois parâmetros, $t_{atual}$ e $\Delta~t$, similar
+ao definido por \citet{Klein2013}. A combinação dos parâmetros definem um
+filtro que funciona como um referência para selecionar um conjunto de
+trajetórias  ${T}$ que contenham pontos dentro do intervalo $t_{atual} +
+\Delta~t$, determinando uma janela de tempo. Valores de $\Delta~t$ pequenos ou
+nulos acabam por selecionar os pontos instantâneos das trajetórias no instante
+de tempo definido por $t_{atual}$, enquanto valores maiores trazem os demais
+pontos ao longo do tempo. Com isso conseguimos um alcance multi escala dentro
+da dimensão temporal, permitindo a seleção de momentos instantâneos e também de
+um conjunto de pontos ao longo de um grande intervalo.
+
+% TODO 
+% FIXME
 \subsection{Visualização das propriedades espaciais}
 
   As propriedades espaciais de localização são o principal componente de dados
@@ -378,7 +399,7 @@ iterações.
 %das arestas que cruzam o obstáculo e faz com que as arestas sejam movidas
 %na direção pra fora de suas bordas.
 
-  {\emph{Attribute-Driven Edge Bundling} (ADEEB) é uma extensão do algoritmo
+  {\emph{Attribute-Driven Edge Bundling} (ADEB) é uma extensão do algoritmo
 KDEEB, proposta por \citet{ZegarraFlores2016}, e que permite a separação das
 arestas conforme sua direção. Essa informação é obtida percorrendo cada aresta
 a partir do ponto de origem até o destino e calculando para cada uma delas um
@@ -527,7 +548,7 @@ identificadores $2121$ e $2223$.  É importante notar também o atributo
 Esse atributo  é contabilizado em segundos. Na simulação de um dia do trânsito,
 por exemplo, temos então 86400 segundos, correspondentes às 24 horas do dia.
 
-\begin{lstlisting}[style=XML, caption={Exemplo de arquivo de saída events.xml com os eventos da simulação. Fonte: \citet{mabs2017}}, label=events.xml]
+\begin{lstlisting}[style=myxml, caption={Exemplo de arquivo de saída events.xml com os eventos da simulação. Fonte: \citet{mabs2017}}, label=events.xml]
 
 <events version="1.0">
   <event time="4" type="start_trip" vehicle="2121" link="5243" />
