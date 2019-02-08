@@ -60,9 +60,7 @@ destino inseridos pelo usuário e traça o percurso em um mapa. Sua visualizaç�
 destaca também as áreas com maior densidade de fluxo com diferentes cores,
 sendo laranja trechos com fluxo moderado e vermelho sendo trechos de maior
 fluxo, indicando que há um congestionamento. A Figura \ref{fig:gmaps} ilustra
-uma visualização de uma rota sugerida pelo Google Maps. Podemos imaginar como
-seria visualizar todas os trajetos pesquisados em um dia e que tipo de problema
-teríamos.
+uma visualização de uma rota sugerida pelo Google Maps.
 
 \begin{figure}[!htb]
   \centering
@@ -126,15 +124,33 @@ espaciais dos dados do tráfego, sendo a direção e a densidade os principais
 atributos que utilizaremos para responder às seguintes questões de pesquisa:
 
 \begin{itemize}
-  \item \textbf{Q1:} Como o \emph{bundling} pode ser usado para identificar os
-fluxos de origem e destino no trânsito em diferentes escalas?
+  \item[\textbf{Q1)}] \textbf{Como o \emph{bundling} pode ser usado para
+identificar os fluxos de origem e destino no trânsito em diferentes escalas?} -
+Queremos investigar o uso do \emph{bundling} para visualizar os fluxos no
+tráfego em várias escalas, até no nível das ruas. Com isso exploraremos
+a visualização das origens e destinos dos fluxos em uma via, para saber, por exemplo
+quais pontos de origem são maiores responsáveis por um congestionamento.
 
-  \item \textbf{Q2:} Como o \emph{bundling} pode ser usado para identificar
-mudanças no tráfego em horários de pico e outros horários do dia, e também na
-ocorrência de eventos atípicos como fechamento de uma rua com grande fluxo?
+  \item[\textbf{Q2)}] \textbf{Como o \emph{bundling} pode ser usado para
+identificar mudanças no tráfego em horários de pico e outros horários do dia, e
+também na ocorrência de eventos atípicos como fechamento de uma rua com grande
+fluxo?} - O \emph{bundling} acaba por dar uma visualização da estrutura geral
+do tráfego, que por sua vez, não é a mesma ao longo de todo o dia. Mais
+veículos trafegam nas ruas em horários de pico, os itinerários do transporte
+público mudam, acidentes fecham ruas, e vários outros fatores afetam a dinâmica
+do trânsito. Queremos testar essa estrutura geral em diferentes momentos do dia
+para saber como o \emph{bundling} destaca essas mudanças na visualização do
+tráfego.
 
-  \item \textbf{Q3:} Como é o desempenho computacional do \emph{bundling} na
-visualização de uma grande quantidade de dados do trânsito?
+  \item[\textbf{Q3)}] \textbf{Como é o desempenho computacional do
+\emph{bundling} na visualização de uma grande quantidade de dados do trânsito?}
+- O número de veículos circulando nas ruas de uma grande cidade é variavelmente
+superior a outros contextos, como o tráfego aéreo. São Paulo, por exemplo,
+possui mais de 8 milhões de veículos, segundo o Departamento Estadual do
+Trânsito\footnote{\rurl{www.detran.sp.gov.br}} (Detran). Queremos entender os
+desafios de escalabilidade computacional do \emph{bundling} na visualização de
+uma grande quantidade de dados do trânsito medindo seu desempenho na criação da
+visualização.
 \end{itemize}
 
  Para isso, apresentamos o InterSCityPlotter, uma ferramenta livre e de código
@@ -150,9 +166,9 @@ de direção e densidade dos dados dentro de uma visualização sobre um mapa.
 
   Avaliaremos os resultados da visualização de maneira qualitativa e
 quantitativa. Do ponto de vista qualitativo avaliaremos o que foi alcançado com
-a visualização em relação às questões \textbf{Q1}, \textbf{Q2}, \textbf{Q3} e
-\textbf{Q4} levantadas, fazendo considerações sobre suas vantagens e
-desvantagens. Além disso, compararemos nossa proposta em relação a outros
+a visualização em relação às questões \textbf{Q1}, \textbf{Q2} e \textbf{Q3}
+levantadas, fazendo considerações sobre os resultados obtidos e suas
+limitações. Além disso, compararemos nossa proposta em relação a outros
 trabalhos sobre visualização de dados de movimentação que utilizam
 \emph{bundling}. Do ponto de vista quantitativo será avaliado o desempenho da
 solução dado o tempo de processamento para gerar a visualização dos conjuntos
