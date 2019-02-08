@@ -83,12 +83,12 @@ impacto é a precisão das informações a qual depende de questões relacionada
 hardware utilizado na coleta. Muitas vezes é necessária uma etapa de
 pré-processamento para extrair dados inconsistentes da análise.
 
-\subsection {Visualização das Propriedades Temporais}:
+\subsection {Visualização das Propriedades Temporais}
 \label{sec:prop-espaciais}
 
   Dados do tráfego podem conter uma série de variáveis, das quais as mais
 importantes são o tempo e espaço. Visualizações orientadas ao tempo enfatizam
-tendências, periodicidades e anomalias nos dados ao longo de um eixo temporal \citep{70}.
+tendências, periodicidades e anomalias nos dados ao longo de um eixo temporal \citep{Aigner2008}.
 
   Expressar a variação do tráfego ao longo do tempo e sua evolução é um típico
 processo de análise linear do tempo, que é considerado a partir de um ponto de
@@ -105,15 +105,15 @@ que podem ser visualizadas.
   \label{fig:linear-time}}
 \end{figure}
 
-  Por outro lado, temos também alguns processos recorrentes que ocorrem
-naturalmente em nosso mundo, que seguem estações, ou mesmo ciclos semanais ou
-diários. Uma maneira comum de se visualizar essa periodicidade é através de um
-leiaute radial, como ilustrado na Figura \ref{fig:periodic-time}. Na imagem, o
-tempo é mostrado no eixo circular e cada anel do círculo representa um dia da
-semana.  Os setores representam uma hora, com 24 setores no total que mostram a
-quantidade de tráfego em um determinado ponto da cidade, mapeada em cores. A
-vantagem de um leiaute radial é que ele evidencia padrões periódicos e a
-desvantagem é que ele possui pouca eficiência espacial \citep{Chen2015}.
+  Por outro lado, temos também alguns processos recorrentes que são naturais em
+nosso mundo, os quais seguem ciclos de estações, ou mesmo ciclos semanais e
+diários. Um leiaute radial visto na Figura \ref{fig:periodic-time} é uma opção
+para se visualizar essa periodicidade. O tempo é mostrado no eixo circular e
+cada anel do círculo representa um dia da semana.  Os setores representam uma
+hora, com 24 setores no total que mostram a quantidade de tráfego em um
+determinado ponto da cidade, mapeada em cores. A vantagem de um leiaute radial
+é que ele evidencia esses padrões recorrentes e a desvantagem é que ele possui
+pouca eficiência espacial \citep{Chen2015}.
 
 \begin{figure}[!htb]
   \centering
@@ -125,6 +125,12 @@ do círculo representa um dia da semana, divididos em 24 setores que indicam as
 direita, onde vermelho maior é o tráfego. Fonte:
 \citet{Pu2013} \label{fig:periodic-time}}
 \end{figure}
+
+  Os aspectos temporais dos dados não se limitam a apenas essas visualizações,
+existe um grande arcabouço de projeções que se desenvolveram no campo da
+visualização da informação onde o tempo é uma variável de destaque. Uma análise
+linear ou periódica são dois paradigmas que levam a decisões diferentes durante
+o processo de criação da visualização.
 
 \subsection{Visualização das propriedades espaciais}
 
@@ -213,9 +219,9 @@ Visualização abstrata, baseada na proximidade.  Fonte: \citet{Tarik2009}.
 \label{fig:tarik}}
 \end{figure}
 
-  Algumas ideias buscam ainda sintetizar as informações espaciais e temporais
-em um cubo espaço-temporal, que utiliza o eixo Z para mostrar o tempo e os
-eixos X e Y para representar o espaço. 
+%  Algumas ideias buscam ainda sintetizar as informações espaciais e temporais
+%em um cubo espaço-temporal, que utiliza o eixo Z para mostrar o tempo e os
+%eixos X e Y para representar o espaço. 
 
   No entanto, a medida que o número de objetos cresce, aumenta também os
 problemas de oclusão, o que acaba afetando a estética da visualização e a
