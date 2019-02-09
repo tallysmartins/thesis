@@ -167,10 +167,11 @@ obtermos cenários diferentes do trânsito com alterações na simulação, já 
 segundo aspecto é capacidade de obtermos uma grande quantidade de dados do
 tráfego de veículos no trânsito.
 
-  Utilizaremos um cenário de simulação do tráfego de carros e ônibus na cidade
-de São Paulo criado e disponibilizado por \citet{santana2018courb}, com cerca
-de 585 mil veículos e mais de 31 milhões de pontos. Para construir o arquivo
-\emph{trips.xml} com a lista de viagens, eles utilizaram uma matriz de
+  Utilizaremos uma simulação do tráfego de carros e ônibus na cidade de São
+Paulo com cerca de 585 mil veículos. O cenário foi criado e disponibilizado por
+\citet{santana2018courb} e gerou um arquivo de saída com mais de 31 milhões de
+eventos de movimentação dos veículos. Para construir o arquivo de entrada
+\emph{trips.xml} com as mais de 585 mil viagens, eles utilizaram uma matriz de
 Origem-Destino (OD) feita pela Companhia do Metropolitano de São Paulo
 (Metrô)\footnote{Pesquisa Origem-Destino - \rurl{goo.gl/DNM8in}} que pesquisou
 como os cidadãos se locomovem pela cidade e usaram isso para determinar a
@@ -186,7 +187,7 @@ Destas viagens, cerca de 26 mil são feitas de carro, como mostram
 \citet{santana2018courb}. Utilizando o fator máximo de extrapolação da pesquisa
 é possível chegar a uma quantia de mais de 4 milhões de viagens de carro e
 ônibus em um dia, mas é possível realizar simulações menores reduzindo esse
-fator.  Posteriormente, fazemos alterações no arquivo \emph{map.xml} para
+fator. Posteriormente, fazemos alterações no arquivo \emph{map.xml} para
 alterar o comportamento da simulação e obter um cenário diferente, que
 comparamos com o cenário original. Detalhamos essas alterações na Seção
 \ref{sec:vis-eventos}.
@@ -197,8 +198,7 @@ comparamos com o cenário original. Detalhamos essas alterações na Seção
 pré-processamento são necessárias. O módulo de \emph{Pipelines} da ferramenta
 InterSCityPlotter é o local destinado a armazenar as rotinas que fazem essas
 manipulações dos dados, tanto de limpeza quanto de derivação de novos
-atributos. Por hora algumas dessas rotinas já estão mapeadas para que seja
-possível prosseguir com o projeto da visualização, como apresentamos a seguir:
+atributos. Mapeamos as seguintes rotinas para tratamento dos dados:
 
 \begin{description}
   \item[Viagens da simulação não finalizadas:] isso pode ocorrer
@@ -279,19 +279,19 @@ veículos, sugerindo melhorias no projeto da rede rodoviária.
 
   A dimensão espacial dos dados é o nosso segundo parâmetro multi escala dentro
 da visualização. Para observar os padrões de OD em diferentes níveis de detalhe
-espaciais faremos agrupamentos baseados na escala da visualização, que está
-relacionada ao tamanho da área do mapa mostrada na imagem. Este mecanismo é
-comumente visto em visualizações interativas que permitem aos usuários mudar as
-configurações de zoom no mapa. A partir daí, propomos o conceito de
+espaciais propomos fazer agrupamentos baseados na escala da visualização, que
+está relacionada ao tamanho da área do mapa mostrada na imagem. Este mecanismo
+é comumente visto em visualizações interativas que permitem aos usuários mudar
+as configurações de zoom no mapa. A partir daí, propomos o conceito de
 sub-trajetória, que são as partes de uma trajetória dentro da sub área do mapa
-após um aumento do zoom. Desta forma detectamos os pontos dentro do escopo da
-sub área do mapa e obtemos um subconjunto das trajetórias originais. Os
-atributos de direção, origens e destinos do subconjunto se tornam relativos em
-relação ao novo escopo. Em seguida é possível reaplicar o \emph{bundling} no
-subconjunto. Quanto menor a escala, mais detalhes sobre o fluxo do tráfego são
-obtidos, sendo possível observar bairros, quadras ou até mesmo ruas. A Figura
-\ref{fig:multi-scale} ilustra os diferentes níveis de detalhe atingidos em
-escalas diferentes na visualização de um mapa.
+após um aumento do zoom. Os pontos dentro do escopo da sub área do mapa formam
+um subconjunto das trajetórias originais. Os atributos de direção, origens e
+destinos do subconjunto se tornam relativos em relação ao novo escopo. Em
+seguida é possível reaplicar o \emph{bundling} no subconjunto. Quanto menor a
+escala, mais detalhes sobre o fluxo do tráfego são obtidos, sendo possível
+observar bairros, quadras ou até mesmo ruas. A Figura \ref{fig:multi-scale}
+ilustra os diferentes níveis de detalhe atingidos em escalas diferentes na
+visualização de um mapa.
 
 \begin{figure}[!htb]
   \centering
@@ -308,13 +308,13 @@ se mostrarem necessárias. Outro parâmetro importante em nossa visualização �
 escala espacial para variação do nível de detalhes do \emph{bundling}. Esse
 parâmetro age como um filtro para selecionarmos um subconjunto das trajetórias
 dentro de uma sub área visualizada. Exploraremos esses parâmetros apresentando
-discussões sobre seus efeitos nos resultados da visualização
+discussões sobre seus efeitos nos resultados da visualização.
 
 \subsection{Visualização dos Atributos}
 Depois de calcular o \emph{bundling} das trajetórias, é necessário projetar uma
 maneira de mostrar a estrutura dos elementos e seus atributos. Em nosso estudo
-dos fluxos de OD consideramos dois atributos chave, densidade e fluxo, os quais
-destacamos diretamente na visualização.
+dos fluxos de OD consideramos dois atributos chave, densidade e direção dos
+fluxos, os quais destacamos diretamente na visualização.
 
 \textbf{Densidade}: a densidade é uma informação importante na análise do
 fluxo. Essa informação nos ajuda a responder ``Qual a quantidade de veículos se
@@ -355,8 +355,7 @@ legenda indica o mapa de cores. Trajetórias saindo de leste para oeste estão e
 azul, norte para sul são representadas em verde, e assim por diante. No caso de
 atributos numéricos, como os ângulos da direção, os valores que se sobrepõe
 podem ser somados para dar um resultado final, ou simplesmente sobrescritos
-pela trajetória desenhada na camada mais superior, como pode ser visto  na Figura
-\ref{fig:direction}.
+pela trajetória desenhada na camada mais superior.
 
 \begin{figure}[ht!]
   \centering
@@ -395,16 +394,27 @@ informações sobre as origens das trajetórias.
 
   Outra importante tarefa na análise do trânsito é o estudo de como a
 ocorrência de eventos atípicos impactam no tráfego. Para essa tarefa, propomos
-a utilização de dados que representem diferentes cenários do trânsito para
-explorar como a visualização proposta ajuda na identificação desses eventos
-atípicos no trânsito e como eles afetam o tráfego. Para isso, faremos uma
-simulação com o InterSCSimulator e bloquearemos vias importantes da cidade por
-onde passam uma grande quantidade de veículos de diversas regiões, como por
-exemplo a Avenida Paulista. Esperamos que o \emph{bundling} revele as alterações nos
-padrões de deslocamento dos veículos e que esses sejam visualmente
-perceptíveis. Avaliar esse tipo de cenário é importante para demonstrar como a
-técnica pode ajudar em questões do dia a dia no trânsito, como a ocorrência de
-acidentes, alagamentos e mudanças na rede rodoviária da cidade.
+a alteração na simulação do tráfego para obter um novo cenário do trânsito com
+eventos controlados, e com isso observaremos como a visualização com \emph{bundling}
+é impactada por esses eventos e como ela pode ajudar a identificá-los.
+
+ Usaremos como base a simulação disponibilizada  por \citet{mabs2017}. A partir
+dela, iremos alterar o arquivo \emph{maps.xml} que descreve a estrutura da
+cidade para excluir algumas importantes vias do tráfego, simulando um bloqueio,
+e executaremos uma nova simulação desse novo cenário. Nesse cenário, as
+definições dos veículos definidas no arquivo \emph{trips.xml} ainda serão as
+mesmas. Com a alteração do mapa, forçamos os veículos a tomarem rotas
+alternativas para chegarem a seus destinos. Utilizamos um critério simples para
+selecionar quais ruas serão excluídas, iremos apenas contabilizar o número de
+veículos que passam por cada rua e excluiremos as 5 ruas com maior quantidade
+de tráfego.  Partimos do pressuposto de que essas mudanças irão causar um
+grande efeito na simulação, pelo que conhecemos do seu funcionamento.
+
+ Esperamos que o \emph{bundling} revele as alterações nos padrões de deslocamento dos veículos e
+que esses sejam visualmente perceptíveis. Avaliar esse tipo de cenário é
+importante para demonstrar como a técnica pode ajudar em questões do dia a dia
+no trânsito, como a ocorrência de acidentes, alagamentos e mudanças na rede
+rodoviária da cidade.
 
 \section{Avaliação da Visualização}
   Nós avaliaremos a visualização de dois pontos de vista, um qualitativo e um
