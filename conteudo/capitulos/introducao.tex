@@ -52,15 +52,14 @@ Waze\footnote{\rurl{www.waze.com/pt-BR}}, que sugerem para motoristas qual
 caminho tomar até um determinado destino, e
 OlhoVivo\footnote{\rurl{olhovivo.sptrans.com.br}}, que  mostra as rotas feitas
 por ônibus na cidade de São Paulo e suas posições instantâneas, se empenham em
-mostrar informações pontuais do tráfego e não na sua estrutura geral. Para essa
-tarefa, precisariam ainda buscar soluções para contornar os problemas de
-oclusão decorrentes da visualização de uma grande quantidade de dados. O Google
-Maps, por exemplo, sugere um trajeto entre uma origem e um destino inseridos
-pelo usuário e traça o percurso em um mapa. Sua visualização destaca também as
-áreas com maior densidade de fluxo com diferentes cores, sendo laranja trechos
-com fluxo moderado e vermelho sendo trechos de maior fluxo, indicando que há um
-congestionamento. A Figura \ref{fig:gmaps} ilustra uma visualização de uma rota
-sugerida pelo Google Maps.
+mostrar informações pontuais do tráfego e não na sua estrutura geral. Não é
+possível, por exemplo, saber de onde vem os veículos que formam o fluxo em uma
+determinada via ou região. O Google Maps, por exemplo, sugere um trajeto entre
+uma origem e um destino inseridos pelo usuário e traça o percurso em um mapa.
+Sua visualização destaca também as áreas com maior densidade de fluxo com
+diferentes cores, sendo laranja trechos com fluxo moderado e vermelho sendo
+trechos de maior fluxo, indicando que há um congestionamento. A Figura
+\ref{fig:gmaps} ilustra uma visualização de uma rota sugerida pelo Google Maps.
 
 \begin{figure}[!htb]
   \centering
@@ -129,28 +128,26 @@ identificar os fluxos de origem e destino no trânsito em diferentes escalas?} -
 Queremos investigar o uso do \emph{bundling} para visualizar os fluxos no
 tráfego em várias escalas, até no nível das ruas. Com isso exploraremos
 a visualização das origens e destinos dos fluxos em uma via, para saber, por exemplo
-quais pontos de origem são maiores responsáveis por um congestionamento.
+quais pontos de origem e destino são maiores responsáveis por um congestionamento.
 
-  \item[\textbf{Q2)}] \textbf{Como o \emph{bundling} pode ser usado para
-identificar mudanças no tráfego em horários de pico e outros horários do dia, e
-também na ocorrência de eventos atípicos como fechamento de uma rua com grande
-fluxo?} - O \emph{bundling} acaba por dar uma visualização da estrutura geral
-do tráfego, que por sua vez, não é a mesma ao longo de todo o dia. Mais
-veículos trafegam nas ruas em horários de pico, os itinerários do transporte
-público mudam, acidentes fecham ruas, e vários outros fatores afetam a dinâmica
-do trânsito. Queremos testar essa estrutura geral em diferentes momentos do dia
-para saber como o \emph{bundling} destaca essas mudanças na visualização do
+  \item[\textbf{Q2)}] \textbf{É possível utilizar o \emph{bundling}  para
+identificar padrões de fluxos de origem e destino no trânsito?} - O
+\emph{bundling} acaba por dar uma visualização da estrutura geral do tráfego,
+que por sua vez, não é a mesma ao longo de todo o dia. Mais veículos trafegam
+nas ruas em horários de pico, os itinerários do transporte público mudam,
+acidentes fecham ruas, e vários outros fatores afetam a dinâmica do trânsito.
+Queremos testar essa estrutura geral em diferentes momentos do dia para saber
+como o \emph{bundling} destaca essas mudanças ou padrões na visualização do
 tráfego.
 
-  \item[\textbf{Q3)}] \textbf{Como é o desempenho computacional do
-\emph{bundling} na visualização de uma grande quantidade de dados do trânsito?}
-- O número de veículos circulando nas ruas de uma grande cidade é variavelmente
-superior a outros contextos, como o tráfego aéreo. São Paulo, por exemplo,
-possui mais de 8 milhões de veículos, segundo o Departamento Estadual do
+  \item[\textbf{Q3)}] \textbf{O \emph{bundling} é eficiente para gerar uma
+visualização de uma grande quantidade de dados do trânsito?} - O número de
+veículos circulando nas ruas de uma grande cidade é variavelmente superior a
+outros contextos, como o tráfego aéreo. São Paulo, por exemplo, possui mais de
+8 milhões de veículos, segundo o Departamento Estadual do
 Trânsito\footnote{\rurl{www.detran.sp.gov.br}} (Detran). Queremos entender os
-desafios de escalabilidade computacional do \emph{bundling} na visualização de
-uma grande quantidade de dados do trânsito medindo seu desempenho na criação da
-visualização.
+desafios de escalabilidade computacional do \emph{bundling} na visualização de uma
+grande quantidade de dados do trânsito medindo o tempo gasto para se gerar a visualização.
 \end{itemize}
 
  Para isso, apresentamos o InterSCityPlotter, uma ferramenta livre e de código
@@ -166,15 +163,15 @@ de direção e densidade dos dados dentro de uma visualização sobre um mapa.
 
   Avaliaremos os resultados da visualização de maneira qualitativa e
 quantitativa. Do ponto de vista qualitativo avaliaremos o que foi alcançado com
-a visualização em relação às questões \textbf{Q1}, \textbf{Q2} e \textbf{Q3}
+a visualização em relação às questões \textbf{Q1} e \textbf{Q2}
 levantadas, fazendo considerações sobre os resultados obtidos e suas
 limitações. Além disso, compararemos nossa proposta em relação a outros
 trabalhos sobre visualização de dados de movimentação que utilizam
 \emph{bundling}. Do ponto de vista quantitativo será avaliado o desempenho da
 solução dado o tempo de processamento para gerar a visualização dos conjuntos
-de dados utilizados.
+de dados utilizados, relacionado à questão \textbf{Q3}.
 
-  Esperamos que a visualização a ser criada ajude na identificação das relações
+  Esperamos que a solução a ser criada ajude na identificação das relações
 entre as regiões da cidade que recebem maior fluxo, como esse fluxo se
 distribui ao longo do tempo e como ele impacta em vias com grandes
 congestionamentos. Desta forma, esta pesquisa potencialmente oferece as

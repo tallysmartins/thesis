@@ -23,11 +23,10 @@ de uma visualização para responder às nossas questões:
   \item \textbf{Q1:} Como o \emph{bundling} pode ser usado para identificar os
 fluxos de origem e destino no trânsito em diferentes escalas?
 
-  \item \textbf{Q2:} Como o \emph{bundling} pode ser usado para identificar
-mudanças no tráfego em horários de pico e outros horários do dia, e também na
-ocorrência de eventos atípicos como fechamento de uma rua com grande fluxo?
+  \item \textbf{Q2:} É possível utilizar o \emph{bundling}  para
+identificar padrões de fluxos de origem e destino no trânsito?
 
-  \item \textbf{Q3:} Como é o desempenho computacional do \emph{bundling} na
+  \item \textbf{Q3:} O \emph{bundling} é eficiente para gerar uma
 visualização de uma grande quantidade de dados do trânsito?
 \end{itemize}
 
@@ -444,12 +443,14 @@ características, origens e destinos dos fluxos para responder a perguntas como:
 responsável pelo fluxo em uma determinada via?''
 
   Já a questão \textbf{Q2} busca responder como a técnica de \emph{bundling}
-ajuda na identificação de mudanças e eventos atípicos no trânsito ou como os
-fluxos de origem e destino são afetados por esses eventos. Nossa abordagem para
-responder a essas perguntas baseia-se nos parâmetros de controle do tempo e
-também no experimento apresentado na seção anterior, onde propomos o bloqueio
-de vias de forma controlada dentro da simulação do tráfego para observarmos,
-também de forma qualitativa, como esse evento afeta a visualização.
+ajuda na identificação de padrões ou mudanças no trânsito. Nossa abordagem para
+responder a essa pergunta baseia-se nos parâmetros de controle do tempo e
+também no experimento apresentado na seção anterior. O parâmetro temporal irá
+permitir que vejamos o trânsito em diferentes momentos do dia de forma a
+observar como muda seu comportamento, por exemplo, em horários de pico. Já no
+experimento citado, propomos o bloqueio controlado de vias dentro da simulação
+para observarmos, também de forma qualitativa, como esse evento afeta a
+movimentação no trânsito sobre a ótica da nossa visualização.
 
   Para completar a avaliação da nossa proposta iremos medir quantitativamente o
 desempenho da nossa solução dado o tempo de processamento para gerar a
