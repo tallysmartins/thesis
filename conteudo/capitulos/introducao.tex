@@ -52,15 +52,15 @@ Waze\footnote{\rurl{www.waze.com/pt-BR}}, que sugerem para motoristas qual
 caminho tomar até um determinado destino, e
 OlhoVivo\footnote{\rurl{olhovivo.sptrans.com.br}}, que  mostra as rotas feitas
 por ônibus na cidade de São Paulo e suas posições instantâneas, se empenham em
-mostrar informações pontuais do tráfego e não na sua estrutura geral como um
-todo. Para essa tarefa, precisariam ainda buscar soluções para contornar os
-problemas de oclusão decorrentes da visualização de uma grande quantidade de
-dados. O Google Maps, por exemplo, sugere um trajeto entre uma origem e um
-destino inseridos pelo usuário e traça o percurso em um mapa. Sua visualização
-destaca também as áreas com maior densidade de fluxo com diferentes cores,
-sendo laranja trechos com fluxo moderado e vermelho sendo trechos de maior
-fluxo, indicando que há um congestionamento. A Figura \ref{fig:gmaps} ilustra
-uma visualização de uma rota sugerida pelo Google Maps.
+mostrar informações pontuais do tráfego e não na sua estrutura geral. Para essa
+tarefa, precisariam ainda buscar soluções para contornar os problemas de
+oclusão decorrentes da visualização de uma grande quantidade de dados. O Google
+Maps, por exemplo, sugere um trajeto entre uma origem e um destino inseridos
+pelo usuário e traça o percurso em um mapa. Sua visualização destaca também as
+áreas com maior densidade de fluxo com diferentes cores, sendo laranja trechos
+com fluxo moderado e vermelho sendo trechos de maior fluxo, indicando que há um
+congestionamento. A Figura \ref{fig:gmaps} ilustra uma visualização de uma rota
+sugerida pelo Google Maps.
 
 \begin{figure}[!htb]
   \centering
@@ -71,7 +71,7 @@ uma visualização de uma rota sugerida pelo Google Maps.
   Para lidar com os problemas da oclusão, algumas técnicas têm sido
 desenvolvidas por comunidades de visualização e da cartografia para a o estudo
 de grandes conjuntos de dados de tráfego, como por exemplo, clusterização de
-vértices \citep{Schaeffer2007,Andrienko2011}, matrizes \citep{Elmqvist2008}
+vértices \citep{Schaeffer2007, Andrienko2011}, matrizes \citep{Elmqvist2008}
 e grides \citep{JoWood2010}. Essas técnicas, no entanto, acabam usando
 abstrações diferentes da representação baseada em linhas. Um outro tipo de
 abstração pode ser obtido com uma técnica chamada \emph{bundling}, que tem sido

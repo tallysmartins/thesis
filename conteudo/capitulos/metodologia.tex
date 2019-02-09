@@ -419,43 +419,44 @@ esse tipo de cenário é importante para demonstrar como a técnica pode ajudar 
 questões do dia a dia no trânsito, como a ocorrência de acidentes, alagamentos
 e mudanças na rede rodoviária da cidade.
 
-\section{Avaliação da Visualização}
-  A avaliação do \emph{bundling} ainda é um desafio. Ainda não se tem métodos
-objetivos para avaliar a qualidade de um \emph{bundling} como ocorre com
-algoritmos de aprendizado de máquina, onde é possível calcular a acurácia do
-algoritmo. Além disso, poucos estudos na área apontam análises com usuários
-reais de soluções com esse tipo de visualização para provar seus ganhos na
-realização de tarefas. Nesse sentido, nós avaliaremos a visualização de dois
-pontos de vista, um qualitativo e um quantitativo. Do ponto de vista
-qualitativo apontaremos o que foi alcançado com a visualização. Do ponto de
-vista quantitativo está ligado ao desempenho computacional da nossa solução.
+\section{Avaliação da Visualização} 
+  A avaliação do \emph{bundling} ainda é um desafio em aberto
+\citep{Telea2018}.  Ainda não se tem um consenso sobre métodos para avaliar a
+qualidade de um \emph{bundling}, ou mesmo critérios objetivos para definir o
+que é um ``bom'' \emph{bundling} \citep{Lhuillier2017}.  A maioria dos
+trabalhos que identificamos fazem apenas uma comparação visual com outros
+trabalhos. Nesse sentido, nós avaliaremos a visualização de dois pontos de
+vista, um qualitativo, onde avaliaremos os resultados da nossa visualização
+na tarefa de identificação dos fluxos de origem e destino na cidade e seus atributos
+de direção e densidade, e um quantitativo, medindo o desempenho computacional
+da nossa solução.
 
-  As questão de pesquisa \textbf{Q1}, relacionada ao uso do \emph{bundling} para a
-análise multi escala, é nosso primeiro objeto de avaliação qualitativa. Para
-trazer artefatos que nos ajudem a responder essa pergunta iremos trabalhar
-diretamente com a variação dos parâmetros da nossa visualização, tanto em
-aspectos da própria escala, quanto os parâmetros temporais e também a forma
-como apresentamos os atributos de densidade e direção dos fluxos. Faremos então
-uma observação objetiva sobre os diferentes resultados gerados, suas qualidades
-e limitações, para por exemplo, distinguir as origens e destinos dos fluxos e
-responder a perguntas como: ``Quais regiões recebem maior quantidade de
-fluxo?''
+  As questão de pesquisa \textbf{Q1}, relacionada ao uso do \emph{bundling}
+para a análise multi escala, é nosso primeiro objeto de avaliação qualitativa.
+Para trazer artefatos que nos ajudem a responder essa pergunta iremos trabalhar
+diretamente com a variação dos parâmetros da nossa visualização, tais quais a
+escala, os parâmetros temporais e também a forma como apresentamos os atributos
+de densidade e direção dos fluxos. Faremos então uma observação objetiva sobre
+os diferentes resultados gerados com a variação dos parâmetros, suas qualidades
+e limitações, para por exemplo, avaliar se conseguimos identificar
+características, origens e destinos dos fluxos para responder a perguntas como:
+``Quais regiões recebem maior quantidade de fluxo?'' ou ``Qual região é maior
+responsável pelo fluxo em uma determinada via?''
 
   Já a questão \textbf{Q2} busca responder como a técnica de \emph{bundling}
 ajuda na identificação de mudanças e eventos atípicos no trânsito ou como os
 fluxos de origem e destino são afetados por esses eventos. Nossa abordagem para
-responder a essas perguntas, que estão intimamente relacionadas, baseia-se nos
-parâmetros de controle do tempo e também no experimento apresentado na seção
-anterior, onde propomos o bloqueio de vias de forma controlada dentro da
-simulação do tráfego para observarmos, também de forma qualitativa, como esses
-eventos afetam a visualização.
+responder a essas perguntas baseia-se nos parâmetros de controle do tempo e
+também no experimento apresentado na seção anterior, onde propomos o bloqueio
+de vias de forma controlada dentro da simulação do tráfego para observarmos,
+também de forma qualitativa, como esse evento afeta a visualização.
 
   Para completar a avaliação da nossa proposta iremos medir quantitativamente o
 desempenho da nossa solução dado o tempo de processamento para gerar a
-visualização, o que está relacionado à questão \textbf{Q3}. As medições serão feitas
-desprezando as etapas de pré-processamento e carregamento dos dados. Essa
-análise é considerada relevante, pois contamos com uma grande quantidade de
-dados obtidos com o InterSCSimulator. Os dados possuem de 31 milhões de pontos
-distribuídas em $585.374$ viagens feitas por veículos no trânsito, o que é mais de
-duas vezes o número de pontos nos dados de um mês do tráfego aéreo utilizados
-na análise de \citet{Klein2013}.
+visualização, o que está relacionado à questão \textbf{Q3}. As medições serão
+feitas desprezando as etapas de pré-processamento e carregamento dos dados.
+Essa análise é considerada relevante, pois contamos com uma grande quantidade
+de dados obtidos com o InterSCSimulator. Os dados possuem de 31 milhões de
+pontos distribuídas em $585.374$ viagens feitas por veículos no trânsito, o que
+é mais de duas vezes o número de pontos nos dados de um mês do tráfego aéreo
+utilizados na análise de \citet{Klein2013}.
