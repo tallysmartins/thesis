@@ -398,39 +398,64 @@ a alteração na simulação do tráfego para obter um novo cenário do trânsit
 eventos controlados, e com isso observaremos como a visualização com \emph{bundling}
 é impactada por esses eventos e como ela pode ajudar a identificá-los.
 
- Usaremos como base a simulação disponibilizada  por \citet{mabs2017}. A partir
-dela, iremos alterar o arquivo \emph{maps.xml} que descreve a estrutura da
-cidade para excluir algumas importantes vias do tráfego, simulando um bloqueio,
-e executaremos uma nova simulação desse novo cenário. Nesse cenário, as
+  Usaremos como base a simulação disponibilizada  por \citet{mabs2017} para
+simular o bloqueio de vias importantes do tráfego. Para isso, iremos alterar o
+arquivo \emph{maps.xml}, que descreve a estrutura da cidade, e excluiremos as
+entradas de algumas vias que possuem maior quantidade de fluxos, e então
+executaremos uma nova simulação com esse novo cenário. Nesse caso, as
 definições dos veículos definidas no arquivo \emph{trips.xml} ainda serão as
-mesmas. Com a alteração do mapa, forçamos os veículos a tomarem rotas
-alternativas para chegarem a seus destinos. Utilizamos um critério simples para
-selecionar quais ruas serão excluídas, iremos apenas contabilizar o número de
-veículos que passam por cada rua e excluiremos as 5 ruas com maior quantidade
-de tráfego.  Partimos do pressuposto de que essas mudanças irão causar um
-grande efeito na simulação, pelo que conhecemos do seu funcionamento.
+mesmas, e esta é uma forma de forçamos os veículos a tomarem rotas alternativas
+para chegarem a seus destinos.
 
- Esperamos que o \emph{bundling} revele as alterações nos padrões de deslocamento dos veículos e
-que esses sejam visualmente perceptíveis. Avaliar esse tipo de cenário é
-importante para demonstrar como a técnica pode ajudar em questões do dia a dia
-no trânsito, como a ocorrência de acidentes, alagamentos e mudanças na rede
-rodoviária da cidade.
+ Para selecionar quais ruas serão excluídas, iremos contabilizar o
+número de veículos que passam por cada rua e excluiremos as 5 ruas com maior
+quantidade de tráfego. Partimos do pressuposto de que essas mudanças irão
+causar algum efeito na simulação, pois estamos retirando totalmente 5
+importantes arestas do grafo da cidade.
+
+  Esperamos que o \emph{bundling} revele as alterações nos padrões de
+deslocamento dos veículos e que esses sejam visualmente perceptíveis. Avaliar
+esse tipo de cenário é importante para demonstrar como a técnica pode ajudar em
+questões do dia a dia no trânsito, como a ocorrência de acidentes, alagamentos
+e mudanças na rede rodoviária da cidade.
 
 \section{Avaliação da Visualização}
-  Nós avaliaremos a visualização de dois pontos de vista, um qualitativo e um
-quantitativo. Do ponto de vista qualitativo apontaremos o que foi alcançado com
-a visualização em relação os objetivos da pesquisa de utilizar técnicas de \emph{bundling}
-para visualização dos fluxos de OD no tráfego. Avaliaremos então as seguintes questões:
+  A avaliação do \emph{bundling} ainda é um desafio. Ainda não se tem métodos
+objetivos para avaliar a qualidade de um \emph{bundling} como ocorre com
+algoritmos de aprendizado de máquina, onde é possível calcular a acurácia do
+algoritmo. Além disso, poucos estudos na área apontam análises com usuários
+reais de soluções com esse tipo de visualização para provar seus ganhos na
+realização de tarefas. Nesse sentido, nós avaliaremos a visualização de dois
+pontos de vista, um qualitativo e um quantitativo. Do ponto de vista
+qualitativo apontaremos o que foi alcançado com a visualização. Do ponto de
+vista quantitativo está ligado ao desempenho computacional da nossa solução.
 
-  Do ponto de vista quantitativo pretendemos avaliar o desempenho da solução
-dado o tempo de processamento para gerar a visualização. Para isso, iremos
-contar o tempo para gerar a visualização desprezando as etapas de
-pré-processamento e carregamento dos dados. Os dados simulados é o conjunto com
-maior quantidade de pontos, com mais de 31 milhões de entradas distribuídas em
-em $585.374$ viagens feitas por veículos no trânsito e é considerado o teste de
-maior relevância para a avaliação do desempenho.
+  As questão de pesquisa \textbf{Q1}, relacionada ao uso do \emph{bundling} para a
+análise multi escala, é nosso primeiro objeto de avaliação qualitativa. Para
+trazer artefatos que nos ajudem a responder essa pergunta iremos trabalhar
+diretamente com a variação dos parâmetros da nossa visualização, tanto em
+aspectos da própria escala, quanto os parâmetros temporais e também a forma
+como apresentamos os atributos de densidade e direção dos fluxos. Faremos então
+uma observação objetiva sobre os diferentes resultados gerados, suas qualidades
+e limitações, para por exemplo, distinguir as origens e destinos dos fluxos e
+responder a perguntas como: ``Quais regiões recebem maior quantidade de
+fluxo?''
 
- Dentre essas avaliações, serão experimentados os diferentes parâmetros do
-algoritmo de \emph{bundling} e das técnicas de visualização utilizadas, com uma
-caracterização sobre quais valores dos parâmetros foram considerados mais
-adequados, seus resultados e limitações.
+  Já a questão \textbf{Q2} busca responder como a técnica de \emph{bundling}
+ajuda na identificação de mudanças e eventos atípicos no trânsito ou como os
+fluxos de origem e destino são afetados por esses eventos. Nossa abordagem para
+responder a essas perguntas, que estão intimamente relacionadas, baseia-se nos
+parâmetros de controle do tempo e também no experimento apresentado na seção
+anterior, onde propomos o bloqueio de vias de forma controlada dentro da
+simulação do tráfego para observarmos, também de forma qualitativa, como esses
+eventos afetam a visualização.
+
+  Para completar a avaliação da nossa proposta iremos medir quantitativamente o
+desempenho da nossa solução dado o tempo de processamento para gerar a
+visualização, o que está relacionado à questão \textbf{Q3}. As medições serão feitas
+desprezando as etapas de pré-processamento e carregamento dos dados. Essa
+análise é considerada relevante, pois contamos com uma grande quantidade de
+dados obtidos com o InterSCSimulator. Os dados possuem de 31 milhões de pontos
+distribuídas em $585.374$ viagens feitas por veículos no trânsito, o que é mais de
+duas vezes o número de pontos nos dados de um mês do tráfego aéreo utilizados
+na análise de \citet{Klein2013}.
