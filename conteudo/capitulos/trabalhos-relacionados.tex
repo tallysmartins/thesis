@@ -1,37 +1,91 @@
 \chapter{Trabalhos Relacionados}
 \label{cap:trabalhos-relacionados}
 
-  A técnica de agrupamento de arestas na visualização de grafos, redes e trajetórias
-tem sido utilizada em vários contextos. Neste capítulo apresentamos alguns trabalhos
-que utilizam Bundling para a visualização de trajetórias. Lembramos que a definição
-de trajetórias está ligada à codificação de informações espaciais intrínseca aos
-dados, como na movimentação de veículos ou em gráficos de coordenadas paralelas.
-De forma geral, tais trabalhos proporcionaram uma base para compor um conhecimento maior
-sobre a área.
+  A visualização de dados de tráfego tem um amplo histórico, nossa revisão traz
+alguns dos trabalhos que mostram os avanços nessa área e também relacionados ao
+\emph{bundling}. As pesquisas que julgamos relevantes tocam as áreas de
+visualização da informação - \emph{InfoViz}, cujo foco é desvendar novos
+métodos para visualizar uma informação, e também a área de análise visual
+aplicada - \emph{Visual Analytics}, que se relaciona mais a sistemas e soluções
+utilizadas em ambientes do mundo real. Ambos trabalhos trazem contribuições em
+diferentes níveis. Inicialmente apresentamos três trabalhos recentes que
+fizeram um levantamento geral sobre os esforços nas áreas de visualização do
+tráfego e também sobre \emph{bundling}, que complementam o trabalho usado
+como referência na Seção \ref{sec:viz-trafego}. Trazemos também 7 outros artigos
+que apresentam propriamente técnicas de visualização de dados do tráfego,
+utilizando ou não \emph{bundling}, e também possíveis sistemas que as
+implementam.
 
-\begin{description}
+  \citet{Telea2018} apresenta uma revisão geral das áreas de visualização
+científica e os métodos de processamento de imagem utilizados nesse campo para
+mostrar seus benefícios na visualização de grandes grafos multivariados e
+complexos. Os novos métodos, então chamados de baseados em imagem, ajudam a
+resolver os problemas de oclusão e também aumentam a escalabilidade
+computacional com técnicas que usam o poder de processamento paralelo de placas
+gráficas (GPUs), o que está relacionado ao algoritmo de \emph{bundling} que
+utilizaremos. Eles apresentam ainda alguns desafios ainda existentes no
+campo, como a falta de meios estabelecidos para avaliação da qualidade do
+desenho e também a limitação na quantidade máxima de atributos que podem ser
+representados ao mesmo tempo na visualização de um grafo.
 
-  \item[Visualization of vessel movements:]
-  Esse trabalho mostra a dinâmica do tráfego de embarcações. \citep{Willems2009}
+  \citet{Lhuillier2017} traz um estudo mais aprofundado sobre o
+\emph{bundling}. Os autores sugerem uma definição formal sobre a operação de
+\emph{bundling} em um grafo, e a partir daí definem o arcabouço em volta dos
+objetivos e limitações de uso das diversas técnicas de \emph{bundling}
+existentes na literatura, dando uma visão geral sobre o estado da arte na área
+e seu desenvolvimento em vários segmentos como grafos, mapas de fluxo,
+coordenadas paralelas, campos de tensores e outras aplicações. Dentre suas
+contribuições está uma nova taxonomia para a ajudar pesquisadores e usuários a
+selecionarem os algoritmos de \emph{bundling} com base no tipo de dado.
+Apresentamos essa taxonomia na Figura \ref{table:bundling-methods} na Seção
+\ref{sec:modelos-de-bundling}. A partir dela, selecionamos o algoritmo
+\emph{Attributed-Driven Edge Bundling} (ADEB) para a nossa pesquisa.
 
-  \item[Visualizing Interchange Patterns in Massive Movement Data:] esse
+  \citet{Andrienko2017Visual}, \textbf{Visual Analytics of mobility and Transportation: State of the Art and
+Further Research Directions:} Analisa vários trabalhos de modo geral de análise
+de dados do tráfego e os divide em 6 módulos quanto ao contexto. Ele faz várias
+considerações sobre a tipologia dos dados no contexto de análises de trajetórias,
+objetivos. 
+
+   \citet{Zeng2013} e \citet{Andrienko2017} apresentam uma visualização para o
+estudo de fluxos de origem e destino de propósito geral. Sua abordagem utiliza
+um leiaute radial que codifica a direção, intensidade e distância percorrida,
+capaz de informar principais fluxos e padrões de deslocamento sobre o
+território observado. O leiaute radial, no entanto, deixa de codificar vários
+dos aspectos espaciais presentes em uma visualização baseada em linhas,
+principalmente quando se deseja identificar mudanças de direção em regiões
+específicas.
+
+  \citet{Selassie2011}, apresenta o Divided Edge Bundling (DEB), o primeiro
+algoritmo conhecido capaz de diferenciar a direção dos fluxos. Recentemente,
+\citet{Anita2017} apresentam uma otimização deste algoritmo para aumentar a
+velocidade do processo de \emph{bundling}. Para isso, utilizam uma etapa de
+clusterização aplicada previamente nos dados, e posteriormente aplicam o
+\emph{bundling} em cada cluster, uma técnica que pode ser estendida para outros
+métodos de \emph{bundling}.  Outra importante contribuição desse trabalho é que
+a sua implementação é uma das poucas que conhecemos feita de maneira aberta, e
+foi desenvolvida como uma extensão da ferramenta GQIS, para análises
+geoespaciais.  Percebemos a falta bibliotecas disponíveis que implementam esse
+tipo de algoritmo, e por isso, nossa solução será totalmente aberta.
+
+  \citet{Landersberg2016}, \textbf{MobilityGraphs: Visual Analysis of Mass Mobility Dynamics via Spatio-Temporal Graphs and Clustering:} apresenta um
+estudo com clusterização DBSCAN parecido com o KDEEB. MAs a visualização combina
+um leiaute de linhas com bolas nos centróides. Eles conseguem ver os fluxos,
+direção, etc. São também multi nível, com opção de zoom, bem legal. Fazem estudo de caso em X dataset e conseguem mostrar Y.
+
+  \citet{Klein2013}, \textbf{Real Time Multi Scale Visualization of Flight Data:} Esse é o dos aviões, sem mais.
+
+  \textbf{Visualizing Interchange Patterns in Massive Movement Data:} esse
 trabalho apresenta um diagrama circular que mostra a direção do fluxo entre
 diferentes nós que simbolizam um ponto de interesse. Ele utiliza como estudo de
 caso estações de metrô de Singapura com dados sigilosos do sistema de
-transporte. \citep{Zeng2013} 
+transporte.
 
-\item[Dynamic Multi Scale Visualization of Flight Data:]
- Esse trabalho do apresenta como visualizar uma grande quantidade
-de dados do tráfego aéreo. \citep{Klein2014}
+  \citet{Selassie2011}, \textbf{Divided Edge Bundling for Directional Network
+Data:} esse algoritmo evolui o FDEB pra ser direcional.
 
-\item[Untangling origin-destination flows in geographic information systems:]
- Esse trabalho mostra a implementação do bundling como plugin de uma ferramenta GIS.
-O algoritmo apresentado ainda recebe uma modificação ao algoritmo de bundling FDEB. \citep{Anita2017}
+  \citet{Willems2009}, \textbf{Visualization of vessel movements:} Esse trabalho mostra a dinâmica do tráfego de embarcações. 
 
-\item[Divided Edge Bundling for Directional Network Data:]
-  Esse trabalho mostra uma abordagem para diferenciar no bundling a direção do movimento.
-\citep{Selassie2011}
-\end{description}
 
 \begin{description}
   \item[Design:] Os trabalhos encontrados utilizam um design diferente do que propomos a seguir.
