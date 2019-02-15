@@ -53,40 +53,41 @@ grupo. Eles propõem novos tipos de leiaute radial para visualizar o tráfego, e
 codificam a direção, intensidade e distância percorrida pelos objetos que se
 locomovem. \citet{Zeng2013} menciona o uso de \emph{bundling} para agrupar as
 linhas dentro do anel de seu leiaute radial (Figura
-\ref{fig:interchange-circo}), mas não se aprofundam no assunto.  Eles ainda
-analisam um pequeno conjunto de dados de carros na cidade de Milão na Itália,
-correspondente a $17.241$ veículos e conseguem observar alguns padrões de
-deslocamentos no tráfego da cidade.
-% Sua
-%análise mostra a locomoção de pessoas em estações de trem de Singapura, com
-%dados de 1 milhão de passageiros contendo os pontos de entrada e saída do
-%sistema de transporte. Já \citet{Andrienko2017} mostram a movimentação de
-%bicicletas na cidade de Londres, também com dados de origem-destino das
-%estações de início e fim das mais de 5 milhões de trajetórias durante 28
-%semanas. Com isso conseguem verificar correlações das viagens com períodos sazonais do clima,
-%verificar as diferenças no comportamento da população em dias da semana e em
-%finais de semana, e o tipo predominante de viagens, que são habitualmente
-%curtas e conectadas a outros meios de transporte.  \citet{Anita2017} apresenta uma nova técnica de \emph{bundling}, resultado de
-%uma otimização do algoritmo FDEB, criado por \citet{Selassie2011}. Para isso,
-%utilizam uma etapa de clusterização aplicada previamente nos dados, e
-%posteriormente aplicam o \emph{bundling} em cada cluster. A vantagem da sua
-%abordagem é que ela pode ser utilizada em conjunto com outros métodos de
-%\emph{bundling}.
+\ref{fig:interchange-circo}), mas não se aprofundam no assunto. 
 
  \citet{Landersberg2016} usa uma representação em linhas do tráfego sobre um
 mapa e apresenta algoritmos de clusterização para agrupar o tráfego por regiões
-e também no tempo. Sua análise é focada em destacar diferentes momentos onde há
-mudanças significativas nos fluxos.  As agregações, por sua vez, reduzem a
-oclusão no desenho das trajetórias. Eles apresentam um sistema interativo e
-verificam seu método com dados de tweets geolocalizados na cidade de Londres e
-também de redes de celulares. O desafio de sua técnica é estabelecer métricas
-que capturam esses momentos. \citet{Klein2013} faz uma análise do tráfego aéreo
+e também no tempo, reduzindo a oclusão do desenho. Sua análise é focada em destacar diferentes momentos onde há
+mudanças significativas nos fluxos. O desafio de sua técnica é estabelecer métricas
+que capturam esses momentos.  Eles apresentam um sistema interativo e
+verificam seu método com dados de \emph{tweets} geolocalizados na cidade de Londres e
+também de redes de celulares. \citet{Klein2014} faz uma análise do tráfego aéreo
 da França para detectar as conexões entre os diferentes aeroportos, pontos de
 congestionamentos e permitir uma exploração com base em vários atributos, como
 direção e altitude dos voos, além de uma janela de tempo que permite navegar
 entre diferentes instantes do tráfego. Eles utilizam o algoritmo de
-\emph{bundling} KDEEB para reduzir a oclusão na visualização, que não inclui
-a direção das trajetórias no processo de \emph{bundling}.
+\emph{bundling} KDEEB para reduzir a oclusão na visualização das trajetórias
+e apresentam uma interpolação das trajetórias sem \emph{bundling} para visualizar
+sua direção, já que o KDEEB não inclui atributos como direção no processo de \emph{bundling}.
+
+\citet{Ferreira2013} fazem uma análise de origem e destino de 500 mil viagens
+de taxis feitas em um dia na cidade de Nova Iorque. Sua visualização é baseada
+em pontos que destacam as origens e destinos das viagens com cores diferentes.
+O resultado é similar a um mapa de densidades que mostra a distribuição das
+viagens sobre a cidade. Eles também implementam uma estratégia robusta de
+organização dos dados na memória para permitir que os usuários façam buscas e
+apliquem filtros em uma grande quantidade de dados de maneira interativa. 
+
+\citet{Anita2017} apresenta uma nova técnica de \emph{bundling}, resultado de
+uma otimização do algoritmo FDEB, criado por \citet{Selassie2011}. Para isso,
+utilizam uma etapa de clusterização aplicada previamente nos dados, e
+posteriormente aplicam o \emph{bundling} em cada cluster. A vantagem da sua
+abordagem é que ela pode ser utilizada em conjunto com outros métodos de
+\emph{bundling}. \citet{Kim2018} utilizam campos de tensores para construir
+um mapa de fluxo de dados geoespaciais analisando apenas as informações
+estatísticas da distribuições dos pontos ao longo do tempo. Sua abordagem, no entanto
+implica uma série de restrições estatísticas nos dados, como número mínimo 
+de amostras e distribuição uniforme dos dados ao longo do tempo.
 
   Em nossa revisão, buscamos obter um panorama geral das lacunas que podem ser
 preenchidas em relação ao uso de \emph{bundling} na visualização multi escala
@@ -96,7 +97,7 @@ objeto do tráfego analisado e tamanho do conjunto de dados, atentando-nos com i
 especial em dados do trânsito e também o uso de \emph{bundling}. Concluímos que os dados de
 trânsito ainda são pouco explorados, principalmente em trabalhos com
 \emph{bundling}. A Tabela \ref{table:trabalhos} mostra os trabalhos que avaliamos
-quanto ao uso de dados do trânsito e \emph{bundling}.
+quanto ao uso de dados do trânsito, \emph{bundling} e o leiaute da visualização.
 
 %O maior problema que observamos é a variedade de trabalhos que utilizam
 %técnicas e conjuntos de dados diferentes sem comparar de fato os benefícios que
@@ -111,18 +112,20 @@ quanto ao uso de dados do trânsito e \emph{bundling}.
 %no que tange a aspectos de escalabilidade e flexibilidade quanto ao tipo de
 %dados de tráfego suportado.
 
-\begin{table}[t]
-\begin{tabular}{|M{0.55}|M{0.12}|M{0.12}|M{0.11}|}
+\begin{table}[htb!]
+\begin{tabular}{|M{0.58}|M{0.11}|M{0.115}|M{0.09}|}
 \hline
-\textbf{Trabalho}       & \textbf{Dados do Trânsito} & \textbf{\emph{Bundling}} & \textbf{Impacto de eventos}  \\ \hline
-Nossa Proposta          & \checkmark                 & \checkmark               &          \checkmark          \\ \hline
-\citet{Andrienko2017}   & \checkmark                 &  x                       &          x                   \\ \hline
-\citet{Anita2017}       & x                          & \checkmark               &          x                   \\ \hline
-\citet{Zeng2013}        & x                          & \checkmark               &          x                   \\ \hline
-\citet{Klein2013}       & x                          & \checkmark               &          \checkmark          \\ \hline
-\citet{Landersberg2016} & x                          &  x                       &          x                   \\ \hline
+\textbf{Trabalho}       & \textbf{Dados do Trânsito} & \textbf{\emph{Bundling}} & \textbf{Leiaute}  \\ \hline
+Nossa proposta          & \checkmark                 & \checkmark               &          linhas   \\ \hline
+\citet{Kim2018}         & x                          &  x                       &          linhas   \\ \hline
+\citet{Andrienko2017}   & \checkmark                 &  x                       &          radial   \\ \hline
+\citet{Anita2017}       & x                          & \checkmark               &          linhas   \\ \hline
+\citet{Landersberg2016} & x                          &  x                       &          linhas   \\ \hline
+\citet{Klein2014}       & x                          & \checkmark               &          linhas   \\ \hline
+\citet{Ferreira2013}    & \checkmark                 &  x                       &          pontos   \\ \hline
+\citet{Zeng2013}        & x                          & \checkmark               &          radial   \\ \hline
 
 \end{tabular}
-\caption{Análise dos Trabalhos Relacionados. \label{table:trabalhos}}
+\caption{Análise dos trabalhos relacionados quanto ao uso de dados do trânsito, uso de \emph{bundling} e leiaute da visualização. \label{table:trabalhos}}
 \end{table}
 
