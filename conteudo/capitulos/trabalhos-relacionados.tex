@@ -9,8 +9,9 @@ foco é desvendar novos métodos para visualizar uma informação, como
 Analytics}, que se relaciona mais a sistemas e soluções utilizadas em ambientes
 do mundo real. Ambos trabalhos trazem contribuições em diferentes níveis para a
 nossa pesquisa. Grande parte do conhecimento em visualização do tráfego e
-também sobre \emph{bundling} pode ser encontrado em quatro trabalhos recentes
-que fizeram um levantamento geral sobre os esforços na área.
+também sobre \emph{bundling} foi consolidado em quatro trabalhos recentes que
+fizeram um levantamento geral sobre os esforços na área, os quais apresentamos
+a priori para depois abordarmos outros trabalhos.
 
   \citet{Telea2018} apresenta uma revisão geral das áreas de visualização
 científica e de processamento de imagem, apontando métodos utilizados nessas
@@ -19,7 +20,7 @@ complexos. Os novos métodos para simplificação de dados, então chamados de
 baseados em imagem, geraram novas técnicas de \emph{bundling} escaláveis, que
 permitiram a visualização de grandes grafos, com diversos atributos e
 milhares de nós. O algoritmo \emph{Attributed-Driven Edge Bundling} (ADEB), que utilizaremos,
-é um dos algoritmos que vêm dessa linhagem e se beneficia desses métodos. 
+é um dos algoritmos que vêm dessa linhagem e se beneficia desses métodos.
 
   \citet{Lhuillier2017} traz um estudo ainda mais aprofundado sobre o
 \emph{bundling}. Os autores sugerem uma definição formal sobre a operação de
@@ -40,8 +41,10 @@ discutem questões sobre os tipos de dados, técnicas de visualização utilizad
 e principalmente o objetivo das propostas. Os trabalhos listados abrangem
 vários contextos, como análise de incidentes no tráfego, monitoramento de
 veículos em tempo real, detecção de congestionamentos, sugestão de rotas e
-outras atividades executadas por usuários e especialistas de transporte. (O que
-eles concluem?)
+outras atividades executadas por usuários e especialistas de transporte. Obtemos
+com estes trabalhos muitos insumos para complementar o conhecimento sobre a área
+de visualização e análise de dados de transporte em geral e enriquecer
+nossa revisão da literatura.
 
   Além dos estudos citados anteriormente, reunimos um conjunto de propostas
 cujo o foco está na análise de fluxos de origem-destino em dados do tráfego
@@ -53,7 +56,7 @@ grupo. Eles propõem novos tipos de leiaute radial para visualizar o tráfego, e
 codificam a direção, intensidade e distância percorrida pelos objetos que se
 locomovem. \citet{Zeng2013} menciona o uso de \emph{bundling} para agrupar as
 linhas dentro do anel de seu leiaute radial (Figura
-\ref{fig:interchange-circo}), mas não se aprofundam no assunto. 
+\ref{fig:interchange-circo}), mas não se aprofundam no assunto.
 
  \citet{Landersberg2016} usa uma representação em linhas do tráfego sobre um
 mapa e apresenta algoritmos de clusterização para agrupar o tráfego por regiões
@@ -76,9 +79,23 @@ em pontos que destacam as origens e destinos das viagens com cores diferentes.
 O resultado é similar a um mapa de densidades que mostra a distribuição das
 viagens sobre a cidade. Eles também implementam uma estratégia robusta de
 organização dos dados na memória para permitir que os usuários façam buscas e
-apliquem filtros em uma grande quantidade de dados de maneira interativa. 
+apliquem filtros em uma grande quantidade de dados de maneira interativa.
+\citet{Chu2014} também faz uma análise das trajetórias de milhares de viagens
+de taxis em uma grande cidade na China para descobrir relações entre as rotas
+utilizadas e relações entre ruas. Eles fazem uma transformação das latitudes e
+longitudes para o nome das ruas por onde os taxis trafegam e aplicam métodos de
+clusterização e análise de texto que dão uma visão semântica das relações entre
+as vias que compõe a malha rodoviária da cidade. Os resultados são mostrados em
+um painel com vários tipos de visualização que utiliza mapas, gráficos e outros
+recursos para exploração dos dados. \citet{Guo2011} criaram um sistema chamado
+TripVista que mostra o tráfego em três perspectivas através de um painel iterativo.
+Seu sistema é focado em mostrar detalhes sobre o tráfego em cruzamentos entre
+ruas da cidade, como direção, quantidade de veículos e também anomalias de motoristas
+que trafegam na direção contrária da permitida. Nos inspiramos nos resultados
+desse trabalho para investigar como podemos obter um maior nível detalhes em
+nossa visualização multi escala com \emph{bundling}.
 
-\citet{Anita2017} apresenta uma nova técnica de \emph{bundling}, resultado de
+\citet{Anita2017} apresenta uma técnica de \emph{bundling}, resultado de
 uma otimização do algoritmo FDEB, criado por \citet{Selassie2011}. Para isso,
 utilizam uma etapa de clusterização aplicada previamente nos dados, e
 posteriormente aplicam o \emph{bundling} em cada cluster. A vantagem da sua
@@ -86,31 +103,18 @@ abordagem é que ela pode ser utilizada em conjunto com outros métodos de
 \emph{bundling}. \citet{Kim2018} utilizam campos de tensores para construir
 um mapa de fluxo de dados geoespaciais analisando apenas as informações
 estatísticas da distribuições dos pontos ao longo do tempo. Sua abordagem, no entanto
-implica uma série de restrições estatísticas nos dados, como número mínimo 
+implica uma série de restrições estatísticas nos dados, como número mínimo
 de amostras e distribuição uniforme dos dados ao longo do tempo.
 
   Em nossa revisão, buscamos obter um panorama geral das lacunas que podem ser
 preenchidas em relação ao uso de \emph{bundling} na visualização multi escala
-de veículos no trânsito. Observamos vários aspectos de cada trabalho, como
+dos fluxos de origem-destino de veículos no trânsito. Observamos vários aspectos de cada trabalho, como
 o uso de recursos para visualização de padrões globais e locais do tráfego, o tipo de
 objeto do tráfego analisado e tamanho do conjunto de dados, atentando-nos com interesse
 especial em dados do trânsito e também o uso de \emph{bundling}. Concluímos que os dados de
 trânsito ainda são pouco explorados, principalmente em trabalhos com
 \emph{bundling}. A Tabela \ref{table:trabalhos} mostra os trabalhos que avaliamos
 quanto ao uso de dados do trânsito, \emph{bundling} e o leiaute da visualização.
-
-%O maior problema que observamos é a variedade de trabalhos que utilizam
-%técnicas e conjuntos de dados diferentes sem comparar de fato os benefícios que
-%eles trazem aos usuários finais, confirmando o que diz
-%\cite{Andrienko2017Visual}, que os trabalhos de visualização são muito
-%distantes do grupo de transportes e que as soluções nem sempre endereçam
-%problemas reais. Seria interessante fazer experimentos comparativos de cada uma
-%dessas visualizações que possuem objetivos em comum na análise dos fluxos de
-%origem-destino na cidade. Desenhar tal experimento, no entanto é um grande
-%desafio dadas as muitas variáveis subjetivas. Muitas delas, no entanto, abordam
-%vantagens do ponto de vista computacional, que poderiam ser melhor verificados
-%no que tange a aspectos de escalabilidade e flexibilidade quanto ao tipo de
-%dados de tráfego suportado.
 
 \begin{table}[htb!]
 \begin{tabular}{|M{0.58}|M{0.11}|M{0.115}|M{0.09}|}
@@ -122,10 +126,17 @@ Nossa proposta          & \checkmark                 & \checkmark               
 \citet{Anita2017}       & x                          & \checkmark               &          linhas   \\ \hline
 \citet{Landersberg2016} & x                          &  x                       &          linhas   \\ \hline
 \citet{Klein2014}       & x                          & \checkmark               &          linhas   \\ \hline
+\citet{Chu2014}         & x                          &  x                       &          variado  \\ \hline
 \citet{Ferreira2013}    & \checkmark                 &  x                       &          pontos   \\ \hline
 \citet{Zeng2013}        & x                          & \checkmark               &          radial   \\ \hline
+\citet{Guo2011}         & \checkmark                 &  x                       &          variado  \\ \hline
 
 \end{tabular}
 \caption{Análise dos trabalhos relacionados quanto ao uso de dados do trânsito, uso de \emph{bundling} e leiaute da visualização. \label{table:trabalhos}}
 \end{table}
 
+ Nossa revisão da literatura sobre trabalhos de visualização de dados do
+tráfego mostra que ainda existem lacunas relacionadas às nossas questões de
+pesquisa. Outros trabalhos No próximo capítulo apresentamos a metodologia para o
+desenvolvimento de nossa proposta para visualização dos fluxos de
+origem-destino no tráfego utilizando \emph{bundling}.
