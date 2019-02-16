@@ -11,7 +11,8 @@ do mundo real. Ambos trabalhos trazem contribuições em diferentes níveis para
 nossa pesquisa. Grande parte do conhecimento em visualização do tráfego e
 também sobre \emph{bundling} foi consolidado em quatro trabalhos recentes que
 fizeram um levantamento geral sobre os esforços na área, os quais apresentamos
-a priori para depois abordarmos outros trabalhos.
+\emph{a priori} para depois abordarmos outros trabalhos relacionados à esta
+pesquisa.
 
   \citet{Telea2018} apresenta uma revisão geral das áreas de visualização
 científica e de processamento de imagem, apontando métodos utilizados nessas
@@ -24,14 +25,14 @@ milhares de nós. O algoritmo \emph{Attributed-Driven Edge Bundling} (ADEB), que
 
   \citet{Lhuillier2017} traz um estudo ainda mais aprofundado sobre o
 \emph{bundling}. Os autores sugerem uma definição formal sobre a operação de
-\emph{bundling} em um conjunto de dados, e a partir daí listam as características,
-objetivos e limitações de uso das várias técnicas e algoritmos
-existentes na literatura. O resultado é uma visão geral sobre o estado da arte na área
-e seu desenvolvimento em vários segmentos como grafos, mapas de fluxo,
-coordenadas paralelas, campos de tensores e outras aplicações. Dentre suas
-contribuições está uma nova taxonomia para a ajudar pesquisadores e usuários a
-selecionarem os algoritmos de \emph{bundling} com base no tipo de dado.
-Apresentamos essa taxonomia na Figura \ref{table:bundling-methods} na Seção
+\emph{bundling} em um conjunto de dados, e a partir daí listam as
+características, objetivos e limitações de uso das várias técnicas e algoritmos
+existentes na literatura. O resultado é uma visão geral sobre o estado da arte
+na área e seu desenvolvimento em vários segmentos como grafos, mapas de fluxo,
+coordenadas paralelas e outras aplicações. Dentre suas contribuições está uma
+nova taxonomia para a ajudar pesquisadores e usuários a selecionarem os
+algoritmos de \emph{bundling} com base no tipo de dado.  Apresentamos essa
+taxonomia na Figura \ref{table:bundling-methods} na Seção
 \ref{sec:modelos-de-bundling}. A partir dela, selecionamos o algoritmo ADEB
 para a nossa pesquisa.
 
@@ -41,12 +42,14 @@ discutem questões sobre os tipos de dados, técnicas de visualização utilizad
 e principalmente o objetivo das propostas. Os trabalhos listados abrangem
 vários contextos, como análise de incidentes no tráfego, monitoramento de
 veículos em tempo real, detecção de congestionamentos, sugestão de rotas e
-outras atividades executadas por usuários e especialistas de transporte. Obtemos
-com estes trabalhos muitos insumos para complementar o conhecimento sobre a área
-de visualização e análise de dados de transporte em geral e enriquecer
-nossa revisão da literatura.
+outras atividades executadas por usuários e especialistas de transporte.
+Obtemos com estes trabalhos muitos insumos para complementar o conhecimento
+sobre a área de visualização e análise de dados de transporte em geral e
+enriquecer nossa revisão da literatura. Pudemos utilizá-los como referência
+para parte dos conceitos teóricos apresentados na Seção \ref{sec:viz-trafego} e
+também como ponte para outras pesquisas na área.
 
-  Além dos estudos citados anteriormente, reunimos um conjunto de propostas
+  Além dos estudos citados anteriormente, reunimos um conjunto de trabalhos
 cujo o foco está na análise de fluxos de origem-destino em dados do tráfego
 para visualização de tendências, fluxos dominantes e seus atributos, como
 direção, velocidade, distâncias percorridas e outros.  \citet{Zeng2013} e
@@ -74,14 +77,14 @@ e apresentam uma interpolação das trajetórias sem \emph{bundling} para visual
 sua direção, já que o KDEEB não inclui atributos como direção no processo de \emph{bundling}.
 
 \citet{Ferreira2013} fazem uma análise de origem e destino de 500 mil viagens
-de taxis feitas em um dia na cidade de Nova Iorque. Sua visualização é baseada
+de táxi feitas em um dia na cidade de Nova Iorque. Sua visualização é baseada
 em pontos que destacam as origens e destinos das viagens com cores diferentes.
 O resultado é similar a um mapa de densidades que mostra a distribuição das
 viagens sobre a cidade. Eles também implementam uma estratégia robusta de
 organização dos dados na memória para permitir que os usuários façam buscas e
 apliquem filtros em uma grande quantidade de dados de maneira interativa.
 \citet{Chu2014} também faz uma análise das trajetórias de milhares de viagens
-de taxis em uma grande cidade na China para descobrir relações entre as rotas
+de táxi em uma grande cidade na China para descobrir relações entre as rotas
 utilizadas e relações entre ruas. Eles fazem uma transformação das latitudes e
 longitudes para o nome das ruas por onde os taxis trafegam e aplicam métodos de
 clusterização e análise de texto que dão uma visão semântica das relações entre
