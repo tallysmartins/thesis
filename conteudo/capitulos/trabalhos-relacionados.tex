@@ -96,21 +96,24 @@ Seu sistema é focado em mostrar detalhes sobre o tráfego em cruzamentos entre
 ruas da cidade, como direção, quantidade de veículos e também anomalias de motoristas
 que trafegam na direção contrária da permitida. Nos inspiramos nos resultados
 desse trabalho para investigar como podemos obter um maior nível detalhes em
-nossa visualização multi escala com \emph{bundling}.
+nossa visualização multiescala com \emph{bundling}.
 
-\citet{Anita2017} apresenta uma técnica de \emph{bundling}, resultado de
-uma otimização do algoritmo FDEB, criado por \citet{Selassie2011}. Para isso,
+\citet{Anita2017} apresenta uma técnica de \emph{bundling}, resultado de uma
+otimização do algoritmo FDEB, criado por \citet{Selassie2011}. Para isso,
 utilizam uma etapa de clusterização aplicada previamente nos dados, e
-posteriormente aplicam o \emph{bundling} em cada cluster. A vantagem da sua
+posteriormente aplicam o \emph{bundling} em cada cluster. Eles testaram sua
+abordagem em vários conjuntos de dados com informações da migração de pessoas
+entre regiões dos EUA, migração de pássaros e viagens de aviões, mostrando um
+ganho entre 30\% até 50\% no desempenho do algoritmo. A vantagem da sua
 abordagem é que ela pode ser utilizada em conjunto com outros métodos de
-\emph{bundling}. \citet{Kim2018} utilizam campos de tensores para construir
-um mapa de fluxo de dados geoespaciais analisando apenas as informações
-estatísticas da distribuições dos pontos ao longo do tempo. Sua abordagem, no entanto
-implica uma série de restrições estatísticas nos dados, como número mínimo
-de amostras e distribuição uniforme dos dados ao longo do tempo.
+\emph{bundling}.  \citet{Kim2018} utilizam campos de tensores para construir um
+mapa de fluxo de dados geoespaciais analisando apenas as informações
+estatísticas da distribuições dos pontos ao longo do tempo. Sua abordagem, no
+entanto implica uma série de restrições estatísticas nos dados, como número
+mínimo de amostras e distribuição uniforme dos dados ao longo do tempo.
 
   Em nossa revisão, buscamos obter um panorama geral das lacunas que podem ser
-preenchidas em relação ao uso de \emph{bundling} na visualização multi escala
+preenchidas em relação ao uso de \emph{bundling} na visualização multiescala
 dos fluxos de origem-destino de veículos no trânsito. Observamos vários aspectos de cada trabalho, como
 o uso de recursos para visualização de padrões globais e locais do tráfego, o tipo de
 objeto do tráfego analisado e tamanho do conjunto de dados, atentando-nos com interesse
