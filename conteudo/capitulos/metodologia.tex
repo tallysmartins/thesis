@@ -325,25 +325,6 @@ pontos de sobreposição e (b) mostra uma escala gradiente multicores. Uma outra
 forma comum de se mostrar esse atributo é simplesmente escalando a espessura
 das linhas dos \emph{bundles} proporcionalmente à densidade.
 
-\begin{figure}[ht!]
-  \centering
-  \begin{subfigure}[t]{\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{../figuras/alpha-blending.pdf}
-    \caption{Densidade mapeada em escala opacidades, conhecida como combinação do canal alfa. À esquerda sem escala alfa, à direita com escala alfa.}
-  \end{subfigure}
-  ~
-  \begin{subfigure}[t]{\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{../figuras/color-density.pdf}
-    \caption{Densidade mapeada em escala de cores gradiente.}
-  \end{subfigure}
-
-  \caption[Densidade dos \emph{bundlings} mapeada em escalas de cores e
-  opacidade.]{Densidade dos \emph{bundlings} mapeada em escalas de cores e
-  opacidade. Fonte: \citet{Lhuillier2017} \label{fig:density-mappings}}
-\end{figure}
-
 \textbf{Direção}: a direção é outra informação relevante para o estudo dos
 fluxos.  No algoritmo de \emph{bundling} ADEB, ela é indicada pelo ângulo da
 trajetória em relação a um eixo cartesiano. Para destacar esse atributo na
@@ -358,8 +339,25 @@ pela trajetória desenhada na camada mais superior.
 
 \begin{figure}[ht!]
   \centering
-  \includegraphics[width=\textwidth]{../figuras/color-wheel.pdf}
-  \caption[Densidade mapeada em escalas de cores gradiente]{Densidade mapeada em escala de cores gradiente. Fonte: \citet{Lhuillier2017}. \label{fig:direction}}
+  \begin{subfigure}[t]{\textwidth}
+    \centering
+    \includegraphics[width=.8\textwidth]{../figuras/alpha-blending.pdf}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[t]{\textwidth}
+    \centering
+    \includegraphics[width=.8\textwidth]{../figuras/color-density.pdf}
+  \end{subfigure}
+
+  \caption[Densidade dos \emph{bundlings} mapeada em escalas de cores e
+  opacidade.]{Formas de visualização da densidade. (a) Escala de opacidades, conhecida como combinação do canal alfa. (b) Escala de cores gradiente.  Fonte: \citet{Lhuillier2017} \label{fig:density-mappings}}
+\end{figure}
+
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=.8\textwidth]{../figuras/color-wheel.pdf}
+  \caption[Direção dos \emph{bundles} mapeada em escalas de cores]{Direção dos \emph{bundles} mapeada em escala de cores. Fonte: \citet{Lhuillier2017}. \label{fig:direction}}
 \end{figure}
 
 \subsection{Visualização Interativa}

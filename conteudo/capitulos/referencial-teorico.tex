@@ -242,9 +242,9 @@ ilustrado na Figura \ref{fig:interchange-circo}. Apesar de facilitar a
 visualização, esse tipo de agregação abre mão das informações individuais de
 cada trajetória em favor de uma visão condensada dos fluxos.
 
-\begin{figure}[!htb]
+\begin{figure}[!h]
   \centering
-  \includegraphics[width=1\textwidth]{../figuras/region-based.png}
+  \includegraphics[width=0.97\textwidth]{../figuras/region-based.png}
   \caption[Exemplo de visualização baseada em regiões do sistema de metrô na França]{Exemplo de visualização baseada em regiões: padrões regionais de movimentação no sistema de metrô na França. Fonte: \citet{Zeng2013}.}
   \label{fig:interchange-circo}
 \end{figure}
@@ -288,7 +288,7 @@ do software.
 
 \begin{figure}[!htb]
   \centering
-  \includegraphics[width=.5\textwidth]{../figuras/hbundling.png}
+  \includegraphics[width=.45\textwidth]{../figuras/hbundling.png}
   \caption[Bundling hierárquico na visualização de dados de software]{Bundling hierárquico na visualização de dados de software. As cores mapeiam
 o sentido do acesso, verde é a origem, vermelho é o alvo. Fonte: \citep{Holten2006}.}
   \label{fig:bundling-hierarquico}
@@ -320,23 +320,23 @@ exemplo da variedade de possíveis saídas geradas por diferentes algoritmos de
 \emph{bundling} (FDEB, SDEB e KDEEB) aplicados nos mesmos dados.  Nesse exemplo
 são usados dados de uma semana do tráfego aéreo sobre os EUA.
 
-\begin{figure}[!htb]
+\begin{figure}[h!]
   \centering
-  \begin{subfigure}{0.6\textwidth}
+  \begin{subfigure}{0.44\textwidth}
     \centering
     \includegraphics[width=1\textwidth]{../figuras/FDEB.png}
     \caption{FDEB}
     \label{fig:FDEB}
   \end{subfigure}
 
-  \begin{subfigure}{0.6\textwidth}
+  \begin{subfigure}{0.44\textwidth}
     \centering
     \includegraphics[width=1\textwidth]{../figuras/SBEB.png}
     \caption{SBEB}
     \label{fig:SBEB}
   \end{subfigure}
 
-  \begin{subfigure}{0.6\textwidth}
+  \begin{subfigure}{0.44\textwidth}
     \centering
     \includegraphics[width=1\textwidth]{../figuras/KDEEB.png}
     \caption{KDEEB}
@@ -551,6 +551,14 @@ duplicando as linhas desse arquivo.
   \end{lstlisting}
 \end{programruledcaption}
 
+  O segundo arquivo de entrada, \emph{trips.xml}, descreve todas as viagens que
+devem ser simuladas. Cada viagem deve informar os nós de origem e destino e o
+horário da simulação em que ela será iniciada, como pode ser visto no Arquivo
+\ref{file:trips.xml}. O caminho entre a origem e o destino pode ainda ser fixada
+previamente nesse arquivo ou pode ser calculado pelo simulador, o qual fica
+responsável por determinar a rota a ser seguida. Um aspecto interessante é que
+se quisermos duplicar o tamanho da simulação, podemos fazer isso simplesmente
+duplicando as linhas desse arquivo.
 
 \begin{programruledcaption}{Exemplo de arquivo trips.xml com a lista de viagens. \\Fonte: \citet{mabs2017} \label{file:trips.xml}}
   \begin{lstlisting}[language=XML]
@@ -565,10 +573,6 @@ duplicando as linhas desse arquivo.
       type="car" start_time="54001"/>
     <trip origin="246650787" destination="247951670"
       type="car" start_time="54001"/>
-    <trip origin="247951670" destination="246650787"
-      type="car" start_time="66601"/>
-    <trip origin="246650787" destination="60641382"
-      type="bus" start_time="54001"/>
   </scsimulator_matrix>
   \end{lstlisting}
 \end{programruledcaption}
@@ -629,12 +633,6 @@ movimentação que ele fez dentro da simulação.
 \caption[Rastro do tráfego] {Rastro do tráfego montado a partir do arquivo de saída e o mapa da cidade. \label{table:rastro}}
 \end{table}
 
-\begin{figure}[!htb]
-  \centering
-  \includegraphics[width=\textwidth]{../figuras/pontos.png}
-  \caption[Visualização dos pontos da trajetória de um veículo]{Visualização dos pontos da trajetória do veículo com ID 4858\_52 \label{fig:rastro}}
-\end{figure}
-
 Já a Figura \ref{fig:simulated-traffic} mostra uma simples visualização em linhas
 de um conjunto de trajetórias do tráfego simulado. Os dados são resultado
 da pesquisa de \citet{santana2018courb}, que criaram uma simulação com milhares
@@ -643,6 +641,13 @@ no intervalo de 1 hora do trânsito filtrando pontos que estivessem entre os
 intervalos de tempo $21600$ e $25200$, o que corresponde ao horário entre 6 e 7
 da manhã. Note que há bastante oclusão, sendo também impossível distinguir
 quais origens vão para quais destinos ou a quantidade de veículos nas vias.
+
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=\textwidth]{../figuras/pontos.png}
+  \caption[Visualização dos pontos da trajetória de um veículo]{Visualização dos pontos da trajetória do veículo com ID 4858\_52 \label{fig:rastro}}
+\end{figure}
 
 \begin{figure}[!htb]
   \centering
