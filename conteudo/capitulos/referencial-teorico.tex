@@ -215,8 +215,7 @@ no eixo X e as informações espaciais no eixo Y.
     \caption{Visualização abstrata da movimentação ao longo do tempo. \label{fig:viz-abstrata}}
   \end{subfigure}
 
-  \caption[Visualização espacial vs abstrata da movimentação de pessoas em um
-escritório]{Simulação de uma evacuação de um escritório depois de uma explosão.
+  \caption[Visualização espacial vs abstrata da movimentação de pessoas]{Simulação de uma evacuação de um escritório depois de uma explosão.
 (a) Visualização da movimentação da trajetória das pessoas no espaço. (b)
 Visualização abstrata, baseada na proximidade.  Fonte: \citet{Tarik2009}.
 \label{fig:tarik}}
@@ -224,7 +223,7 @@ Visualização abstrata, baseada na proximidade.  Fonte: \citet{Tarik2009}.
 
 %  Algumas ideias buscam ainda sintetizar as informações espaciais e temporais
 %em um cubo espaço-temporal, que utiliza o eixo Z para mostrar o tempo e os
-%eixos X e Y para representar o espaço. 
+%eixos X e Y para representar o espaço.
 
   No entanto, a medida que o número de objetos cresce, aumenta também os
 problemas de oclusão, o que acaba afetando a estética da visualização e a
@@ -519,56 +518,60 @@ interação entre os componentes e os arquivos de entrada e saída.
 cenário, são eles map.xml e trips.xml. O primeiro contém a descrição da rede
 rodoviária da cidade e é construído com dados obtidos de serviços como Open
 Street Maps (OSM)\footnote{\rurl{openstreetmap.org}}. O arquivo é composto por
-nós e links, que representam cruzamentos e ruas, respectivamente. A Listagem
-\ref{map.xml} mostra um exemplo de um arquivo map.xml com 3 nós e 3 links. Um
+nós e links, que representam cruzamentos e ruas, respectivamente. O Arquivo
+\ref{file:map.xml} mostra um exemplo de um arquivo map.xml com 3 nós e 3 links. Um
 usuário da simulação pode ainda fazer alterações nesse arquivo para alterar o
 mapa da cidade para atender a um novo cenário, como por exemplo, remover os nós
 e links de uma rua conhecida para simular o bloqueio causado por um acidente.
 Utilizaremos desse mecanismo para estudar diferentes cenários do trânsito.
 
-\begin{lstlisting}[style=myxml, caption={Exemplo de arquivo map.xml que define a rede rodoviária da cidade. Fonte: \citet{mabs2017}}, label=map.xml]
-<network>
-  <nodes>
-   <node id ="1" x="-46.65805" y="-23.58162"/>
-   <node id ="2" x="-46.65828" y="-23.58342"/>
-   <node id ="3" x="-46.65228" y="-23.59341"/>
-  </nodes>
-  <links>
-    <link id="35985" from="1" to="2" length="100" free speed="40"/>
-    <link id="35985" from="2" to="3" length="200" free speed="40"/>
-    <link id="35985" from="3" to="1" length="80"  free speed="50"/>
-  </links>
-</network>
-\end{lstlisting}
-
   O segundo arquivo de entrada, \emph{trips.xml}, descreve todas as viagens que
 devem ser simuladas. Cada viagem deve informar os nós de origem e destino e o
-horário da simulação em que ela será iniciada, como pode ser visto na Listagem
-\ref{trips.xml}. O caminho entre a origem e o destino pode ainda ser fixada
+horário da simulação em que ela será iniciada, como pode ser visto no Arquivo
+\ref{file:trips.xml}. O caminho entre a origem e o destino pode ainda ser fixada
 previamente nesse arquivo ou pode ser calculado pelo simulador, o qual fica
 responsável por determinar a rota a ser seguida. Um aspecto interessante é que
 se quisermos duplicar o tamanho da simulação, podemos fazer isso simplesmente
 duplicando as linhas desse arquivo.
 
-\begin{lstlisting}[style=myxml, caption={Exemplo de arquivo trips.xml que define a rede rodoviária da cidade. Fonte: \citet{mabs2017}}, label=trips.xml]
+\begin{programruledcaption}{Exemplo de arquivo map.xml que define a rede rodoviária da cidade. \\Fonte: \citet{mabs2017} \label{file:map.xml}}
+  \begin{lstlisting}[language=XML]
+  <network>
+    <nodes>
+     <node id ="1" x="-46.65805" y="-23.58162"/>
+     <node id ="2" x="-46.65828" y="-23.58342"/>
+     <node id ="3" x="-46.65228" y="-23.59341"/>
+    </nodes>
+    <links>
+      <link id="35985" from="1" to="2" length="100" free speed="40"/>
+      <link id="35985" from="2" to="3" length="200" free speed="40"/>
+      <link id="35985" from="3" to="1" length="80"  free speed="50"/>
+    </links>
+  </network>
+  \end{lstlisting}
+\end{programruledcaption}
 
-<scsimulator_matrix>
-  <trip origin="247951669" destination="60641382"
-    type="car" start_time="28801"/>
-  <trip origin="60641382" destination="247951669"
-    type="car" start_time="63001"/>
-  <trip origin="4511105625" destination="2109902387"
-    type="car" start_time="16201"/>
-  <trip origin="247951669" destination="60641382"
-    type="car" start_time="54001"/>
-  <trip origin="246650787" destination="247951670"
-    type="car" start_time="54001"/>
-  <trip origin="247951670" destination="246650787"
-    type="car" start_time="66601"/>
-  <trip origin="246650787" destination="60641382"
-    type="bus" start_time="54001"/>
-</scsimulator_matrix>
-\end{lstlisting}
+
+\begin{programruledcaption}{Exemplo de arquivo trips.xml com a lista de viagens. \\Fonte: \citet{mabs2017} \label{file:trips.xml}}
+  \begin{lstlisting}[language=XML]
+  <scsimulator_matrix>
+    <trip origin="247951669" destination="60641382"
+      type="car" start_time="28801"/>
+    <trip origin="60641382" destination="247951669"
+      type="car" start_time="63001"/>
+    <trip origin="4511105625" destination="2109902387"
+      type="car" start_time="16201"/>
+    <trip origin="247951669" destination="60641382"
+      type="car" start_time="54001"/>
+    <trip origin="246650787" destination="247951670"
+      type="car" start_time="54001"/>
+    <trip origin="247951670" destination="246650787"
+      type="car" start_time="66601"/>
+    <trip origin="246650787" destination="60641382"
+      type="bus" start_time="54001"/>
+  </scsimulator_matrix>
+  \end{lstlisting}
+\end{programruledcaption}
 
   Cada veículo (carro ou ônibus) definido no arquivo \emph{trips.xml} é um
 elemento independente dentro da simulação. Eles percorrem seu trajeto do nó de
@@ -579,26 +582,27 @@ do veículo; \emph{Move}, quando a simulação atinge o tempo do próximo movime
 do veículo; \emph{Wait}, quando o veículo tem que esperar até o próximo
 movimento; e \emph{Finish}, quando o veículo chega ao seu destino. Os estados
 representam eventos ocorridos dentro da simulação, que são registrados no
-arquivo de saída \emph{events.xml}. A Listagem \ref{events.xml} mostra parte de
+arquivo de saída \emph{events.xml}. O Arquivo \ref{file:events.xml} mostra parte de
 um arquivo de saída gerado durante uma simulação. É possível ver os eventos de
 \emph{start\_trip}, \emph{move} e \emph{finish\_trip} para dois veículos com os
 identificadores $2121$ e $2223$.  É importante notar também o atributo
 \emph{time}, que indica o tempo de ocorrência do evento dentro da simulação.
 Esse atributo  é contabilizado em segundos. Na simulação de um dia do trânsito,
-por exemplo, temos então 86400 segundos, correspondentes às 24 horas do dia.
+por exemplo, temos então 86400 segundos, que correspondem a 24 horas.
 
-\begin{lstlisting}[style=myxml, caption={Exemplo de arquivo de saída events.xml com os eventos da simulação. Fonte: \citet{mabs2017}}, label=events.xml]
-
-<events version="1.0">
-  <event time="4" type="start_trip" vehicle="2121" link="5243" />
-  <event time="4" type="start_trip" vehicle="2223" link="1002" />
-  <event time="11" type="move" vehicle="2223" link="4005" />
-  <event time="31" type="move" vehicle="2121" link="4005" />
-  <event time="38" type="move" vehicle="2223" link="2007" />
-  <event time="52" type="finish_trip" vehicle="2121" link="4005" />
-  <event time="52" type="finish_trip" vehicle="2223" link="5243" />
-</events>
-\end{lstlisting}
+\begin{programruledcaption}{Exemplo de arquivo de saída events.xml com os eventos da simulação. \\Fonte: \citet{mabs2017} \label{file:events.xml}}
+  \begin{lstlisting}[language=XML]
+  <events version="1.0">
+    <event time="4" type="start_trip" vehicle="2121" link="5243" />
+    <event time="4" type="start_trip" vehicle="2223" link="1002" />
+    <event time="11" type="move" vehicle="2223" link="4005" />
+    <event time="31" type="move" vehicle="2121" link="4005" />
+    <event time="38" type="move" vehicle="2223" link="2007" />
+    <event time="52" type="finish_trip" vehicle="2121" link="4005" />
+    <event time="52" type="finish_trip" vehicle="2223" link="5243" />
+  </events>
+  \end{lstlisting}
+\end{programruledcaption}
 
   A partir desse arquivo de saída e do mapa da cidade é possível montar o o
 rastro de mobilidade dos veículos ao longo do tempo, recuperando as posições de
@@ -622,13 +626,13 @@ movimentação que ele fez dentro da simulação.
 35 & start & 8394\_43 & -23.561275 & -46.695423 \\
 \hline
 \end{tabular}
-\caption{Tabela com o rastro do tráfego montado a partir do arquivo de saída e o mapa da cidade. \label{table:rastro}}
+\caption[Rastro do tráfego] {Rastro do tráfego montado a partir do arquivo de saída e o mapa da cidade. \label{table:rastro}}
 \end{table}
 
 \begin{figure}[!htb]
   \centering
   \includegraphics[width=\textwidth]{../figuras/pontos.png}
-  \caption{Visualização dos pontos da trajetória do veículo com ID 4858\_52. \label{fig:rastro}}
+  \caption[Visualização dos pontos da trajetória de um veículo]{Visualização dos pontos da trajetória do veículo com ID 4858\_52 \label{fig:rastro}}
 \end{figure}
 
 Já a Figura \ref{fig:simulated-traffic} mostra uma simples visualização em linhas
@@ -654,5 +658,6 @@ utilizar, obter domínio sobre os dados do trânsito e suas propriedades, para
 posteriormente chegarmos a uma análise dos fluxos de origem e destino em
 diferentes níveis de detalhe a partir de um modelo de \emph{bundling}, além de
 investigar formas de destacar essas propriedades dentro da visualização. No
-próximo capítulo apresentamos alguns trabalhos que utilizam \emph{bundling} e
-outras técnicas para análise de dados de tráfego.
+próximo capítulo apresentamos uma revisão da literatura sobre alguns trabalhos
+que utilizam \emph{bundling} e outras técnicas para análise de dados de
+tráfego.
