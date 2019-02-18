@@ -12,6 +12,7 @@
 *.ilg
 *.ind
 *.lof
+*.loxa*
 *.lot
 *.idx
 *.bcf

@@ -127,26 +127,24 @@
 \floatstyle{ruled}
 
 \ifcsdef{chapter}
-    % O novo ambiente se chama "program" ("\begin{program}") e a extensão
+    % O novo ambiente se chama "xablau" ("\begin{program}") e a extensão
     % temporária é "lop"
-    {\newfloat{file}{htbp}{lop}[chapter]}
-    {\newfloat{file}{htbp}{lop}}
+    {\newfloat{xablau}{htbp}{loxablaus}[chapter]}
+    {\newfloat{xablau}{htbp}{loxablaus}}
 
-\captionsetup[file]{style=ruled}
-
+\captionsetup[xablau]{style=ruled}
 \addto\extrasbrazil{
-  \floatname{file}{Arquivo}
-  \gdef\filelistname{Lista de Arquivos}
+  \floatname{xablau}{Arquivo}
+  \gdef\xablaulistname{Lista de Arquivos}
 }
 
 \addto\extrasenglish{
-  \floatname{file}{File}
+  \floatname{xablau}{File}
   \gdef\programlistname{List of Files}
 }
 
 % Retorna o estilo dos floats para o padrão
 \floatstyle{plain}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TABELAS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
