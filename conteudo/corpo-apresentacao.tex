@@ -76,78 +76,143 @@ de Veículos}
 
 \section{Introdução}
 
-\begin{frame}{Contexto}
+% O trabalho é sobre dados do tráfego, então nada mais justo do que começar
+% explicando o que é o tráfego e que estamos interessados no trânsito
+% Pode ressaltar que 40% da população mundial gasta pelo menos 1h por dia no trânsito
+% E também pode falar que esses dados na cidade são coletados com os avanços
+% nos sistemas de transporte
+\begin{frame}{Dados de Tráfego}
   ``Tráfego em uma via é o fluxo ou a passagem de veículos e pedestres por um
 caminho que pode ser em regiões urbanas, mares, no ar e até no subsolo''
 
 \hfill \citep{Chen2015}
-\end{frame}
 
-\begin{frame}{Contexto}
-  \textbf{Dados de tráfego}
-  \begin{itemize}
-    \item Têm crescido com o avanço de sistemas de transporte
-    \item Complexos e volumosos 
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{Contexto}
-  \textbf{Visualizar esses dados}
-  \begin{itemize}
-    \item Trazem novas abstrações para entender seu comportamento
-    \item Relação entre deslocamentos entre regiões
-  \end{itemize}
+  \begin{figure}[h!]
+    \centering
+    \begin{subfigure}{0.20\textwidth}
+      \centering
+      \includegraphics[width=.4\textwidth]{black-plane.png}
+    \end{subfigure}
+    ~
+    \begin{subfigure}{0.20\textwidth}
+      \centering
+      \includegraphics[width=.4\textwidth]{delivery-truck.png}
+    \end{subfigure}
+    ~
+    \begin{subfigure}{0.20\textwidth}
+      \centering
+      \includegraphics[width=.4\textwidth]{sea-ship.png}
+    \end{subfigure}
+    ~
+    \begin{subfigure}{0.20\textwidth}
+      \centering
+      \includegraphics[width=.4\textwidth]{one-man-walking.png}
+    \end{subfigure}
+  \end{figure}
 \end{frame}
 
 %\begin{frame}[plain]
 %  \includegraphics[width=\textwidth]{interscity-logo}
 %\end{frame}
 
-\begin{frame}[standout]
-  Bundling
+% Aqui eu falo de mais algumas características sobre os dados do tráfego e
+% como eles podem auxiliar no planejamento das cidades
+% o que dá uma noção da complexidade de análise desses dados
+\begin{frame}{Dados de Tráfego}
+  \begin{itemize}
+    \item Contém relações de deslocamento entre regiões
+    \item Multidimensionais (posição, velocidade, aceleração)
+    \item Volumosos (\emph{big data})
+  \end{itemize}
 \end{frame}
+
+% Aqui eu falo que eles podem ser representados como um grafo e que essa representação
+% pode ajudar na compreensão das suas características de uma maneira visual
+% essa maneira é conhecida como leiaute/metáfora de linhas
+\begin{frame}{Dados de Tráfego}
+  Podem ser representados como um grafo onde os nós representam localidades e
+as arestas representam o movimento entre dois pontos no espaço. Assim, temos
+uma representação que ajuda a mapear visualmente as características e padrões
+contidas nos dados
+\end{frame}
+
+% Porém essa representação começa a apresentar problemas quando o número
+% de elementos aumenta (cruzamentos, sobreposição) como na figura do tráfego aéreo, fica difícil enxergar
+% as conexões entre aeroportos, etc
+\begin{frame}{Visualização do Tráfego}
+  Mas esse tipo de representação começa a ter problemas de oclusão à medida
+que a quantidade de elementos aumenta
+\end{frame}
+
+% Aqui eu introduzo o bundling como solução para simplificar a visualização
+% desse tipo de representação agrupando-se as arestas similares.
+% Com ela podemos ver a estrutura geral dos dados.
+% Citar que existem maneiras diferentes de se atingir um "bundling"
+\begin{frame}{Bundling}
+  Uma técnica chamada bundling, ajuda a simplificar a visualização desse tipo
+de representação. Ela ajuda a ter uma visão geral da estrutura dos dados
+agrupando as arestas similares, como origens e destinos similares.
+\end{frame}
+
+\begin{frame}{Atualmente}
+  No trânsito até encontramos algumas aplicações como Waze e google Maps, mas
+que não dão uma visão geral como proporcionado pelo uso de bundling sobre
+os dados do tráfego.
+\end{frame}
+
+%\begin{frame}[standout]
+%  Bundling
+%\end{frame}
 
 \begin{frame}{Objetivos}
   \begin{block}{Explorar o \emph{bundling} na visualização dos fluxos de origem-destino}
     \begin{enumerate}
-      \item Como o bundling pode ser usado para identificar os fluxos de origem e des-
-tino no trânsito em diferentes escalas?
+      \item Como o bundling pode ser usado para identificar os fluxos de origem
+      e destino no trânsito em diferentes escalas?
 
-      \item É possível utilizar o bundling para identificar padrões de fluxos de origem
-e destino no trânsito?
+      \item É possível utilizar o bundling para identificar padrões de fluxos
+      de origem e destino no trânsito?
 
-      \item O bundling é eficiente para gerar uma visualização de uma grande quanti-
-dade de dados do trânsito?
+      \item O bundling é eficiente para gerar uma visualização de uma grande
+      quantidade de dados do trânsito?
     \end{enumerate}
   \end{block}
 \end{frame}
 
+\begin{frame}{Desafios}
+    \begin{enumerate}
+      \item Selecionar um método de bundling
+
+      \item Implementar método de bundling selecionado
+
+      \item Elaborar cenários para validar nossa abordagem
+
+      \item Executar cenários elaborados
+    \end{enumerate}
+\end{frame}
+
 \section{Conceitos}
 
-\begin{frame}{Leiaute}
-\end{frame}
-
 \begin{frame}{Bundling}
+    Modelos e ADEB
 \end{frame}
 
-\begin{frame}{InterSCSimulator}
-\end{frame}
-
-
-\section{Trabalhos Relacionados}
-
-\begin{frame}{Trabalhos Relacionados}
-\end{frame}
 
 \section{Metodologia}
 
-\begin{frame}{Metodologia}
+\begin{frame}{InterSCityPlotter}
 \end{frame}
 
-\section{Considerações}
+\begin{frame}{Conjuntos de Dados}
+\end{frame}
+
+\begin{frame}{Visualização em Si}
+\end{frame}
 
 \begin{frame}{Validação}
 \end{frame}
+
+\section{Considerações Finais}
 
 \begin{frame}{Plano de Trabalho}
 \end{frame}
