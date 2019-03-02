@@ -47,16 +47,15 @@ de Veículos}
 %}
 
 % Usado para criar o qrcode com o endereço da apresentação
-\presentationurl{http://interscity.org}
+% \presentationurl{http://interscity.org}
 
 % Inclui o qrcode no sumário da apresentação
-\includeqrcodeintoc
+% \includeqrcodeintoc
 
 % O slide de sumário pode ser dividido em colunas; o parâmetro
 % determina após qual o número da seção fazer a quebra de coluna
 % (use zero para uma coluna ou simplesmente omita este comando).
 \toccolumns{4}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% INÍCIO DA APRESENTAÇÃO %%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -126,6 +125,20 @@ caminho que pode ser em regiões urbanas, mares, no ar e até no subsolo''
   \end{itemize}
 \end{frame}
 
+\begin{frame}[standout]
+  Visualização dos fluxos de origem e destino no tráfego de veículos no
+trânsito da cidade
+\end{frame}
+
+\begin{frame}{Dados de Tráfego}
+  \begin{itemize}
+    \item Que regiões recebem os maiores fluxos de veículos?
+    \item Que regiões são responsáveis pelo maior fluxo em uma via?
+    \item Como os fluxos de deslocamento se comportam ao longo do dia?
+    \item Como os fluxos se comportam com eventos atípicos?
+  \end{itemize}
+\end{frame}
+
 % Aqui eu falo que eles podem ser representados como um grafo e que essa representação
 % pode ajudar na compreensão das suas características de uma maneira visual
 % essa maneira é conhecida como leiaute/metáfora de linhas
@@ -139,74 +152,198 @@ contidas nos dados
 % Porém essa representação começa a apresentar problemas quando o número
 % de elementos aumenta (cruzamentos, sobreposição) como na figura do tráfego aéreo, fica difícil enxergar
 % as conexões entre aeroportos, etc
+{
+\setbeamercolor{background canvas}{bg=white}
 \begin{frame}{Visualização do Tráfego}
-  Mas esse tipo de representação começa a ter problemas de oclusão à medida
-que a quantidade de elementos aumenta
+  \begin{figure}[!htb]
+    \centering
+    \includegraphics[width=100mm]{cluttered-map.png}
+  \end{figure}
 \end{frame}
+}
 
 % Aqui eu introduzo o bundling como solução para simplificar a visualização
-% desse tipo de representação agrupando-se as arestas similares.
+% desse tipo de representação agrupando-se as arestas similares por algum
+% critério, e que no caso do transito esse critério tem q levar em conta a
+% direção dos fluxos
 % Com ela podemos ver a estrutura geral dos dados.
-% Citar que existem maneiras diferentes de se atingir um "bundling"
+% Citar ainda que existem maneiras diferentes de se atingir um "bundling"
+{
+\setbeamercolor{background canvas}{bg=white}
 \begin{frame}{Bundling}
-  Uma técnica chamada bundling, ajuda a simplificar a visualização desse tipo
-de representação. Ela ajuda a ter uma visão geral da estrutura dos dados
-agrupando as arestas similares, como origens e destinos similares.
+  \begin{figure}[!htb]
+    \centering
+    \includegraphics[width=1\textwidth]{bundle-ex.png}
+  \end{figure}
+
+  \pause
+  \begin{itemize}
+    \item Quais os critérios de similaridade 
+    \item Como representar os atributos agregados
+  \end{itemize}
 \end{frame}
+}
 
-\begin{frame}{Atualmente}
-  No trânsito até encontramos algumas aplicações como Waze e google Maps, mas
-que não dão uma visão geral como proporcionado pelo uso de bundling sobre
-os dados do tráfego.
-\end{frame}
 
-%\begin{frame}[standout]
-%  Bundling
-%\end{frame}
+% Existem algumas aplicações para visualização de trânsito bem conhecidas
+% Mas elas focam em visualizações pontuais do trânsito e não na sua estrutura geral
+% Outra coisa, por exemplo, não é possível saber as origens que geram um
+% determinado engarrafamento em uma via
+\begin{frame}{Aplicações de Visualização do Trânsito}
+  \centering
+  Google Maps - Waze - OlhoVivo
+  \begin{figure}[!htb]
+    \centering
+    \includegraphics[width=\textwidth]{maps.pdf}
+  \end{figure}
+ \end{frame}
 
+% Aqui eu falo as explicações dadas no texto para cada pergunta
 \begin{frame}{Objetivos}
-  \begin{block}{Explorar o \emph{bundling} na visualização dos fluxos de origem-destino}
+  \begin{block}{Explorar a técnica de \emph{bundling} na visualização dos fluxos de origem-destino}
     \begin{enumerate}
+      \pause
       \item Como o bundling pode ser usado para identificar os fluxos de origem
       e destino no trânsito em diferentes escalas?
 
+      \pause
       \item É possível utilizar o bundling para identificar padrões de fluxos
       de origem e destino no trânsito?
 
+      \pause
       \item O bundling é eficiente para gerar uma visualização de uma grande
       quantidade de dados do trânsito?
     \end{enumerate}
   \end{block}
 \end{frame}
 
+% Ainda não sei sobre essa parte
 \begin{frame}{Desafios}
-    \begin{enumerate}
+    \begin{itemize}
       \item Selecionar um método de bundling
 
-      \item Implementar método de bundling selecionado
+      \item Implementar visualização utilizando bundling
 
       \item Elaborar cenários para validar nossa abordagem
 
       \item Executar cenários elaborados
-    \end{enumerate}
+    \end{itemize}
 \end{frame}
 
+% Necessário explicar mais afundo o modelo de bundling, principalmente
+% nas questões dos atributos de densidade e direção que queremos destacar
+% para visualizar os fluxos de origem e destino
 \section{Conceitos}
 
 \begin{frame}{Bundling}
-    Modelos e ADEB
+ ``O cálculo de um \emph{bundle} não possui uma definição precisa, e por isso há
+uma grande variedade de algoritmos e abordagens para modelar problemas de
+agrupamento de arestas com \emph{bundling}, que podem variar significativamente
+de um para outro em questões de complexidade e aplicação dos algoritmos''
+
+\hfill \citep{Zhou2013}
 \end{frame}
 
+\begin{frame}{Taxonomia dos métodos de \emph{bundling}}
+  \begin{figure}[!htb]
+    \centering
+    \includegraphics[width=\textwidth]{../figuras/estado-da-arte.pdf}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{\emph{Attribute-Driven Edge Bundling}}
+    
+  
+\end{frame}
+
+\section{Trabalhos Relacionados}
+
+\begin{frame}{Processo de Visualização do Tráfego}
+  \begin{itemize}
+    \item Tipo de dado
+
+    \item Propriedades espaciais e temporais
+
+    \item Agrupamento (regiões, dias de semana)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Trabalhos relacionados}
+  \begin{tabular}{|c|c|c|c|}
+  \hline
+  \textbf{Trabalho}       & \textbf{Dados do Trânsito} & \textbf{\emph{Bundling}} & \textbf{Leiaute}  \\ \hline
+  Nossa proposta          & \checkmark                 & \checkmark               &          linhas   \\ \hline
+  \citet{Kim2018}         & x                          &  x                       &          linhas   \\ \hline
+  \citet{Andrienko2017}   & \checkmark                 &  x                       &          radial   \\ \hline
+  \citet{Anita2017}       & x                          & \checkmark               &          linhas   \\ \hline
+  \citet{Landersberg2016} & x                          &  x                       &          linhas   \\ \hline
+  \citet{Klein2014}       & x                          & \checkmark               &          linhas   \\ \hline
+  \citet{Chu2014}         & x                          &  x                       &          variado  \\ \hline
+  \citet{Ferreira2013}    & \checkmark                 &  x                       &          pontos   \\ \hline
+  \citet{Zeng2013}        & x                          & \checkmark               &          radial   \\ \hline
+  \citet{Guo2011}         & \checkmark                 &  x                       &          variado  \\ \hline
+
+  \end{tabular}
+\end{frame}
 
 \section{Metodologia}
 
+\begin{frame}{Implementação}
+  \begin{itemize}
+    \item Poucos algoritmos de bundling são implementados em bibliotecas
+    \item A maioria dos trabalhos não disponibilizam o código fonte
+    \item Necessário implementar da forma como queremos
+  \end{itemize}
+\end{frame}
+
+% Uma ferramenta que faz parte do ecossistema InterSCity, feita para integrar
+% com o InterSCImulator, a qual estamos desenvolvendo para validarmos nossa abordagem
+{
+\setbeamercolor{background canvas}{bg=white}
 \begin{frame}{InterSCityPlotter}
+  \begin{figure}[!htb]
+    \centering
+    \includegraphics[width=1\textwidth]{interscityplotter.pdf}
+  \end{figure}
+\end{frame}
+}
+
+% Aqui eu falo os conjuntos que utilizaremos e como eles ajudarão a responder
+% as questões de pesquisa, principalmente Q2 e Q3 no caso dos dados simulados
+\begin{frame}{Conjuntos de Dados}
+
+  \begin{center}
+  $T = \left\langle p_i = ((latitude, longitude) \in \mathbb{R}^2, t \in \mathbb{R}^+, a^n \in \mathbb{R})_i \right\rangle$
+  \end{center}
+
+  \begin{itemize}
+    \item Tráfego simulado (carros e ônibus)
+    \item Tráfego de ônibus na cidade de SP
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{Conjuntos de Dados}
+  \begin{itemize}
+    \item Viagens da simulação não finalizadas
+    \item Dados inconsistentes com a trajetória
+    \item Rotas circulares
+    \item Anomalias
+    \item Derivação da direção
+  \end{itemize}
 \end{frame}
 
-\begin{frame}{Visualização em Si}
+\begin{frame}{Leiaute da Visualização}
+  \begin{itemize}
+    \item Propriedades espaciais
+    \item Propriedades temporais
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Bundling}
+  \begin{itemize}
+    \item Algoritmo ADEB
+    \item Propriedades temporais
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{Validação}
