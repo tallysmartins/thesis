@@ -125,6 +125,10 @@ caminho que pode ser em regiões urbanas, mares, no ar e até no subsolo''
   \end{itemize}
 \end{frame}
 
+% Aqui eu falo no que estamos interessados... criar uma visualização desses fluxos
+% para, por exemplo, responder as questões do próximo slide
+
+% falar que vamos fazer isso com dados reais e simulados?
 \begin{frame}[standout]
   Visualização dos fluxos de origem e destino no tráfego de veículos no
 trânsito da cidade
@@ -142,31 +146,33 @@ trânsito da cidade
 % Aqui eu falo que eles podem ser representados como um grafo e que essa representação
 % pode ajudar na compreensão das suas características de uma maneira visual
 % essa maneira é conhecida como leiaute/metáfora de linhas
-\begin{frame}{Dados de Tráfego}
+\begin{frame}{Visualização de Dados do Tráfego}
   Podem ser representados como um grafo onde os nós representam localidades e
 as arestas representam o movimento entre dois pontos no espaço. Assim, temos
-uma representação que ajuda a mapear visualmente as características e padrões
-contidas nos dados
+uma representação em linhas que ajuda a mapear visualmente as características
+dos dados.
 \end{frame}
 
 % Porém essa representação começa a apresentar problemas quando o número
 % de elementos aumenta (cruzamentos, sobreposição) como na figura do tráfego aéreo, fica difícil enxergar
 % as conexões entre aeroportos, etc
-{
 \setbeamercolor{background canvas}{bg=white}
-\begin{frame}{Visualização do Tráfego}
+\begin{frame}{Visualização de Dados do Tráfego}
   \begin{figure}[!htb]
     \centering
-    \includegraphics[width=100mm]{cluttered-map.png}
+    \includegraphics[width=\textwidth]{../figuras/trafego-ocluso.png}
   \end{figure}
 \end{frame}
-}
 
 % Aqui eu introduzo o bundling como solução para simplificar a visualização
 % desse tipo de representação agrupando-se as arestas similares por algum
-% critério, e que no caso do transito esse critério tem q levar em conta a
+% critério
+
+% No caso do transito esse critério tem q levar em conta a
 % direção dos fluxos
-% Com ela podemos ver a estrutura geral dos dados.
+
+% Com ela podemos ver A ESTRUTURA GERAL dos dados.
+
 % Citar ainda que existem maneiras diferentes de se atingir um "bundling"
 {
 \setbeamercolor{background canvas}{bg=white}
@@ -178,12 +184,11 @@ contidas nos dados
 
   \pause
   \begin{itemize}
-    \item Quais os critérios de similaridade 
-    \item Como representar os atributos agregados
+    \item Reduz a oclusão agrupando arestas similares
+    \item Mantém a estrutura geral dos dados
   \end{itemize}
 \end{frame}
 }
-
 
 % Existem algumas aplicações para visualização de trânsito bem conhecidas
 % Mas elas focam em visualizações pontuais do trânsito e não na sua estrutura geral
@@ -199,8 +204,8 @@ contidas nos dados
  \end{frame}
 
 % Aqui eu falo as explicações dadas no texto para cada pergunta
-\begin{frame}{Objetivos}
-  \begin{block}{Explorar a técnica de \emph{bundling} na visualização dos fluxos de origem-destino}
+\begin{frame}{Questões de Pesquisa}
+  \begin{block}{Explorar a técnica de \emph{bundling} na visualização dos fluxos de origem e destino}
     \begin{enumerate}
       \pause
       \item Como o bundling pode ser usado para identificar os fluxos de origem
@@ -217,16 +222,14 @@ contidas nos dados
   \end{block}
 \end{frame}
 
-% Ainda não sei sobre essa parte
+% A ideia é mostrar que não é só aplicar bundling nos dados e ver no que dá
 \begin{frame}{Desafios}
     \begin{itemize}
       \item Selecionar um método de bundling
 
-      \item Implementar visualização utilizando bundling
+      \item Elaborar cenários e obter dados para validar nossa abordagem
 
-      \item Elaborar cenários para validar nossa abordagem
-
-      \item Executar cenários elaborados
+      \item Implementar e testar visualização
     \end{itemize}
 \end{frame}
 
@@ -236,29 +239,42 @@ contidas nos dados
 \section{Conceitos}
 
 \begin{frame}{Bundling}
- ``O cálculo de um \emph{bundle} não possui uma definição precisa, e por isso há
-uma grande variedade de algoritmos e abordagens para modelar problemas de
-agrupamento de arestas com \emph{bundling}, que podem variar significativamente
-de um para outro em questões de complexidade e aplicação dos algoritmos''
+  \begin{itemize}
+    \item Cria uma nova abstração para a visualização de muitos dados (bundles)
 
-\hfill \citep{Zhou2013}
+    \item Há uma variedade de algoritmos e abordagens para modelar problemas de
+  agrupamento de arestas com \emph{bundling}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{Taxonomia dos métodos de \emph{bundling}}
   \begin{figure}[!htb]
     \centering
-    \includegraphics[width=\textwidth]{../figuras/estado-da-arte.pdf}
+    \includegraphics[width=\textwidth]{estado-da-arte.pdf}
   \end{figure}
+
+\hfill \citep{Lhuillier2017}
 \end{frame}
 
-\begin{frame}{\emph{Attribute-Driven Edge Bundling}}
-    
-  
+\begin{frame}{\emph{Attribute-Driven Edge Bundling} - ADEB}
+  \begin{itemize}
+    \item Algoritmo rápido e eficiente (paralelizável na GPU)
+    \item Consegue utilizar atributos no critério de similaridade (direção)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{\emph{Attribute-Driven Edge Bundling} - ADEB}
+  \begin{enumerate}
+    \item Converte o grafo G em um mapa de densidade usando uma função de densidade
+    \item Computar o gradiente da função de densidade para cada ponto/nó do grafo
+    \item Mover os nós na direção do gradiente (áreas mais densas)
+  \end{enumerate}
 \end{frame}
 
 \section{Trabalhos Relacionados}
 
-\begin{frame}{Processo de Visualização do Tráfego}
+% Analisando alguns trabalhos relacionados sobre visualização
+\begin{frame}{Trabalhos relacionados}
   \begin{itemize}
     \item Tipo de dado
 
@@ -269,20 +285,41 @@ de um para outro em questões de complexidade e aplicação dos algoritmos''
 \end{frame}
 
 \begin{frame}{Trabalhos relacionados}
-  \begin{tabular}{|c|c|c|c|}
-  \hline
-  \textbf{Trabalho}       & \textbf{Dados do Trânsito} & \textbf{\emph{Bundling}} & \textbf{Leiaute}  \\ \hline
-  Nossa proposta          & \checkmark                 & \checkmark               &          linhas   \\ \hline
-  \citet{Kim2018}         & x                          &  x                       &          linhas   \\ \hline
-  \citet{Andrienko2017}   & \checkmark                 &  x                       &          radial   \\ \hline
-  \citet{Anita2017}       & x                          & \checkmark               &          linhas   \\ \hline
-  \citet{Landersberg2016} & x                          &  x                       &          linhas   \\ \hline
-  \citet{Klein2014}       & x                          & \checkmark               &          linhas   \\ \hline
-  \citet{Chu2014}         & x                          &  x                       &          variado  \\ \hline
-  \citet{Ferreira2013}    & \checkmark                 &  x                       &          pontos   \\ \hline
-  \citet{Zeng2013}        & x                          & \checkmark               &          radial   \\ \hline
-  \citet{Guo2011}         & \checkmark                 &  x                       &          variado  \\ \hline
+\begin{figure}[ht!]
+  \centering
+  \begin{subfigure}[t]{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{../figuras/proximidade-espacial.png}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[t]{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{../figuras/proximidade-abstrata.png}
+  \end{subfigure}
+\end{figure}
+\end{frame}
 
+\begin{frame}{Trabalhos relacionados}
+  \begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.97\textwidth]{../figuras/region-based.png}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Trabalhos relacionados}
+  \begin{tabular}{|c|c|c|c|}
+    \hline
+    \textbf{Trabalho}       & \textbf{Dados do Trânsito} & \textbf{\emph{Bundling}} & \textbf{Leiaute}  \\ \hline
+    Nossa proposta          & \checkmark                 & \checkmark               &          linhas   \\ \hline
+    \citet{Kim2018}         & x                          &  x                       &          linhas   \\ \hline
+    \citet{Andrienko2017}   & \checkmark                 &  x                       &          radial   \\ \hline
+    \citet{Anita2017}       & x                          & \checkmark               &          linhas   \\ \hline
+    \citet{Landersberg2016} & x                          &  x                       &          linhas   \\ \hline
+    \citet{Klein2014}       & x                          & \checkmark               &          linhas   \\ \hline
+    \citet{Chu2014}         & x                          &  x                       &          variado  \\ \hline
+    \citet{Ferreira2013}    & \checkmark                 &  x                       &          pontos   \\ \hline
+    \citet{Zeng2013}        & x                          & \checkmark               &          radial   \\ \hline
+    \citet{Guo2011}         & \checkmark                 &  x                       &          variado  \\ \hline
   \end{tabular}
 \end{frame}
 
@@ -308,21 +345,25 @@ de um para outro em questões de complexidade e aplicação dos algoritmos''
 \end{frame}
 }
 
-% Aqui eu falo os conjuntos que utilizaremos e como eles ajudarão a responder
+% Utilizaremos dois conjuntos de dados em nossa análise
+% Os dados possuem o registro da posição e do tempo ao longo de toda a trajetória
+% desde a origem até o destino
+
 % as questões de pesquisa, principalmente Q2 e Q3 no caso dos dados simulados
 \begin{frame}{Conjuntos de Dados}
-
-  \begin{center}
-  $T = \left\langle p_i = ((latitude, longitude) \in \mathbb{R}^2, t \in \mathbb{R}^+, a^n \in \mathbb{R})_i \right\rangle$
-  \end{center}
-
   \begin{itemize}
     \item Tráfego simulado (carros e ônibus)
     \item Tráfego de ônibus na cidade de SP
   \end{itemize}
+
+  \begin{center}
+  $T = \left\langle p_i = ((latitude, longitude) \in \mathbb{R}^2, t \in \mathbb{R}^+, a^n \in \mathbb{R})_i \right\rangle$
+  \end{center}
 \end{frame}
 
-\begin{frame}{Conjuntos de Dados}
+% Os dados precisarão ainda passar por algumas etapas de limpeza
+% eventualmente precisamos checar possíveis inconsistências ou ruídos
+\begin{frame}{Conjuntos de Dados (pré-processamentos)}
   \begin{itemize}
     \item Viagens da simulação não finalizadas
     \item Dados inconsistentes com a trajetória
@@ -332,11 +373,22 @@ de um para outro em questões de complexidade e aplicação dos algoritmos''
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Leiaute da Visualização}
+% Para visualizar os fluxos de OD no trânsito, estamos interessados na sua direção
+% e na sua densidade
+\begin{frame}{Proposta de Visualização}
   \begin{itemize}
-    \item Propriedades espaciais
-    \item Propriedades temporais
+    \item Direção
+    \item Densidade
   \end{itemize}
+
+  \centering
+  propriedades espaciais e temporais
+\end{frame}
+
+\begin{frame}{Leiaute da Visualização}
+
+  \centering
+  propriedades espaciais e temporais
 \end{frame}
 
 \begin{frame}{Bundling}
@@ -352,6 +404,24 @@ de um para outro em questões de complexidade e aplicação dos algoritmos''
 \section{Considerações Finais}
 
 \begin{frame}{Plano de Trabalho}
+\begin{figure}[!htb]
+  \centering
+
+  \begin{ganttchart}{2019-02}{2019-11}
+    \gantttitlecalendar{year,month=shortname} \ganttnewline
+
+    \ganttbar[progress=15]{Desenvolvimento da visualização}{2019-3}{2019-5} \ganttnewline
+    \ganttbar[progress=15]{Coleta e tratamento dos dados}{2019-3}{2019-4}\ganttnewline
+    \ganttbar[progress=0]{Execução dos experimentos}{2019-6}{2019-7} \ganttnewline
+    \ganttbar[progress=0]{Análise dos resultados}{2019-8}{2019-8} \ganttnewline
+    \ganttbar[progress=0]{Escrita da Dissertação}{2019-8}{2019-10} \ganttnewline
+    \ganttbar[progress=0]{Escrita de Artigo}{2019-9}{2019-10} \ganttnewline
+    \ganttmilestone{Defesa}{2019-10}
+  \end{ganttchart}
+
+  \caption{Cronograma.\label{fig:gantt}}
+\end{figure}
+
 \end{frame}
 
 \section{References}
