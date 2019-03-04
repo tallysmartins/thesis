@@ -146,12 +146,18 @@ trânsito da cidade
 % Aqui eu falo que eles podem ser representados como um grafo e que essa representação
 % pode ajudar na compreensão das suas características de uma maneira visual
 % essa maneira é conhecida como leiaute/metáfora de linhas
+{
+\setbeamercolor{background canvas}{bg=white}
 \begin{frame}{Visualização de Dados do Tráfego}
   Podem ser representados como um grafo onde os nós representam localidades e
-as arestas representam o movimento entre dois pontos no espaço. Assim, temos
-uma representação em linhas que ajuda a mapear visualmente as características
-dos dados.
+as arestas representam o movimento entre dois pontos no espaço.
+
+  \begin{figure}[!htb]
+    \centering
+    \includegraphics[width=.6\textwidth]{grafim.pdf}
+  \end{figure}
 \end{frame}
+}
 
 % Porém essa representação começa a apresentar problemas quando o número
 % de elementos aumenta (cruzamentos, sobreposição) como na figura do tráfego aéreo, fica difícil enxergar
@@ -373,35 +379,142 @@ dos dados.
   \end{itemize}
 \end{frame}
 
+% Então chega a parte importante, que é a nossa proposta para visualização
+% dos fluxos de OD com bundling. Geralmente sempre vai ter um tradeoff de informações
+% em cada escolha feita. 
+\begin{frame}[standout]
+  Proposta de Visualização: codificar visualmente as propriedades espaciais
+e temporais dos dados.
+\end{frame}
+
 % Para visualizar os fluxos de OD no trânsito, estamos interessados na sua direção
 % e na sua densidade
-\begin{frame}{Proposta de Visualização}
+\begin{frame}{Visualização dos fluxos de OD}
   \begin{itemize}
     \item Direção
     \item Densidade
+    \item Padrões de deslocamento em um dado momento
+    \item Mudanças ao longo do tempo
   \end{itemize}
-
-  \centering
-  propriedades espaciais e temporais
 \end{frame}
 
+% A primeira decisão que tomamos foi projetar os dados sobre um mapa,
+% pois ele traz um foco que mostra intuitivamente as propriedades espaciais
+% que ajuda a manter um mapa mental de localidade entre as regiões
 \begin{frame}{Leiaute da Visualização}
-
-  \centering
-  propriedades espaciais e temporais
+  \begin{figure}[ht!]
+    \centering
+    \includegraphics[width=.35\textwidth]{sp-map.png}
+  Uma projeção  mapa mostra intuitivamente as relações de localidade entre
+as regiões
+  \end{figure}
 \end{frame}
 
-\begin{frame}{Bundling}
+% A agregação com bundling vai dar a estrutura geral do tráfego que estamos
+% interessados, destacando os padrões de comportamento em um dado instante do tempo
+% Combinado com o parÂmetro temporal, pretendemos visualizar essa estrutura
+% em vários momentos do dia, como em horários de pico
+
+% porém, perdemos a capacidade de visualizar viagens individuais, já que
+% estamos provendo uma visualização agregada dos dados
+\begin{frame}{Agregação Espacial com Bundling}
   \begin{itemize}
-    \item Algoritmo ADEB
-    \item Propriedades temporais
+    \item Agrupamento das trajetórias com origem-destino e direção similares
+    \item Destaque da estrutura geral dos fluxos e seu comportamento
+    \item Visualizar a estrutura ao longo do tempo $\Delta~t$ 
   \end{itemize}
+\end{frame}
+
+% A dimensão espacial é o nosso segundo parâmetro multiescala dentro da visualização
+% Queremos explorar os fluxos em diferentes níveis de detalhe com bundling
+% pra isso determinamos o conceito de sub-trajetórias, 
+% Permite a navegação na dimensão espacial dos dados
+\begin{frame}{Agregação Espacial Multiescala}
+  \begin{itemize}
+    \item Detectamos as sub trajetórias na nova escala
+    \item Em seguida reaplicamos bundling no subconjunto
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Agregação Espacial Multiescala}
+	\begin{figure}[!htb]
+		\centering
+		\includegraphics[width=55mm]{multi-scale.png}
+	\end{figure}
+	\centering
+  Quanto menor a escala, mais detalhes sobre o fluxo são obtidos
+\end{frame}
+
+\begin{frame}{Visualização dos Atributos}
+	\begin{figure}[ht!]
+		\centering
+		\begin{subfigure}[t]{\textwidth}
+			\centering
+			\includegraphics[width=.6\textwidth]{alpha-blending.pdf}
+		\end{subfigure}
+		~
+		\begin{subfigure}[t]{\textwidth}
+			\centering
+			\includegraphics[width=.6\textwidth]{color-density.pdf}
+		\end{subfigure}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Visualização dos Atributos}
+	\begin{figure}[ht!]
+		\centering
+		\includegraphics[width=.8\textwidth]{color-wheel.pdf}
+	\end{figure}
+\end{frame}
+
+% Avaliar uma visualização é uma tarefa complexa e não existem métodos
+% objetivos bem estabelecidos na comunidade de visualização. Avaliaremos
+% nossa proposta em aspectos qualitativos e quantitativos
+\begin{frame}{Validação}
+	\centering
+ ``Ainda não se tem um consenso sobre métodos para avaliar a
+qualidade de uma visualização, ou mesmo critérios objetivos para definir o
+que é um bom \emph{bundling}''
+
+	\hfill \citep{Lhuillier2017}.
 \end{frame}
 
 \begin{frame}{Validação}
+	\textbf{Q1 - Bundling Multiescala:} uma observação objetiva sobre os
+diferentes resultados gerados com a variação dos parâmetros de escala espacial
+e também temporais, além da forma como apresentamos os atributos de densidade e
+direção dos fluxos.
+\end{frame}
+
+\begin{frame}{Validação}
+	\textbf{Q2 - Padrões ao longo do tempo:} uma observação objetiva dos
+resultados gerados pelo experimento onde propomos o bloqueio controlado de vias
+da cidade para identificar os impactos no trânsito sobre a ótica da nossa
+visualização.
+\end{frame}
+
+\begin{frame}{Validação}
+	\textbf{Q3 - Eficiência computacional da visualização:} uma medida
+quantitativa do tempo de processamento para gerar a visualização de uma grande
+quantidade de dados do trânsito gerados com o InterSCImulator, em um cenário
+com 31 milhões de pontos e mais de 585 mil viagens.	
 \end{frame}
 
 \section{Considerações Finais}
+
+\begin{frame}{Considerações Finais}
+	Esforço Técnico:
+	\begin{itemize}
+		\item Implementada a arquitetura básica do InterSCityPlotter
+		\item Parte dos dados da simulação do tráfego já adquiridos
+		\item Os dados dos ônibus ainda serão coletados
+	\end{itemize}
+
+	Validação:
+	\begin{itemize}
+		\item Avaliamos uma comparação com a visualização de \citet{Guo2011}
+	\end{itemize}
+\end{frame}
 
 \begin{frame}{Plano de Trabalho}
 \begin{figure}[!htb]
