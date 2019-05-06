@@ -13,7 +13,7 @@
 \avisoApresentacao
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% METADADOS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title[The shortened title]{Visualização Dinâmica Multiescala\\ de Dados do Tráfego
+\title[Visualização de Dados do Tráfego]{Visualização Dinâmica Multiescala\\ de Dados do Tráfego
 de Veículos}
 % \subtitle{The (optional) subtitle}
 
@@ -23,7 +23,7 @@ de Veículos}
 \institute[USP]{
  \textbf{Orientador:} Fabio Kon \\
  \textbf{Co-Orientador:} Higor Amario de Souza \\
- Computer Science Department \\ IME USP
+ Departamento de Ciência da Computação \\ IME USP
 }
 
 \date{Março de 2019}
@@ -119,9 +119,19 @@ caminho que pode ser em regiões urbanas, mares, no ar e até no subsolo''
 % o que dá uma noção da complexidade de análise desses dados
 \begin{frame}{Dados de Tráfego}
   \begin{itemize}
-    \item Contém relações de deslocamento entre regiões
+    \item Relações de deslocamento entre regiões
     \item Multidimensionais (posição, velocidade, aceleração)
     \item Volumosos (\emph{big data})
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Problemas}
+  \begin{itemize}
+    \item Que regiões recebem os maiores fluxos de veículos?
+    \item Que regiões são responsáveis pelo maior fluxo em uma via?
+    \item Como os fluxos de deslocamento se comportam ao longo do dia?
+    \item Como os fluxos se comportam com eventos atípicos?
   \end{itemize}
 \end{frame}
 
@@ -134,14 +144,6 @@ caminho que pode ser em regiões urbanas, mares, no ar e até no subsolo''
 trânsito da cidade
 \end{frame}
 
-\begin{frame}{Dados de Tráfego}
-  \begin{itemize}
-    \item Que regiões recebem os maiores fluxos de veículos?
-    \item Que regiões são responsáveis pelo maior fluxo em uma via?
-    \item Como os fluxos de deslocamento se comportam ao longo do dia?
-    \item Como os fluxos se comportam com eventos atípicos?
-  \end{itemize}
-\end{frame}
 
 % Aqui eu falo que eles podem ser representados como um grafo e que essa representação
 % pode ajudar na compreensão das suas características de uma maneira visual
@@ -191,7 +193,7 @@ as arestas representam o movimento entre dois pontos no espaço.
   \pause
   \begin{itemize}
     \item Reduz a oclusão agrupando arestas similares
-    \item Mantém a estrutura geral dos dados
+    \item Cria uma nova abstração da estrutura geral dos dados
   \end{itemize}
 \end{frame}
 }
@@ -229,31 +231,22 @@ as arestas representam o movimento entre dois pontos no espaço.
 \end{frame}
 
 % A ideia é mostrar que não é só aplicar bundling nos dados e ver no que dá
-\begin{frame}{Desafios}
-    \begin{itemize}
-      \item Selecionar um método de bundling
-
-      \item Elaborar cenários e obter dados para validar nossa abordagem
-
-      \item Implementar e testar visualização
-    \end{itemize}
-\end{frame}
+%\begin{frame}{Desafios}
+%    \begin{itemize}
+%      \item Selecionar um método de bundling
+%
+%      \item Elaborar cenários e obter dados para validar nossa abordagem
+%
+%      \item Implementar e testar visualização
+%    \end{itemize}
+%\end{frame}
 
 % Necessário explicar mais afundo o modelo de bundling, principalmente
 % nas questões dos atributos de densidade e direção que queremos destacar
 % para visualizar os fluxos de origem e destino
 \section{Conceitos}
 
-\begin{frame}{Bundling}
-  \begin{itemize}
-    \item Cria uma nova abstração para a visualização de muitos dados (bundles)
-
-    \item Há uma variedade de algoritmos e abordagens para modelar problemas de
-  agrupamento de arestas com \emph{bundling}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{Taxonomia dos métodos de \emph{bundling}}
+\begin{frame}{Métodos de \emph{bundling}}
   \begin{figure}[!htb]
     \centering
     \includegraphics[width=\textwidth]{estado-da-arte.pdf}
@@ -271,7 +264,7 @@ as arestas representam o movimento entre dois pontos no espaço.
 
 \begin{frame}{\emph{Attribute-Driven Edge Bundling} - ADEB}
   \begin{enumerate}
-    \item Converte o grafo G em um mapa de densidade usando uma função de densidade
+    \item Converter o grafo G em um mapa de densidade usando uma função de densidade
     \item Computar o gradiente da função de densidade para cada ponto/nó do grafo
     \item Mover os nós na direção do gradiente (áreas mais densas)
   \end{enumerate}
@@ -303,6 +296,8 @@ as arestas representam o movimento entre dois pontos no espaço.
     \includegraphics[width=\textwidth]{../figuras/proximidade-abstrata.png}
   \end{subfigure}
 \end{figure}
+  \centering
+  Leiaute espacial vs abstrato
 \end{frame}
 
 \begin{frame}{Trabalhos relacionados}
@@ -333,9 +328,8 @@ as arestas representam o movimento entre dois pontos no espaço.
 
 \begin{frame}{Implementação}
   \begin{itemize}
-    \item Poucos algoritmos de bundling são implementados em bibliotecas
+    \item Poucos algoritmos de bundling estão disponíveis em bibliotecas
     \item A maioria dos trabalhos não disponibilizam o código fonte
-    \item Necessário implementar da forma como queremos
   \end{itemize}
 \end{frame}
 
@@ -402,12 +396,23 @@ e temporais dos dados.
 % pois ele traz um foco que mostra intuitivamente as propriedades espaciais
 % que ajuda a manter um mapa mental de localidade entre as regiões
 \begin{frame}{Leiaute da Visualização}
-  \begin{figure}[ht!]
-    \centering
-    \includegraphics[width=.35\textwidth]{sp-map.png}
-  Uma projeção  mapa mostra intuitivamente as relações de localidade entre
-as regiões
-  \end{figure}
+  \begin{columns}[t]
+    \col
+		\begin{figure}[ht!]
+			\centering
+			\includegraphics[width=.65\textwidth]{sp-map.png}
+		\end{figure}
+
+    \col
+		\begin{coloredblock}{white!90!white}{}
+		Uma projeção sobre um mapa mostra intuitivamente as relações de localidade entre
+		as regiões
+
+    \pause
+    Para explorar as propriedades temporais  utilizamos um filtro para selecionar
+    janelas de tempo em um intervalo $\Delta~t$ 
+		\end{coloredblock}
+  \end{columns}
 \end{frame}
 
 % A agregação com bundling vai dar a estrutura geral do tráfego que estamos
@@ -421,8 +426,17 @@ as regiões
   \begin{itemize}
     \item Agrupamento das trajetórias com origem-destino e direção similares
     \item Destaque da estrutura geral dos fluxos e seu comportamento
-    \item Visualizar a estrutura ao longo do tempo $\Delta~t$ 
   \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Agregação Espacial Multiescala}
+	\begin{figure}[!htb]
+		\centering
+		\includegraphics[width=55mm]{multi-scale.png}
+	\end{figure}
+	\centering
+  Quanto menor a escala, mais detalhes sobre o fluxo são obtidos
 \end{frame}
 
 % A dimensão espacial é o nosso segundo parâmetro multiescala dentro da visualização
@@ -436,16 +450,7 @@ as regiões
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Agregação Espacial Multiescala}
-	\begin{figure}[!htb]
-		\centering
-		\includegraphics[width=55mm]{multi-scale.png}
-	\end{figure}
-	\centering
-  Quanto menor a escala, mais detalhes sobre o fluxo são obtidos
-\end{frame}
-
-\begin{frame}{Visualização dos Atributos}
+\begin{frame}{Visualização da Atributos}
 	\begin{figure}[ht!]
 		\centering
 		\begin{subfigure}[t]{\textwidth}
@@ -487,7 +492,7 @@ direção dos fluxos.
 \end{frame}
 
 \begin{frame}{Validação}
-	\textbf{Q2 - Padrões ao longo do tempo:} uma observação objetiva dos
+	\textbf{Q2 - Padrões ao longo do tempo e na ocorrência de eventos atípicos:} uma observação objetiva dos
 resultados gerados pelo experimento onde propomos o bloqueio controlado de vias
 da cidade para identificar os impactos no trânsito sobre a ótica da nossa
 visualização.
@@ -496,7 +501,7 @@ visualização.
 \begin{frame}{Validação}
 	\textbf{Q3 - Eficiência computacional da visualização:} uma medida
 quantitativa do tempo de processamento para gerar a visualização de uma grande
-quantidade de dados do trânsito gerados com o InterSCImulator, em um cenário
+quantidade de dados do trânsito gerados com o InterSCSimulator, em um cenário
 com 31 milhões de pontos e mais de 585 mil viagens.	
 \end{frame}
 
@@ -510,10 +515,10 @@ com 31 milhões de pontos e mais de 585 mil viagens.
 		\item Os dados dos ônibus ainda serão coletados
 	\end{itemize}
 
-	Validação:
-	\begin{itemize}
-		\item Avaliamos uma comparação com a visualização de \citet{Guo2011}
-	\end{itemize}
+	%Validação:
+	%\begin{itemize}
+	%	\item Avaliamos uma comparação com a visualização de \citet{Guo2011}
+	%\end{itemize}
 \end{frame}
 
 \begin{frame}{Plano de Trabalho}
@@ -537,9 +542,9 @@ com 31 milhões de pontos e mais de 585 mil viagens.
 
 \end{frame}
 
-\section{References}
+\section{Referências}
 
-\begin{frame}[allowframebreaks]{References}
+\begin{frame}[allowframebreaks]{Referências}
   \nocite{bronevetsky02, schmidt03:MSc, FSF:GNU-GPL, CORBA:spec, MenaChalco08, natbib, biblatex, eco:09}
   \printbibliography
 \end{frame}
@@ -553,7 +558,7 @@ com 31 milhões de pontos e mais de 585 mil viagens.
   % vamos usar centering
   {%
     \centering\noindent%
-    \url{https://gitlab.com/link-of-your-repository}\par
+    \url{https://github.com/tallysmartins/interscity-plotter}\par
   }
 
 \end{frame}
@@ -562,9 +567,9 @@ com 31 milhões de pontos e mais de 585 mil viagens.
 
 \appendix
 
-\begin{frame}{Extra info}
-  \begin{itemize}
-    \item It is often useful to have some extra slides addressing likely questions from the audience at the end of the presentation
-    \item By putting them after the ``appendix'' command, they are not counted in the page count indicator
-  \end{itemize}
-\end{frame}
+%\begin{frame}{Extra info}
+%  \begin{itemize}
+%    \item It is often useful to have some extra slides addressing likely questions from the audience at the end of the presentation
+%    \item By putting them after the ``appendix'' command, they are not counted in the page count indicator
+%  \end{itemize}
+%\end{frame}
