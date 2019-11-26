@@ -1,58 +1,21 @@
-\chapter{Considerações Preliminares e Plano de Trabalho}
+\chapter{Considerações Finais}
 \label{cap:plano-de-trabalho}
 
   Construímos até aqui os pilares teóricos e técnicos que irão sustentar nossa
 caminhada até a conclusão dos objetivos de nosso trabalho, cujo foco é
 investigar o uso de \emph{bundling} no estudo de fluxos de origem e destino na
-cidade com dados do trânsito. Para atingirmos nossos
+cidade. Para atingirmos nossos
 objetivos, trouxemos o conhecimento sobre práticas e algoritmos
 considerados o estado da arte na área de análises de dados de tráfego. Do ponto
-vista técnico, moldamos a arquitetura inicial da ferramenta InterSCityPlotter
-com os componentes básicos que já permitem criar visualizações simples. Abordamos
+vista técnico.... Abordamos
 a seguir, algumas considerações a respeito do que produzimos até aqui.
 
 \section{Esforço Técnico}
 
   Bibliotecas abertas com implementações de algoritmos de \emph{bundling} ainda
 não são algo bem estabelecido, diferente de algoritmos de clusterização, que
-possuem vários pacotes disponíveis (e.g. Sklearn, Theano, Keras, TensorFlow). Dessa forma, seguiremos com uma
-implementação própria dentro de nossa proposta, o que de certa forma tem suas
-vantagens, já que assim temos uma maior flexibilidade e controle da implementação
-e das tecnologias utilizadas. 
+possuem vários pacotes disponíveis (e.g. Sklearn, Theano, Keras, TensorFlow). 
 
- Dada a nossa experiência prévia e alguns
-testes com algumas ferramentas de visualização na linguagem Python
-(Geoplotlib\footnote{\rurl{github.com/andrea-cuttone/geoplotlib}},
-Folium\footnote{\rurl{github.com/python-visualization/folium}} e
-Dash\footnote{\rurl{github.com/plotly/dash}}), optamos pelo o uso da
-biblioteca Geoplotlib, apresentado em \citet{Andrea2016}. Essa biblioteca
-permite a criação de visualizações com vários recursos de linhas, pontos,
-funções para manipulação de polígonos, latitudes, longitudes, e outras
-facilidades para o desenho de objetos sobre mapas. Ela conta ainda com algumas
-visualizações pré-estabelecidas, como mapas de calor, mapas de densidade,
-histogramas e outras.
-
- Nossos esforços de implementação até aqui resultaram no
-desenvolvimento da arquitetura básica do InterSCityPlotter. A partir dessa
-implementação, é possível criar visualizações simples, como as que apresentamos
-nas Figuras \ref{fig:simulated-traffic} e \ref{fig:rastro}. Valorizamos esse
-esforço como forma de validar os recursos e limitações das tecnologias
-escolhidas, e consideramos que estamos no caminho certo para cumprirmos os
-nossos objetivos.
-
-  Um outro aspecto técnico importante é sobre a aquisição dos dados para os
-experimentos. Apresentamos em nossa metodologia que iremos utilizar dados reais
-gerados pelo simulador InterSCSimulator e também dados reais de um dia do
-tráfego de ônibus na cidade de São Paulo. Quanto aos dados simulados,
-precisamos obter a execução da simulação na ocorrência de eventos atípicos, no
-caso o fechamento de vias.  Este cenário está sendo elaborado no trabalho do
-colega de mestrado Dylan Guedes, cuja pesquisa irá utilizar o InterSCSimulator
-para processamento de dados em tempo real com ferramentas de \emph{big data}.
-Quanto aos dados reais dos ônibus da cidade, estes ainda serão coletados
-diretamente da API do sistema da prefeitura. Contudo, há a possibilidade de
-conseguir esses dados com a empresa
-Scipopulis\footnote{\rurl{www.scipopulis.com/}} que trabalha com a coleta e
-análise de informações do transporte público nas cidades.
 
 %  Um outro aspecto técnico importante a ser considero, é que os trabalhos
 %recentes sobre as técnicas de \emph{bundling} apresentam abordagens com
@@ -69,37 +32,6 @@ análise de informações do transporte público nas cidades.
 %é que a diferença no cálculo do \emph{bundling} para um grafo com 2000 nós é
 %relativamente grande. Mas, dadas as limitações de tempo na elaboração deste
 %trabalho, este é um tópico que pode ser abordado em trabalhos futuros.
-
-%\section{Objetivos}
-%  
-%O objetivo de nossa proposta parte da investigação do \emph{bundling} na visualização
-%dos fluxos de origem e destino no trânsito. Para atingir esse objetivo, várias
-%etapas serão executadas, como a implementação de um algoritmo de
-%\emph{bundling} da literatura, aquisição e tratamento de dados do trânsito,
-%realização de experimentos e análise de resultados. Neste cenário, focamos
-%nas questões de pesquisa levantadas no capítulo 1, mas que também estamos
-%cientes de outros aspectos cientificamente interessantes, mas que são adjacentes
-%neste ponto da pesquisa,  porém não deixamos de mapeá-los, como listamos a seguir:
-%
-%A Tabela \ref{table:scope}
-%mostra, no geral, os aspectos que cobriremos em nossa pesquisa e outras
-%atribuições que mapeamos para futuras evoluções sobre a visualização de dados
-%do tráfego em cima de nossa proposta
-%
-%Escalabilidade: Esta questão está intimamente ligada ao uso de tecnologias de paralelismo
-%em placas gráficas, como apresentamos na seção anterior. Seria interessante uma
-%investigação mais aprofundada sobre este tópico.
-%
-%Tempo Real: Nossa proposta está voltada para análise de dados em lotes, ou seja,
-%recebemos um conjunto de arquivos do tráfego, processamos e construímos a visualização.
-%Uma das áreas de pesquisa futuras citadas por \cite{Fulano} é justamente a construção
-%de soluções capazes de analisar grandes quantidades de dados em tempo real, o que
-%poderia estar voltado para uma integração com o simulador InterSCSimulator como
-%um caminho alternativo de pesquisa.
-%
-%Outros algoritmos de \emph{bundling}: 
-%
-%Escalabilidade, real time, other bundling algorithms
 
 \subsection{Validação da Visualização}
 
@@ -118,66 +50,8 @@ outros trabalhos de visualização de dados de origem e destino do tráfego, o q
 seria um interessante complemento para esta pesquisa ou mesmo para trabalhos
 futuros.
 
-\section{Plano de Trabalho}
 
- A Figura \ref{fig:gantt}, apresenta o nosso cronograma, com as atividades
-previstas para os próximos 8 meses, demonstrando nossa perspectiva em finalizar
-este projeto de pesquisa em Outubro de 2019.
+\section{Resultados Alcançados}
 
-  Na etapa inicial de desenvolvimento estaremos focados em desenvolver as
-funcionalidades da ferramenta InterSCityPlotter, de forma que ela suporte de
-maneira consistente e padronizada tanto as entradas do simulador, quanto os
-dados reais que iremos coletar. E também, iremos finalizar a implementação e
-testes do componente de visualização (\emph{VisualizationLayers}), que precisa
-de uma boa definição de suas interfaces para facilitar a construção de novos
-tipos de visualização no futuro. Após esse desenvolvimento inicial, nosso
-segundo maior desafio será na implementação do algoritmo de \emph{bundling} e
-dos recursos interativos que propomos dentro da nossa visualização, como zoom,
-alteração de parâmetros, e outros.  Paralelamente às etapas de desenvolvimento da visualização propriamente
-dita, há um esforço técnico também com a obtenção e tratamento dos dados, mas
-que demanda um percentual menor do tempo de trabalho. A princípio já possuímos
-uma amostra de dados suficientes para prosseguir no projeto enquanto concluímos
-a aquisição completa dos conjuntos de dados de forma paralela. Lembramos que os
-dados da simulação com eventos atípicos serão produzidos na pesquisa do colega
-de mestrado Dylan Guedes. Pretendemos finalizar toda a etapa de desenvolvimento
-até Maio, para em seguida, partirmos para a execução dos experimentos em um
-ciclo de 2 meses, o qual prevemos também uma parcela de esforço para
-identificar e aplicar melhorias na ferramenta que não foram detectadas na etapa
-anterior. Por fim, seguimos para a fase final de documentação dos resultados em
-formato da dissertação de mestrado e também em artigo para conferência na área
-de visualização, os quais pretendemos finalizar em Outubro.
+\section{Trabalhos Futuros}
 
-\begin{figure}[!htb]
-  \centering
-
-  \begin{ganttchart}{2019-02}{2019-11}
-    \gantttitlecalendar{year,month=shortname} \ganttnewline
-
-    \ganttbar[progress=15]{Desenvolvimento da visualização}{2019-3}{2019-5} \ganttnewline
-    \ganttbar[progress=15]{Coleta e tratamento dos dados}{2019-3}{2019-4}\ganttnewline
-    \ganttbar[progress=0]{Execução dos experimentos}{2019-6}{2019-7} \ganttnewline
-    \ganttbar[progress=0]{Análise dos resultados}{2019-8}{2019-8} \ganttnewline
-    \ganttbar[progress=0]{Escrita da Dissertação}{2019-8}{2019-10} \ganttnewline
-    \ganttbar[progress=0]{Escrita de Artigo}{2019-9}{2019-10} \ganttnewline
-    \ganttmilestone{Defesa}{2019-10}
-  \end{ganttchart}
-
-  \caption{Cronograma.\label{fig:gantt}}
-\end{figure}
-
-
-\section{Resultados Esperados}
-
-  Esperamos que ao fim desta pesquisa nos possamos obter de forma geral uma
-maior clareza das possibilidades e limitações do uso de \emph{bundling} na
-visualização dos fluxos de origem e destino no trânsito da cidade. Presumimos que
-nossa abordagem de visualização das macro trajetórias e sub trajetórias, sob
-diferentes escalas, seja capaz de avaliar o uso da técnica para análise de
-padrões globais e locais do tráfego. Acreditamos também que o uso de dados
-simulados possa contribuir com uma observação diferenciada sobre o
-comportamento da visualização com \emph{bundling} em diferentes cenários do
-trânsito, trazendo benefícios para as áreas da visualização e de
-simulação. Por fim, desejamos que a ferramenta de visualização que
-estamos desenvolvendo possa colaborar ainda para pesquisas futuras dentro do
-projeto InterSCity e que a ciência possa continuar a florescer a partir desta
-semente plantada.

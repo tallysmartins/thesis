@@ -225,243 +225,71 @@ plano cartesiano dado pelas latitudes e longitudes do globo.
 Estes são apenas itens já identificados até o momento, e que receberão atenção
 durante o processo de implementação da visualização.
 
-\section{Visualização do Tráfego de Veículos}
+\section{Visualização}
 
-  Apresentamos a seguir as técnicas para exploração das propriedades temporais
-e espaciais dos dados em diferentes níveis de detalhes. Algumas técnicas se
-inspiram em soluções apresentadas em outros trabalhos relacionados e algumas
-outras surgiram a partir das necessidades desta pesquisa.
+  Explorar todas as possibilidades seria um trabalho extensivo. Focamos
+então em algumas classes de problemas dentro da visualização de dados
+com bundling para explorar o seu potencial na análise de fluxos de origem e
+destino na cidade.
 
-\subsection{Leiaute da Visualização}
+\subsection{Explorando propriedades espaciais - coisas óbvias}
+
+- Aplicar o bundling para ver regiões densas, conforme mostrados na OD
+	x) Mostrar as features de cores padrão (distância, direção, densidade)
+	x) Mostrar as features de cores implementadas (tipo de transporte, modo de transporte, renda, gênero)
+	x) Mostrar que tem pessoas que andam de metrô em locais que não tem metrõ (adicionar mapa)
+	x) Mostrar como os ônibus metropolitanos se interceptam com os de são paulo
+	x) Mostrar que os filtros de dados por horário pra mostrar que há mais fluxo
+		 no horário de pico, que os onibus escolares saem todos pela manhã, mas que também temos
+		pessoas que saem de madrugada para trabalhar
+	x) Mostrar a renda e correlacionar distância do centro com renda
+	x) Mostrar correlação de renda com carro (pobre anda de carro?)
+	x) Derivar um atributo do quão o horário de pico afeta e usar como VALUE
+
+	- Quais vantagens e desvantagens em relação ao que existe na OD (substitui alguma coisa do relatório da OD?)
+	- Qual o nível de detalhes conseguimos extrair alguma informação?
+
   
-  Utilizaremos em nossa proposta uma projeção das trajetórias em formato de
-linhas sobre um mapa.  Como apresentamos na Seção \ref{sec:prop-espaciais},
-esse tipo de leiaute espacial mostra de maneira mais intuitiva as relações de
-localidade dos dados. Por outro lado, as propriedades temporais são também de
-grande importância em nossa análise dos fluxos, sendo um aspecto que
-possibilita identificar mudanças e eventos que alteram o comportamento do
-trânsito durante um certo período.  Neste sentido, permitimos controle da
-dimensão temporal através de dois parâmetros, $t_{atual}$ e $\Delta~t$, similar
-ao definido por \citet{Klein2014}.  A combinação dos parâmetros definem um
-filtro que funciona como um referência para selecionar um conjunto de
-trajetórias  ${T}$ que contenham pontos dentro do intervalo $t_{atual} +
-\Delta~t$, determinando uma janela de tempo. Valores de $\Delta~t$ pequenos ou
-nulos acabam por selecionar os pontos instantâneos das trajetórias no instante
-de tempo definido por $t_{atual}$, enquanto valores maiores trazem os demais
-pontos ao longo do tempo. Com isso conseguimos um alcance multiescala dentro
-da dimensão temporal, permitindo a seleção de momentos instantâneos e também de
-um conjunto de pontos ao longo de um grande intervalo.
+\subsection{Estratégias de bundling}
 
-\subsection{Agregação Espacial com \emph{Bundling}}
+2) Mostrar a mesma grandeza de diferentes maneiras
+- Grandezas: Tempo/Tipo de transporte/Direção
+- Estratégias: Fazer bundle de tudo e aplicando filtro E cores vs separado, diferenciar por cores no bundling de tudo, e filtrar as arestas no tempo (manhã e tarde)
+	x) Fazer bundling de todos os dados de transporte e filtrar por modo
+	x) Fazer bundling de todos os dados de transporte e colorir por modo
+	x) Fazer bundling dos modos de transporte separados
+	x) Fazer bundling dos dados em direção opostas
 
-Para os problemas de oclusão na visualização de uma grande quantidade de dados
-do tráfego criaremos uma abstração com o uso do \emph{bundling} para agregar
-trajetórias com origem-destino e direção similares. Com isso, destacamos a
-estrutura geral dos fluxos para que seja possível identificar os padrões e
-relações de movimentação presentes nos  dados. Essa abstração será implementada
-dentro do componente \emph{VisualizationLayers} na ferramenta InterSCityPlotter
-com o algoritmo \emph{Attribut-Driven Edge Bundling} (ADEB), apresentado na
-Seção \ref{sec:modelo-imagem}.
-
- A visualização com \emph{bundling} acaba por aglomerar as trajetórias em áreas
-de maior densidade, o que nos dá perspectiva dos fluxos de veículos que saem e
-chegam de cada região da cidade, identificando também as áreas com uma
-quantidade maior de veículos em um dado instante. A combinação dessa técnica
-com o parâmetro temporal apresentado na seção anterior possibilita obter essa
-agregação com \emph{bundling} em diferentes períodos do dia, como em horários
-de pico, para que possamos investigar sua estrutura e seu comportamento ao
-longo do tempo. Na escala da cidade, as linhas dos \emph{bundles} podem
-demonstrar ainda viagens de longa distância ou desvios realizados por alguns
-veículos, sugerindo melhorias no projeto da rede rodoviária.
+	Vantagens e desvantagens em relação aos gráficos da OD?
+	Qual os níveis de detalhes conseguimos obter?
 
 \subsection{Agregação Espacial Multinível}
 
-  A dimensão espacial dos dados é o nosso segundo parâmetro multiescala dentro
-da visualização. Para observar os padrões de OD em diferentes níveis de detalhe
-espaciais propomos fazer agrupamentos baseados na escala da visualização, que
-está relacionada ao tamanho da área do mapa mostrada na imagem. Este mecanismo
-é comumente visto em visualizações interativas que permitem aos usuários mudar
-as configurações de zoom no mapa. A partir daí, propomos o conceito de
-sub-trajetória, que são as partes de uma trajetória dentro da sub área do mapa
-após um aumento do zoom. Os pontos dentro do escopo da sub área do mapa formam
-um subconjunto das trajetórias originais. Os atributos de direção, origens e
-destinos do subconjunto se tornam relativos em relação ao novo escopo. Em
-seguida é possível reaplicar o \emph{bundling} no subconjunto. Quanto menor a
-escala, mais detalhes sobre o fluxo do tráfego são obtidos, sendo possível
-observar bairros, quadras ou até mesmo ruas. A Figura \ref{fig:multi-scale}
-ilustra os diferentes níveis de detalhe atingidos em escalas diferentes na
-visualização de um mapa.
+3) Escalar o agrupamento conforme o zoom e resolução diferentes e dados diferentes (tunning não muito óbvio)
+	- Número de pontos
+	- Resolução da imagem
+	- tamanho do kernel
+	- Glanuralidade dos dados
+	x) Aplicar bundling com alta resolução e alto numero de pontos, kernel grande e kernel pequeno
+	x) Aplicar bundling com alta resolução e baixo numero de pontos, kernel grande e kernel pequeno
+	x) Aplicar bundling com baixa resolução e alto numero de pontos, kernel grande e kernel pequeno
+	x) Agrupar os dados na mão em regiões e aplicar o bundling em macro regiões. Qual a alguma diferença?
+	x) Mostrar o bundling dos dados dos centróides e dos dados específicos em alguns modais (metrô, a pé, bike, taxi)
 
-\begin{figure}[!htb]
-  \centering
-  \includegraphics[width=55mm]{../figuras/multi-scale.png}
-  \caption[Visualização de um mapa em diferentes escalas espaciais]{Visualização de um mapa em diferentes escalas espaciais. Fonte: \citet{Zeng2013}}
-  \label{fig:multi-scale}
-\end{figure}
-
-\textbf{Parâmetros:} o algoritmo ADEB possui alguns parâmetros que
-influenciam o resultado \emph{bundling}. Esses parâmetros são discutidos pelos
-autores do método, e valores padrão são indicados por eles. Seguiremos
-inicialmente os valores indicados, mas atentos a detalhes ou modificações que
-se mostrarem necessárias. Outro parâmetro importante em nossa visualização é a
-escala espacial para variação do nível de detalhes do \emph{bundling}. Esse
-parâmetro age como um filtro para selecionarmos um subconjunto das trajetórias
-dentro de uma sub área visualizada. Exploraremos esses parâmetros apresentando
-discussões sobre seus efeitos nos resultados da visualização.
-
-\subsection{Visualização dos Atributos}
-Depois de calcular o \emph{bundling} das trajetórias, é necessário projetar uma
-maneira de mostrar a estrutura dos elementos e seus atributos. Em nosso estudo
-dos fluxos de OD consideramos dois atributos chave, densidade e direção dos
-fluxos, os quais destacamos diretamente na visualização.
-
-\textbf{Densidade}: a densidade é uma informação importante na análise do
-fluxo. Essa informação nos ajuda a responder ``Qual a quantidade de veículos se
-locomovem de uma região para outra?''. Uma forma de destacar esse atributo é
-usando uma escala de cores. A Figura \ref{fig:density-mappings} mostra o
-mapeamento da densidade com escalas de cores feita de duas formas, (a) ilustra
-uma escala de opacidade, que funciona somando-se os valores de opacidade nos
-pontos de sobreposição e (b) mostra uma escala gradiente multicores. Uma outra
-forma comum de se mostrar esse atributo é simplesmente escalando a espessura
-das linhas dos \emph{bundles} proporcionalmente à densidade.
-
-\textbf{Direção}: a direção é outra informação relevante para o estudo dos
-fluxos.  No algoritmo de \emph{bundling} ADEB, ela é indicada pelo ângulo da
-trajetória em relação a um eixo cartesiano. Para destacar esse atributo na
-visualização utilizaremos um mapa de ângulo-para-cor, como em
-\citet{ZegarraFlores2016}. A Figura \ref{fig:direction} ilustra como seria o
-destaque da direção e também da densidade no \emph{bundling}, note que o círculo na
-legenda indica o mapa de cores. Trajetórias saindo de leste para oeste estão em
-azul, norte para sul são representadas em verde, e assim por diante. No caso de
-atributos numéricos, como os ângulos da direção, os valores que se sobrepõe
-podem ser somados para dar um resultado final, ou simplesmente sobrescritos
-pela trajetória desenhada na camada mais superior.
-
-\begin{figure}[ht!]
-  \centering
-  \begin{subfigure}[t]{\textwidth}
-    \centering
-    \includegraphics[width=.8\textwidth]{../figuras/alpha-blending.pdf}
-  \end{subfigure}
-  ~
-  \begin{subfigure}[t]{\textwidth}
-    \centering
-    \includegraphics[width=.8\textwidth]{../figuras/color-density.pdf}
-  \end{subfigure}
-
-  \caption[Densidade dos \emph{bundlings} mapeada em escalas de cores e
-  opacidade.]{Formas de visualização da densidade. (a) Escala de opacidades, conhecida como combinação do canal alfa. (b) Escala de cores gradiente.  Fonte: \citet{Lhuillier2017} \label{fig:density-mappings}}
-\end{figure}
+	Explicar que não há uma métrica, mas dissertar sobre qual fica melhor visualmente
+	- Vantagens e desvantagens em relação às visualizações da OD em diferentes escalas
 
 
-\begin{figure}[ht!]
-  \centering
-  \includegraphics[width=.8\textwidth]{../figuras/color-wheel.pdf}
-  \caption[Direção dos \emph{bundles} mapeada em escalas de cores]{Direção dos \emph{bundles} mapeada em escala de cores. Fonte: \citet{Lhuillier2017}. \label{fig:direction}}
-\end{figure}
+\subsection{Evolução Temporal}
 
-\subsection{Visualização Interativa}
+4) Evolução temporal
+	- Desafios: Correspondência de regiões
+	x) Aplicar bundling de tudo: filtrar por ano
+	x) Aplicar bundling separado em cada ano
+	x) Aplicar bundling na diferença de um ano pro outro
 
-Mecanismos de interação são um excelente recurso em uma visualização de dados.
-Mais do que apenas informar, os usuários podem buscar seus próprios padrões e
-explorar o conteúdo à sua maneira. Adicionaremos alguns meios de interação para
-facilitar o estudo das trajetórias e exploração das suas propriedades.
+	Que vantagens/diferenças consigo ver em relação aos relatórios da OD?
+	- Falar de bundling estático e dinâmico, mas que é future work...
 
-\textbf{Parâmetros:} Todos os parâmetros mencionados anteriormente para a exploração
-multinível no tempo e no espaço serão configuráveis para os usuários da visualização,
-bem como os parâmetros do algoritmo de \emph{bundling}. Desta maneira ganha-se
-a liberdade para seleção dos parâmetros que melhor se adequam aos objetivos
-da visualização.
-
-\textbf{Inspecionando os \emph{bundles}}: analisando-se um \emph{bundle},
-podemos dar ainda mais detalhes sobre as trajetórias que o formam para
-responder duas questões importantes para análise dos fluxos: ``Qual o percentual
-das trajetórias veem de uma determinada região?'' ou ``Qual região é maior
-responsável pelo fluxo naquele trecho?''.  Essa informação pode ser obtida
-observando-se a composição do \emph{bundle} e oferece mais detalhes para que
-gestores da cidade entendam melhor a estrutura do trânsito e as relações de OD.
-
- Para inserir esse dado na visualização recorremos a uma nova
-imagem, disparada pela interação do usuário que poderá inspecionar um
-\emph{bundle} para visualizar esses detalhes em uma caixa de diálogo com as
-informações sobre as origens das trajetórias.
-
-\section{Visualização de Eventos Atípicos}
-\label{sec:vis-eventos}
-
-  Outra importante tarefa na análise do trânsito é o estudo de como a
-ocorrência de eventos atípicos impactam no tráfego. Para essa tarefa, propomos
-a alteração na simulação do tráfego para obter um novo cenário do trânsito com
-eventos controlados, e com isso observaremos como a visualização com \emph{bundling}
-é impactada por esses eventos e como ela pode ajudar a identificá-los.
-
-  Usaremos como base a simulação disponibilizada  por \citet{mabs2017} para
-simular o bloqueio de vias importantes do tráfego. Para isso, iremos alterar o
-arquivo \emph{maps.xml}, que descreve a estrutura da cidade, e excluiremos as
-entradas de algumas vias que possuem maior quantidade de fluxos, e então
-executaremos uma nova simulação com esse novo cenário. Nesse caso, as
-definições dos veículos definidas no arquivo \emph{trips.xml} ainda serão as
-mesmas, e esta é uma forma de forçamos os veículos a tomarem rotas alternativas
-para chegarem a seus destinos.
-
- Para selecionar quais ruas serão excluídas, iremos contabilizar o
-número de veículos que passam por cada rua e excluiremos as 5 ruas com maior
-quantidade de tráfego. Partimos do pressuposto de que essas mudanças irão
-causar algum efeito na simulação, pois estamos retirando totalmente 5
-importantes arestas do grafo da cidade.
-
-  Esperamos que o \emph{bundling} revele as alterações nos padrões de
-deslocamento dos veículos e que esses sejam visualmente perceptíveis. Avaliar
-esse tipo de cenário é importante para demonstrar como a técnica pode ajudar em
-questões do dia a dia no trânsito, como a ocorrência de acidentes, alagamentos
-e mudanças na rede rodoviária da cidade.
 
 \section{Avaliação da Visualização} 
-  A avaliação do \emph{bundling} ainda é um desafio em aberto
-\citep{Telea2018}.  Ainda não se tem um consenso sobre métodos para avaliar a
-qualidade de um \emph{bundling}, ou mesmo critérios objetivos para definir o
-que é um ``bom'' \emph{bundling} \citep{Lhuillier2017}.  A maioria dos
-trabalhos que identificamos fazem apenas uma comparação visual com outros
-trabalhos. Nesse sentido, nós avaliaremos a visualização de dois pontos de
-vista, um qualitativo, onde avaliaremos os resultados da nossa visualização
-na tarefa de identificação dos fluxos de origem e destino na cidade e seus atributos
-de direção e densidade, e um quantitativo, medindo o desempenho computacional
-da nossa solução.
-
-  A questão de pesquisa \textbf{Q1}, relacionada ao uso do \emph{bundling}
-para a análise multiescala, é nosso primeiro objeto de avaliação qualitativa.
-Para trazer artefatos que nos ajudem a responder essa pergunta iremos trabalhar
-diretamente com a variação dos parâmetros da nossa visualização, tais quais a
-escala, os parâmetros temporais e também a forma como apresentamos os atributos
-de densidade e direção dos fluxos. Faremos então uma observação objetiva sobre
-os diferentes resultados gerados com a variação dos parâmetros, suas qualidades
-e limitações, para por exemplo, avaliar se conseguimos identificar
-características, origens e destinos dos fluxos para responder a perguntas como:
-``Quais regiões recebem maior quantidade de fluxo?'' ou ``Qual região é maior
-responsável pelo fluxo em uma determinada via?''
-
-  Já a questão \textbf{Q2} busca responder como a técnica de \emph{bundling}
-ajuda na identificação de padrões ou mudanças no trânsito. Nossa abordagem para
-responder a essa pergunta baseia-se nos parâmetros de controle do tempo e
-também no experimento apresentado na seção anterior. O parâmetro temporal irá
-permitir que vejamos o trânsito em diferentes momentos do dia de forma a
-observar como muda seu comportamento, por exemplo, em horários de pico. Já no
-experimento citado, propomos o bloqueio controlado de vias dentro da simulação
-para observarmos, também de forma qualitativa, como esse evento afeta a
-movimentação no trânsito sobre a ótica da nossa visualização.
-
-  Para completar a avaliação da nossa proposta iremos medir quantitativamente o
-desempenho da nossa solução dado o tempo de processamento para gerar a
-visualização, o que está relacionado à questão \textbf{Q3}. As medições serão
-feitas desprezando as etapas de pré-processamento e carregamento dos dados.
-Essa análise é considerada relevante, pois contamos com uma grande quantidade
-de dados obtidos com o InterSCSimulator. Os dados possuem de 31 milhões de
-pontos distribuídas em $585.374$ viagens feitas por veículos no trânsito, o que
-é mais de duas vezes o número de pontos nos dados de um mês do tráfego aéreo
-utilizados na análise de \citet{Klein2014}.
-
- Uma maneira de aprofundar esta etapa de validação é através de uma comparação
-mais detalhada sobre duas visualizações diferentes aplicadas sobre os mesmos
-dados. Iremos estudar a viabilidade em fazer esse tipo de comparação com
-algum dos trabalhos que também fazem análises dos fluxos de origem e destino no
-tráfego listados no Capítulo \ref{cap:trabalhos-relacionados}.

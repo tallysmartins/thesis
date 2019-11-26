@@ -19,15 +19,99 @@
 
 \input{conteudo/capitulos/introducao}
 \par
+%Falar sobre visualização de dados. Visualização de dados de origem e destino.
+%Multi atributos. Multiplas origem e destinos. Representação geoespacial.
+%Multi atributos. Propomos uma visualização que utiliza bundling, cores e filtros
+%para explorar dados geoespaciais em uma grande cidade. Exploramos a visualização
+%em vários aspectos desse cenário complexo (correlação, filtragem de dados, cores)
+%e mostramos como ela se comporta para mostrar características dos dados de
+%origem-destino, além de parâmetros e peculiaridades do modelo de bundling escolhido.
+%Por exemplo, mostramos regiões contém maior fluxo filtrando por
+%diferentes modais de transporte. Mostramos a correlação entre renda e modais
+%para mostrar que pobre é quem anda a pé e mora longe. Além de calcular como
+%é o fluxo no tempo utilizando cores, filtros e subtração de dados para observar
+%a evolução ao longo do dia e ao longo dos anos. Apresentamos também os aspectos
+%de escalabilidade computacional da técnica, dissertando sobre a complexidade
+%do algoritmo nos cenários medindo ainda os tempos de execução.
 
 \input{conteudo/capitulos/referencial-teorico}
 \par
+%Falar de visualizações no geral, multi atributos, multi-escalas, agrupamento,
+%filtros, cores, bundling, modelos, KDEEB, CUBU.
 
 \input{conteudo/capitulos/trabalhos-relacionados}
 \par
+%Trabalhos que usam bundling na visualização de dados em geral (outros modelos/frameworks)
+%Trabalhos que usam visualização de dados de OD, com bundling ou não
+%Trabalhos que usam o CUBU 
+%Trabalhos que usam os dados da OD
 
 \input{conteudo/capitulos/metodologia}
 \par
+%Aqui a gente fala dos dados da OD que vamos utilizar. O que representam, como
+%obter, quais vamos usar e porque.
+%
+%Aqui falamos do framework CUBU, suas funcionalidades, como obtivemos e como
+%vamos implementar coisas novas nele
+
+
+%O que vou mostrar/experimentar: exemplos dentro de algumas categorias
+%
+%
+%1) Explorando as propriedades espaciais (coisas óbvias)
+%- Aplicar o bundling para ver regiões densas, conforme mostrados na OD
+%	x) Mostrar as features de cores padrão (distância, direção, densidade)
+%	x) Mostrar as features de cores implementadas (tipo de transporte, modo de transporte, renda, gênero)
+%	x) Mostrar que tem pessoas que andam de metrô em locais que não tem metrõ (adicionar mapa)
+%	x) Mostrar como os ônibus metropolitanos se interceptam com os de são paulo
+%	x) Mostrar que os filtros de dados por horário pra mostrar que há mais fluxo
+%		 no horário de pico, que os onibus escolares saem todos pela manhã, mas que também temos
+%		pessoas que saem de madrugada para trabalhar
+%	x) Mostrar a renda e correlacionar distância do centro com renda
+%	x) Mostrar correlação de renda com carro (pobre anda de carro?)
+%
+%	- Quais vantagens e desvantagens em relação ao que existe na OD (substitui alguma coisa do relatório da OD?)
+%	- Qual o nível de detalhes conseguimos extrair alguma informação?
+%
+%
+%2) Mostrar a mesma grandeza de diferentes maneiras
+%- Grandezas: Tempo/Tipo de transporte/Direção
+%- Estratégias: Fazer bundle de tudo e aplicando filtro&cores vs separado, diferenciar por cores no bundling de tudo, e filtrar as arestas no tempo (manhã e tarde)
+%	x) Fazer bundling de todos os dados de transporte e filtrar por modo
+%	x) Fazer bundling de todos os dados de transporte e colorir por modo
+%	x) Fazer bundling dos modos de transporte separados
+%	x) Fazer bundling dos dados em direção opostas
+%	x) Filtrar por horário de pico
+%	x) Derivar um atributo do quão o horário de pico afeta e usar como VALUE
+%	x) Usar o fator de expansão para mostrar a densidade como VALUE
+%
+%	Vantagens e desvantagens em relação aos gráficos da OD?
+%	Qual os níveis de detalhes conseguimos obter?
+%
+%
+%3) Escalar o agrupamento conforme o zoom e resolução diferentes e dados diferentes (tunning não muito óbvio)
+%	- Número de pontos
+%	- Resolução da imagem
+%	- tamanho do kernel
+%	- Glanuralidade dos dados
+%	x) Aplicar bundling com alta resolução e alto numero de pontos, kernel grande e kernel pequeno
+%	x) Aplicar bundling com alta resolução e baixo numero de pontos, kernel grande e kernel pequeno
+%	x) Aplicar bundling com baixa resolução e alto numero de pontos, kernel grande e kernel pequeno
+%	x) Agrupar os dados na mão em regiões e aplicar o bundling em macro regiões. Qual a alguma diferença?
+%	x) Mostrar o bundling dos dados dos centróides e dos dados específicos em alguns modais (metrô, a pé, bike, taxi)
+%
+%	Explicar que não há uma métrica, mas dissertar sobre qual fica melhor visualmente
+%	- Vantagens e desvantagens em relação às visualizações da OD em diferentes escalas
+%
+%4) Evolução temporal
+%	- Desafios: Correspondência de regiões
+%	x) Aplicar bundling de tudo: filtrar por ano
+%	x) Aplicar bundling separado em cada ano
+%	x) Aplicar bundling na diferença de um ano pro outro
+%
+%	Que vantagens/diferenças consigo ver em relação aos relatórios da OD?
+%	- Falar de bundling estático e dinâmico, mas que é future work...
+
 
 % \input{conteudo/capitulos/resultados}
 % \par
