@@ -2,203 +2,225 @@
 \chapter{Introdução}
 \label{cap:introducao}
 
-  Tráfego em uma via é o fluxo ou a passagem de veículos e pedestres por
-um caminho que pode ser em regiões urbanas, mares,
-no ar e até no subsolo \citep{Chen2015}. Com o rápido desenvolvimento de
-sistemas de transporte, esses fluxos têm se tornado cada vez mais complexos e
-volumosos.  É estimado que cerca de 40\% da população passa pelo menos 1 hora
-no trânsito todos os dias \citep{Zhang2011}. Logo, o tráfego tem grande
-influência sobre a vida humana, afetando diretamente sua qualidade de vida.
+A mobilidade urbana é um conceito que está associado ao comportamento de fluxos
+de deslocamento de pessoas e objetos dentro das cidades. Com o rápido
+desenvolvimento de sistemas de transporte e crescimento das cidades, esses
+fluxos têm se tornado cada vez mais complexos e volumosos. É estimado que cerca
+de 40\% da população passa pelo menos uma hora no trânsito todos os dias
+\citep{Zhang2011}, o que afeta diretamente sua qualidade de vida e também gera
+impactos econômicos negativos.
 
-Nas cidades, diversos conjuntos de dados de movimentação registram os fluxos
-dos veículos nas ruas, dos aviões nos ares e de pedestres. Esses dados guardam
-a relação de deslocamentos entre diferentes regiões espaciais e são amplamente
-usados no planejamento urbano \citep{Anita2017}.  Entender o comportamento
-desses fluxos possibilita a criação de soluções para um tráfego mais eficiente
-e de maior qualidade. Uma análise detalhada do tráfego nas ruas de uma cidade,
-por exemplo, poderia ajudar gestores do trânsito a decidir quando criar novas vias
-ou alterar rotas existentes para aumentar a fluidez em uma dada região. Formas
-de visualização desses dados facilitam essa tarefa, uma vez que uma representação
-visual pode comunicar seus padrões geográficos e direcionais de forma mais intuitiva
-\citep{Liu2013}.
+Cada vez mais a coleta e análise de dados de mobilidade tem sido feita para
+apoiar o planejamento de sistemas de transporte mais eficientes. Esses dados
+podem ser gerados de diferentes fontes, como GPS, câmeras de tráfego, e
+pesquisas censitárias. Dentro desse contexto, nós focamos nosso estudo em
+dados de mobilidade da região metropolitana de S\~ao Paulo.
 
-% problema
-  De maneira abstrata, fluxos de tráfego podem ser interpretados como um grafo
-direcionado, onde os vértices (nós) representam localidades espaciais e as
-arestas representam o fluxo e a ligação entre as diferentes localidades
-\citep{Anita2017}. A visualização desses fluxos é uma tarefa complexa que
-apresenta desafios de escalabilidade computacional e visual \citep{Klein2014}.
-Quando uma representação de linhas é utilizada, mesmo conjuntos de dados com
-poucos fluxos começam a apresentar uma certa oclusão, com vários cruzamentos e
-sobreposição entre os elementos da visualização, o que torna difícil sua
-interpretação. A oclusão acaba por limitar a quantidade de elementos que podem
-ser vistos ao mesmo tempo e prejudica a identificação de possíveis padrões e
-relações presentes nos dados, como por exemplo o movimento de uma grande massa
-de veículos de uma região A para uma região B durante o mesmo período. A Figura
-\ref{fig:exemplo-oclusao} ilustra as trajetórias de aviões durante uma semana
-sobre os Estados Unidos. O grande número de voos gera uma oclusão que torna
-impossível identificar as conexões entre as regiões e aeroportos.
+A cada dez anos, desde 1967, a Companhia Metropolitano de São Paulo (Metrô), que gerencia o
+sistema de metrô da cidade, conduz um estudo de mobilidade chamado
+\emph{Pesquisa Origem-Destino} (OD).  Nesse estudo, são coletados dados das
+atividades diárias dos cidadãos em um dia típico da semana, o que resulta num
+panorama do comportamento de mobilidade da população na região. Esses dados são
+utilizados pela Companhia do Metrô para entender padrões de deslocamento na
+região. Esses padrões guiam novas políticas públicas, como criação de novas
+linhas de transporte de metrô e ônibus, e ajudam no monitoramento da evolução
+do transporte público e privado.
 
-\begin{figure}[!htb]
-  \centering
-  \includegraphics[width=100mm]{../figuras/cluttered-map.png}
-  \caption[Trajetórias de voos nos Estados Unidos]{Trajetórias de voos nos Estados Unidos no período de uma semana. Fonte \citet{Zhou2013}.}
-  \label{fig:exemplo-oclusao}
-\end{figure}
+A pesquisa OD contem dados de locomoção diários, com informações de origem e
+destino de viagens feitas por uma amostra da população, que é posteriormente
+extrapolada para toda a cidade. No último ano em que a pesquisa foi feita, em
+2017, foram contabilizados aproximadamente 42 milhões de viagens em um dia
+típico. A pesquisa também coleta vários dados socioeconômicos como idade,
+gênero, renda familiar e tipos de transporte utilizados. 
 
-  Algumas aplicações existentes no domínio do trânsito, como Google
-Maps\footnote{\rurl{maps.google.com}} e
-Waze\footnote{\rurl{www.waze.com/pt-BR}}, que sugerem para motoristas qual
-caminho tomar até um determinado destino, e
-OlhoVivo\footnote{\rurl{olhovivo.sptrans.com.br}}, que  mostra as rotas feitas
-por ônibus na cidade de São Paulo e suas posições instantâneas, se empenham em
-mostrar informações pontuais do tráfego e não na sua estrutura geral. Não é
-possível, por exemplo, saber de onde vem os veículos que formam o fluxo em uma
-determinada via ou região. O Google Maps, por exemplo, sugere um trajeto entre
-uma origem e um destino inseridos pelo usuário e traça o percurso em um mapa.
-Sua visualização destaca também as áreas com maior densidade de fluxo com
-diferentes cores, sendo laranja trechos com fluxo moderado e vermelho sendo
-trechos de maior fluxo, indicando que há um congestionamento. A Figura
-\ref{fig:gmaps} ilustra uma visualização de uma rota sugerida pelo Google Maps.
+Formas de visualização desses dados facilitam essa tarefa, uma vez que uma
+representação visual pode comunicar padrões de deslocamento de forma mais
+intuitiva \citep{Liu2013}. 
 
-\begin{figure}[!htb]
-  \centering
-  \includegraphics[width=\textwidth]{../figuras/maps.pdf}
-  \caption{Trajeto entre dois pontos visto com o Google Maps \label{fig:gmaps}}
-\end{figure}
 
-  Para lidar com os problemas da oclusão, algumas técnicas têm sido
-desenvolvidas por comunidades de visualização e da cartografia para a o estudo
-de grandes conjuntos de dados de tráfego, como por exemplo, clusterização de
-vértices \citep{Schaeffer2007, Andrienko2011}, matrizes \citep{Elmqvist2008}
-e grides \citep{JoWood2010}. Essas técnicas, no entanto, acabam usando
-abstrações diferentes da representação baseada em linhas. Um outro tipo de
-abstração pode ser obtido com uma técnica chamada \emph{bundling}, que tem sido
-bastante utilizada na visualização massiva de dados do tráfego que utilizam a
-representação de fluxos por linhas \citep{Zhou2013}. Algoritmos de
-\emph{bundling} agrupam arestas similares e próximas, permitindo uma
-representação única e compacta que reduz o número de arestas e a oclusão no
-desenho. A Figura \ref{fig:exemplo-bund} ilustra a aplicação da técnica de
-\emph{bundling}.  Quanto mais à esquerda, mais oclusão, e à direita, o
-resultado final.
 
-\begin{figure}[!htb]
-  \centering
-  \includegraphics[width=1\textwidth]{../figuras/bundle-ex.png}
-\caption[Exemplo de aplicação do \emph{bundling}]{Exemplo de aplicação do \emph{bundling}. Fonte: \citet{Hurter2012}.}
-  \label{fig:exemplo-bund}
-\end{figure}
 
-  Uma variedade de métodos de \emph{bundling} têm sido apresentados por
-pesquisadores, como métodos geométricos, hierárquicos e baseados em imagem
-\citep{Lhuillier2017}. Recentemente, novos métodos viabilizaram a visualização
-de grandes conjuntos de dados e em diferentes níveis de detalhes, como em
-\citet{Klein2014}, que utilizam \emph{bundling} na visualização de milhares de
-dados do tráfego aéreo. Eles mostram como a técnica destaca rotas comuns nos
-voos e o grau de conexão entre diferentes aeroportos. O método utilizado
-permite ainda uma abordagem multinível de acordo com parâmetros que
-possibilitam o controle do \emph{bundling} em função da densidade de pontos no
-espaço. Isso significa que é possível visualizar padrões globais entre grandes
-áreas no mapa, que contemplem muitos pontos, e também padrões locais sobre
-áreas menores com poucos pontos. Os autores também apresentam uma visualização
-dinâmica para mostrar as mudanças no tráfego ao longo do tempo, agrupando os
-voos em pequenos intervalos de tempo $\Delta t$ e aplicando o \emph{bundling}
-nos dados de cada intervalo.
-
-  Neste trabalho, focamos na visualização do fluxo de veículos no trânsito e as
-relações de origem-destino (OD) que eles representam. Apresentamos uma
-visualização dos dados utilizando \emph{bundling} para explorar os fluxos de
-deslocamentos no trânsito da cidade e como eles impactam em vias com grandes
-congestionamentos. Fazemos um novo estudo sobre visualização de dados do
-tráfego projetando uma visualização para mostrar os fluxos em diferentes níveis
-de detalhe. Utilizamos dados do tráfego de ônibus na cidade de São Paulo e
-também dados gerados pelo InterSCSimulator, um simulador de cidades
-inteligentes apresentado por \citet{mabs2017}.
-
-\section{Objetivos e Contribuições}
-  O objetivo desta pesquisa é explorar como o \emph{bundling} ajuda na
-observação de padrões nos fluxos de deslocamento no tráfego de veículos de uma
-grande cidade. Para isso, fazemos uma análise sobre as propriedades temporais e
-espaciais dos dados do tráfego, sendo a direção e a densidade os principais
-atributos que utilizaremos para responder às seguintes questões de pesquisa:
-
-\begin{itemize}
-  \item[\textbf{Q1)}] \textbf{Como o \emph{bundling} pode ser usado para
-identificar os fluxos de origem e destino no trânsito em diferentes escalas?} -
-Queremos investigar o uso do \emph{bundling} para visualizar os fluxos no
-tráfego em várias escalas, até no nível das ruas. Com isso exploraremos
-a visualização das origens e destinos dos fluxos em uma via, para saber, por exemplo
-quais pontos de origem e destino são maiores responsáveis por um congestionamento.
-
-  \item[\textbf{Q2)}] \textbf{É possível utilizar o \emph{bundling}  para
-identificar padrões de fluxos de origem e destino no trânsito?} - O
-\emph{bundling} acaba por dar uma visualização da estrutura geral do tráfego,
-que por sua vez, não é a mesma ao longo de todo o dia. Mais veículos trafegam
-nas ruas em horários de pico, os itinerários do transporte público mudam,
-acidentes fecham ruas, e vários outros fatores afetam a dinâmica do trânsito.
-Queremos testar essa estrutura geral em diferentes momentos do dia para saber
-como o \emph{bundling} destaca essas mudanças ou padrões na visualização do
-tráfego.
-
-  \item[\textbf{Q3)}] \textbf{O \emph{bundling} é eficiente para gerar uma
-visualização de uma grande quantidade de dados do trânsito?} - O número de
-veículos circulando nas ruas de uma grande cidade é variavelmente superior a
-outros contextos, como o tráfego aéreo. São Paulo, por exemplo, possui mais de
-8 milhões de veículos, segundo o Departamento Estadual do
-Trânsito\footnote{\rurl{www.detran.sp.gov.br}} (Detran). Queremos entender os
-desafios de escalabilidade computacional do \emph{bundling} na visualização de uma
-grande quantidade de dados do trânsito medindo o tempo gasto para se gerar a visualização.
-\end{itemize}
-
- Para isso, apresentamos o InterSCityPlotter, uma ferramenta livre e de código
-aberto, para a análise de dados do tráfego de veículos que utiliza
-\emph{bundling} para visualização dos dados do trânsito.  Exploramos o
-\emph{bundling} em três aspectos: (1) abordagem multinível para visualizar
-padrões globais (i.e. na escala da cidade), e locais (i.e. bairros, quadras e
-ruas); (2) abordagem dinâmica para visualização de mudanças no padrão de fluxos
-ao longo do tempo; (3) sua utilização com uma grande quantidade de dados do
-trânsito em escala real de uma grande cidade, com mais de 4 milhões de
-veículos.  Apresentamos também um conjunto de técnicas para mapear os atributos
-de direção e densidade dos dados dentro de uma visualização sobre um mapa.
-
-  Avaliaremos os resultados da visualização de maneira qualitativa e
-quantitativa. Do ponto de vista qualitativo avaliaremos o que foi alcançado com
-a visualização em relação às questões \textbf{Q1} e \textbf{Q2}
-levantadas, fazendo considerações sobre os resultados obtidos e suas
-limitações. Além disso, compararemos nossa proposta em relação a outros
-trabalhos sobre visualização de dados de movimentação que utilizam
-\emph{bundling}. Do ponto de vista quantitativo será avaliado o desempenho da
-solução dado o tempo de processamento para gerar a visualização dos conjuntos
-de dados utilizados, relacionado à questão \textbf{Q3}.
-
-  Esperamos que a solução a ser criada ajude na identificação das relações
-entre as regiões da cidade que recebem maior fluxo, como esse fluxo se
-distribui ao longo do tempo e como ele impacta em vias com grandes
-congestionamentos. Desta forma, esta pesquisa potencialmente oferece as
-seguintes contribuições científicas (CC) e contribuições técnicas (CT):
-
-\begin{itemize}
-  \item \textbf{CC} - avaliação do \emph{bundling} em multiníveis para análise de
-padrões globais e locais do tráfego
-
-  \item \textbf{CC} - avaliação da escalabilidade do \emph{bundling} na visualização de uma grande
-quantidade de dados do tráfego de veículos
-
-  \item \textbf{CC} - avaliação do \emph{bundling} dinâmico para análise de mudanças ao longo
-e a ocorrência de eventos atípicos
-
-  \item \textbf{CT} - construção de uma ferramenta para visualização dos dados do tráfego
-que será integrada ao InterSCSimulator
-\end{itemize}
-
-Esta pesquisa está sendo desenvolvida como parte do projeto InterSCity
-\footnote{\rurl{interscity.org}} - INCT of the Future Internet for Smart
-Cities. O objetivo do projeto é desenvolver pesquisas multidisciplinares em
-infraestruturas de software para cidades inteligentes, produzindo contribuições
-técnicas e científicas para a comunidade \citep{Daniel2016}. O simulador InterSCSimulator foi
-desenvolvido no contexto do projeto e nós nos apoiamos em seus resultados como
-forma de impulsionar esta pesquisa no campo da visualização de dados do
-tráfego. Desta forma, o desenvolvimento desta pesquisa de mestrado seguirá as
-diretrizes do projeto InterSCity para produzir resultados que sejam
-reprodutíveis, bem como soluções de software livre que possam ser mantidas
-adiante pela comunidade do projeto.
+%Formas de visualização desses dados facilitam essa tarefa, uma vez que uma representação
+%visual pode comunicar seus padrões geográficos e direcionais de forma mais intuitiva
+%\citep{Liu2013}.
+%
+%% problema
+%  De maneira abstrata, fluxos de tráfego podem ser interpretados como um grafo
+%direcionado, onde os vértices (nós) representam localidades espaciais e as
+%arestas representam o fluxo e a ligação entre as diferentes localidades
+%\citep{Anita2017}. A visualização desses fluxos é uma tarefa complexa que
+%apresenta desafios de escalabilidade computacional e visual \citep{Klein2014}.
+%Quando uma representação de linhas é utilizada, mesmo conjuntos de dados com
+%poucos fluxos começam a apresentar uma certa oclusão, com vários cruzamentos e
+%sobreposição entre os elementos da visualização, o que torna difícil sua
+%interpretação. A oclusão acaba por limitar a quantidade de elementos que podem
+%ser vistos ao mesmo tempo e prejudica a identificação de possíveis padrões e
+%relações presentes nos dados, como por exemplo o movimento de uma grande massa
+%de veículos de uma região A para uma região B durante o mesmo período. A Figura
+%\ref{fig:exemplo-oclusao} ilustra as trajetórias de aviões durante uma semana
+%sobre os Estados Unidos. O grande número de voos gera uma oclusão que torna
+%impossível identificar as conexões entre as regiões e aeroportos.
+%
+%\begin{figure}[!htb]
+%  \centering
+%  \includegraphics[width=100mm]{../figuras/cluttered-map.png}
+%  \caption[Trajetórias de voos nos Estados Unidos]{Trajetórias de voos nos Estados Unidos no período de uma semana. Fonte \citet{Zhou2013}.}
+%  \label{fig:exemplo-oclusao}
+%\end{figure}
+%
+%  Algumas aplicações existentes no domínio do trânsito, como Google
+%Maps\footnote{\rurl{maps.google.com}} e
+%Waze\footnote{\rurl{www.waze.com/pt-BR}}, que sugerem para motoristas qual
+%caminho tomar até um determinado destino, e
+%OlhoVivo\footnote{\rurl{olhovivo.sptrans.com.br}}, que  mostra as rotas feitas
+%por ônibus na cidade de São Paulo e suas posições instantâneas, se empenham em
+%mostrar informações pontuais do tráfego e não na sua estrutura geral. Não é
+%possível, por exemplo, saber de onde vem os veículos que formam o fluxo em uma
+%determinada via ou região. O Google Maps, por exemplo, sugere um trajeto entre
+%uma origem e um destino inseridos pelo usuário e traça o percurso em um mapa.
+%Sua visualização destaca também as áreas com maior densidade de fluxo com
+%diferentes cores, sendo laranja trechos com fluxo moderado e vermelho sendo
+%trechos de maior fluxo, indicando que há um congestionamento. A Figura
+%\ref{fig:gmaps} ilustra uma visualização de uma rota sugerida pelo Google Maps.
+%
+%\begin{figure}[!htb]
+%  \centering
+%  \includegraphics[width=\textwidth]{../figuras/maps.pdf}
+%  \caption{Trajeto entre dois pontos visto com o Google Maps \label{fig:gmaps}}
+%\end{figure}
+%
+%  Para lidar com os problemas da oclusão, algumas técnicas têm sido
+%desenvolvidas por comunidades de visualização e da cartografia para a o estudo
+%de grandes conjuntos de dados de tráfego, como por exemplo, clusterização de
+%vértices \citep{Schaeffer2007, Andrienko2011}, matrizes \citep{Elmqvist2008}
+%e grides \citep{JoWood2010}. Essas técnicas, no entanto, acabam usando
+%abstrações diferentes da representação baseada em linhas. Um outro tipo de
+%abstração pode ser obtido com uma técnica chamada \emph{bundling}, que tem sido
+%bastante utilizada na visualização massiva de dados do tráfego que utilizam a
+%representação de fluxos por linhas \citep{Zhou2013}. Algoritmos de
+%\emph{bundling} agrupam arestas similares e próximas, permitindo uma
+%representação única e compacta que reduz o número de arestas e a oclusão no
+%desenho. A Figura \ref{fig:exemplo-bund} ilustra a aplicação da técnica de
+%\emph{bundling}.  Quanto mais à esquerda, mais oclusão, e à direita, o
+%resultado final.
+%
+%\begin{figure}[!htb]
+%  \centering
+%  \includegraphics[width=1\textwidth]{../figuras/bundle-ex.png}
+%\caption[Exemplo de aplicação do \emph{bundling}]{Exemplo de aplicação do \emph{bundling}. Fonte: \citet{Hurter2012}.}
+%  \label{fig:exemplo-bund}
+%\end{figure}
+%
+%  Uma variedade de métodos de \emph{bundling} têm sido apresentados por
+%pesquisadores, como métodos geométricos, hierárquicos e baseados em imagem
+%\citep{Lhuillier2017}. Recentemente, novos métodos viabilizaram a visualização
+%de grandes conjuntos de dados e em diferentes níveis de detalhes, como em
+%\citet{Klein2014}, que utilizam \emph{bundling} na visualização de milhares de
+%dados do tráfego aéreo. Eles mostram como a técnica destaca rotas comuns nos
+%voos e o grau de conexão entre diferentes aeroportos. O método utilizado
+%permite ainda uma abordagem multinível de acordo com parâmetros que
+%possibilitam o controle do \emph{bundling} em função da densidade de pontos no
+%espaço. Isso significa que é possível visualizar padrões globais entre grandes
+%áreas no mapa, que contemplem muitos pontos, e também padrões locais sobre
+%áreas menores com poucos pontos. Os autores também apresentam uma visualização
+%dinâmica para mostrar as mudanças no tráfego ao longo do tempo, agrupando os
+%voos em pequenos intervalos de tempo $\Delta t$ e aplicando o \emph{bundling}
+%nos dados de cada intervalo.
+%
+%  Neste trabalho, focamos na visualização do fluxo de veículos no trânsito e as
+%relações de origem-destino (OD) que eles representam. Apresentamos uma
+%visualização dos dados utilizando \emph{bundling} para explorar os fluxos de
+%deslocamentos no trânsito da cidade e como eles impactam em vias com grandes
+%congestionamentos. Fazemos um novo estudo sobre visualização de dados do
+%tráfego projetando uma visualização para mostrar os fluxos em diferentes níveis
+%de detalhe. Utilizamos dados do tráfego de ônibus na cidade de São Paulo e
+%também dados gerados pelo InterSCSimulator, um simulador de cidades
+%inteligentes apresentado por \citet{mabs2017}.
+%
+%\section{Objetivos e Contribuições}
+%  O objetivo desta pesquisa é explorar como o \emph{bundling} ajuda na
+%observação de padrões nos fluxos de deslocamento no tráfego de veículos de uma
+%grande cidade. Para isso, fazemos uma análise sobre as propriedades temporais e
+%espaciais dos dados do tráfego, sendo a direção e a densidade os principais
+%atributos que utilizaremos para responder às seguintes questões de pesquisa:
+%
+%\begin{itemize}
+%  \item[\textbf{Q1)}] \textbf{Como o \emph{bundling} pode ser usado para
+%identificar os fluxos de origem e destino no trânsito em diferentes escalas?} -
+%Queremos investigar o uso do \emph{bundling} para visualizar os fluxos no
+%tráfego em várias escalas, até no nível das ruas. Com isso exploraremos
+%a visualização das origens e destinos dos fluxos em uma via, para saber, por exemplo
+%quais pontos de origem e destino são maiores responsáveis por um congestionamento.
+%
+%  \item[\textbf{Q2)}] \textbf{É possível utilizar o \emph{bundling}  para
+%identificar padrões de fluxos de origem e destino no trânsito?} - O
+%\emph{bundling} acaba por dar uma visualização da estrutura geral do tráfego,
+%que por sua vez, não é a mesma ao longo de todo o dia. Mais veículos trafegam
+%nas ruas em horários de pico, os itinerários do transporte público mudam,
+%acidentes fecham ruas, e vários outros fatores afetam a dinâmica do trânsito.
+%Queremos testar essa estrutura geral em diferentes momentos do dia para saber
+%como o \emph{bundling} destaca essas mudanças ou padrões na visualização do
+%tráfego.
+%
+%  \item[\textbf{Q3)}] \textbf{O \emph{bundling} é eficiente para gerar uma
+%visualização de uma grande quantidade de dados do trânsito?} - O número de
+%veículos circulando nas ruas de uma grande cidade é variavelmente superior a
+%outros contextos, como o tráfego aéreo. São Paulo, por exemplo, possui mais de
+%8 milhões de veículos, segundo o Departamento Estadual do
+%Trânsito\footnote{\rurl{www.detran.sp.gov.br}} (Detran). Queremos entender os
+%desafios de escalabilidade computacional do \emph{bundling} na visualização de uma
+%grande quantidade de dados do trânsito medindo o tempo gasto para se gerar a visualização.
+%\end{itemize}
+%
+% Para isso, apresentamos o InterSCityPlotter, uma ferramenta livre e de código
+%aberto, para a análise de dados do tráfego de veículos que utiliza
+%\emph{bundling} para visualização dos dados do trânsito.  Exploramos o
+%\emph{bundling} em três aspectos: (1) abordagem multinível para visualizar
+%padrões globais (i.e. na escala da cidade), e locais (i.e. bairros, quadras e
+%ruas); (2) abordagem dinâmica para visualização de mudanças no padrão de fluxos
+%ao longo do tempo; (3) sua utilização com uma grande quantidade de dados do
+%trânsito em escala real de uma grande cidade, com mais de 4 milhões de
+%veículos.  Apresentamos também um conjunto de técnicas para mapear os atributos
+%de direção e densidade dos dados dentro de uma visualização sobre um mapa.
+%
+%  Avaliaremos os resultados da visualização de maneira qualitativa e
+%quantitativa. Do ponto de vista qualitativo avaliaremos o que foi alcançado com
+%a visualização em relação às questões \textbf{Q1} e \textbf{Q2}
+%levantadas, fazendo considerações sobre os resultados obtidos e suas
+%limitações. Além disso, compararemos nossa proposta em relação a outros
+%trabalhos sobre visualização de dados de movimentação que utilizam
+%\emph{bundling}. Do ponto de vista quantitativo será avaliado o desempenho da
+%solução dado o tempo de processamento para gerar a visualização dos conjuntos
+%de dados utilizados, relacionado à questão \textbf{Q3}.
+%
+%  Esperamos que a solução a ser criada ajude na identificação das relações
+%entre as regiões da cidade que recebem maior fluxo, como esse fluxo se
+%distribui ao longo do tempo e como ele impacta em vias com grandes
+%congestionamentos. Desta forma, esta pesquisa potencialmente oferece as
+%seguintes contribuições científicas (CC) e contribuições técnicas (CT):
+%
+%\begin{itemize}
+%  \item \textbf{CC} - avaliação do \emph{bundling} em multiníveis para análise de
+%padrões globais e locais do tráfego
+%
+%  \item \textbf{CC} - avaliação da escalabilidade do \emph{bundling} na visualização de uma grande
+%quantidade de dados do tráfego de veículos
+%
+%  \item \textbf{CC} - avaliação do \emph{bundling} dinâmico para análise de mudanças ao longo
+%e a ocorrência de eventos atípicos
+%
+%  \item \textbf{CT} - construção de uma ferramenta para visualização dos dados do tráfego
+%que será integrada ao InterSCSimulator
+%\end{itemize}
+%
+%Esta pesquisa está sendo desenvolvida como parte do projeto InterSCity
+%\footnote{\rurl{interscity.org}} - INCT of the Future Internet for Smart
+%Cities. O objetivo do projeto é desenvolver pesquisas multidisciplinares em
+%infraestruturas de software para cidades inteligentes, produzindo contribuições
+%técnicas e científicas para a comunidade \citep{Daniel2016}. O simulador InterSCSimulator foi
+%desenvolvido no contexto do projeto e nós nos apoiamos em seus resultados como
+%forma de impulsionar esta pesquisa no campo da visualização de dados do
+%tráfego. Desta forma, o desenvolvimento desta pesquisa de mestrado seguirá as
+%diretrizes do projeto InterSCity para produzir resultados que sejam
+%reprodutíveis, bem como soluções de software livre que possam ser mantidas
+%adiante pela comunidade do projeto.
