@@ -4,39 +4,86 @@
 
 O rápido  desenvolvimento de sistemas de transporte e crescimento das cidades
 tem sido acompanhado de fluxos de deslocamento cada vez mais complexos e
-volumosos. É estimado que cerca de 40\% da população passa pelo menos uma hora
-no trânsito todos os dias \citep{Zhang2011}. Questões sobre mobilidade urbana
-são uma preocupação para cidadãos e gestores de sistemas de transporte, visto
-que impactam diretamente a sua qualidade de vida e geram perdas econômicas. 
+volumosos. Questões sobre mobilidade urbana são uma preocupação para cidadãos e
+gestores de sistemas de transporte, visto que impactam diretamente a sua
+qualidade de vida e geram perdas econômicas. É estimado que cerca de 40\% da
+população passa pelo menos uma hora no trânsito todos os dias \citep{Zhang2011}. 
 
 Atualmente, é comum observar a coleta e análise de dados de mobilidade para
-apoiar o planejamento e construção de sistemas de transporte mais eficientes.
-Esses dados são gerados de diferentes fontes, como GPS, câmeras de tráfego, e
-pesquisas censitárias. Dentro desse contexto, nós focamos nosso estudo em dados
-de mobilidade da região metropolitana de S\~ao Paulo.
+apoiar o planejamento e construção de sistemas de transporte mais eficientes,
+seja aéreo, marítimo ou terrestre. Esses dados são gerados de diferentes
+fontes, como GPS, câmeras de tráfego, e pesquisas censitárias. Dentro desse
+contexto, nós focamos nosso estudo em dados de mobilidade urbana da região
+metropolitana de S\~ao Paulo.
 
 A cada dez anos, desde 1967, a Companhia Metropolitano de São Paulo (Metrô),
 que gerencia o sistema de metrô da cidade, conduz um estudo censitário de
-mobilidade chamado \emph{Pesquisa Origem-Destino} (OD). Nesse estudo, são
-coletados dados das atividades diárias dos cidadãos em um dia típico da semana,
-o que resulta num panorama do comportamento de mobilidade da população na
-região. Esses dados são utilizados pela Companhia do Metrô para entender
-padrões de deslocamento na região. Com isso, novas políticas públicas, como
-criação de novas linhas de transporte de metrô e ônibus, são conduzidas com
-maior respaldo. Os dados também colaboram para o monitoramento da evolução do
-transporte público e privado na cidade, armazenando sua história de
-desenvolvimento.
+mobilidade chamado \emph{Pesquisa Origem-Destino} (OD). A pesquisa OD coleta
+dados de locomoção, com informações de origem e destino e também dados
+socioeconômicos como idade, gênero, renda familiar e tipos de transporte
+utilizados. No último ano em que a pesquisa foi feita, em 2017, foram
+contabilizados aproximadamente 42 milhões de viagens ao longo de 24 horas de um
+dia típico de trabalho.
 
-A pesquisa OD contem dados de locomoção diários, com informações de origem e
-destino de viagens feitas por uma amostra da população, que é posteriormente
-extrapolada para toda a cidade. No último ano em que a pesquisa foi feita, em
-2017, foram contabilizados aproximadamente 42 milhões de viagens em um dia
-típico. A pesquisa também coleta vários dados socioeconômicos como idade,
-gênero, renda familiar e tipos de transporte utilizados. 
+Para compreender os padrões de deslocamento da população, os gestores da cidade
+precisam de ferramentas adequadas para analisar esta grande quantidade de
+dados. O uso de planilhas e gráficos permitem produzir algumas análises para
+compreensão de forma agregada,  como por exemplo, o número de usuários do
+sistema de transporte público ao longo dos anos ou o número de homens e
+mulheres que saem diariamente a trabalho. Mapas de densidade podem ajudar a
+responder perguntas com teor geoespacial, como encontrar regiões que concentram
+os maiores fluxos de mobilidade durante o dia ou quais os pares de
+OD mais comuns. No entanto, considerando a grande quantidade
+de dados produzida, traduzir esses dados em imagens significativas é um desafio.
 
-Formas de visualização desses dados facilitam essa tarefa, uma vez que uma
-representação visual pode comunicar padrões de deslocamento de forma mais
-intuitiva \citep{Liu2013}. 
+Um estudo recente sobre visualização de tráfego aponta para o uso comum de
+visualizações baseadas em linhas para compreender a estrutura de dados de
+mobilidade, o que geralmente está ligado a tarefas de descoberta de padrões e
+agrupamento dos dados \cite{Chen2015}. Ainda assim, a representação das
+trajetórias através de linhas começa a apresentar limitações já em cenários com
+pouco mais de milhares de elementos. Visualizar 42 milhões de trajetórias, como
+coletado pela Pesquisa OD, resultaria em uma imagem completamente confusa, como
+mostra a Figura \ref{fig:cluttered-graph}.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=150mm]{../figuras/unbundled-edges+grayscale+512px.png}
+  \caption[Trajetórias da pesquisa OD na região metropolitana de S\~ao Paulo]{Trajetórias da pesquisa
+OD na região metropolitana de S\~ao Paulo}
+  \label{fig:cluttered-graph}
+\end{figure}
+
+ Técnicas de \emph{bundling} aprimoram visualizações baseadas em linha e podem
+representar grandes volumes de trajetórias simplificando a imagem através do
+agrupamento de trajetórias similares, ou seja, aquelas que estão espacialmente
+próximas ou possuem as mesmas características.  [Zhou et al. 2013, Lhuillier et
+al. 2017]. Neste trabalho nos propomos o uso de um modelo de \emph{bundling}
+para visualizar a estrutura e características da mobilidade urbana na cidade
+de S\~ao Paulo, com dados obtidos da Pesquisa OD. Nós adaptamos uma ferramenta
+de \emph{bundling} recente conhecida como CUBu \cite{VanDerZwan2016}, que já
+revelou resultados interessantes na visualização de trajetórias em outros cenários
+(tráfego aéreo e rastreamento da visão). 
+
+%In this paper, we propose the use of a bundling model to visualize the
+%structure and characteristics of urban mobility in the city of São Paulo as
+%obtained by the OD Survey. We adapt a recent bundling framework known as CUBu
+%[Van Der Zwan et al. 2016], which has proven to be useful in other scenarios
+%using movement data (flight traffic, eye tracking). However, to our knowledge,
+%neither CUBu nor other bundling techniques have been used so far to visualize
+%such a high volume of trajectories as in our case. We show how the bundled
+%visualizations help finding structural patterns in urban mobility and reveal
+%new insights regarding São Paulo’s transportation systems and city
+%infrastructure.
+%
+%
+%In this thesis we present a set of visualization techniques for mul- tivariate
+%attributed time-dependent air traffic data that addresses the above mentioned
+%ATC and ATM goals. In contrast to existing ATC and ATM systems that focus on
+%instantaneous flight positions or ag- gregated (textual) data, we focus on the
+%visualization of aircraft trails with attribute data at different
+%spatio-temporal levels of detail. Our techniques allow continuous navigation
+%between instantaneous plane positions for a given time and visually aggregated
+%trails over a time window of multiple days.
 
 
 %Formas de visualização desses dados facilitam essa tarefa, uma vez que uma representação
