@@ -28,63 +28,42 @@ dia típico de trabalho.
 Para compreender os padrões de deslocamento da população, os gestores da cidade
 precisam de ferramentas adequadas para analisar esta grande quantidade de
 dados. O uso de planilhas e gráficos permitem produzir algumas análises para
-compreensão de forma agregada,  como por exemplo, o número de usuários do
-sistema de transporte público ao longo dos anos ou o número de homens e
+compreensão de forma agregada,  como por exemplo, computar o número de usuários
+do sistema de transporte público ao longo dos anos ou o número de homens e
 mulheres que saem diariamente a trabalho. Mapas de densidade podem ajudar a
 responder perguntas com teor geoespacial, como encontrar regiões que concentram
-os maiores fluxos de mobilidade durante o dia ou quais os pares de
-OD mais comuns. No entanto, considerando a grande quantidade
-de dados produzida, traduzir esses dados em imagens significativas é um desafio.
+os maiores fluxos de mobilidade durante o dia ou quais os pares de OD mais
+comuns. 
 
-Um estudo recente sobre visualização de tráfego aponta para o uso comum de
-visualizações baseadas em linhas para compreender a estrutura de dados de
-mobilidade, o que geralmente está ligado a tarefas de descoberta de padrões e
-agrupamento dos dados \cite{Chen2015}. Ainda assim, a representação das
-trajetórias através de linhas começa a apresentar limitações já em cenários com
+Para explorar a estrutura e padrões desse tipo de dado é comum o uso de 
+visualizações baseadas em linhas como aponta um estudo por \cite{Chen2015}. No entanto,
+esse tipo de representação começa a apresentar limitações já em cenários com
 pouco mais de milhares de elementos. Visualizar 42 milhões de trajetórias, como
 coletado pela Pesquisa OD, resultaria em uma imagem completamente confusa, como
-mostra a Figura \ref{fig:cluttered-graph}.
+mostra a Figura \ref{fig:cluttered-graph} e visualizar outras características
+dos dados aumentaria ainda mais esse problema. Traduzir uma grande quantidade
+de dados de mobilidade em imagens significativas é um desafio.
 
 \begin{figure}[!htb]
   \centering
   \includegraphics[width=150mm]{../figuras/unbundled-edges+grayscale+512px.png}
   \caption[Trajetórias da pesquisa OD na região metropolitana de S\~ao Paulo]{Trajetórias da pesquisa
-OD na região metropolitana de S\~ao Paulo}
-  \label{fig:cluttered-graph}
+OD na região metropolitana de S\~ao Paulo. \label{fig:cluttered-graph}}
+  
 \end{figure}
 
- Técnicas de \emph{bundling} aprimoram visualizações baseadas em linha e podem
-representar grandes volumes de trajetórias simplificando a imagem através do
-agrupamento de trajetórias similares, ou seja, aquelas que estão espacialmente
-próximas ou possuem as mesmas características.  [Zhou et al. 2013, Lhuillier et
-al. 2017]. Neste trabalho nos propomos o uso de um modelo de \emph{bundling}
-para visualizar a estrutura e características da mobilidade urbana na cidade
-de S\~ao Paulo, com dados obtidos da Pesquisa OD. Nós adaptamos uma ferramenta
-de \emph{bundling} recente conhecida como CUBu \cite{VanDerZwan2016}, que já
-revelou resultados interessantes na visualização de trajetórias em outros cenários
-(tráfego aéreo e rastreamento da visão). 
-
-%In this paper, we propose the use of a bundling model to visualize the
-%structure and characteristics of urban mobility in the city of São Paulo as
-%obtained by the OD Survey. We adapt a recent bundling framework known as CUBu
-%[Van Der Zwan et al. 2016], which has proven to be useful in other scenarios
-%using movement data (flight traffic, eye tracking). However, to our knowledge,
-%neither CUBu nor other bundling techniques have been used so far to visualize
-%such a high volume of trajectories as in our case. We show how the bundled
-%visualizations help finding structural patterns in urban mobility and reveal
-%new insights regarding São Paulo’s transportation systems and city
-%infrastructure.
-%
-%
-%In this thesis we present a set of visualization techniques for mul- tivariate
-%attributed time-dependent air traffic data that addresses the above mentioned
-%ATC and ATM goals. In contrast to existing ATC and ATM systems that focus on
-%instantaneous flight positions or ag- gregated (textual) data, we focus on the
-%visualization of aircraft trails with attribute data at different
-%spatio-temporal levels of detail. Our techniques allow continuous navigation
-%between instantaneous plane positions for a given time and visually aggregated
-%trails over a time window of multiple days.
-
+Neste trabalho nos propomos o uso de um conjunto de técnicas de visualização
+para explorar as características de uma grande quantidade de dados de
+mobilidade urbana. Para isso, nós adaptamos uma técnica que revelou resultados
+interessantes na visualização de trajetórias em outros cenários como o do
+tráfego aéreo e rastreamento do movimento da visão para o nosso contexto.
+Nosso estudo permitiu a visualização dos dados em diferentes níveis de
+granularidade espaço temporal, ajudando a encontrar padrões de mobilidade e
+revelar novos insights a respeito do sistema de transporte de S\~ao Paulo e da
+infraestrutura da cidade. Em contraste a outros trabalhos que utilizam técnicas
+similares, nossa pesquisa ainda se destaca pela grande quantidade de dados
+analisada. Para isso, apresentamos também uma metodologia para reduzir o tamanho
+do conjunto de dados com impacto mínimo na sua significância estatística. 
 
 %Formas de visualização desses dados facilitam essa tarefa, uma vez que uma representação
 %visual pode comunicar seus padrões geográficos e direcionais de forma mais intuitiva
