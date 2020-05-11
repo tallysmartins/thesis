@@ -3,95 +3,47 @@
 
   Neste capítulo esclarecemos os conceitos teóricos necessários para o
 entendimento do trabalho e a metodologia proposta. Inicialmente, abordamos
-aspectos da visualização de dados do tráfego, que abrange uma variedade de
-cenários conforme os objetivos, tipos de dado e diferentes representações
-visuais da informação. Neste contexto, destacamos o \emph{bundling}, uma
-técnica bastante usada na visualização de grandes quantidades de dados do
-tráfego. Apresentamos os detalhes da técnica e uma breve consideração sobre os
-avanços recentes nesta área. Por fim, considerando que neste trabalho faremos o
-uso de dados simulados do tráfego de veículos, apresentamos o simulador
-InterSCSimulator.
+aspectos da visualização de dados de tráfego e formas comuns de representação
+dessa informação.  Neste contexto, destacamos os problemas para representar
+uma grande quantidade de dados e alternativas para solucioná-los. Por fim,
+apresentamos os dados da pesquisa do metrô que iremos utilizar.
 
-\section{Visualização de Dados do Tráfego}
+\section{Visualização de Dados de Tráfego}
 \label{sec:viz-trafego}
 
-  A análise de dados do tráfego tem um histórico antigo. \citet{Chen2015} fazem
+A análise de dados do tráfego tem um histórico antigo. \citet{Chen2015} fazem
 um levantamento de várias pesquisas de análise e visualização de dados do
-tráfego de pessoas, carros e embarcações. Eles apresentam uma taxonomia
-conforme algumas características observadas, como o objetivo da visualização,
-formato dos dados do tráfego e formas de apresentação de suas propriedades.
-Nesta seção apresentamos essa taxonomia, que é importante para um melhor
-entendimento da área e dos esforços que têm sido feitos no campo da
-visualização de dados do tráfego.
+tráfego de pessoas, carros e embarcações. Os trabalhos levantados abrangem problemas
+diferentes em quatro categorias principais, conforme o seu objetivo e a tarefa a que servem.
 
-\subsection{Quanto ao Objetivo da Visualização}
+Uma categoria são as de aplicações que focam no monitoramento do tráfego,
+muitas vezes feito em tempo real para a descoberta instantânea de eventos,
+geralmente com a coleta de dados através de câmeras e sensores que alimentam
+sistemas de alerta.  Uma outra categoria são as das aplicações de exploração e
+predição, que permitem que usuários investiguem os dados para justificar
+situações do tráfego, como a ocorrência de congestionamentos devido a um alto
+número de veículos, ou ainda prever tais situações com técnicas de predição
+(e.g.  predizer que haverá congestionamento devido a ocorrência de chuva).  Há
+também a classe de soluções voltadas para o planejamento e recomendação de
+rotas, que podem envolver tanto o monitoramento em tempo real quanto análise
+histórica no processo de recomendação. Por fim, \citet{Chen2015} cita a
+categoria de aplicações voltadas para a descoberta de padrões e tendências de
+mobilidade, que utilizam técnicas de agrupamento dos dados.
 
-  Segundo \citet{Chen2015}, os trabalhos e sistemas de software sobre análise e
-visualização de dados do tráfego podem ser classificadas em quatro categorias
-de acordo com seus objetivos e a tarefa a que servem.
-
-\begin{description}
-  \item[Monitoramento do tráfego:] esse tipo de aplicação
-foca no monitoramento em tempo real para descobertas instantâneas de eventos no
-tráfego, como câmeras de gravação ao vivo e sistemas de alerta.
-
-  \item[Descoberta de padrões e clusterização:] para a descoberta de padrões e
-tendências de mobilidade, algumas aplicações utilizam métodos para o
-agrupamento visual de trajetórias ou novas abstrações dos dados.
-
-  \item[Exploração e predição:] outras aplicações focam em fornecer mecanismos
-de pesquisa e exploração dos dados para que os usuários investiguem os dados
-que justifiquem situações do tráfego, como congestionamentos, ou ainda técnicas
-de predição para prever essas situações (e.g. predizer que haverá
-congestionamento devido a ocorrência de chuva).
-
-  \item[Planejamento de rotas e recomendação:] sistemas de transporte
-inteligentes contam essencialmente com recomendações de trajetos para usuários
-do transporte, várias soluções existem com esse propósito, que podem envolver monitoramento
-em tempo real ou análise histórica no processo de recomendação.
-\end{description}
-
-\subsection{Quanto ao Tipo de Coleta dos Dados}
-
-  Dados do tráfego são tipicamente coletados a partir de sensores e dispositivos
-eletrônicos. A estrutura desses conjuntos de dados dependem do modo de operação
-dos sensores e dispositivos que registram a movimentação dos objetos. \citet{Chen2015}
-os dividem em três classes:
-
-\begin{description}
-  \item[Baseado em pontos de interesse:] a posição de um objeto é gravada assim
-que ele entra na área do sensor. Como uma câmera de vídeo que capta a
-movimentação e orientação de um veículo assim que ele passa pela área de
-monitoramento.
-
-  \item[Baseado em ações:] as informações sobre um objeto podem estar associados
-a certas atividades. O usuário de um aparelho celular por exemplo, tem sua
-atividade e localização registrados pela rede GSM quando o mesmo efetua uma
-chamada.
-
-  \item[Baseado em sinais de dispositivos:] Um dispositivo de localização
-carregado por um objeto constantemente grava e envia suas informações de
-localização para uma central, como aparelhos de GPS instalados em um ônibus do
-transporte público de uma cidade.  \end{description}
-
-  Uma série de posições de localização ao longo do tempo formam a trajetória de
-um objeto. Uma trajetória contém informações temporais, que permitem traçar uma
-linha do tempo da movimentação, e informações espaciais, que contém a posição
-em cada momento no tempo. A frequência de armazenamento dessas informações
-também impacta a análise. Capturar e armazenar essas informações com um
-intervalo de tempo muito pequeno pode ser algo bastante custoso. Outro fator de
-impacto é a precisão das informações a qual depende de questões relacionadas ao
-hardware utilizado na coleta. Muitas vezes é necessária uma etapa de
-pré-processamento para extrair dados inconsistentes da análise.
+No contexto das aplicações para a descoberta de padrões e tendências, um
+conjunto de dados pré estabelecido é analisado para se chegar a alguma
+conclusão sobre suas características. Tratando-se de dados de tráfego, suas
+características espaciais e temporais muitas vezes requerem abordagens
+diferentes na investigação dos padrões e na construção de uma visualização. 
 
 \subsection {Visualização das Propriedades Temporais}
 \label{sec:prop-temporais}
 
-  Dados do tráfego podem conter uma série de variáveis, das quais as mais
+Dados do tráfego podem conter uma série de variáveis, das quais as mais
 importantes são o tempo e espaço. Visualizações orientadas ao tempo enfatizam
 tendências, periodicidades e anomalias nos dados ao longo de um eixo temporal \citep{Aigner2008}.
 
-  Expressar a variação do tráfego ao longo do tempo e sua evolução é um típico
+Expressar a variação do tráfego ao longo do tempo e sua evolução é um típico
 processo de análise linear do tempo, que é considerado a partir de um ponto de
 início até um ponto final \citep{Chen2015}. Por exemplo, em um gráfico de
 linhas, o tempo é representado ao longo do eixo X e outra variável é
