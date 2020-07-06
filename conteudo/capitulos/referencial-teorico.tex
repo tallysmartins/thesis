@@ -1,40 +1,43 @@
-\chapter{Referencial Teórico}
+\chapter{Referencial Teórico e Trabalhos Relacionados}
 \label{cap:referencial-teorico}
 
-  Neste capítulo esclarecemos os conceitos teóricos necessários para o
-entendimento do trabalho e a metodologia proposta. Inicialmente, abordamos
-aspectos da visualização de dados de tráfego e formas comuns de representação
-dessa informação.  Neste contexto, destacamos os problemas para representar
-uma grande quantidade de dados e alternativas para solucioná-los. Por fim,
-apresentamos os dados da pesquisa do metrô que iremos utilizar.
+  A seguir nós discutimos conceitos e trabalhos relacionados sobre a visualização de
+trajetórias com foco em dados de Origem-Destino. 
 
-\section{Visualização de Dados de Tráfego}
-\label{sec:viz-trafego}
+\section{Visualização de Trajetórias}
+\label{sec:dados-de-trajetorias}
 
-A análise de dados do tráfego tem um histórico antigo. \citet{Chen2015} fazem
-um levantamento de várias pesquisas de análise e visualização de dados do
-tráfego de pessoas, carros e embarcações. Os trabalhos levantados abrangem problemas
-diferentes em quatro categorias principais, conforme o seu objetivo e a tarefa a que servem.
+\emph{Trajetórias} (aqui também nomeado como fluxos) são tipicamente conjuntos
+de pontos no espaço $\mathbf{t} = \{\mathbf{x}_i\}$ capturados em momentos
+consecutivos $t_i$ e que descrevem o movimento de um objeto ao longo do tempo.
+Dados de Origem-Destino (OD) são um caso particular de trajetórias que contém
+apenas o primeiro e o último ponto. Uma trajetória pode conter outras
+informações, capturadas em cada passo $\mathbf{x_i}$, \emph{e.g.}, velocidade,
+ou ainda atributos globais para a trajetória completa, \emph{e.g.}, tipo de
+veículo. Dados de trajetórias podem ser diretamente desenhados sobre um mapa
+2D, com seus atributos representados visualmente através de cores, espessura da
+linha, e textura.
 
-Uma categoria são as de aplicações que focam no monitoramento do tráfego,
-muitas vezes feito em tempo real para a descoberta instantânea de eventos,
-geralmente com a coleta de dados através de câmeras e sensores que alimentam
-sistemas de alerta.  Uma outra categoria são as das aplicações de exploração e
-predição, que permitem que usuários investiguem os dados para justificar
-situações do tráfego, como a ocorrência de congestionamentos devido a um alto
-número de veículos, ou ainda prever tais situações com técnicas de predição
-(e.g.  predizer que haverá congestionamento devido a ocorrência de chuva).  Há
-também a classe de soluções voltadas para o planejamento e recomendação de
-rotas, que podem envolver tanto o monitoramento em tempo real quanto análise
-histórica no processo de recomendação. Por fim, \citet{Chen2015} cita a
-categoria de aplicações voltadas para a descoberta de padrões e tendências de
-mobilidade, que utilizam técnicas de agrupamento dos dados.
+describe the motion of an object over time. Origin-Destination (OD) data are
+particular cases of trails which contain only the first and last recorded
+point.  Trails can have additional data attributes, recorded either at each
+sample point $\mathbf{x}_i$, \emph{e.g.}, speed, or globally for the entire
+trail, \emph{e.g.}, vehicle type.  Trail data can be directly plotted atop of
+2D maps, with data attributes encoded optionally into visual variables such as
+color, line thickness, and line style.  Besides statically drawing entire
+trail-sets, these can be also shown by animating particles along their points
+$\mathbf{x}_i$\,\cite{hurter_book,klein:14}.
 
-No contexto das aplicações para a descoberta de padrões e tendências, um
-conjunto de dados pré estabelecido é analisado para se chegar a alguma
-conclusão sobre suas características. Tratando-se de dados de tráfego, suas
-características espaciais e temporais muitas vezes requerem abordagens
-diferentes na investigação dos padrões e na construção de uma visualização. 
+Visualizing trail-sets having thousands of trails or more is challenging.
+Simply drawing the trails yields significant clutter which makes finding even
+the simplest spatial patterns very hard. Particle techniques also do not scale
+well -- with over roughly 50 thousand points, the resulting visual pattern
+resembles Brownian motion.  \emph{Bundling} methods aim to solve this visual
+scalability issue by grouping trail fragments which are spatially close and,
+optionally, have similar data attributes.  Simply put, this creates more
+\emph{overdraw} between (similar) trails, thus creating visually empty space
+that reduces \emph{clutter}.
+
 
 \subsection {Visualização das Propriedades Temporais}
 \label{sec:prop-temporais}
