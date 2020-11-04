@@ -14,103 +14,27 @@ Dados de Origem-Destino (OD) são um caso particular de trajetórias que contém
 apenas o primeiro e o último ponto. Uma trajetória pode conter outras
 informações, capturadas em cada passo $\mathbf{x_i}$, \emph{e.g.}, velocidade,
 ou ainda atributos globais para a trajetória completa, \emph{e.g.}, tipo de
-veículo. Dados de trajetórias podem ser diretamente desenhados sobre um mapa
-2D, com seus atributos representados visualmente através de cores, espessura da
-linha, e textura.
+veículo. 
 
-describe the motion of an object over time. Origin-Destination (OD) data are
-particular cases of trails which contain only the first and last recorded
-point.  Trails can have additional data attributes, recorded either at each
-sample point $\mathbf{x}_i$, \emph{e.g.}, speed, or globally for the entire
-trail, \emph{e.g.}, vehicle type.  Trail data can be directly plotted atop of
-2D maps, with data attributes encoded optionally into visual variables such as
-color, line thickness, and line style.  Besides statically drawing entire
-trail-sets, these can be also shown by animating particles along their points
-$\mathbf{x}_i$\,\cite{hurter_book,klein:14}.
-
-Visualizing trail-sets having thousands of trails or more is challenging.
-Simply drawing the trails yields significant clutter which makes finding even
-the simplest spatial patterns very hard. Particle techniques also do not scale
-well -- with over roughly 50 thousand points, the resulting visual pattern
-resembles Brownian motion.  \emph{Bundling} methods aim to solve this visual
-scalability issue by grouping trail fragments which are spatially close and,
-optionally, have similar data attributes.  Simply put, this creates more
-\emph{overdraw} between (similar) trails, thus creating visually empty space
-that reduces \emph{clutter}.
-
-
-\subsection {Visualização das Propriedades Temporais}
-\label{sec:prop-temporais}
-
-Dados do tráfego podem conter uma série de variáveis, das quais as mais
-importantes são o tempo e espaço. Visualizações orientadas ao tempo enfatizam
-tendências, periodicidades e anomalias nos dados ao longo de um eixo temporal \citep{Aigner2008}.
-
-Expressar a variação do tráfego ao longo do tempo e sua evolução é um típico
-processo de análise linear do tempo, que é considerado a partir de um ponto de
-início até um ponto final \citep{Chen2015}. Por exemplo, em um gráfico de
-linhas, o tempo é representado ao longo do eixo X e outra variável é
-representada no eixo Y, como na Figura \ref{fig:linear-time}. Gráficos de
-linhas são fáceis de interpretar, porém limitam-se na quantidade de variáveis
-que podem ser visualizadas.
-
-\begin{figure}[!htb]
-  \centering
-  \includegraphics[width=\textwidth]{../figuras/linear-time.png}
-  \caption[Gráfico de linha representando empo linear]{Gráfico de linha representando tempo linear. Ele mostra a média de gorjetas por viagem em diferentes regiões no período de 1 a 7 de Maio de 2011. Cada linha representa uma região. Fonte: \citep{Ferreira2013}
-  \label{fig:linear-time}}
-\end{figure}
-
-  Por outro lado, temos também alguns processos recorrentes que são naturais em
-nosso mundo, os quais seguem ciclos de estações, ou mesmo ciclos semanais e
-diários. Um leiaute radial visto na Figura \ref{fig:periodic-time} é uma opção
-para se visualizar essa periodicidade. O tempo é mostrado no eixo circular e
-cada anel do círculo representa um dia da semana.  Os setores representam uma
-hora, com 24 setores no total que mostram a quantidade de tráfego em um
-determinado ponto da cidade, mapeada em cores. A vantagem de um leiaute radial
-é que ele evidencia esses padrões recorrentes e a desvantagem é que ele possui
-pouca eficiência espacial \citep{Chen2015}.
-
-\begin{figure}[!htb]
-  \centering
-  \includegraphics[width=0.6\textwidth]{../figuras/periodic-time.png}
-  \caption[Leiaute radial representando tempo periódico]{Leiaute radial
-representando tempo periódico. O tempo é mostrado no eixo circular e cada anel
-do círculo representa um dia da semana, divididos em 24 setores que indicam as
-24 horas do dia. As cores mostram a quantidade de tráfego conforme o mapa à
-direita, onde vermelho maior é o tráfego. Fonte:
-\citet{Pu2013} \label{fig:periodic-time}}
-\end{figure}
-
-  Os aspectos temporais dos dados não se limitam a apenas essas visualizações,
-existe um grande arcabouço de projeções que se desenvolveram no campo da
-visualização da informação onde o tempo é uma variável de destaque,
-\citet{Cairo2016} mostra uma série dessas projeções em seu livro. Uma análise
-linear ou periódica são dois paradigmas que levam a decisões diferentes durante
-o processo de criação da visualização.
-
-\subsection{Visualização das Propriedades Espaciais}
-\label{sec:prop-espaciais}
-
-  As propriedades espaciais de localização referem-se aos locais onde ações,
-incidentes e eventos ocorrem. Diferentes níveis de agregação dessa informação
-levam à categorização da visualização em três classes, segundo
-\citet{Chen2015}: visualização baseada em pontos (nenhuma agregação),
-visualização baseada em linhas (agregação de primeira ordem), e agregação
-baseada em regiões (agregação de segunda ordem).
+Dados de trajetórias podem ser diretamente desenhados sobre mapas 2D,
+e outros atributos representados através de elementos visuais como cor e textura.
+As propriedades espaciais de localização, que referem-se
+aos locais onde ações, incidentes e eventos ocorreram, é a principal característica
+desse tipo de dado e pode ser agregada de diferentes formas, as quais \citet{Chen2015}
+separa em três categorias: visualização baseada em pontos (nenhuma agregação), visualização baseada em linhas 
+(agregação de primeira ordem), e agregação baseada em regiões (agregação de segunda ordem).
 
 \begin{description}
   \item[Visualização baseada em pontos:] visualizações baseadas em pontos
 consideram as informações do tráfego como pontos discretos e usam sua forma
-pura como representação em um leiaute espacial, como por exemplo pontos em um mapa 2D. Essa técnica
-mostra intuitivamente a posição de objetos em um certo momento no tempo. O
+pura como representação em um leiaute espacial, como pontos individuais em um mapa 2D. 
+Essa técnica mostra intuitivamente a posição de objetos em um certo momento no tempo. O
 projeto \emph{Trains of Data}, ilustrado na Figura \ref{fig:trains-of-data},
 utiliza esse tipo de visualização para representar a movimentação dos trens na
 França. O tamanho dos pontos indica a quantidade de passageiros e a cor indica
 se o trem está atrasado, sendo verde no horário e vermelho significa atraso.
 Para uma visualização integral da trajetória eles ainda usam efeitos de
-animação. Visualizações baseadas em pontos tipicamente representam cada ponto
-de forma individual. Em casos onde há uma grande quantidade de pontos, o uso de
+animação. Em casos onde há uma grande quantidade de pontos, o uso de
 mapas de calor é indicado para a visualização da densidade. A vantagem desse
 método é que ele permite observar os estados de cada objeto e sua distribuição
 no espaço, como também explorar regiões da cidade que estejam mais ocupadas.
