@@ -2,7 +2,7 @@
 \label{cap:referencial-teorico}
 
   A seguir nós discutimos conceitos e trabalhos relacionados sobre a visualização de
-trajetórias com foco em dados de Origem-Destino. 
+trajetórias com foco em dados de Origem-Destino.
 
 \section{Visualização de Trajetórias}
 \label{sec:dados-de-trajetorias}
@@ -14,7 +14,7 @@ Dados de Origem-Destino (OD) são um caso particular de trajetórias que contém
 apenas o primeiro e o último ponto. Uma trajetória pode conter outras
 informações, capturadas em cada passo $\mathbf{x_i}$, \emph{e.g.}, velocidade,
 ou ainda atributos globais para a trajetória completa, \emph{e.g.}, tipo de
-veículo. 
+veículo.
 
 Dados de trajetórias podem ser diretamente desenhados sobre mapas 2D,
 e outros atributos representados através de elementos visuais como cor e textura.
@@ -24,9 +24,9 @@ desse tipo de dado e pode ser agregada de diferentes formas, as quais \citet{Che
 separa em três categorias: \emph{visualização baseada  em pontos} (nenhuma agregação), \emph{visualização baseada em linhas}
 (agregação de primeira ordem), e \emph{agregação baseada em regiões} (agregação de segunda ordem).
 
-  Visualizações baseada em pontos (nenhuma agregação)
+Visualizações baseada em pontos (nenhuma agregação)
 consideram as informações do tráfego como pontos discretos e usam sua forma
-pura como representação em um leiaute espacial, como pontos individuais em um mapa 2D. 
+pura como representação em um leiaute espacial, como pontos individuais em um mapa 2D.
 Essa tipo de visualização mostra a posição instantânea dos objetos em um certo momento
 no tempo. A vantagem desse método é que ele mostra um retrato dos estados de cada objeto em um
 determinado momento, permitindo observar sua distribuição no espaço e explorar regiões que estejam
@@ -34,9 +34,9 @@ mais ocupadas. Para entender mudanças contínuas ao longo do tempo, técnicas d
 ser empregadas para mostrar uma transição entre os estados. Porém, a medida que o número
 de partículas cresce  - alguns milhares de pontos - esse tipo de visualização começa a sofrer
 de um efeito conhecido como como movimento Browniano - onde o movimento dos pontos parecem ser movimentos
-aleatórios - o que torna difícil identificar a trajetória dos objetos. O projeto \emph{Trains of Data}, ilustrado na Figura \ref{fig:trains-of-data},
-utiliza esse tipo de visualização para representar a movimentação dos trens na
-França. O tamanho dos pontos indica a quantidade de passageiros e a cor
+aleatórios - o que torna difícil identificar a trajetória dos objetos. O projeto \emph{Trains of Data},
+ilustrado na Figura \ref{fig:trains-of-data}, utiliza esse tipo de visualização para
+representar a movimentação dos trens na França. O tamanho dos pontos indica a quantidade de passageiros e a cor
 sua assiduidade, verde se o trem está no horário e vermelho significa que está atrasado
 em relação ao tempo estimado.
 
@@ -52,11 +52,11 @@ Visualizações baseadas em linhas (agregação de primeira ordem) são
 desenhadas para mostrar a trajetória de objetos, mapas de vias e estradas em
 uma região, ou fluxos do tráfego em uma rede de transporte. As trajetórias e
 fluxos são representados por linhas ou curvas e são escaladas ou coloridas de
-acordo com suas propriedades (i.e. densidade, direção, velocidade).
-\citet{Klein2014} apresenta um sistema iterativo para análise do tráfego aéreo
-na França. Cada trajetória é representada por uma linha que conecta os pontos
-de partida e chegada de cada voo, como pode ser visto na Figura
-\ref{fig:air-traffic}.
+acordo com suas propriedades (i.e. densidade, direção, velocidade) e mostram de forma
+explicita a conexão entre diferentes localidades espaciais. \citet{Klein2014} apresenta
+um sistema iterativo para análise do tráfego aéreo na França. As trajetórias são
+representada por linhas que conectam os pontos de partida e chegada de cada voo,
+como pode ser visto na Figura \ref{fig:air-traffic}.
 
 \begin{figure}[!htb]
   \centering
@@ -65,12 +65,12 @@ de partida e chegada de cada voo, como pode ser visto na Figura
   \label{fig:air-traffic}
 \end{figure}
 
-  A representação espacial das linhas pode ainda sofrer transformações
+A representação espacial das linhas pode ainda sofrer transformações
 geométricas e topológicas que geram novas abstrações. Por exemplo,
 \citet{Tarik2009} mostram uma proposta que transforma as trajetórias de um
 leiaute espacial (Figura \ref{fig:viz-espacial}) para um leiaute abstrato
 (Figura \ref{fig:viz-abstrata}) para visualizar a movimentação de pessoas
-durante a fuga de uma explosão em um escritório.  A abordagem abstrata é usada
+durante a fuga de uma explosão em um escritório. A abordagem abstrata é usada
 para mostrar mais efetivamente os padrões de movimentação de pessoas que se
 movem ao mesmo tempo para as mesmas áreas. Na Figura \ref{fig:viz-abstrata} é
 possível notar a movimentação de indivíduos antes da explosão (linhas azuis), o
@@ -78,6 +78,12 @@ que sugere possíveis suspeitos ou testemunhas do evento.  As informações
 temporais são difíceis de representar no leiaute espacial, assim o leiaute
 abstrato complementa a visualização dos dados mostrando os instantes de tempo
 no eixo X e as informações espaciais no eixo Y.
+
+% Existem trabalhos que mostram
+% ainda visualizações em 3 dimensões onde as informações de tempo e espaço são
+% mostradas ao mesmo tempo na imagem de um cubo, no entanto esse tipo de
+% recurso acaba elevando bastante a complexidade de design e desenvolvimento
+% da visualização, e por isso é menos utilizado.
 
 \begin{figure}[ht!]
   \centering
@@ -103,22 +109,18 @@ Visualização abstrata, baseada na proximidade.  Fonte: \citet{Tarik2009}.
 %em um cubo espaço-temporal, que utiliza o eixo Z para mostrar o tempo e os
 %eixos X e Y para representar o espaço.
 
-  No entanto, a medida que o número de objetos cresce, aumenta também os
+No entanto, a medida que o número de linhas cresce, aumenta também os
 problemas de oclusão, o que acaba afetando a estética da visualização e a
-obtenção de informações sobre os dados \citep{Zhou2013}. Uma forma de reduzir
-a complexidade de análise de um grande conjunto  trajetórias é utilizando
-outras formas de abstração dos dados, como uma visualização baseada em regiões.
-
-  \item[Visualização baseada em regiões:] Esse tipo de abstração agrupa fluxos
-de deslocamento com origem e destino similares em um nível de macro regiões,
-geralmente determinado por divisões administrativas.  \citet{Zeng2013}
-apresentam um diagrama em círculos para mostrar padrões de movimentação de
+obtenção de informações sobre os dados \citep{Zhou2013}. Visualizações baseadas
+em regiões (agregação de segunda ordem) são uma forma de reduzir
+a complexidade de análise de um grande conjunto trajetórias. Os fluxos
+de deslocamento com origem e destino similares são então agrupados
+em um nível de macro regiões, geralmente determinado por divisões administrativas.
+\citet{Zeng2013} apresentam um diagrama em círculos para mostrar padrões de movimentação de
 pessoas entre as regiões da cidade. O círculo representa a junção ou conexão
 entre as diferentes regiões e o fluxo entre elas. A densidade do fluxo é medido
 pela espessura, bem como a direção é destacada dentro do círculo, como é
-ilustrado na Figura \ref{fig:interchange-circo}. Apesar de facilitar a
-visualização, esse tipo de agregação abre mão das informações individuais de
-cada trajetória em favor de uma visão condensada dos fluxos.
+ilustrado na Figura \ref{fig:interchange-circo}.
 
 \begin{figure}[!h]
   \centering
@@ -127,9 +129,14 @@ cada trajetória em favor de uma visão condensada dos fluxos.
   \label{fig:interchange-circo}
 \end{figure}
 
+Apesar de facilitar a visualização, esse tipo de agregação abre mão das informações individuais de
+cada trajetória em favor de uma visão condensada dos fluxos. Um outro desafio é representar
+as multiplas variáveis de um conjunto de dados em uma mesma imagem e correlacioná-las.
+Técnicas de bundling buscam resolver tais problemas de escalabilidade visual e tem se tornado
+muito utilizadas em pesquisas de exploração de fluxos.
+
 \section{\emph{Bundling}}
 \label{sec:bundling}
-
   Um grande problema na visualização de grafos e dados de trajetórias é a
 oclusão visual à medida que a quantidade de elementos aumenta. Uma pequena
 quantidade de dados já começa a apresentar problemas de sobreposição e
