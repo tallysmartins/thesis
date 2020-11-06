@@ -21,25 +21,24 @@ e outros atributos representados através de elementos visuais como cor e textur
 As propriedades espaciais de localização, que referem-se
 aos locais onde ações, incidentes e eventos ocorreram, é a principal característica
 desse tipo de dado e pode ser agregada de diferentes formas, as quais \citet{Chen2015}
-separa em três categorias: visualização baseada em pontos (nenhuma agregação), visualização baseada em linhas 
-(agregação de primeira ordem), e agregação baseada em regiões (agregação de segunda ordem).
+separa em três categorias: \emph{visualização baseada  em pontos} (nenhuma agregação), \emph{visualização baseada em linhas}
+(agregação de primeira ordem), e \emph{agregação baseada em regiões} (agregação de segunda ordem).
 
-\begin{description}
-  \item[Visualização baseada em pontos:] visualizações baseadas em pontos
+  Visualizações baseada em pontos (nenhuma agregação)
 consideram as informações do tráfego como pontos discretos e usam sua forma
 pura como representação em um leiaute espacial, como pontos individuais em um mapa 2D. 
-Essa técnica mostra intuitivamente a posição de objetos em um certo momento no tempo. O
-projeto \emph{Trains of Data}, ilustrado na Figura \ref{fig:trains-of-data},
+Essa tipo de visualização mostra a posição instantânea dos objetos em um certo momento
+no tempo. A vantagem desse método é que ele mostra um retrato dos estados de cada objeto em um
+determinado momento, permitindo observar sua distribuição no espaço e explorar regiões que estejam
+mais ocupadas. Para entender mudanças contínuas ao longo do tempo, técnicas de animação podem
+ser empregadas para mostrar uma transição entre os estados. Porém, a medida que o número
+de partículas cresce  - alguns milhares de pontos - esse tipo de visualização começa a sofrer
+de um efeito conhecido como como movimento Browniano - onde o movimento dos pontos parecem ser movimentos
+aleatórios - o que torna difícil identificar a trajetória dos objetos. O projeto \emph{Trains of Data}, ilustrado na Figura \ref{fig:trains-of-data},
 utiliza esse tipo de visualização para representar a movimentação dos trens na
-França. O tamanho dos pontos indica a quantidade de passageiros e a cor indica
-se o trem está atrasado, sendo verde no horário e vermelho significa atraso.
-Para uma visualização integral da trajetória eles ainda usam efeitos de
-animação. Em casos onde há uma grande quantidade de pontos, o uso de
-mapas de calor é indicado para a visualização da densidade. A vantagem desse
-método é que ele permite observar os estados de cada objeto e sua distribuição
-no espaço, como também explorar regiões da cidade que estejam mais ocupadas.
-Por outro lado, ele é inapropriado para representação de informações contínuas,
-como quantos veículos viajam de um determinado local para outro.
+França. O tamanho dos pontos indica a quantidade de passageiros e a cor
+sua assiduidade, verde se o trem está no horário e vermelho significa que está atrasado
+em relação ao tempo estimado.
 
 \begin{figure}[!htb]
   \centering
@@ -49,7 +48,7 @@ das ferrovias. Fonte: \citet{Senseable2018}.}
   \label{fig:trains-of-data}
 \end{figure}
 
-  \item[Visualização baseada em linhas:] visualizações baseadas em linhas são
+Visualizações baseadas em linhas (agregação de primeira ordem) são
 desenhadas para mostrar a trajetória de objetos, mapas de vias e estradas em
 uma região, ou fluxos do tráfego em uma rede de transporte. As trajetórias e
 fluxos são representados por linhas ou curvas e são escaladas ou coloridas de
@@ -127,7 +126,6 @@ cada trajetória em favor de uma visão condensada dos fluxos.
   \caption[Exemplo de visualização baseada em regiões do sistema de metrô na França]{Exemplo de visualização baseada em regiões: padrões regionais de movimentação no sistema de metrô na França. Fonte: \citet{Zeng2013}.}
   \label{fig:interchange-circo}
 \end{figure}
-\end{description}
 
 \section{\emph{Bundling}}
 \label{sec:bundling}
