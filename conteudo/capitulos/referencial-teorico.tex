@@ -24,6 +24,7 @@ desse tipo de dado e pode ser agregada de diferentes formas, as quais \citet{Che
 separa em três categorias: \emph{visualização baseada  em pontos} (nenhuma agregação), \emph{visualização baseada em linhas}
 (agregação de primeira ordem), e \emph{agregação baseada em regiões} (agregação de segunda ordem).
 
+
 Visualizações baseada em pontos (nenhuma agregação)
 consideram as informações do tráfego como pontos discretos e usam sua forma
 pura como representação em um leiaute espacial, como pontos individuais em um mapa 2D.
@@ -31,8 +32,8 @@ Essa tipo de visualização mostra a posição instantânea dos objetos em um ce
 no tempo. A vantagem desse método é que ele mostra um retrato dos estados de cada objeto em um
 determinado momento, permitindo observar sua distribuição no espaço e explorar regiões que estejam
 mais ocupadas. Para entender mudanças contínuas ao longo do tempo, técnicas de animação podem
-ser empregadas para mostrar uma transição entre os estados. Porém, a medida que o número
-de partículas cresce  - alguns milhares de pontos - esse tipo de visualização começa a sofrer
+ser empregadas para mostrar uma transição entre os estados. Porém, com um grande número de partículas
+- alguns milhares de pontos - esse tipo de visualização começa a sofrer
 de um efeito conhecido como como movimento Browniano - onde o movimento dos pontos parecem ser movimentos
 aleatórios - o que torna difícil identificar a trajetória dos objetos. O projeto \emph{Trains of Data},
 ilustrado na Figura \ref{fig:trains-of-data}, utiliza esse tipo de visualização para
@@ -113,14 +114,16 @@ No entanto, a medida que o número de linhas cresce, aumenta também os
 problemas de oclusão, o que acaba afetando a estética da visualização e a
 obtenção de informações sobre os dados \citep{Zhou2013}. Visualizações baseadas
 em regiões (agregação de segunda ordem) são uma forma de reduzir
-a complexidade de análise de um grande conjunto trajetórias. Os fluxos
-de deslocamento com origem e destino similares são então agrupados
-em um nível de macro regiões, geralmente determinado por divisões administrativas.
+a complexidade de análise de um grande conjunto trajetórias. Os dados 
+são então agrupados em um nível de macro regiões, geralmente determinado por divisões administrativas.
 \citet{Zeng2013} apresentam um diagrama em círculos para mostrar padrões de movimentação de
 pessoas entre as regiões da cidade. O círculo representa a junção ou conexão
 entre as diferentes regiões e o fluxo entre elas. A densidade do fluxo é medido
 pela espessura, bem como a direção é destacada dentro do círculo, como é
-ilustrado na Figura \ref{fig:interchange-circo}.
+ilustrado na Figura \ref{fig:interchange-circo}. Esse tipo de agrupamento
+troca as informações individuais de cada trajetória  (como na representação de linhas e pontos)
+em favor de uma visão condensada, tornando possível a exploração de maiores quantidades de dados, porém
+sob uma macro visão da informação.
 
 \begin{figure}[!h]
   \centering
@@ -129,45 +132,60 @@ ilustrado na Figura \ref{fig:interchange-circo}.
   \label{fig:interchange-circo}
 \end{figure}
 
-Apesar de facilitar a visualização, esse tipo de agregação abre mão das informações individuais de
-cada trajetória em favor de uma visão condensada dos fluxos. Um outro desafio é representar
-as multiplas variáveis de um conjunto de dados em uma mesma imagem e correlacioná-las.
-Técnicas de bundling buscam resolver tais problemas de escalabilidade visual e tem se tornado
-muito utilizadas em pesquisas de exploração de fluxos.
+Visualizar conjuntos de trajetórias com dezenas de milhares de fluxos ou mais é um grande desafio.
+Além dos problemas de oclusão para representar tantos objetos em uma única imagem, há também o desafio
+na visualização de seus múltiplos atributos como velocidade, direção, tipo de veículo,
+posição. Uma maneira de contornar os problemas de escalabilidade visual
+é através de filtros que determinam a quantidade de itens na visualização.
+Porém, como consequência do filtro, perde-se a visão global de todos os itens ao mesmo tempo,
+o que pode ser necessário para a identificação das correlações e padrões entre eles. 
+Uma outra técnica conhecida como \emph{bundling} busca resolver
+tais problemas de escalabilidade visual, trazendo um outro tipo de abstração sobre visualizações
+baseadas em linhas, que agrupa trajetórias espacialmente próximas, e opcionalmente,
+que possuam atributos similares. 
+
+Técnicas de \emph{bundling} têm sido utilizadas em várias pesquisas sobre dados de movimentação, como
+estudos sobre migração de aves, \citep{Anita2017}, identificação de padrões no tráfego aéreo, \citep{Klein2014},
+visualização da movimentação de embarcações marítimas \citep{Willems2009}, entre outros. Na seção a seguir
+explicamos como o \emph{bundling} pode ser aplicado para simplificar a visualização de grandes conjuntos
+de dados de trajetórias, similares aos dados de OD de nossa pesquisa.
+
+%  fez uma análise da movimentação de embarcações marítimas também explorando
+% técnicas de \emph{bundling}. Separadamente, \citep{Blascheck2017} mostra como a técnica foi
+% empregada para simplificar a visualização de dados de monitoramento
+% da visão para inferir padrões de leitura. 
+
+% Técnicas de \emph{bundling} têm sido utilizadas em várias pesquisas sobre dados de movimentação.
+% \citep{Anita2017} criou uma visualização com \emph{bundling} para estudar características da migração de aves.
+% \citep{Klein2014} desenvolveu uma visualização dinâmica para mostrar variações do tráfego aéreo ao longo do tempo e
+% \citep{Willems2009} fez uma análise da movimentação de embarcações marítimas também explorando
+% técnicas de \emph{bundling}. Separadamente, \citep{Blascheck2017} mostra como a técnica foi
+% empregada para simplificar a visualização de dados de monitoramento
+% da visão para inferir padrões de leitura. 
+
+%  Lhuillier et al. [8] compiled a survey on the state of
+% the art on bundling techniques. This survey distinguishes between bundling graph
+% data (straight-line drawings of graph layouts) and trail data (such as our OD data),
+% highlighting the best methods for both cases.ss
 
 \section{\emph{Bundling}}
 \label{sec:bundling}
-  Um grande problema na visualização de grafos e dados de trajetórias é a
-oclusão visual à medida que a quantidade de elementos aumenta. Uma pequena
-quantidade de dados já começa a apresentar problemas de sobreposição e
-cruzamento de arestas, o que dificulta a obtenção de informação sobre os dados.
-Uma maneira de contornar esse problema é através de filtros que determinam a
-quantidade de itens na visualização. Como consequência do filtro perde-se a
-visão global de todos os itens ao mesmo tempo, o que pode ser necessário para a
-identificação das correlações e padrões entre eles. Uma outra abordagem é o uso
-de agregações que geram novas abstrações dos dados. Na seção anterior mostramos
-como o agrupamento em regiões projetado sobre um diagrama circular simplifica a
-visualização das trajetórias entre as áreas da cidade.
-
- Uma solução que tem sido amplamente utilizada em várias pesquisas de
-visualização de dados de tráfego é o uso de uma técnica chamada
-\emph{bundling}. A técnica ajuda a simplificar o desenho da visualização
-através da agregação espacial das arestas em conjuntos chamados
-\emph{bundles}, que funcionam de forma similar a algoritmos de clusterização. Os \emph{bundles} são
-definidos como um grupo de arestas similares, compatíveis o suficiente para
+O \emph{bundling} ajuda a simplificar o desenho da visualização
+através da agregação espacial das trajetórias em conjuntos chamados
+\emph{bundles}. Os \emph{bundles} são definidos como um grupo de trajetórias similares, compatíveis o suficiente para
 serem representadas por um corpo único e compacto \citep{Lhuillier2017}. A
 compatibilidade é calculada a partir de uma função de similaridade usada para
-determinar quais arestas devem fazem parte do mesmo agrupamento.
-Imaginando então algumas viagens no trânsito, podemos agrupá-las pela sua
+determinar quais objetos devem fazem parte do mesmo agrupamento.
+Imaginando então algumas viagens no trânsito, é possível agrupá-las pela sua
 região de origem, destino, distância percorrida, direção ou até mesmo o meio de
-transporte utilizado.  Dessa forma, o número de \emph{bundles} é ligeiramente
+transporte utilizado. Dessa forma, a informação agrupada em \emph{bundles} é ligeiramente
 inferior ao número de trajetórias a serem desenhadas, ficando mais simples
 compreender e visualizar a estrutura global, padrões e tendências entre grupos
-de trajetórias que ligam áreas fortemente relacionadas \citep{Zhou2013}.  A
+de trajetórias que ligam áreas fortemente relacionadas \citep{Zhou2013}. A
 Figura \ref{fig:bundling-hierarquico} mostra o uso de uma técnica de
 \emph{bundling} para visualização da hierarquia de módulos e arquivos de um
-software onde as arestas mostram suas relações de dependência. A ligação
-acontece quando um módulo acessa atributos e/ou funções definidos em outras partes
+software onde as linhas mostram as relações de dependência entre os itens. A ligação
+acontece quando um módulo acessa variáveis e/ou funções definidos em outras partes
 do software.
 
 \begin{figure}[!htb]
@@ -178,10 +196,15 @@ o sentido do acesso, verde é a origem, vermelho é o alvo. Fonte: \citep{Holten
   \label{fig:bundling-hierarquico}
 \end{figure}
 
-\subsection{Modelos de \emph{Bundling}}
-\label{sec:modelos-de-bundling}
 
-  O cálculo de um \emph{bundle} não possui uma definição precisa, e por isso há
+% Lhuillier et al. [8] compiled a survey on the state of
+% the art on bundling techniques. This survey distinguishes between bundling graph
+% data (straight-line drawings of graph layouts) and trail data (such as our OD data),
+% highlighting the best methods for both cases.
+
+% \citepLhuillier2017
+
+O cálculo de um \emph{bundle} não possui uma definição precisa, e por isso há
 uma grande variedade de algoritmos e abordagens para modelar problemas de
 agrupamento de arestas com \emph{bundling}, que podem variar significativamente
 de um para outro em questões de complexidade e aplicação dos algoritmos
