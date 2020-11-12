@@ -133,35 +133,27 @@ sob uma macro visão da informação.
 \end{figure}
 
 Visualizar conjuntos de trajetórias com dezenas de milhares de fluxos ou mais é um grande desafio.
-Além dos problemas de oclusão para representar tantos objetos em uma única imagem, há também o desafio
-na visualização de seus múltiplos atributos como velocidade, direção, tipo de veículo,
-posição. Uma maneira de contornar os problemas de escalabilidade visual
-é através de filtros que determinam a quantidade de itens na visualização.
-Porém, como consequência do filtro, perde-se a visão global de todos os itens ao mesmo tempo,
-o que pode ser necessário para a identificação das correlações e padrões entre eles. 
-Uma outra técnica conhecida como \emph{bundling} busca resolver
-tais problemas de escalabilidade visual, trazendo um outro tipo de abstração sobre visualizações
-baseadas em linhas, que agrupa trajetórias espacialmente próximas, e opcionalmente,
-que possuam atributos similares. 
+Desenhar todas as trajetórias em uma imagem resultaria em uma oclusão significativa na visualização,
+dificultando a identificação até mesmo dos padrões mais simples que se possa imaginar. Além disso,
+há também o desafio de representar os múltiplos atributos, muito comuns nesse tipo de conjunto de dados,
+tais como velocidade, direção, tipo de veículo, posição. 
 
-Técnicas de \emph{bundling} têm sido utilizadas em várias pesquisas sobre dados de movimentação, como
-estudos sobre migração de aves, \citep{Anita2017}, identificação de padrões no tráfego aéreo, \citep{Klein2014},
-visualização da movimentação de embarcações marítimas \citep{Willems2009}, entre outros. Na seção a seguir
-explicamos como o \emph{bundling} pode ser aplicado para simplificar a visualização de grandes conjuntos
-de dados de trajetórias, similares aos dados de OD de nossa pesquisa.
+Uma maneira de contornar os problemas de escalabilidade visual é através de filtros que determinam
+a quantidade de itens na visualização. Porém, como consequência do filtro, perde-se a visão
+global de todos os itens ao mesmo tempo, o que pode ser necessário para a identificação das
+correlações e padrões entre eles. Uma outra técnica conhecida como \emph{bundling} busca resolver
+tais problemas de escalabilidade visual, trazendo um outro tipo de abstração que permite
+criar visualizações baseadas em linhas com um grande número de elementos de uma forma simplificada,
+que destaca grupos de trajetórias espacialmente próximas, e opcionalmente, que possuam atributos similares.
 
-%  fez uma análise da movimentação de embarcações marítimas também explorando
-% técnicas de \emph{bundling}. Separadamente, \citep{Blascheck2017} mostra como a técnica foi
-% empregada para simplificar a visualização de dados de monitoramento
-% da visão para inferir padrões de leitura. 
-
-% Técnicas de \emph{bundling} têm sido utilizadas em várias pesquisas sobre dados de movimentação.
-% \citep{Anita2017} criou uma visualização com \emph{bundling} para estudar características da migração de aves.
-% \citep{Klein2014} desenvolveu uma visualização dinâmica para mostrar variações do tráfego aéreo ao longo do tempo e
-% \citep{Willems2009} fez uma análise da movimentação de embarcações marítimas também explorando
-% técnicas de \emph{bundling}. Separadamente, \citep{Blascheck2017} mostra como a técnica foi
-% empregada para simplificar a visualização de dados de monitoramento
-% da visão para inferir padrões de leitura. 
+O \emph{bundling} têm sido utilizado em várias pesquisas sobre dados de movimentação.
+\citep{Anita2017} criou uma visualização com \emph{bundling} para estudar características da migração de aves.
+\citep{Klein2014} desenvolveu uma visualização dinâmica para mostrar variações do tráfego aéreo ao longo do tempo e
+\citep{Willems2009} fez uma análise da movimentação de embarcações marítimas também explorando
+técnicas de \emph{bundling}. Separadamente, \citep{Blascheck2017} mostra como a técnica foi
+empregada para simplificar a visualização de dados de monitoramento da visão para inferir padrões de leitura. 
+Na seção a seguir explicamos como o \emph{bundling} pode ser aplicado para simplificar a exploração
+de grandes conjuntos de dados de trajetórias, similares aos dados de OD de nossa pesquisa.
 
 %  Lhuillier et al. [8] compiled a survey on the state of
 % the art on bundling techniques. This survey distinguishes between bundling graph
@@ -170,10 +162,13 @@ de dados de trajetórias, similares aos dados de OD de nossa pesquisa.
 
 \section{\emph{Bundling}}
 \label{sec:bundling}
-O \emph{bundling} ajuda a simplificar o desenho da visualização
-através da agregação espacial das trajetórias em conjuntos chamados
-\emph{bundles}. Os \emph{bundles} são definidos como um grupo de trajetórias similares, compatíveis o suficiente para
-serem representadas por um corpo único e compacto \citep{Lhuillier2017}. A
+
+
+
+
+O conceito geral desta técnica é que os dados das trajetórias são agrupadas em conjuntos chamados
+\emph{bundles}. Os \emph{bundles} são definidos como um grupo de trajetórias similares,
+compatíveis o suficiente para serem representadas por um corpo único e compacto \citep{Lhuillier2017}. A
 compatibilidade é calculada a partir de uma função de similaridade usada para
 determinar quais objetos devem fazem parte do mesmo agrupamento.
 Imaginando então algumas viagens no trânsito, é possível agrupá-las pela sua
