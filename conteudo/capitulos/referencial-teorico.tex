@@ -1,3 +1,4 @@
+
 \chapter{Referencial Teórico e Trabalhos Relacionados}
 \label{cap:referencial-teorico}
 
@@ -80,12 +81,6 @@ temporais são difíceis de representar no leiaute espacial, assim o leiaute
 abstrato complementa a visualização dos dados mostrando os instantes de tempo
 no eixo X e as informações espaciais no eixo Y.
 
-% Existem trabalhos que mostram
-% ainda visualizações em 3 dimensões onde as informações de tempo e espaço são
-% mostradas ao mesmo tempo na imagem de um cubo, no entanto esse tipo de
-% recurso acaba elevando bastante a complexidade de design e desenvolvimento
-% da visualização, e por isso é menos utilizado.
-
 \begin{figure}[ht!]
   \centering
   \begin{subfigure}[t]{0.45\textwidth}
@@ -105,10 +100,6 @@ no eixo X e as informações espaciais no eixo Y.
 Visualização abstrata, baseada na proximidade.  Fonte: \citet{Tarik2009}.
 \label{fig:tarik}}
 \end{figure}
-
-%  Algumas ideias buscam ainda sintetizar as informações espaciais e temporais
-%em um cubo espaço-temporal, que utiliza o eixo Z para mostrar o tempo e os
-%eixos X e Y para representar o espaço.
 
 No entanto, a medida que o número de linhas cresce, aumenta também os
 problemas de oclusão, o que acaba afetando a estética da visualização e a
@@ -155,229 +146,221 @@ empregada para simplificar a visualização de dados de monitoramento da visão 
 Na seção a seguir explicamos como o \emph{bundling} pode ser aplicado para simplificar a exploração
 de grandes conjuntos de dados de trajetórias, similares aos dados de OD de nossa pesquisa.
 
-%  Lhuillier et al. [8] compiled a survey on the state of
-% the art on bundling techniques. This survey distinguishes between bundling graph
-% data (straight-line drawings of graph layouts) and trail data (such as our OD data),
-% highlighting the best methods for both cases.ss
-
 \section{\emph{Bundling}}
 \label{sec:bundling}
 
-
-
-
-O conceito geral desta técnica é que os dados das trajetórias são agrupadas em conjuntos chamados
-\emph{bundles}. Os \emph{bundles} são definidos como um grupo de trajetórias similares,
-compatíveis o suficiente para serem representadas por um corpo único e compacto \citep{Lhuillier2017}. A
-compatibilidade é calculada a partir de uma função de similaridade usada para
-determinar quais objetos devem fazem parte do mesmo agrupamento.
-Imaginando então algumas viagens no trânsito, é possível agrupá-las pela sua
-região de origem, destino, distância percorrida, direção ou até mesmo o meio de
-transporte utilizado. Dessa forma, a informação agrupada em \emph{bundles} é ligeiramente
-inferior ao número de trajetórias a serem desenhadas, ficando mais simples
-compreender e visualizar a estrutura global, padrões e tendências entre grupos
-de trajetórias que ligam áreas fortemente relacionadas \citep{Zhou2013}. A
-Figura \ref{fig:bundling-hierarquico} mostra o uso de uma técnica de
-\emph{bundling} para visualização da hierarquia de módulos e arquivos de um
-software onde as linhas mostram as relações de dependência entre os itens. A ligação
-acontece quando um módulo acessa variáveis e/ou funções definidos em outras partes
-do software.
+O conceito geral desta técnica é que os dados das trajetórias são agrupadas em
+conjuntos chamados \emph{bundles}. Os \emph{bundles} são definidos como um grupo
+de trajetórias similares, compatíveis o suficiente para serem representadas por
+um corpo único e compacto \citep{Lhuillier2017}. A compatibilidade é calculada a
+partir de uma função de similaridade usada para determinar quais objetos devem
+fazem parte do mesmo agrupamento. Imaginando então algumas viagens no trânsito,
+é possível agrupá-las pela sua região de origem, destino, distância percorrida,
+direção ou o meio de transporte utilizado. A informação agrupada em
+\emph{bundles} é ligeiramente inferior ao número de trajetórias a serem
+desenhadas, ficando mais simples compreender e visualizar a estrutura global,
+padrões e tendências entre grupos de trajetórias que ligam áreas fortemente
+relacionadas \citep{Zhou2013}. A Figura \ref{fig:bundling-ex} exemplifica o uso
+da técnica de \emph{bundling} em uma visualização baseada em linhas. Os dados
+com características similares são agrupados, destacando uma estrutura compacta
+que mostra as ligações mais fortes entre as regiões do círculo, sendo que,
+quanto mais a direita, maior o nível de agregação dos dados.
 
 \begin{figure}[!htb]
   \centering
-  \includegraphics[width=.45\textwidth]{../figuras/hbundling.png}
-  \caption[Bundling hierárquico na visualização de dados de software]{Bundling hierárquico na visualização de dados de software. As cores mapeiam
-o sentido do acesso, verde é a origem, vermelho é o alvo. Fonte: \citep{Holten2006}.}
-  \label{fig:bundling-hierarquico}
+  \includegraphics[width=1\textwidth]{../figuras/bundling.jpeg}
+  \caption[Exemplo de uma operação de \emph{bundling} aplicado em uma visualização baseada em linhas]{
+  Exemplo de uma operação de \emph{bundling} aplicado em uma visualização baseada em linhas. Grupos similares
+  são agrupados para desvendar uma macro estrutura dos dados.}
+  \label{fig:bundling-ex}
 \end{figure}
-
-
-% Lhuillier et al. [8] compiled a survey on the state of
-% the art on bundling techniques. This survey distinguishes between bundling graph
-% data (straight-line drawings of graph layouts) and trail data (such as our OD data),
-% highlighting the best methods for both cases.
-
-% \citepLhuillier2017
 
 O cálculo de um \emph{bundle} não possui uma definição precisa, e por isso há
 uma grande variedade de algoritmos e abordagens para modelar problemas de
 agrupamento de arestas com \emph{bundling}, que podem variar significativamente
-de um para outro em questões de complexidade e aplicação dos algoritmos
-\citep{Zhou2013}.  \emph{Force-directed edge bundling} (FDEB), apresentado em
-\citet{Holten2009}, cria \emph{bundles} através da atração entre pontos de
-controle colocados ao longo das arestas e é considerado um modelo baseado em
-custo, já que tenta minimizar o valor de uma função de custo que representa a
-força de atração entre as arestas.  \emph{Hierarchical Edge Bundling} (HEB)
-agrupa as arestas baseadas na estrutura hierárquica do grafo para o cálculo dos
-\emph{bundles} e por isso é considerado um modelo geométrico \citep{Holten2006}. Outra
-classificação são os modelos baseados em imagem, como \emph{Skeleton-based edge
-bundling} (SBEB) e \emph{Kernel Density Estimation-based Edge Bundling}
-(KDEEB), que surgiram mais recentemente. Eles utilizam algoritmos de
-clusterização para extrair a estrutura geral do grafo para então calcularem os
-\emph{bundles}. O algoritmo SBED utiliza o esqueleto do grafo como guias para
-criar \emph{bundles} com muitas ramificações \citep{Ersoy2011}, enquanto o
-KDEEB utiliza um mapa de densidade do grafo para extrair sua estrutura no
-espaço da imagem \citep{Hurter2012}. A Figura \ref{fig:subfigures} dá um
-exemplo da variedade de possíveis saídas geradas por diferentes algoritmos de
-\emph{bundling} (FDEB, SDEB e KDEEB) aplicados nos mesmos dados.  Nesse exemplo
-são usados dados de uma semana do tráfego aéreo sobre os EUA.
+de um para outro em questões de complexidade e aplicação dos algoritmos.
+\citet{Lhuillier2017} fizeram um estudo sobre o estado da arte das técnicas de
+\emph{bundling} e suas aplicações para a análise de dados de trajetórias (como
+nossos dados de OD) e dados representados por grafos, mostrando os melhores
+métodos para âmbos os casos. Um ponto de atenção para o uso da técnica é que ela
+gera uma distorção espacial nas ligações entre os pontos. No caso das
+trajetórias, em que os pontos representam o caminho dos objetos, essa distorção
+deve ser considerada com maior atenção na interpretação dos resultados.
 
-\begin{figure}[h!]
-  \centering
-  \begin{subfigure}{0.44\textwidth}
-    \centering
-    \includegraphics[width=1\textwidth]{../figuras/FDEB.png}
-    \caption{FDEB}
-    \label{fig:FDEB}
-  \end{subfigure}
-
-  \begin{subfigure}{0.44\textwidth}
-    \centering
-    \includegraphics[width=1\textwidth]{../figuras/SBEB.png}
-    \caption{SBEB}
-    \label{fig:SBEB}
-  \end{subfigure}
-
-  \begin{subfigure}{0.44\textwidth}
-    \centering
-    \includegraphics[width=1\textwidth]{../figuras/KDEEB.png}
-    \caption{KDEEB}
-    \label{fig:KDEEB}
-  \end{subfigure}
-  \caption[Diferentes algoritmos de \emph{bundling} aplicadas nos mesmos dados]{Diferentes algoritmos de \emph{bundling} aplicadas em dados do tráfego aéreo dos EUA - 235 nós, 2099 arestas. Fonte: \citep{Klein2014}.}
-  \label{fig:subfigures}
-\end{figure}
-
-  A escolha do modelo geralmente parte da observação e experiências de
-aplicação em problemas semelhantes, já que conhecer e testar diferentes
-abordagens e suas variações não é uma tarefa simples. Por isso,
-\citet{Lhuillier2017} recentemente propôs uma nova taxonomia para os modelos e
-algoritmos de \emph{bundling} dividindo-os com base no tipo de dados em que se deseja
-aplicar a técnica. Eles justificaram que desta forma pesquisadores e usuários
-da técnica pudessem focar no seu contexto de aplicação e não em detalhes
-específicos de implementação algorítmica. Seu estudo dividiu os modelos
-existentes inicialmente em dois grupos, conforme o tipo de dados, grafos ou
-trajetórias. Então, mais detalhes sobre a direção (direcionado ou não),
-dimensão (2D ou 3D) e dependência do tempo (dinâmico ou estático) refinam a
-divisão dentro da sua taxonomia.
-
-
-\begin{figure}[!htb]
-  \centering
-  \includegraphics[width=\textwidth]{../figuras/estado-da-arte.pdf}
-  \caption[Taxonomia dos métodos de \emph{bundling} baseado no tipo de dado]{Taxonomia dos métodos de \emph{bundling} baseado no tipo de dado. Fonte: \citet{Lhuillier2017}}
-  \label{table:bundling-methods}
-\end{figure}
-
-
-Podemos então seguir a taxonomia para selecionar uma método de
-\emph{bundling} que seja mais adequado para a análise de fluxos no trânsito da
-cidade. \emph{Attribute-Driven Edge Bundling} (ADEB) é um algoritmo que segue um
-modelo baseado em imagem e é apresentado dentro desta taxonomia como um das
-opções para a análise de dados de trajetórias direcionadas. Discutimos na
-próxima seção as características desse modelo e como podemos nos beneficiar
-dele em nosso estudo.
-
-\subsection{Modelo Baseado em Imagem}
+\subsection{\emph{Bundling} Baseado em Imagem}
 \label{sec:modelo-imagem}
 
-  Uma das etapas do \emph{bundling} é a identificação das trajetórias
-similares, que requerem que cada uma delas seja comparada a todos os outras
-para descobrir quais são as mais próximas, afim de agrupá-las em
-\emph{bundles}.  Esse cálculo, no entanto, é bastante custoso e pode demorar
-minutos em cenários com milhares de trajetórias.
+Modelos de \emph{bundling} baseados em imagem (ou \emph{image based bundling
+(IBB)}) são uma classe particular de algoritmos. Em sua essência, eles explorarm
+o algoritmo de clusterização \emph{mean shift} \citep{comaniciu02} , bem
+conhecido na área de processamento de imagem. Nós mostramos este processo para
+uma técnica em particular conhecida como \emph{Kernel Density Estimation Edge
+Bundling (KDEEB)}, \citep{hurter:12}, reconhecendo que outras técnicas baseadas
+em imagem presentes na literatura funcionam de maneira similar e compartilham as
+mesmas propriedades.
 
-\emph{Kernel Density Estimation Edge Bundling} (KDEEB) é um algoritmo proposto
-por \citet{Hurter2012}. Eles observaram que ao aplicar uma operação de \emph{bundling} $B$ qualquer sobre um
-grafo $G$, o resultado são áreas de maior densidade (dentro dos \emph{bundles})
-e áreas de menor densidade fora deles, em comparação ao grafo original. Assim,
-essa operação \emph{bundling} $B$ pode ser moldada em função de uma operação
-sobre a densidade dos pontos do grafo, similar ao que faz o algoritmo de
-clusterização \emph{Mean Shift} \citep{Comaniciu2012}. A partir disso, a heurística
-desse algoritmo de \emph{bundling} consiste em computar repetidamente o
-gradiente dos pontos em relação à uma função de densidade, e então movendo-os
-para regiões mais densas apontadas pelo gradiente. O maior benefício do método
-é sua implementação paralela com o uso do poder computacional de placas
-gráficas (GPUs), o que levou a ganhos de desempenho de uma ordem de magnitude
-em relação a métodos anteriores. KDEEB representou uma abertura para uma área
-chamada \emph{image-based bundling}, ou métodos baseados em imagem, onde $B$ é
-implementado via operações de processamento de imagem, diferentemente de
-métodos puramente geométricos existentes até então. O algoritmo consiste nos
-seguintes passos:
+Assim, seja $T = \{\mathbf{t}_i\}$ o conjunto de trajetórias a serem agrupadas,
+e seja $S = \{\mathbf{p}_i\}$ o conjunto de pontos de $T$. Primeiramente, $S$
+é preenchido com novos pontos, assegurando que
+cada trajetória possua uma quantidade de pontos suficientes (além da OD), em uma
+etapa conhecida como \emph{sampling}. Em seguida, na fase de \emph{splatting}, um mapa de
+densidade $\rho :\mathbb{R}^2 \rightarrow \mathbb{R}^{+}$ é calculando a partir
+de $S$ por \emph{estimadores baseados em kernel (KDE)}, \emph{i.e.} através da
+convolução dos pontos em $S$ com um estimador de densidade, geralmente uma
+função de \emph{Epanechnikov}, utilizando um \emph{kernel} de raio $k$. Desta
+forma os valores de $\rho$ serão mais altos para regiões com maior concentração
+de pontos -- o que implica uma maior quantidade de trajetórias -- e mais baixos em
+outras regiões. Em sequência, os pontos em $S$ são movidos a um pequeno passo na
+direção ascendente do gradiente do mapa de densidade $\nabla\rho$
+(\emph{advection}). Os pontos terminais (Origem e Destino) das trajetórias são
+mantidos fixos para que ainda seja possível identificá-las após o processo de
+\emph{bundling}. Finalmente, um filtro Laplaciano é aplicado para suavizar as
+trajetórias em $T$ (\emph{smoothing}), removendo ruídos e pequenas distorções
+que puderam ocorrer durante a movimentação dos pontos. O processo é repetido por
+$N$ iterações, e a cada iteração o valor do \emph{kernel} $k$ é continuamente
+decrementado, induzindo a convergência do processo onde as trajetórias
+estacionam em áreas próximas da densidade máxima local. A Figura \ref{fig:pipeline}
+ilustra os passos do KDEEB. Segundo os autores, as
+principais vantagens desse método é sua simplicidade de implementação e maior
+controle do processo de \emph{bundling} (dado pelo parâmetro $k$), além de uma
+notável velocidade, pois suas operações herdadas das técnicas de processamento
+de imagem mapeiam muito bem para computação paralela em placas gráficas (\emph{GPUs}).
 
-\begin{enumerate}
-  \item Converte o grafo $G$ em um mapa de densidade usando uma função de
-densidade. A função utilizada é um estimador baseado em núcleos, geralmente um
-estimador Gaussiano ou Epanechnikov.
+\begin{figure}[!ht]
+\begin{center}
+\resizebox{0.95\textwidth}{!}{
+\begin{tikzpicture}
+\tikzset{
+	flnode/.style={rectangle,rounded corners,draw=black,text width={80}, text centered,minimum height=2.5em,top color=white, bottom color=gray!50,font=\normalsize},
+	flnodevoid/.style={text width={50}, text centered,minimum height=2.5em,font=\normalsize},
+	flnodesmall/.style={rectangle,rounded corners,draw=black,text width={50}, text centered,minimum height=2.5em,top color=white, bottom color=gray!50,font=\normalsize},
+	flarrow/.style={->,>=triangle 45,shorten >=1pt,thick},
+	flarrowblue/.style={->,>=stealth,shorten >=0.25pt,line width=3.5pt,color=blue!80},
+	flline/.style={thick},
+	fllineblue/.style={line width=3.5pt,color=blue!80}
+}
+%nodes
+\node[](n1){};
+\node[flnodevoid,below=3.0em of n1, xshift=1.0em,yshift=0.25em](input){dados\\de entrada};
+\node[flnode,right=1.0em of n1] (edge-resamp) {preenchimento\\(\emph{resampling})};
+\node[flnodesmall,right=1.75em of edge-resamp] (splatting) {desidade\\(\emph{splatting})};
+\node[flnode,right=1.75em of splatting] (gradient-est) {estimação do\\gradiente};
+\node[flnode,right=1.5em of gradient-est] (edge-adv) {aproximar do\\gradiente\\(\emph{advection})};
+\node[flnode,right=1.75em of edge-adv] (laplacian) {filtro\\ Laplaciano\\(\emph{smoothing})};
+\node[flnode,right=1.75em of laplacian] (rendering) {renderização};
+\node[flnodevoid,below=3.0em of edge-resamp.east, xshift=0.5em](sampled){trajetórias\\preenchidas};
+\node[flnodevoid,below=3.0em of splatting.east, xshift=0.5em](density){mapa de\\densidade};
+\node[flnodevoid,below=3.0em of gradient-est.east, xshift=0.5em](gradient-map){mapa do\\gradiente};
+\node[flnodevoid,below=3.0em of edge-adv.east, xshift=0.5em](graph){resultado do\\ \emph{bundling}};
+\node[flnodevoid,below=3.0em of laplacian.east, xshift=0.5em](smooth){\emph{bundling}\\suavizado};
+\node[flnodevoid,below=3.0em of rendering.east, xshift=0.5em](final){imagem\\final};
+\node[right=1.75em of rendering](nf){};
+\node[above=3.0em of n1](n2){};
+\node[above=3.35em of laplacian.east, xshift=0.5em](n3){};
+\node[left=0.5em of n1.center](n0){};
+%lines
+\draw[flarrowblue](n1.center) to (edge-resamp.west);
+\draw[flarrowblue](edge-resamp.east) to (splatting.west);
+\draw[flarrowblue](splatting.east) to (gradient-est.west);
+\draw[flarrowblue](gradient-est.east) to (edge-adv.west);
+\draw[flarrowblue](edge-adv.east) to (laplacian.west);
+\draw[flarrowblue](laplacian.east) to (rendering.west);
+\draw[flarrowblue](rendering.east) to (nf.west);
+\draw[flarrow]([xshift=-1.0em]input.north) to (n1.center);
+\draw[flarrow](sampled.north) to ([xshift=0.5em]edge-resamp.east);
+\draw[flarrow](density.north) to ([xshift=0.5em]splatting.east);
+\draw[flarrow](gradient-map.north) to ([xshift=0.5em]gradient-est.east);
+\draw[flarrow](graph.north) to ([xshift=0.5em]edge-adv.east);
+\draw[flarrow](smooth.north) to ([xshift=0.5em]laplacian.east);
+\draw[flarrow](final.north) to ([xshift=0.5em]rendering.east);
+\draw[fllineblue]([xshift=0.5em]laplacian.east) to (n3.center);
+\draw[fllineblue](n0.center) to (n1.center);
+\draw[fllineblue](n1.center) to (n2.center);
+\draw[fllineblue](n2.center) to (n3.center);
+\end{tikzpicture}
+}
+\end{center}
+  \caption{Passos do algoritmo KDEEB.\label{fig:pipeline}}
+\end{figure}
 
-  \item Computar o gradiente da função de densidade para cada ponto/nó do
-grafo. O cálculo do gradiente indica a direção onde há maior quantidade
-de nós/arestas aglomeradas no grafo.
 
-  \item Mover os nós na direção do gradiente (áreas mais densas). Essa etapa é
-suavizada movendo-se os nós pela norma do gradiente, ou seja, em apenas uma unidade
-a cada iteração. Isso evita que as arestas dêem grandes saltos.
+\emph{CUBu}, (que significa CUDA \emph{bundling}), é apresentado em \cite{zwan:16}
+como uma implementação mais robusta do \emph{KDEEB}. Ela utiliza os recursos da biblioteca de procesasmento
+paralelo CUDA\footnote{\url{developer.nvidia.com/cuda-zone}} para implementar
+todos os passos do processo de \emph{bundling} na \emph{GPU}, trazendo uma notável capacidade
+de computar grandes conjuntos de dados em relação ao \emph{KDEEB} e
+outros métodos \emph{IBB}, \citet{adeb,lhuillier-fft:17}.
+Adicionalmente, \emph{CUBu} suporta vários estilos de \emph{bundling},
+como \emph{bundling} direcional, \citep{adeb}, que separa trajetórias
+em direções opostas. Diferentes parâmetros para renderização da imagem oferecem
+uma ampla gama de opções para a análise dos dados, como a possibilidade de
+enfatizar áreas de alta densidade e mapear atributos das trajetórias
+em cores (\emph{e.g. direção e distância}).
+ 
+De todos os métodos de \emph{bundling} levantados em \cite{lhuillier:17},
+\emph{CUBu} é o mais robusto e oferece a maior quantidade de opções para codificar
+dados das trajetórias, caracterizando-se como um \emph{framework} capaz de realizar
+vários tipos de visualizações com \emph{bundling}. Apesar dessas opções serem detalhadas em \cite{zwan:16},
+elas não foram, pelo que conhecemos até o presente momento desta pesquisa, ajustadas para
+grandes conjuntos de dados de trajetórias, especialmente em dados de mobilidade urbana.
+Essa etapa de ajuste dos parâmetros no processo de exploração fica a cargo de usuários e pesquisadores
+que desejam aplicar a técnica. Em nosso trabalho nos mostramos como modificamos
+o \emph{CUBu} para analisar nosso conjunto de dados de mobilidade urbana nas seguintes
+dimensões:
 
-  \item Corrigir distorções causadas pela movimentação dos nós com filtro
-Laplaciano (opcional).  O passo anterior pode causar pequenas distorções, como
-por exemplo, a sobreposição de nós. Esta é uma forma de se corrigir essas
-distorções sem que se perca a estrutura geral do grafo.
+\begin{itemize}
+\item\emph{Density map:} We use the underlying density map $\rho$ computed by the KDE process implemented in CUBu to show the local edge density in the produced bundles. This way, one can easily separate visually high-density (important) traffic flows from less important ones;
+\item\emph{Attribute filtering and coloring:} We use CUBu's ability to color code trail directions or trail lengths to study mobility behavior. We also extended CUBu to filter specific attribute ranges, and select specific combinations of attributes to display. This allows the analyst to search for different types of patterns present in the data; 
+\item\emph{City map:} We modified CUBu to blend its bundled result atop of a map of the SPMA where traffic is analyzed. This allows correlating the bundles with actual locations in the city.
+\end{itemize}
 
-  Repetir a partir do passo 1 até a convergência do algoritmo, o que leva cerca de 8..10
-iterações.
-\end{enumerate}
 
-%\citet{Hurter2012} apresentam ainda uma maneira para limitar os \emph{bundles}
-%com relação a obstáculos presentes no caminho das arestas. Um obstáculo
-%qualquer, representado por seus limites espaciais pode ser contornado
-%alterando-se a função de densidade, que sofre uma degradação dentro da área
-%geométrica do obstáculo. Com isso, o gradiente age como uma força de repulsão
-%das arestas que cruzam o obstáculo e faz com que as arestas sejam movidas
-%na direção pra fora de suas bordas.
+\cite{zeng:19} adaptaram o método KDEEB para restringir o \emph{bundling}
+ao longo da rede de vias da cidade as quais os dados das trajetórias forma
+coletados no que eles denominaram \emph{Road Aware Edge
+Bundling (RAEB)}. Sua técnica foi demonstrada em dados contendo
+166 mil viagens de táxi da cidade de Nova Iorque. RAEB é o único o único
+trabalho que utiliza \emph{bundling} com dados de mobilidade de que estamos cientes.
+No entanto, ele requer dados detalhados das trajetórias (não apenas OD) e também
+dados do leiaute das vias da cidade.
 
-  {\emph{Attribute-Driven Edge Bundling} (ADEB) é uma extensão do algoritmo
-KDEEB, proposta por \citet{ZegarraFlores2016}, e que permite a separação das
-arestas conforme sua direção. Essa informação é obtida percorrendo cada aresta
-a partir do ponto de origem até o destino e calculando para cada uma delas um
-vetor unitário que aponta a sua direção, que é mapeado para o
-ângulo desse mesmo vetor. Então, cria-se um mapa de densidade direcionado, onde são
-consideradas apenas as arestas que vão na mesma direção (mesmo ângulo). Esse
-algoritmo herda todos os benefícios de desempenho e robustez apresentados pelo
-KDEEB, o que o faz um método adequado para a análise do tráfego de veículos no
-trânsito da cidade.
+% \emph{Kernel Density Estimation Edge Bundling} (KDEEB) é um algoritmo proposto
+% por \citet{Hurter2012}. Eles observaram que ao aplicar uma operação de \emph{bundling} $B$ qualquer sobre um
+% grafo $G$, o resultado são áreas de maior densidade (dentro dos \emph{bundles})
+% e áreas de menor densidade fora deles, em comparação ao grafo original. Assim,
+% essa operação \emph{bundling} $B$ pode ser moldada em função de uma operação
+% sobre a densidade dos pontos do grafo, similar ao que faz o algoritmo de
+% clusterização \emph{Mean Shift} \citep{Comaniciu2012}. A partir disso, a heurística
+% desse algoritmo de \emph{bundling} consiste em computar repetidamente o
+% gradiente dos pontos em relação à uma função de densidade, e então movendo-os
+% para regiões mais densas apontadas pelo gradiente. O maior benefício do método
+% é sua implementação paralela com o uso do poder computacional de placas
+% gráficas (GPUs), o que levou a ganhos de desempenho de uma ordem de magnitude
+% em relação a métodos anteriores. KDEEB representou uma abertura para uma área
+% chamada \emph{image-based bundling}, ou métodos baseados em imagem, onde $B$ é
+% implementado via operações de processamento de imagem, diferentemente de
+% métodos puramente geométricos existentes até então. O algoritmo consiste nos
+% seguintes passos:
 
-\subsection{\emph{Bundling} em Dados Dinâmicos}
+% \begin{enumerate}
+%   \item Converte o grafo $G$ em um mapa de densidade usando uma função de
+% densidade. A função utilizada é um estimador baseado em núcleos, geralmente um
+% estimador Gaussiano ou Epanechnikov.
 
-  Um grafo dinâmico é aquele no qual seus nós e arestas são dependentes do
-tempo, ou seja, a cada momento \emph{t}, existe um grafo G(t) diferente a ser
-explorado. Nesse contexto, dois diferentes tipos de grafos dinâmicos podem ser
-considerados, grafos sequenciais e grafos de fluxo \citep{Hurter2013}. Um
-grafo sequencial consiste em um conjunto de grafos $G^i = (V^i, E^i)$, onde
-cada grafo $G^i$ é como um retrato no momento $i$ de um sistema que é
-dependente do tempo. Grafos de fluxo, por outro lado, são definidos como um
-conjunto de vértices $V$ e arestas $E$, onde as arestas são definidas pelo seu
-tempo de vida e nós. Grafos de fluxo não possuem uma sequência pré-definida e
-são tipicamente obtidos de fontes de dados online.
+%   \item Computar o gradiente da função de densidade para cada ponto/nó do
+% grafo. O cálculo do gradiente indica a direção onde há maior quantidade
+% de nós/arestas aglomeradas no grafo.
 
-  O uso de \emph{bundling} nesse cenário é similar a outros métodos de
-visualização de grafos dinâmicos. Para grafos sequenciais o \emph{bundling} é
-aplicado a cada grafo $G^i$ de maneira estática. Já em grafos de fluxo, os
-dados são divididos em janelas de tempo e o algoritmo é aplicado em cada
-intervalo $\Delta t$, que podem ser colocados lado a lado para comparação em
-uma técnica conhecida como \emph{small multiples}. Uma outra maneira de se
-visualizar a dinâmica é com o uso de animações, como mostram
-\citet{Hurter2014}. A vantagem desse método sobre o anterior é que ele se
-adequa melhor à análise de longas séries temporais.
+%   \item Mover os nós na direção do gradiente (áreas mais densas). Essa etapa é
+% suavizada movendo-se os nós pela norma do gradiente, ou seja, em apenas uma unidade
+% a cada iteração. Isso evita que as arestas dêem grandes saltos.
 
------------------------------
+%   \item Corrigir distorções causadas pela movimentação dos nós com filtro
+% Laplaciano (opcional).  O passo anterior pode causar pequenas distorções, como
+% por exemplo, a sobreposição de nós. Esta é uma forma de se corrigir essas
+% distorções sem que se perca a estrutura geral do grafo.
 
-  Os conceitos apresentados servem de base para a nossa proposta de
-visualização dos dados do tráfego de veículos no trânsito. O processo de
-formulação da proposta inclui a definição do tipo de visualização que iremos
-utilizar, obter domínio sobre os dados do trânsito e suas propriedades, para
-posteriormente chegarmos a uma análise dos fluxos de origem e destino em
-diferentes níveis de detalhe a partir de um modelo de \emph{bundling}, além de
-investigar formas de destacar essas propriedades dentro da visualização. No
-próximo capítulo apresentamos uma revisão da literatura sobre alguns trabalhos
-que utilizam \emph{bundling} e outras técnicas para análise de dados de
-tráfego.
+%   Repetir a partir do passo 1 até a convergência do algoritmo, o que leva cerca de 8..10
+% iterações.
+% \end{enumerate}
+
