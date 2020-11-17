@@ -129,7 +129,7 @@ dificultando a identificação até mesmo dos padrões mais simples que se possa
 há também o desafio de representar os múltiplos atributos, muito comuns nesse tipo de conjunto de dados,
 tais como velocidade, direção, tipo de veículo, posição. 
 
-Uma maneira de contornar os problemas de escalabilidade visual é através de filtros que determinam
+Uma maneira de contornar os problemas de oclusão é através de filtros que determinam
 a quantidade de itens na visualização. Porém, como consequência do filtro, perde-se a visão
 global de todos os itens ao mesmo tempo, o que pode ser necessário para a identificação das
 correlações e padrões entre eles. Uma outra técnica conhecida como \emph{bundling} busca resolver
@@ -182,22 +182,26 @@ de um para outro em questões de complexidade e aplicação dos algoritmos.
 \citet{Lhuillier2017} fizeram um estudo sobre o estado da arte das técnicas de
 \emph{bundling} e suas aplicações para a análise de dados de trajetórias (como
 nossos dados de OD) e dados representados por grafos, mostrando os melhores
-métodos para âmbos os casos. Um ponto de atenção para o uso da técnica é que ela
-gera uma distorção espacial nas ligações entre os pontos. No caso das
-trajetórias, em que os pontos representam o caminho dos objetos, essa distorção
-deve ser considerada com maior atenção na interpretação dos resultados.
+métodos para âmbos os casos. Algumas técnicas permitem o controle do nível de agregação dos
+dados, o que é interessante principalmente na análise de trajetórias em que a
+informação espacial representa o caminho percorrido pelos objetos. Nesses
+cenários deve-se tomar mais cuidado para interpretar os resultados agrupados, já
+que as linhas podem ser movimentadas de sua posição original. Modelos de
+baseados em imagem são uma classe particular de algoritmos que se destaca por
+oferecer recursos para um maior controle do processo de \emph{bundling}, como mostramos na seção
+a seguir.
+
 
 \subsection{\emph{Bundling} Baseado em Imagem}
 \label{sec:modelo-imagem}
 
 Modelos de \emph{bundling} baseados em imagem (ou \emph{image based bundling
-(IBB)}) são uma classe particular de algoritmos. Em sua essência, eles explorarm
-o algoritmo de clusterização \emph{mean shift} \citep{comaniciu02} , bem
-conhecido na área de processamento de imagem. Nós mostramos este processo para
-uma técnica em particular conhecida como \emph{Kernel Density Estimation Edge
-Bundling (KDEEB)}, \citep{hurter:12}, reconhecendo que outras técnicas baseadas
-em imagem presentes na literatura funcionam de maneira similar e compartilham as
-mesmas propriedades.
+(IBB)}) explorarm, em sua essência, o algoritmo de clusterização \emph{mean
+shift} \citep{comaniciu02}, bem conhecido na área de processamento de imagem.
+Nós mostramos este processo para uma técnica em particular conhecida como
+\emph{Kernel Density Estimation Edge Bundling (KDEEB)}, \citep{hurter:12},
+reconhecendo que outras técnicas baseadas em imagem presentes na literatura
+funcionam de maneira similar e compartilham as mesmas propriedades.
 
 Assim, seja $T = \{\mathbf{t}_i\}$ o conjunto de trajetórias a serem agrupadas,
 e seja $S = \{\mathbf{p}_i\}$ o conjunto de pontos de $T$. Primeiramente, $S$
@@ -309,9 +313,21 @@ o \emph{CUBu} para analisar nosso conjunto de dados de mobilidade urbana nas seg
 dimensões:
 
 \begin{itemize}
-\item\emph{Density map:} We use the underlying density map $\rho$ computed by the KDE process implemented in CUBu to show the local edge density in the produced bundles. This way, one can easily separate visually high-density (important) traffic flows from less important ones;
-\item\emph{Attribute filtering and coloring:} We use CUBu's ability to color code trail directions or trail lengths to study mobility behavior. We also extended CUBu to filter specific attribute ranges, and select specific combinations of attributes to display. This allows the analyst to search for different types of patterns present in the data; 
-\item\emph{City map:} We modified CUBu to blend its bundled result atop of a map of the SPMA where traffic is analyzed. This allows correlating the bundles with actual locations in the city.
+\item\emph{Mapa de densidade:} Nós usamos o mapa de densidade $\rho$,
+calculado pelo processo KDE e implementado pelo \emph{CUBu}, para mostrar a densidade de
+local nos \emph{bundles} produzidos. Dessa forma, pode-se separa visualmente
+fluxos de tráfego de alta densidade (importante) dos menos importantes;
+ 
+\item\emph{Filtragem de atributos e cores:} Usamos a capacidade do \emph{CUBu} de
+codificar as direções ou os comprimentos das trajetórias para
+estudar o comportamento de mobilidade. Nós também extendemos o \emph{framework} \emph{CUBu}
+para filtrar intervalos de atributos específicos e selecionar combinações de atributos a
+serem exibidos. Isso permite que o analista pesquise diferentes tipos de padrões
+presentes nos dados;
+
+\item\emph{Mapa da cidade:} Nós modificamos o \emph{CUBu} para desenhar
+o resultado do \emph{bundling} sobre o mapa da RMSP onde o tráfego é analisado. Isso nos permite
+correlacionar os \emph{bundles} com as localidades da cidade.
 \end{itemize}
 
 
