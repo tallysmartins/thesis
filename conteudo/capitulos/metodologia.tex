@@ -1,140 +1,20 @@
 \chapter{Metodologia}
 \label{cap:metodologia}
- Este capítulo descreve a nossa proposta de visualização para exploração dos
-fluxos no tráfego de veículos. O objetivo principal da visualização é centrado
-nas propriedades espaciais e temporais dos dados para entender como são os
-fluxos de origem e destino pela cidade ao longo do tempo. Buscamos um maior
-nível de detalhes através de uma abordagem multinível para explorar padrões
-globais e locais do tráfego, com diferentes níveis de agregação temporais e
-espaciais.
+Em nosso estudo utilizamos os dados da pesquisa OD17 para explorar como o
+\emph{bundling} pode ser usado para visualizar padrões de mobilidade na Região
+Metropolitana de São Paulo (RMSP). Estes dados representam milhões de viagens
+que ocorrem diariamente em um dia normal de trabalho sobre a RMSP.
+Parametrizamos e adaptamos o \emph{CUBu} para explorar várias propriedades
+desses dados com diferentes usos do \emph{bundling} em nossas visualizações.
+Detalharemos cada uma de suas etapas a seguir.
 
- Apresentamos inicialmente a ferramenta que iremos utilizar para responder às
-questões de pesquisa levantas no Capítulo \ref{cap:introducao}, e que
-relembramos a seguir. Damos uma visão geral dos seus componentes e dos
-artefatos de entrada e saída que irão resultar na visualização e possibilitar a
-análise dos dados. A ferramenta faz parte do ecossistema de soluções para
-cidades inteligentes que são desenvolvidas no contexto do projeto
-InterSCity\footnote{\rurl{interscity.org}}. Em seguida detalhamos os conjuntos
-de dados que iremos utilizar e suas características, e por fim, explicamos as
-técnicas que pretendemos aplicar para destacar as propriedades dos dados dentro
-de uma visualização para responder às nossas questões:
+\section{Representação dos Dados}
 
-Como podemos oferecer uma visualização de grandes
-quantidades de dados de mobilidade de uma região
-metropolitana:
+\section{Processamento dos dados}
 
-\begin{itemize}
-  \item \textbf{Q1:} Como podemos oferecer uma visualização de grandes quantidades
-de dados de mobilidade de uma região metropolitana?
+\section{Filtragem e recorte dos dados}
 
-\end{itemize}
-
-
-\section{Conjuntos de Dados}
-
-Falar das ODS, falar quais ODS vamos utilizar
-
-
-\subsection{Processamento dos dados}
-
- - Expansão das viagens
- - Limpeza
- - Filtragem das features de interesse
- - Features derivadas
- - Transformação dos dados para o formato do CUBU
-
-\section{Visualização}
-
-  Explorar todas as possibilidades seria um trabalho extensivo. Focamos
-então em algumas classes de problemas dentro da visualização de dados
-com bundling para explorar o seu potencial na análise de fluxos de origem e
-destino na cidade.
-
-\subsection{Agregação Espacial dos Dados}
-
-1) Escalar o agrupamento conforme o zoom e resolução diferentes e dados diferentes (tunning não muito óbvio)
-
-	- Número de pontos
-
-	- Resolução da imagem
-
-	- tamanho do kernel
-
-	- Glanuralidade dos dados
-
-  \begin{itemize}
-    \item x) Aplicar bundling com alta resolução e alto numero de pontos, kernel grande e kernel pequeno
-    \item x) Aplicar bundling com alta resolução e baixo numero de pontos, kernel grande e kernel pequeno
-    \item x) Aplicar bundling com baixa resolução e alto numero de pontos, kernel grande e kernel pequeno
-    \item x) Agrupar os dados na mão em regiões e aplicar o bundling em macro regiões. Qual a alguma diferença?
-    \item x) Mostrar o bundling dos dados dos centróides e dos dados específicos em alguns modais (metrô, a pé, bike, taxi)
-  \end{itemize}
-
-	- Explicar que não há uma métrica, mas dissertar sobre qual fica melhor visualmente
-
-	- Vantagens e desvantagens em relação às visualizações da OD em diferentes escalas
-
-\subsection{Explorando outras propriedades}
-
-- Aplicar o bundling para ver regiões densas, conforme mostrados na OD
-
-  \begin{itemize}
-    \item x) Mostrar as features de cores padrão (distância, direção, densidade)
-    \item x) Mostrar as features de cores implementadas (tipo de transporte, modo de transporte, renda, gênero)
-    \item x) Mostrar que tem pessoas que andam de metrô em locais que não tem metrõ (adicionar mapa)
-    \item x) Mostrar como os ônibus metropolitanos se interceptam com os de são paulo
-    \item x) Mostrar que os filtros de dados por horário pra mostrar que há mais fluxo
-       no horário de pico, que os onibus escolares saem todos pela manhã, mas que também temos
-      pessoas que saem de madrugada para trabalhar
-    \item x) Mostrar a renda e correlacionar distância do centro com renda
-    \item x) Mostrar correlação de renda com carro (pobre anda de carro?)
-    \item x) Derivar um atributo do quão o horário de pico afeta e usar como VALUE
-
-    \item x) Quem é baixa renda e não vão ao destino do centro, ele fica no local dele ou vai para lugares absurdos? (Excluir o Centro)
-    \item x) Tentar extrair alguma ideia do mestrado da Haydee sobre genero
-    % Tentar mostrar umas duas ou 3 coisas para mostrar pra o pessoal da CET
-  \end{itemize}
-
-	- Quais vantagens e desvantagens em relação ao que existe na OD (substitui alguma coisa do relatório da OD?)
-
-	- Qual o nível de detalhes conseguimos extrair alguma informação?
-
+\section{Parâmetros do \emph{bundling}}
   
-\subsection{Estratégias de bundling}
+\section{Melhorias na visualização}
 
-2) Mostrar a mesma grandeza de diferentes maneiras
-
-- Grandezas: Tempo/Tipo de transporte/Direção
-- Estratégias: Fazer bundle de tudo e aplicando filtro E cores vs separado,
-diferenciar por cores no bundling de tudo, e filtrar as arestas no tempo (manhã
-e tarde)
-
-  \begin{itemize}
-    \item x) Fazer bundling de todos os dados de transporte e filtrar por modo
-    \item x) Fazer bundling de todos os dados de transporte e colorir por modo
-    \item x) Fazer bundling dos modos de transporte separados
-    \item x) Fazer bundling dos dados em direção opostas
-  \end{itemize}
-
-	- Vantagens e desvantagens em relação aos gráficos da OD?
-
-	- Qual os níveis de detalhes conseguimos obter?
-
-
-\subsection{Evolução Temporal ao Longo dos anos}
-
-4) Evolução temporal. Desafios: Correspondência de regiões
-
-  \begin{itemize}
-    \item x) Aplicar bundling de tudo: filtrar por ano
-    \item x) Aplicar bundling separado em cada ano
-    \item x) Aplicar bundling na diferença de um ano pro outro
-    \item x) Observar viagens de Taxi não convencional de um ano pro outro
-    \item x) Observar viagens de linhas novas de metro de um ano pro outro
-  \end{itemize}
-
-	Que vantagens/diferenças consigo ver em relação aos relatórios da OD?
-	- Falar de bundling estático e dinâmico, mas que é future work...
-
-
-\section{Avaliação da Visualização} 
