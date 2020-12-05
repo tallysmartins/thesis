@@ -127,23 +127,26 @@ eficiência espacial, \citep{Chen2015}.
 representando tempo periódico. O tempo é mostrado no eixo circular e cada anel
 do círculo representa um dia da semana, divididos em 24 setores que indicam as
 24 horas do dia. As cores mostram a quantidade de tráfego conforme o mapa à
-direita, onde vermelho maior é o tráfego. Fonte:
-\citet{Pu2013} \label{fig:periodic-time}}
+direita, onde vermelho representa o maior tráfego. Fonte: \citet{Pu2013} \label{fig:periodic-time}}
 \end{figure}
 
-
-% Dados de trajetórias podem ser diretamente desenhados sobre mapas 2D,
-% e outros atributos representados através de elementos visuais como cor e textura.
-% As propriedades espaciais de localização, que referem-se
-% aos locais onde ações, incidentes e eventos ocorreram, é a principal característica
-% desse tipo de dado e pode ser agregada de diferentes formas, as quais \citet{Chen2015}
-% separa em três categorias: \emph{visualização baseada  em pontos} (nenhuma agregação), \emph{visualização baseada em linhas}
-% (agregação de primeira ordem), e \emph{agregação baseada em regiões} (agregação de segunda ordem).
+Os aspectos temporais dos dados não se limitam a apenas essas visualizações, existe
+um grande arcabouço de projeções que se desenvolveram no campo da visualização da
+informação onde o tempo é uma variável de destaque. \citet{Cairo2016} mostra uma série
+dessas projeções em seu livro, complementando ainda que uma análise linear ou periódica
+são dois paradigmas que levam a decisões diferentes durante o processo de criação da visualização
+para comunicar uma determinada informação.
 
 
+\subsection{Visualização das Propriedades Espaciais}
 
+As propriedades espaciais de localização referem-se aos locais onde ações, incidentes e
+eventos ocorrem. Diferentes níveis de agregação dessa informação levam à categorização
+da visualização em três classes, segundo \citet{Chen2015}: \textbf{visualização baseada em pontos}
+(nenhuma agregação), \textbf{visualização baseada em linhas} (agregação de primeira ordem), e
+\textbf{agregação baseada em regiões} (agregação de segunda ordem).
 
-Visualizações baseada em pontos (nenhuma agregação)
+\textbf{Visualizações baseada em pontos} (nenhuma agregação)
 consideram as informações do tráfego como pontos discretos e usam sua forma
 pura como representação em um leiaute espacial, como pontos individuais em um mapa 2D.
 Essa tipo de visualização mostra a posição instantânea dos objetos em um certo momento
@@ -167,7 +170,7 @@ das ferrovias. Fonte: \citet{Senseable2018}.}
   \label{fig:trains-of-data}
 \end{figure}
 
-Visualizações baseadas em linhas (agregação de primeira ordem) são
+\textbf{Visualizações baseadas em linhas} (agregação de primeira ordem) são
 desenhadas para mostrar a trajetória de objetos, mapas de vias e estradas em
 uma região, ou fluxos do tráfego em uma rede de transporte. As trajetórias e
 fluxos são representados por linhas ou curvas e são escaladas ou coloridas de
@@ -220,8 +223,8 @@ Visualização abstrata, baseada na proximidade.  Fonte: \citet{Tarik2009}.
 
 No entanto, a medida que o número de linhas cresce, aumenta também os
 problemas de oclusão, o que acaba afetando a estética da visualização e a
-obtenção de informações sobre os dados \citep{Zhou2013}. Visualizações baseadas
-em regiões (agregação de segunda ordem) são uma forma de reduzir
+obtenção de informações sobre os dados \citep{Zhou2013}. \textbf{Visualizações baseadas
+em regiões} (agregação de segunda ordem) são uma forma de reduzir
 a complexidade de análise de um grande conjunto trajetórias. Os dados 
 são então agrupados em um nível de macro regiões, geralmente determinado por divisões administrativas.
 \citet{Zeng2013} apresentam um diagrama em círculos para mostrar padrões de movimentação de
@@ -254,14 +257,7 @@ tais problemas de escalabilidade visual, trazendo um outro tipo de abstração q
 criar visualizações baseadas em linhas com um grande número de elementos de uma forma simplificada,
 que destaca grupos de trajetórias espacialmente próximas, e opcionalmente, que possuam atributos similares.
 
-O \emph{bundling} têm sido utilizado em várias pesquisas sobre dados de movimentação.
-\citep{Anita2017} criou uma visualização com \emph{bundling} para estudar características da migração de aves.
-\citep{Klein2014} desenvolveu uma visualização dinâmica para mostrar variações do tráfego aéreo ao longo do tempo e
-\citep{Willems2009} fez uma análise da movimentação de embarcações marítimas também explorando
-técnicas de \emph{bundling}. Separadamente, \citep{Blascheck2017} mostra como a técnica foi
-empregada para simplificar a visualização de dados de monitoramento da visão para inferir padrões de leitura. 
-Na seção a seguir explicamos como o \emph{bundling} pode ser aplicado para simplificar a exploração
-de grandes conjuntos de dados de trajetórias, similares aos dados de OD de nossa pesquisa.
+
 
 \section{\emph{Bundling}}
 \label{sec:bundling}
