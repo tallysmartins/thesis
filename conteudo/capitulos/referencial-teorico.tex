@@ -396,6 +396,50 @@ de imagem mapeiam muito bem para computação paralela em placas gráficas (\emp
   \caption{Passos do algoritmo KDEEB.\label{fig:pipeline}}
 \end{figure}
 
+\subsection{Parâmetros do \emph{bundling}}
+
+Como mencionado anteriormente, uma grande vantagem dos modelos baseados em imagem é sua capacidade
+de controle do processo de \emph{bundling} que permitem visualizar os dados
+em diferentes níveis de detalhes. Quatro parâmetros principais do KDEEB são
+responsáveis por oferecer tais ajustes na exploração dos dados com \emph{bundling}, são eles:
+
+\begin{itemize}
+
+\item{\textbf{Raio do kernel \emph{k}:}} O tamanho inicial do kernel, especificado em
+pixels, controla o grau de agrupamento das linhas. Esse parâmetro diz respeito a
+distância máxima a qual duas trajetórias ``enxergam'' uma a outra para que
+possam ser agrupadas. Valores pequenos desse parâmetro resultam em
+\emph{bundles} esparsos e com poucos agrupamentos; valores maiores implicam em
+agrupamentos mais fortes e \emph{bundles} mais densos.
+
+\item{\textbf{Número de iterações \emph{N}:}} Dada a natureza iterativa desse
+algoritmo, o número de iterações deve ser grande o suficiente para que o
+\emph{bundling} possa convergir para uma estrutura estável.
+
+\item{\textbf{Resolução da imagem \emph{I}:}} O tamanho da imagem de saída controla a
+acurácia dos estimadores de densidade, e consequentemente o cálculo do
+gradiente. Imagens com resolução maior geram imagens com maior nível de
+qualidade e detalhes, porém aumentam também o custo computacional do algoritmo KDEEB.
+
+\item{\textbf{Taxa de preenchimento \emph{S}:}} A taxa de preenchimento (ou \emph{sampling size})
+controla a quantidade de pontos que serão adicionados na etapa de preenchimento.
+Sua interpretação é que a cada \emph{S} pixels da imagem, um
+ponto é adicionado à trajetória. Valores pequenos desse parâmetro acabam
+por gerar mais pontos, capturando mais detalhes no
+resultado, porém, impactando também na velocidade de execução do algoritmo.
+
+\end{itemize}
+
+Determinar os valores de tais parâmetros pode ser complexo para usuários com
+pouca experiência no uso da técnica de \emph{bundling}, para isso alguns
+valores de partida apontados pelos autores podem ser utilizados. O ponto
+principal no ajuste dos parâmetros é a respeito do nível de
+agregação em que se deseja atingir, o que depende da aplicação e dos
+objetivos de quem faz o uso da técnica. Visualizar padrões em um grande
+região metropolitana, por exemplo, requer imagens com menos detalhes em
+comparação à uma visualização em nível de bairros e ruas.
+
+\subsection{Cubu}
 
 \emph{CUBu}, (que significa CUDA \emph{bundling}), é apresentado em \cite{zwan:16}
 como uma implementação mais robusta do \emph{KDEEB}. Ela utiliza os recursos da biblioteca de procesasmento
@@ -403,6 +447,11 @@ paralelo CUDA\footnote{\url{developer.nvidia.com/cuda-zone}} para implementar
 todos os passos do processo de \emph{bundling} na \emph{GPU}, trazendo uma notável capacidade
 de computar grandes conjuntos de dados em relação ao \emph{KDEEB} e
 outros métodos \emph{IBB}, \citet{adeb,lhuillier-fft:17}.
+
+Além dos parâmetros citados anteriormente, o Cubu suporta vários
+outros para dar um maior suporte à visualizações com bundling. Como por
+exemplo separação de direções opostas. Sombras, distâncias, etc.
+
 Adicionalmente, \emph{CUBu} suporta vários estilos de \emph{bundling},
 como \emph{bundling} direcional, \citep{adeb}, que separa trajetórias
 em direções opostas. Diferentes parâmetros para renderização da imagem oferecem
@@ -413,7 +462,10 @@ em cores (\emph{e.g. direção e distância}).
 De todos os métodos de \emph{bundling} levantados em \cite{lhuillier:17},
 \emph{CUBu} é o mais robusto e oferece a maior quantidade de opções para codificar
 dados das trajetórias, caracterizando-se como um \emph{framework} capaz de realizar
-vários tipos de visualizações com \emph{bundling}. Apesar dessas opções serem detalhadas em \cite{zwan:16},
+vários tipos de visualizações com \emph{bundling}.
+
+
+Apesar dessas opções serem detalhadas em \cite{zwan:16},
 elas não foram, pelo que conhecemos até o presente momento desta pesquisa, ajustadas para
 grandes conjuntos de dados de trajetórias, especialmente em dados de mobilidade urbana.
 Essa etapa de ajuste dos parâmetros no processo de exploração fica a cargo de usuários e pesquisadores
