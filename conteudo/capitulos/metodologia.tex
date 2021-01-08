@@ -1,14 +1,70 @@
 \chapter{Metodologia}
 \label{cap:metodologia}
-Em nosso estudo utilizamos os dados da pesquisa OD17 para explorar como o
-\emph{bundling} pode ser usado para visualizar padrões de mobilidade na Região
-Metropolitana de São Paulo (RMSP). Estes dados representam milhões de viagens
-que ocorrem diariamente em um dia normal de trabalho sobre a RMSP.
-Parametrizamos e adaptamos o \emph{CUBu} para explorar várias propriedades
-desses dados com diferentes usos do \emph{bundling} em nossas visualizações.
-Detalharemos cada uma de suas etapas a seguir.
+
+Para explorar a visualização dos fluxos de mobilidade urbana utilizamos em nosso
+estudo dados públicos da pesquisa OD17. Estes dados representam milhões de viagens
+que ocorrem diariamente em um dia normal de trabalho sobre a Região Metropolitana
+de São Paulo (RMSP). Parametrizamos e adaptamos o \emph{CUBu} para explorar várias propriedades
+desses dados com diferentes usos do \emph{bundling} em nossas visualizações. A seguir
+detalhamos cada uma das etapas que seguimos.
 
 \section{Representação dos Dados}
+
+Os dados da pesquisa OD que usamos como entrada para o \emph{bundling} são
+descritos por uma tabela com seis colunas: ID da viagem, modo de transporte,
+horário de partida, horário de chegada, coordenadas de origem e coordenadas de
+destino. Extraímos esses dados da OD17: O ID da viagem é o identificador obtido
+diretamente do conjunto de dados OD17 e representa uma entrada única no conjunto
+de dados. O modo de transporte é armazenado como um número inteiro no intervalo
+de 1 a 17 e corresponde a cada um dos diferentes modos presentes na pesquisa OD.
+Os horários de partida e chegada são armazenado como um número de ponto
+flutuante no intervalo de [0.0 - 23:59]. Por último temos as coordenadas de
+origem e destino, o principal atributo do conjunto de dados. Em se tratando de
+coordenadas, diversos sistemas podem ser utilizados; em nossa pesquisa
+transformamos todas as coordenadas para o sistema de latitude / longitude para a
+correta geo-localização das viagens no mapa, que também utiliza este formato.
+
+Um outro atributo importante é o fator de expansão de cada registro da OD (apresentado na Seção~\ref{sec:pesquisa-od}),
+o qual é utilizado para extrapolação estatística da quantidade real de viagens.
+Desta forma, dado o registro de uma viagem da pesquisa OD17 contendo um fator de expansão $E$, criamos $E$
+cópias desse registro para utilizar como entrada da nossa visualização com \emph{bundling}. Isso produz um conjunto de dados completo de 42
+milhões de viagens. Para todas essas viagens replicadas, mantemos seu ID original
+obtido da pesquisa OD17 que a gerou. Dessa forma, podemos rastrear quais viagens
+agrupadas correspondem a um registro da OD17. Além desses dados básicos que apresentamos, atributos
+extras da pesquisa OD17 podem ser adicionados, como o motivo da viagem (ver
+Seção~\ref{sec:pesquisa-od}) e também dados pessoais (idade, renda). A pesquisa
+OD é bastante rica e pode produzir um conjunto de dados com mais de dez atributos por viagem.
+A Tabela~\ref{table:data-input} mostra um exemplo das viagens geradas com duas
+viagens replicadas a partir de um registro da OD com ID 50 e fator de expansão $E=2$.
+
+% Using the siunitx package to align and round
+% numbers (columns of type "S")
+\begin{table}[!htb]
+  \small
+  \newcommand{\hdr}[1]{\bfseries#1}
+  \sisetup{
+    mode=text,
+    round-mode=places,
+    round-precision=6,
+    table-figures-integer=2,
+    table-figures-decimal=6,
+    table-number-alignment=left,
+    table-text-alignment=left,
+    table-space-text-post=nn,
+  }
+  \centering
+  \caption{Formato de dados utilizados como entrada para o \emph{bundling}.\label{table:data-input}}
+  \begin{tabular}{>{\footnotesize}l>{\footnotesize}c>{\footnotesize}l>{\footnotesize}l>{\footnotesize}S>{\footnotesize}S>{\footnotesize}S>{\footnotesize}S}
+    \toprule
+    \multirow{2}[2]{*}{\hdr{ID}} & \multirow{2}[2]{*}{\hdr{Modo}} & \hdr{Saída} & \hdr{Chegada} & \multicolumn{2}{c}{\hdr{Origem}}   & \multicolumn{2}{c}{\hdr{Destino}}\\
+     &  & \hdr{hora} & \hdr{hora} & \hdr{Longitude}   & \hdr{Latitude}    & \hdr{Longitude}     & \hdr{Latitude}\\
+    \midrule
+    50         & 1   & 6.45 & 7.10  & -46.62809376987491 & -23.551691865840347 & -47.00348104352116 & -23.39356328288028\\
+    50         & 1   & 6.45 & 7.10  & -46.62809376987491 & -23.551691865840347 & -47.00348104352116 & -23.39356328288028\\
+    51         & 4   & 8.30 & 9.05  & -47.00187231236886 & -23.39846860627696  & -47.00348104352116 & -23.39356328288028\\
+    \bottomrule
+  \end{tabular}
+\end{table}
 
 \section{Processamento dos dados}
 
