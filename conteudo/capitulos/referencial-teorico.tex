@@ -478,7 +478,10 @@ dimensões:
 \item\emph{Mapa de densidade:} Nós usamos o mapa de densidade $\rho$,
 calculado pelo processo KDE e implementado pelo \emph{CUBu}, para mostrar a densidade de
 local nos \emph{bundles} produzidos. Dessa forma, pode-se separar visualmente
-fluxos de tráfego de alta densidade (importante) dos menos importantes;
+fluxos de tráfego de alta densidade (importantes) dos de menor densidade; O \emph{CUBu}
+possui ainda um outro parâmetro $\alpha$ (modulação alfa) que varia de $[0 - 1]$
+e permite modular a transparência do mapa de densidade para reduzir a quantidade de detalhes
+na visualização e destacar ainda mais as áreas de maior densidade;
  
 \item\emph{Filtragem de atributos e cores:} Usamos a capacidade do \emph{CUBu} de
 codificar as direções ou os comprimentos das trajetórias para
