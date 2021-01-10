@@ -172,8 +172,8 @@ conjunto de dados, representado por todas as \num{685115} viagens, esta
 configuração gerou cerca de 3,2 milhões de pontos, que foram agrupados em cerca
 de 52 milissegundos por iteração em um PC com uma placa de vídeo NVidia GeForce
 940MX de 4 GB. Usamos esse conjunto de parâmetros para criar a maioria das
-visualizações agrupadas mostradas a seguir na Seção 5, exceto para as da Seção
-5.6, onde mostramos os padrões de deslocamento de diferentes classes sociais.
+visualizações agrupadas mostradas a seguir na Seção~\ref{sec:results}, exceto para as da Seção~\ref{sec:classes},
+onde mostramos os padrões de deslocamento de diferentes classes sociais.
 Para esses subconjuntos específicos, reduzimos a taxa de preenchimento $S$ para
 5 pixels e modulamos a transparência $alpha$ do mapa de densidade para 0,15. Na
 prática, ao utilizarmos metade do valor de $S$ dobramos o número de pontos na
@@ -188,12 +188,12 @@ estrutura da visualização.
 Para enriquecer nossas visualizações da mobilidade urbana de São Paulo, fizemos
 algumas importantes adições ao \emph{CUBu}. Primeiro, adicionamos o mapa da área
 metropolitana como imagem de fundo e também a possibilidade de desenhar as
-linhas de metrô e trem na visualização. Dessa forma, podemos utilizar o
-mapa para localizar melhor onde os \emph{bundles} estão posicionados e podemos
-usar os trilhos para explorar como os \emph{bundles} se correspondem com a
-infraestrutura ferroviária da cidade. Além disso, implementamos filtros para
-selecionar subconjuntos dos 17 modos de transporte a serem exibidos na
-visualização, usando cores categóricas diferentes para cada um deles e filtros
-de tempo para selecionar fluxos de movimentação em horários específicos do dia. Usamos esses
-recursos para explorar a diferentes relações entre os fluxos e seu impacto na
-mobilidade urbana.
+linhas de metrô e trem na visualização. Dessa forma, podemos utilizar o mapa
+para localizar melhor onde os \emph{bundles} estão posicionados e podemos usar
+os trilhos para explorar como os \emph{bundles} se correspondem com a
+infraestrutura ferroviária da cidade (ver Seção~\ref{sec:trail-overlap}). Além
+disso, implementamos filtros para selecionar subconjuntos dos 17 modos de
+transporte a serem exibidos na visualização, usando cores categóricas diferentes
+para cada um deles (ver Seção~\ref{sec:coloring} e filtros de tempo para selecionar fluxos de movimentação em
+horários específicos do dia (ver Seção~\ref{sec:timestamps}). Usamos esses recursos para explorar a diferentes
+relações entre os fluxos e seu impacto na mobilidade urbana.
