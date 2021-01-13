@@ -430,11 +430,12 @@ sudoeste, onde ficam os bairros do distrito de Campo Limpo.
 
 Podemos observar que há muito mais trilhas para os alunos de alta renda
 (Figura~\ref{fig: students-high}) do que para alunos de baixa renda
-(Figura~\ref{fig:students-low}). Os estudantes de renda alta também
-viajam grandes distâncias para estudar, o que indica que podem escolher com mais
+(Figura~\ref{fig:students-low}). Os estudantes de renda alta também viajam
+grandes distâncias para estudar, o que indica que podem escolher com mais
 flexibilidade onde estudar. Este fato é corroborado por estudos de mobilidade
 urbana que indicam que pessoas com melhores condições financeiras têm mais
-mobilidade do que aquelas com condições mais precárias \cite{carruthers2005, lucas2016}.
+mobilidade do que aquelas com condições mais precárias \cite{carruthers2005,
+lucas2016}.
 
 Vale ressaltar que as escolas públicas da RMSP estão distribuídas pela região
 central e periférica das cidades. Em geral, o sistema público busca alocar as
@@ -453,28 +454,38 @@ desses alunos.
 
 \section{Directions at peak hours}
 \label{sec:peak-hours}
-% %
-% As discussed earlier in Sec.~\ref{sec:data}, Figure~\ref{fig:trips_by_hour} shows the distribution of trips by hour of the day, with two main rush-hour peaks (6-9 AM and 5-8 PM). 
-% However, this aggregated table does not give us insights in how the rush-hour patterns may differ. To see this, we selected the two rush-hour time intervals and visualized them separately, using directional bundling and color-coding.
 
-% \begin{figure}[!htb]
-%   \centering
-%   \captionsetup{justification=centering}
-%   \includegraphics[width=0.98\textwidth]{figures/peak-hours-6h-to-9h-direction-leg.png}
-%   \caption{Directions of trips between 6 to 9 AM \label{fig:peak-hours-6h-9h}}
-% %\end{figure}
-% \vspace*{\floatsep}
-% %\begin{figure}[!htb]
-%   \centering
-%   \captionsetup{justification=centering}
-%   \includegraphics[width=0.98\textwidth]{figures/peak-hours-17h-to-20h-direction-leg.png}
-%   \caption{Directions of trips between 5 to 8 PM \label{fig:peak-hours-17h-20h}}
-% \end{figure}
+Conforme mostramos anteriormente na Figura~\ref{fig:trips_by_hour} da
+Seção~\ref{sec:data}, distribuição das viagens por hora do dia tem dois picos
+principais, entre 6 e 9h e entre 17 e 20h. No entanto, essa tabela agregada não
+fornece informações sobre como os padrões de mobilidade nos horários de pico
+podem ser diferentes. Para visualizar esses dados, criamos dois conjuntos de
+dados, um pra cada intervalo, e aplicamos \emph{bundling} em cada conjunto
+separadamente. Codificamos a direção a das viagens em cores, similar ao
+apresentado na Figura~\ref{fig:attributes-direction}, da
+Seção~\ref{sec:length-direction}.
 
-% Comparing the peak hours, we can see that morning flows going to the SPMA center (Figure~\ref{fig:peak-hours-6h-9h}, cyan bundle)
-% are overall denser and longer than the flows coming from the SPMA center during the afternoon/evening peak (Figure~\ref{fig:peak-hours-17h-20h}, red). This suggests that in the morning people are in a hurry to reach their work, while they are less in a hurry to go back home (or to other destinations like schools or the gym) in the afternoon/evening.
+\begin{figure}[!htb]
+  \centering
+  \captionsetup{justification=centering}
+  \includegraphics[width=0.98\textwidth]{../figuras/peak-hours-6h-to-9h-direction-leg.png}
+  \caption{Direção das viagens entre 6 e 9 da manhã. \label{fig:peak-hours-6h-9h}}
+\end{figure}
+\vspace*{\floatsep}
+\begin{figure}[!htb]
+  \centering
+  \captionsetup{justification=centering}
+  \includegraphics[width=0.98\textwidth]{../figuras/peak-hours-17h-to-20h-direction-leg.png}
+  \caption{Direção das viagens entre 17 e 20h. \label{fig:peak-hours-17h-20h}}
+\end{figure}
 
-% In Figure~\ref{fig:peak-hours-6h-9h}, we can see that flows in the morning peak going to the capital downtown (cyan bundle coming from the east) are denser than opposite flows (red bundle going to the east). Although flows leaving the capital downtown in the morning are thinner than their opposite ones, they also concentrate a large number of trips, especially to the east and southwest. In Figure~\ref{fig:peak-hours-17h-20h}, the opposite flows seem more equally distributed.
+Comparando as horas de pico, podemos ver que os fluxos matinais indo para o
+centro da RMSP (Figura~\ref{fig:peak-hours-6h-9h}, fluxo ciano vindo do leste)
+são geralmente mais densos e mais longos do que os fluxos vindos do Centro RMSP
+durante o pico da tarde/noite (Figura~\ref{fig:peak-hours-17h-20h}, fluxo
+vermelho). Isso sugere que na da manhã as pessoas têm pressa para chegar ao
+trabalho, ao passo que têm menos pressa para voltar para casa (ou para outros
+destinos como escolas ou academia) no período da tarde/noite.
 
 \section{Density by transportation mode}
 \label{sec:mode}
