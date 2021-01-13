@@ -132,24 +132,23 @@ que nossa solução baseada em \emph{CUBu}.
 \section{Mapeando distância e direção no \emph{bundling}}
 \label{sec:length-direction}
 
-Para explorar a mobilidade urbana de diferentes perspectivas, precisamos de
-meios para visualizar seus múltiplos atributos de dados. No entanto, esta
-variedade de atributos requer diferentes estratégias de visualização. Dois
+Para explorar a mobilidade urbana por diferentes perspectivas, precisamos de
+meios para visualizar os múltiplos atributos dos dados. Dois
 importantes atributos para o estudo de padrões de mobilidade são distância
 percorrida na viagem e a sua direção. As Figuras~\ref{fig:attributes-length} e
 \ref{fig:attributes-direction} mostram a visualização de todo o conjunto de
 dados OD17 mapeando a distância e direção, respectivamente.
 
-A Figura~\ref{fig:attributes-length} exibe os comprimentos das viagens
-codificados por cores. Nela utilizamos o mesmo mapa de cores arco-íris da
-Figura~\ref{fig:rails} e também a modulação da transparência por densidade,
+Na Figura~\ref{fig:attributes-length} codificamos nas cores os comprimentos das
+viagens. Nela utilizamos o mesmo mapa de cores (arco-íris) da
+Figura~\ref{fig:rails}, além também de aplicar a modulação da transparência por densidade,
 conforme explicado na Seção~\ref{sec:density}. Nesta imagem, podemos observar
 uma única curva vermelha aparentemente na horizontal. Sua alta opacidade implica
 que há muitas viagens longas, todas mapeadas perfeitamente para essa trajetória
 entre a mesma origem e destino (se não o fizessem, veríamos um \emph{bundle} se
 ramificando no formato de um leque em vez de uma curva precisa). Esta é uma
 descoberta interessante que, argumentamos, não poderia ser facilmente encontrada
-usando métodos não visuais. Apesar desse ponto incomum, as outras trajetórias,
+usando métodos não visuais. Apesar desse ponto fora do comum, as outras trajetórias,
 em geral, percorrem distâncias regulares. \emph{Bundles} de longa distância como
 este podem indicar falta de serviços ou recursos que não satisfazem as regiões
 locais, obrigando as pessoas a percorrerem longas distâncias para acessá-los. A
@@ -179,100 +178,219 @@ curto período do dia.
   \caption{Mapeamento da direção das viagens em cores. \label{fig:attributes-direction}}
 \end{figure}
 
-\section{Coloring transportation modes: local \emph{vs} intercity buses}
+\section{Visualização dos modos de transporte: ônibus locais \emph{vs} intermunicipais}
 \label{sec:coloring}
-% %
-% The OD17 dataset contains 17 transportation modes. While it would be ideal to be able to see the 17 categories all at once in our bundled visualization, that would not be easy to do, since it would require the simultaneous encoding of 17 different categorical attributes. Instead, we use transparency to hide trails according to a user-set selector that filters them by transportation mode. Figure~\ref{fig:bus-integration} shows how we can use these filters to visualize the integration between buses from the city of S\~ao Paulo (local buses) and intercity buses. %Unbundled and bundled trajectories are presented on the left and right sides respectively.
-% Each transportation mode has a distinct color -- olive for local buses and blue for intercity buses.
 
-% Figure~\ref{fig:bus-integration} also highlights that these different transportation systems appear to complement each other. The city of S\~ao Paulo has a very active commerce and industry, and many people from neighboring cities work there. Thus, the availability of public transportation and its integration is very important for these people. This kind of filtering along with bundling helps to better understand correlations between data attributes -- in this case, \hbox{transportation}~modes.
+Como mostramos na Seção~\ref{sec:pesquisa-od}, o conjunto de dados OD17 contém
+17 modos de transporte. Embora fosse ideal ser capaz de ver as 17 categorias ao
+mesmo tempo em nossa visualização com \emph{bundling}, isso não seria fácil de
+se obter, uma vez que exigiria a codificação simultânea de 17 diferentes
+categorias de transporte. Então, nós utilizamos a transparência para esconder
+trajetórias de acordo com seletores que podem ser configurados na interface para
+filtrar as trajetórias pelo modo de transporte. A
+Figura~\ref{fig:bus-integration} mostra como nos aplicamos tais filtros para
+visualizar a integração entre os ônibus da cidade de São Paulo (ônibus locais) e
+os ônibus intermunicipais. As trajetórias originais e agrupadas com \emph{bundling}
+são apresentadas lado a lado. Cada meio de transporte tem uma coloração distinta -
+oliva para ônibus locais e azul para ônibus intermunicipais.
 
+Podemos ver mais claramente na Figura~\ref{fig:bus-integration-zoom} que esses diferentes sistemas
+de transporte parecem se complementar. A cidade de São Paulo tem um comércio e
+uma indústria muito ativa, que recebe muitos trabalhadores advindos das cidades
+vizinhas. Assim, a disponibilidade de transporte público e sua integração é
+muito importante para essas pessoas. Esse tipo de filtragem juntamente com as
+técnicas de \emph{bundling} ajudam a entender melhor as correlações entre os
+atributos dos dados - neste caso, modos de transporte.
 
-% \begin{figure}[!htb]
-%   \centering
-%   \captionsetup{justification=centering}
-%   \includegraphics[width=0.98\textwidth]{figures/local-intercity-buses}
-%   \caption{Edges filtered by transportation modes: bundled trails of local and intercity buses. \label{fig:bus-integration}}
-% \end{figure}
+\begin{figure}[!htb]
+  %\centering
+  %\raggedright\noindent\hspace{-\margemesq}\hspace{.01\paperwidth}%
+  %\begin{subfigure}{0.49\paperwidth}
+  \raggedright\noindent\hspace{-.02\textwidth}%
+  \begin{subfigure}{0.55\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{../figuras/busesLocalXmetropolitan/unbundled-buses.png}
+    \caption{\label{fig:bus-integration-a}}
+  \end{subfigure}\nobreak%
+  %\begin{subfigure}{0.49\paperwidth}
+  \hspace{-.06\textwidth}\nobreak%
+  \begin{subfigure}{0.55\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{../figuras/busesLocalXmetropolitan/bundled-buses-length.png}
+    \caption{\label{fig:bus-integration-b}}
+  \end{subfigure}
 
-\section{Density per social strata}
+  %\noindent\hspace{-\margemesq}\hspace{.01\paperwidth}\begin{subfigure}{0.49\paperwidth}
+  \raggedright\noindent\hspace{-.02\textwidth}%
+  \begin{subfigure}{0.55\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{../figuras/busesLocalXmetropolitan/unbundled-metropolitan-buses.png}
+    \caption{\label{fig:bus-integration-c}}
+  \end{subfigure}\nobreak%
+  \hspace{-.06\textwidth}\nobreak%
+  \begin{subfigure}{0.55\textwidth}
+  %\begin{subfigure}{0.49\paperwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{../figuras/busesLocalXmetropolitan/bundled-metropolitan-buses-length.png}
+    \caption{ \label{fig:bus-integration-d}}
+  \end{subfigure}
+
+  %\noindent\hspace{-\margemesq}\hspace{.01\paperwidth}\begin{subfigure}{0.49\paperwidth}
+  \raggedright\noindent\hspace{-.02\textwidth}%
+  \begin{subfigure}{0.55\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{../figuras/busesLocalXmetropolitan/unbundled-buses-and-metropolitan.png}
+    \caption{\label{fig:bus-integration-e}}
+  \end{subfigure}\nobreak%
+  \hspace{-.06\textwidth}\nobreak%
+  \begin{subfigure}{0.55\textwidth}
+  %\begin{subfigure}{0.49\paperwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{../figuras/busesLocalXmetropolitan/bundled-buses-and-metropolitan-length.png}
+    \caption{\label{fig:bus-integration-f}}
+  \end{subfigure}
+  \caption{Viagens filtradas pelo modo de transporte: ônibus locais e intermunicipais. Dados originais à esquerda (a, c, e)  e \emph{bundling} à direita (b, d, f). \label{fig:bus-integration}}
+\end{figure}
+
+\begin{figure}[!htb]
+  \centering
+  \captionsetup{justification=centering}
+  \includegraphics[width=0.98\textwidth]{../figuras/local-intercity-buses}
+  \caption{Viagens filtradas pelo modo de transporte: ônibus locais e intermunicipais (ZOOM). \label{fig:bus-integration-zoom}}
+\end{figure}
+
+\section{Visualização das diferentes classes sociais}
 \label{sec:strata}
-% % 6 imagens, uma de cada classe social, density1
-% We used our bundle visualization to study how citizens with different economical conditions commute in the SPMA. The Brazilian Economical Classification Criterion (BECC)\,\cite{cceb2008} is the official social-economic index used in the Brazilian Demographic Census, which is performed by the Brazilian Institute of Geography and Statistics. It measures the purchasing power of the Brazilian society. The BECC is divided into six levels or strata (Table~\ref{tab:becc}). This index is used in the OD17 survey to complement the mobility data. Table~\ref{tab:becc} also shows the average monthly income in the local currency (Brazilian reals) and in US dollars, and the number of trips in the SPMA for each BECC level considering the whole population and only citizens with age between 6 and 18 years that commute for study (see Section~\ref{sec:students}).
 
-% To compare the mobility patterns of different BECC social strata, we bundled the trails in each stratum separately, as shown in Figures~\ref{fig:becc-axd-e}~to~\ref{fig:becc-d-e}. We see significant differences in the mobility patterns between the highest and lowest income levels as shown in Figure~\ref{fig:becc-axd-e}. The $A$ level (on the left-hand side) has a high density in the center of SPMA, which includes the capital downtown surroundings. The highest density is located in the west, southwest, and northeast neighborhoods near downtown. There are density flows between the capital and the cities of Barueri and Cotia, which have high-income residential areas. There are other high dense flows linking the capital to the cities of S\~ao Bernardo do Campo and Santo Andr\'e. Comparing $A$ to the $D$-$E$ level (on the right-hand side of Figure~\ref{fig:becc-axd-e}), we see that $D$-$E$ has the highest dense flows in the capital eastern region. In the $D$-$E$ level map, we can see the absence of high-dense flows in regions that are nearest to the capital downtown; in contrast, these are present in the $A$ level map. We can see more details of $A$ and $D$-$E$ strata in Figures~\ref{fig:becc-a}~and~\ref{fig:becc-d-e}
+% We used our bundle
+% visualization to study how citizens with different economical conditions
+% commute in the SPMA. The Brazilian Economical Classification Criterion
+% (BECC)\,\cite{cceb2008} is the official social-economic index used in the
+% Brazilian Demographic Census, which is performed by the Brazilian Institute of
+% Geography and Statistics. It measures the purchasing power of the Brazilian
+% society. The BECC is divided into six levels or strata (Table~\ref{tab:becc}).
+% This index is used in the OD17 survey to complement the mobility data.
+% Table~\ref{tab:becc} also shows the average monthly income in the local
+% currency (Brazilian reals) and in US dollars, and the number of trips in the
+% SPMA for each BECC level considering the whole population and only citizens
+% with age between 6 and 18 years that commute for study (see
+% Section~\ref{sec:students}).
 
-% \begin{figure}[!htb]
-%   \centering
-%   \captionsetup{justification=centering}
-%   \includegraphics[width=0.98\textwidth]{figures/comparison-axd-e-strata-leg.png}
-%   \caption{Comparing density of trails between social strata $A$ (left-hand side) and $D$-$E$ (right-hand side). \label{fig:becc-axd-e}}
-% \end{figure}
+Usamos nossa visualização com \emph{bundling} para estudar como os cidadãos com diferentes
+condições econômicas se deslocam na RMSP. O Critério de Classificação Econômica
+Brasileira (CCEB), \cite{cceb2008} é o índice socioeconômico oficial utilizado no Censo
+Demográfico Brasileiro, realizado pelo Instituto Brasileiro de Geografia e
+Estatística (IBGE). Ele mede o poder de compra da sociedade brasileira. O CCEB é
+dividido em seis níveis ou estratos (Tabela~\ref{tab:becc}). Este índice é usado na pesquisa
+OD17 para complementar os dados de mobilidade. A Tabela~\ref{tab:becc} também mostra a renda
+média mensal (em reais), e o número de viagens na RMSP para cada nível do CCEB considerando toda a população e apenas
+os cidadãos com idade entre 6 e 18 anos que se deslocam para fins de estudos (consulte a
+Seção~\ref{sec:students}).
+
+\begin{table}[!htb]
+  \small
+  \newcommand{\hdr}[1]{\bfseries#1}
+  \centering
+  \caption{Viagens agrupadas pelo índice CCEB income level, social stratum, and traveler age.\label{tab:becc}}
+  \begin{tabular}{>{\footnotesize}c>{\footnotesize}r>{\footnotesize}r>{\footnotesize}r>{\footnotesize}r}
+    \toprule
+    \multirow{2}[2]{*}{\hdr{Nível CCEB}} & \hdr{Renda mensal} & \hdr{Viagens} & \hdr{Viagens de estudantes}\\
+    & \hdr{em reais (R\$)} & \hdr{totais} & \hdr{entre 6 e 18 anos}\\
+    \midrule
+    A   & 23,345    & 3,062,892  &   184,772\\
+    B1  & 10,386    & 3,854,040  &   260,652\\
+    B2  & 5,363     & 12,856,182 &   963,242\\
+    C1  & 2,965     & 11,277,159 &   976,745\\
+    C2  & 1,691     & 7,852,806  &   721,218\\
+    D-E & 708       & 2,233,801  &   219,612\\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Para comparar os padrões de mobilidade de diferentes estratos sociais CCEB,
+aplicamos \emph{bundling} nas viagens de cada estrato separadamente, como
+mostrado nas Figuras~\ref{fig:becc-axd-e}~até~\ref{fig:becc-d-e}. Observamos
+diferenças significativas nos padrões de mobilidade entre os níveis de renda
+mais altos e mais baixos, como mostra a Figura~\ref{fig:becc-axd-e}. O nível $A$
+Figuras~\ref{fig:becc-a} apresenta alta densidade no centro da RMSP, que inclui
+o entorno do centro da capital. A maior densidade está localizada nos bairros
+oeste, sudoeste e nordeste próximos ao centro. Existem fluxos de densidade entre
+a capital e as cidades de Barueri e Cotia, que possuem áreas residenciais de
+alta renda. Existem outros fluxos de alta densidade ligando a capital às cidades
+de São Bernardo do Campo e Santo André. Comparando A ao nível D-E (Figura 18),
+vemos que D-E tem os fluxos densos mais elevados na região leste da capital. No
+mapa de níveis D-E, podemos ver a ausência de fluxos de alta densidade nas
+regiões mais próximas do centro da capital; em contraste, eles estão presentes
+no mapa de nível A.
+
+\begin{figure}[!htb]
+  \centering
+  \captionsetup{justification=centering}
+  \includegraphics[width=0.98\textwidth]{../figuras/comparison-axd-e-strata-leg.png}
+  \caption{Visualização da densidade. Comparação entre viagens da classe $A$ (esquerda) e $D$-$E$ (direta). \label{fig:becc-axd-e}}
+\end{figure}
 
 
-% \begin{figure}[!htb]
-%   \centering
-%   \captionsetup{justification=centering}
-%   \includegraphics[width=0.98\textwidth]{figures/1-class-a.png}
-%   \caption{Density of trails of social stratum $A$. \label{fig:becc-a}}
-% \end{figure}
+\begin{figure}[!htb]
+  \centering
+  \captionsetup{justification=centering}
+  \includegraphics[width=0.98\textwidth]{../figuras/1-class-a.png}
+  \caption{Densidade das viagens da classe $A$. \label{fig:becc-a}}
+\end{figure}
 
-% \begin{figure}[!htb]
-%   \centering
-%   \captionsetup{justification=centering}
-%   \includegraphics[width=0.98\textwidth]{figures/2-class-b1.png}
-%   \caption{Density of trails of social stratum $B1$. \label{fig:becc-b1}}
-% \end{figure}
+\begin{figure}[!htb]
+  \centering
+  \captionsetup{justification=centering}
+  \includegraphics[width=0.98\textwidth]{../figuras/2-class-b1.png}
+  \caption{Densidade das viagens da classe $B1$. \label{fig:becc-b1}}
+\end{figure}
 
-% \begin{figure}[!htb]
-%   \centering
-%   \captionsetup{justification=centering}
-%   \includegraphics[width=0.98\textwidth]{figures/3-class-b2.png}
-%   \caption{Density of trails of social stratum $B2$. \label{fig:becc-b2}}
-% \end{figure}
+\begin{figure}[!htb]
+  \centering
+  \captionsetup{justification=centering}
+  \includegraphics[width=0.98\textwidth]{../figuras/3-class-b2.png}
+  \caption{Densidade das viagens da classe $B2$. \label{fig:becc-b2}}
+\end{figure}
 
-% \begin{figure}[!htb]
-%   \centering
-%   \captionsetup{justification=centering}
-%   \includegraphics[width=0.98\textwidth]{figures/4-class-c1.png}
-%   \caption{Density of trails of social stratum $C1$. \label{fig:becc-c1}}
-% \end{figure}
+\begin{figure}[!htb]
+  \centering
+  \captionsetup{justification=centering}
+  \includegraphics[width=0.98\textwidth]{../figuras/4-class-c1.png}
+  \caption{Densidade das viagens da classe $C1$. \label{fig:becc-c1}}
+\end{figure}
 
-% \begin{figure}[!htb]
-%   \centering
-%   \captionsetup{justification=centering}
-%   \includegraphics[width=0.98\textwidth]{figures/5-class-c2.png}
-%   \caption{Density of trails of social stratum $C2$. \label{fig:becc-c2}}
-% \end{figure}
+\begin{figure}[!htb]
+  \centering
+  \captionsetup{justification=centering}
+  \includegraphics[width=0.98\textwidth]{../figuras/5-class-c2.png}
+  \caption{Densidade das viagens da classe $C2$. \label{fig:becc-c2}}
+\end{figure}
 
-% \begin{figure}[!htb]
-%   \centering
-%   \captionsetup{justification=centering}
-%   \includegraphics[width=0.98\textwidth]{figures/6-class-d-e.png}
-%   \caption{Density of trails of social strata $D$-$E$. \label{fig:becc-d-e}}
-% \end{figure}
+\begin{figure}[!htb]
+  \centering
+  \captionsetup{justification=centering}
+  \includegraphics[width=0.98\textwidth]{../figuras/6-class-d-e.png}
+  \caption{Densidade das viagens da classe $D$-$E$. \label{fig:becc-d-e}}
+\end{figure}
 
-% When we compare all maps from the $A$ to the $D$-$E$ level (Figures~\ref{fig:becc-a}~to~\ref{fig:becc-d-e}), we see that the densest flows (red) tend to displace from the capital downtown to the eastern region of the city. The concentration of high-density flows is increasingly spreading from the center to the peripheral regions of the SPMA. Even the less dense flows are increasing and spreading over the SPMA. However, the $D$-$E$ map shows that those flows diminish considerably for these social strata. This may indicate that low-income citizens have less access to the urban mobility system. As a consequence, these people would have less access to the social, educational, health, and cultural services of the SPMA, as those facilities are concentrated in the center regions of the cities. It is worthy to note that those central regions also have more job opportunities. Looking at the $D$-$E$ map, we can see a ``hole" in the capital west downtown. This region (Pinheiros district) concentrates a large number of jobs related to information technology and financial services, which requires workers with high and medium education levels. Thus, the map shows that low-income citizens are not going to that region, which reflects the inequality of opportunities that these citizens face.
-
-% \begin{table}[!htb]
-%   \small
-%   \newcommand{\hdr}[1]{\bfseries#1}
-%   \centering
-%   \caption{Trips grouped per BECC income level, social stratum, and traveler age.\label{tab:becc}}
-%   \begin{tabular}{>{\footnotesize}c>{\footnotesize}r>{\footnotesize}r>{\footnotesize}r>{\footnotesize}r}
-%     \toprule
-%     \multirow{2}[2]{*}{\hdr{BECC level}} & \hdr{Monthly income} & \hdr{Monthly income}& \multirow{2}[2]{*}{\hdr{Trips}} & \hdr{Trips of 6 to 18}\\
-%     & \hdr{(Brazilian reals (R\$))} & \hdr{(US dollars ($\sim$US\$))} & & \hdr{years old students}\\
-%     \midrule
-%     A   & 23,345    & 4,245 & 3,062,892  &   184,772\\
-%     B1  & 10,386    & 1,888 & 3,854,040  &   260,652\\
-%     B2  & 5,363     & 975   & 12,856,182 &   963,242\\
-%     C1  & 2,965     & 539   & 11,277,159 &   976,745\\
-%     C2  & 1,691     & 307   & 7,852,806  &   721,218\\
-%     D-E & 708       & 128   & 2,233,801  &   219,612\\
-%     \bottomrule
-%   \end{tabular}
-% \end{table}
+Quando comparamos todos os mapas do nível $A$ ao $D-E$
+(Figuras~\ref{fig:becc-a}~to~\ref{fig:becc-d-e}), vemos que os fluxos mais
+densos (em vermelho) tendem a se deslocar do centro da capital para a região
+leste da cidade. A concentração de fluxos de alta densidade está se espalhando
+cada vez mais do centro para as regiões periféricas da RMSP. Mesmo os fluxos
+menos densos estão aumentando e se espalhando pela RMSP. No entanto, o mapa
+$D-E$ mostra que esses fluxos diminuem consideravelmente para esses estratos
+sociais. Isso pode indicar que os cidadãos de baixa renda têm menos acesso ao
+sistema de mobilidade urbana. Com isso, essas pessoas teriam menos acesso aos
+serviços sociais, educacionais, de saúde e culturais da SPMA, uma vez que esses
+recursos estão concentrados nas regiões centrais das cidades. É importante
+notar que essas regiões centrais também têm mais oportunidades de emprego.
+Olhando o mapa $D-E$, podemos ver um notável espaço vazio no centro oeste da capital. Essa
+região (distrito de Pinheiros) concentra um grande número de empregos
+relacionados à tecnologia da informação e serviços financeiros, o que requer
+trabalhadores com níveis de escolaridade alto e médio. Assim, o mapa mostra que
+os cidadãos de baixa renda não estão indo para aquela região, o que reflete a
+desigualdade de oportunidades que esses cidadãos enfrentam.
 
 \section{Mobility of young students from different social strata}
 \label{sec:students}
