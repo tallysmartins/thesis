@@ -262,20 +262,6 @@ atributos dos dados - neste caso, modos de transporte.
 \section{Visualização das diferentes classes sociais}
 \label{sec:strata}
 
-% We used our bundle
-% visualization to study how citizens with different economical conditions
-% commute in the SPMA. The Brazilian Economical Classification Criterion
-% (BECC)\,\cite{cceb2008} is the official social-economic index used in the
-% Brazilian Demographic Census, which is performed by the Brazilian Institute of
-% Geography and Statistics. It measures the purchasing power of the Brazilian
-% society. The BECC is divided into six levels or strata (Table~\ref{tab:becc}).
-% This index is used in the OD17 survey to complement the mobility data.
-% Table~\ref{tab:becc} also shows the average monthly income in the local
-% currency (Brazilian reals) and in US dollars, and the number of trips in the
-% SPMA for each BECC level considering the whole population and only citizens
-% with age between 6 and 18 years that commute for study (see
-% Section~\ref{sec:students}).
-
 Usamos nossa visualização com \emph{bundling} para estudar como os cidadãos com diferentes
 condições econômicas se deslocam na RMSP. O Critério de Classificação Econômica
 Brasileira (CCEB), \cite{cceb2008} é o índice socioeconômico oficial utilizado no Censo
@@ -452,11 +438,11 @@ têm menos acesso a universidades e faculdades complementares. Essa desigualdade
 de oportunidades provavelmente afetará os empregos e as condições econômicas
 desses alunos.
 
-\section{Directions at peak hours}
+\section{Direção das viagens nos horários de pico}
 \label{sec:peak-hours}
 
 Conforme mostramos anteriormente na Figura~\ref{fig:trips_by_hour} da
-Seção~\ref{sec:data}, distribuição das viagens por hora do dia tem dois picos
+Seção~\ref{sec:pesquisa-od}, distribuição das viagens por hora do dia tem dois picos
 principais, entre 6 e 9h e entre 17 e 20h. No entanto, essa tabela agregada não
 fornece informações sobre como os padrões de mobilidade nos horários de pico
 podem ser diferentes. Para visualizar esses dados, criamos dois conjuntos de
@@ -487,53 +473,101 @@ vermelho). Isso sugere que na da manhã as pessoas têm pressa para chegar ao
 trabalho, ao passo que têm menos pressa para voltar para casa (ou para outros
 destinos como escolas ou academia) no período da tarde/noite.
 
-\section{Density by transportation mode}
+\section{Densidade das viagens por modo de transporte}
 \label{sec:mode}
-% %% on foot, bike, car, metro (sliced, density)
-% We next split the OD17 data by transportation mode to compare the flow patterns for four different transportation modes: pedestrians, bicycles, cars, and subway. Figures~\ref{fig:mode-pedestrian}~to~\ref{fig:mode-subway} show the respective visualizations.
 
-% \begin{figure}[!htb]
-%   \centering
-%   \captionsetup{justification=centering}
-%   \includegraphics[width=0.98\textwidth]{figures/mode-pedestrian-density-leg.png}
-%   \caption{Density of pedestrian trips \label{fig:mode-pedestrian}}
-% \end{figure}
+Um outro interessante atributo presente nos dados da pesquisa OD17 é o modo de
+transporte. Comparamos então padrões de fluxo para quatro modos de transporte
+diferentes: pedestres, bicicletas, carros e metrô. Nas
+figuras~\ref{fig:mode-pedestrian}~até~\ref{fig:mode-subway} utilizamos o
+\emph{bundling} para visualizar a densidade dos fluxos de cada um dos tipos de
+transporte. Diferentemente do que apresentamos na seção~\ref{sec:coloring}, onde
+aplicamos \emph{bundling} em todo o conjunto de dados e utilizamos filtros para
+selecionar categorias de transporte de interesse, aqui utilizamos a estratégia de
+particionamento para visualizar cada conjunto separadamente. Com isso damos
+ênfase às características de cada subconjunto em específico, já que o
+mapa de densidade é calculado com os valores daquela única classe de atributos.
+ 
+\begin{figure}[!htb]
+  \centering
+  \captionsetup{justification=centering}
+  \includegraphics[width=0.98\textwidth]{../figuras/mode-pedestrian-density-leg.png}
+  \caption{Densidade das viagens de pedestres. \label{fig:mode-pedestrian}}
+\end{figure}
 
-% \begin{figure}[!htb]
-%   \centering
-%   \captionsetup{justification=centering}
-%   \includegraphics[width=0.98\textwidth]{figures/mode-bike-density-leg.png}
-%   \caption{Density of bicycle trips \label{fig:mode-bike}}
-% \end{figure}
+\begin{figure}[!htb]
+  \centering
+  \captionsetup{justification=centering}
+  \includegraphics[width=0.98\textwidth]{../figuras/mode-bike-density-leg.png}
+  \caption{Densidade das viagens de bicicleta \label{fig:mode-bike}}
+\end{figure}
 
-% \begin{figure}[!htb]
-%   \centering
-%   \captionsetup{justification=centering}
-%   \includegraphics[width=0.98\textwidth]{figures/mode-car-density-leg.png}
-%   \caption{Density of car trips \label{fig:mode-car}}
-% \end{figure}
+\begin{figure}[!htb]
+  \centering
+  \captionsetup{justification=centering}
+  \includegraphics[width=0.98\textwidth]{../figuras/mode-car-density-leg.png}
+  \caption{Densidade das viagens de carro. \label{fig:mode-car}}
+\end{figure}
 
-% \begin{figure}[!htb]
-%   \centering
-%   \captionsetup{justification=centering}
-%   \includegraphics[width=0.98\textwidth]{figures/mode-subway-density-leg.png}
-%   \caption{Density of subway trips \label{fig:mode-subway}}
-% \end{figure}
+\begin{figure}[!htb]
+  \centering
+  \captionsetup{justification=centering}
+  \includegraphics[width=0.98\textwidth]{../figuras/mode-subway-density-leg.png}
+  \caption{Densidade das viagens de metrô. \label{fig:mode-subway}}
+\end{figure}
 
-% Pedestrian trails (Figure~\ref{fig:mode-pedestrian}) form several low-density `islands' spread across the SPMA, with the densest one (red in figure) being in the capital downtown. Most trails are quite short, which is expected (pedestrians). However, we see a few longer bundles between the capital downtown and the south and north regions of the city. Dense flows are also present in the neighboring cities of Diadema, Tabo\~ao da Serra, Osasco, Guarulhos, Po\'a, and Mogi das Cruzes. Upon examination, we found these dense flows to match the cities' downtown and commercial areas. This information could be useful to find places that could deserve the attention of local governments to provide improvements for pedestrians.
+As viagens de pedestres (Figura~\ref{fig:mode-pedestrian}) formam várias
+``ilhas'' de baixa densidade espalhadas pela RMSP, sendo a mais densa (em vermelho)
+no centro da capital. A maioria das trilhas são curtas, o que
+é esperado para pedestres. No entanto, vemos alguns \emph{bundles} mais longos se estendendo
+entre o centro da capital e as regiões sul e norte da cidade. Alguns fluxos mais densos também
+estão presentes nas cidades vizinhas de Diadema, Taboão da Serra, Osasco,
+Guarulhos, Poá e Mogi das Cruzes. Examinando mais de perto, observamos que
+os fluxos densos combinam geograficamente com áreas centrais das cidades e as áreas comerciais. Essas
+informações podem ser úteis para localizar locais que possam merecer a atenção
+dos governos locais para proporcionar melhorias aos pedestres.
 
-% As most of the pedestrian trips are short, the bundling technique forms a few flows over the SPMA.
-% Using bundling for those short trips result in low-density trails, which is less useful compared to long trips. Thus, in these cases it may not be necessary to use bundling. In the upper left area of Figure~\ref{fig:mode-pedestrian}, we can see the OD trails without using bundling, which are near identical to the main bundled area.
-% %For pedestrian trails, it would be interesting to apply bundling over small areas. \textbf{AT: Actually, you can do this by running CUBu simply using a much smaller kernel size. But, if we do not do that, I think we should omit the above sentence.}
+Como a maioria das viagens de pedestres são curtas, a técnica de \emph{bundling}
+forma poucos fluxos sobre a RMSP. Usar o \emph{bundling} para essas viagens
+curtas resulta em alguns poucos fluxos de baixa densidade, o que é menos útil em
+comparação com viagens longas. Em casos como este, pode não ser necessário usar
+o \emph{bundling}. Na área superior esquerda da
+Figura~\ref{fig:mode-pedestrian}, temos destacadas as viagens OD da área central da
+cidade sem utilização do \emph{bundling}; podemos ver que são quase idênticas
+aos resultados com \emph{bundling} aplicado.
 
-% Bicycle trips (Figure~\ref{fig:mode-bike}) exhibit similar patterns to pedestrian ones. They are shorter than three kilometers on average. In this figure, we see some thin flows in the capital downtown area. There are also some more salient flows in the capital northeast and in the neighboring cities of Suzano and Guarulhos.
-% However, comparing Figure~\ref{fig:mode-bike} with all other transportation means, we immediately see that bicycle trips are by far the least numerous, and exhibit a far sparser pattern, with few star-shaped `hubs' where many trails meet. This suggests that the cycling infrastructure is quite limited, and fragmented. Figure~\ref{fig:mode-bike} also shows trails without using bundling in the upper left corner.
+Com uma média de menos de três quilômetros, as viagens de bicicleta
+(Figura~\ref{fig:mode-bike}) exibem padrões semelhantes aos de pedestres.  Nesta
+figura, vemos alguns fluxos estreitos na área central da capital. Existem também
+alguns fluxos mais salientes no Nordeste da capital e nas cidades vizinhas de
+Suzano e Guarulhos. No entanto, comparando a Figura~\ref{fig:mode-bike} com
+todos os outros meios de transporte, vemos imediatamente que as viagens de
+bicicleta são de longe as menos numerosas e exibem um padrão muito mais esparso,
+com poucos caminhos em forma de estrela onde muitas trajetórias se encontram.
+Isso sugere que a infraestrutura de ciclismo é bastante limitada e fragmentada.
+No canto superior esquerdo da Figura~\ref{fig:mode-bike} também mostramos
+as viagens sem utilização do \emph{bundling}.
 
-% The car trips (Figure~\ref{fig:mode-car}) show a pattern similar to the one displaying the entire dataset, \emph{i.e.}, all transportation modes (see \emph{e.g.} Figure~\ref{fig:bundled-graph-density}). For a start, this tells that cars are \emph{the} dominant form of transportation in the SPMA, accounting for the main traffic patterns. The highest-density flows occur in the capital downtown. There are several high-density flows linking the downtown area to the other regions of the capital, and also coming and going from the cities of Guarulhos, Barueri, Cotia, S\~ao Bernardo do Campo, Santo Andr\'e, Mau\'a, and Mogi das Cruzes. Compared to all other transportation modes, cars show a far more `spread out' pattern that covers very large areas, indicating that cars are the prevalent transportation mode in most parts of the SPMA.
+As viagens de carro (Figura~\ref{fig:mode-car}) mostram um padrão
+semelhante ao que exibe todo o conjunto de dados, (ver Figura~\ref{fig:bundled-graph-density}).
+Para começar, isso indica que os carros são a forma
+dominante de transporte na RMSP, respondendo pelos principais padrões de
+tráfego. Os fluxos de maior densidade ocorrem no centro da capital. Podemos observar diversos
+fluxos de alta densidade ligando o Centro às demais regiões da capital, e também
+indo e vindo das cidades de Guarulhos, Barueri, Cotia, São Bernardo do Campo,
+Santo André, Mauá, e Mogi das Cruzes. Em comparação com todos os outros
+modos de transporte, os carros mostram um padrão muito mais ``espalhado'' que
+cobre áreas muito grandes, indicando que os carros são o modo de transporte
+predominante na maioria das partes da SPMA.
 
-% Finally, subway trips (Figure~\ref{fig:mode-subway}) show a strong star-shaped pattern, with very high density bundles that connect the capital with the neighboring cities, due to the integration of the subway system with the train system. Compared to all other transportation modes, subways show a clearer, simpler, trip pattern structure.
+Por fim, as viagens de metrô (Figura~\ref{fig:mode-subway}) apresentam um forte
+padrão em forma de estrela, com fluxos de alta densidade que ligam a capital às
+cidades vizinhas, devido à integração do sistema metroviário com o trem sistema
+(vide Seção~\ref{sec:trail-overlap}). Comparado aos outros quatro modos de
+transporte, o metrô apresenta uma estrutura de padrão de viagem mais clara e
+simples.
 
-\section{Different trip reasons}
+\section{Visualização por motivo da viagem}
 \label{sec:dist_reasons}
 % We next aim to study whether trips done for different reasons exhibit distinct trip patterns. For this, we create bundled visualizations from the OD17 data with trips grouped by work, health, education, and shopping. Figures~\ref{fig:reason-work}~to~\ref{fig:reason-shopping} show the results.
 
