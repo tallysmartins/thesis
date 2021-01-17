@@ -558,7 +558,7 @@ indo e vindo das cidades de Guarulhos, Barueri, Cotia, São Bernardo do Campo,
 Santo André, Mauá, e Mogi das Cruzes. Em comparação com todos os outros
 modos de transporte, os carros mostram um padrão muito mais ``espalhado'' que
 cobre áreas muito grandes, indicando que os carros são o modo de transporte
-predominante na maioria das partes da SPMA.
+predominante na maioria das partes da RMSP.
 
 Por fim, as viagens de metrô (Figura~\ref{fig:mode-subway}) apresentam um forte
 padrão em forma de estrela, com fluxos de alta densidade que ligam a capital às
@@ -569,36 +569,63 @@ simples.
 
 \section{Visualização por motivo da viagem}
 \label{sec:dist_reasons}
-% We next aim to study whether trips done for different reasons exhibit distinct trip patterns. For this, we create bundled visualizations from the OD17 data with trips grouped by work, health, education, and shopping. Figures~\ref{fig:reason-work}~to~\ref{fig:reason-shopping} show the results.
+Um outro atributo da pesquisa OD 17 que também achamos interessante em nossa
+análise foi o motivo das viagens feitas. Observar a mobilidade urbana sobre essa
+informação o pode revelar padrões comportamentais interessantes da população. A
+seguir, estudamos as distâncias das viagens feitas por diferentes motivos, e que
+tipos de padrões elas exibem. Para isso, criamos visualizações a partir dos
+dados OD17 particionados por trabalho, saúde, educação e compras. As
+figuras~\ref{fig:reason-work}~a~\ref{fig:reason-shopping} mostram os resultados.
 
-% Work-related trips (Figure~\ref{fig:reason-work}) are overall longer than the other trip reasons, and also cover a larger area (see the central agglomeration in the figure). Interestingly, the longest trips, between the east side and the city center (red bundle), are similar in pattern to the longest trips for health and education. 
-% Trips for health reasons are sparser than work-related ones, and also show a more star-like pattern, with long bundles connecting to the central area. This may indicate that peripheral regions are not well served by health services. Trips for studying reasons (Figure~\ref{fig:reason-education}) have the largest distances between the northeast and the western regions of the SPMA. Their pattern is somewhere in-between the work and health trips. Interestingly, education trips show several `loops' in the center of the SPMA. Finally, shopping trips (Figure~\ref{fig:reason-shopping}) show the least dense, and overall also shortest, patterns, apart from a few outliers like the red (important) bundle connecting the center to the northeast. This tells that, unlike health, education, and work, shopping facilities (which are actually provided by private companies) are better distributed over the SPMA. This outlines that bundled visualizations are useful not only when they show the \emph{presence} of certain data, \emph{e.g.} trails linking far-apart regions; the \emph{absence} of patterns is also insightful, as in the case of the lack of long shopping trips.
+As viagens de trabalho (Figura~\ref{fig:reason-work}) são geralmente mais longas
+do que as outras razões de viagens e também cobrem uma área maior (veja a
+aglomeração central na figura). Curiosamente, as viagens mais longas, entre o
+lado leste e o centro da cidade (feixe vermelho), são um padrão semelhante às
+viagens mais longas para saúde e educação. As viagens por motivos de saúde
+(Figura~\ref{fig:reason-health}) são mais esparsas do que as relacionadas com o
+trabalho e também apresentam um padrão mais estrelado, com longos fluxos
+conectando-se à área central. Argumentamos que isso pode indicar que as regiões
+periféricas não são bem servidas por serviços de saúde. As viagens por motivos
+de estudo (Figura~\ref{fig:reason-education}) apresentam as maiores distâncias
+entre as regiões Nordeste e Oeste da RMSP. Seu padrão apresenta ser algo
+intermediário entre as viagens de trabalho e saúde. Curiosamente, as viagens
+educacionais mostram várias ``voltas'' no centro da RMSP. Finalmente, as viagens
+de compras (Figura~\ref{fig:reason-shopping}) mostram os padrões menos densos e,
+em geral, também os mais curtos, mas com algumas exceções como o feixe vermelho
+(importante) conectando o centro ao nordeste. Isso indica que, ao contrário da
+saúde, educação e trabalho, os estabelecimentos comerciais (que na verdade são
+da iniciativa privada) estão mais bem distribuídos na RMSP. Isso mostra que as
+visualizações agregadas - como as feitas com \emph{bundling} - são úteis não
+apenas quando mostram a \emph{presença} de certos dados, \emph{por exemplo}
+viagens ligando regiões distantes; a \emph{ausência} de padrões também é
+igualmente interessante, como no caso da falta de longas viagens por motivo de
+compras.
 
-% \begin{figure}[!htb]
-% \centering
-% \captionsetup{justification=centering}
-% \includegraphics[width=0.98\textwidth]{figures/reason-work-leg.png}
-% \caption{Distance of trips for work reasons.\label{fig:reason-work}}
-% \end{figure}
+\begin{figure}[!htb]
+\centering
+\captionsetup{justification=centering}
+\includegraphics[width=0.98\textwidth]{../figuras/reason-work-leg.png}
+\caption{Distâncias das viagens por motivo de trabalho.\label{fig:reason-work}}
+\end{figure}
   
-% \begin{figure}[!htb]
-% \centering
-% \captionsetup{justification=centering}
-% \includegraphics[width=0.98\textwidth]{figures/reason-health-leg.png}
-% \caption{Distance of trips for health-related reasons.\label{fig:reason-health}}
-% \end{figure}
+\begin{figure}[!htb]
+\centering
+\captionsetup{justification=centering}
+\includegraphics[width=0.98\textwidth]{../figuras/reason-health-leg.png}
+\caption{Distâncias das viagens por motivo de saúde.\label{fig:reason-health}}
+\end{figure}
 
-% \begin{figure}[!htb]
-% \centering
-% \captionsetup{justification=centering}
-% \includegraphics[width=0.98\textwidth]{figures/reason-school-leg.png}
-% \caption{Distance of trips for education reasons.\label{fig:reason-education}}
-% \end{figure}
+\begin{figure}[!htb]
+\centering
+\captionsetup{justification=centering}
+\includegraphics[width=0.98\textwidth]{../figuras/reason-school-leg.png}
+\caption{Distâncias das viagens por motivo educação.\label{fig:reason-education}}
+\end{figure}
 
-% \begin{figure}[!htb]
-% \centering
-% \captionsetup{justification=centering}
-% \includegraphics[width=0.98\textwidth]{figures/reason-shopping-leg.png}
-% \caption{Distance of trips for shopping reasons.\label{fig:reason-shopping}}
-% \end{figure}
+\begin{figure}[!htb]
+\centering
+\captionsetup{justification=centering}
+\includegraphics[width=0.98\textwidth]{../figuras/reason-shopping-leg.png}
+\caption{Distâncias das viagens por motivo compras.\label{fig:reason-shopping}}
+\end{figure}
 
