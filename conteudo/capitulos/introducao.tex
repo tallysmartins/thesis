@@ -4,15 +4,15 @@
 
 O rápido  desenvolvimento de sistemas de transporte e crescimento das cidades
 tem sido acompanhado de fluxos de deslocamento cada vez mais complexos e
-volumosos, aumentando também os desafios para as questões de mobilidade urbana. 
-\cite{Zhang2011} mostram em seu estudo uma estimativa de que cerca de 40\% da população mundial passa pelo menos uma
-hora no trânsito todos os dias \citep{Zhang2011}. Os impactos negativos de
-uma infraestrutura de transporte ineficiente também geram perdas econômicas,
-como mostra um estudo de X, que calcula que
-os gargalos em mobilidade no Brasil geram prejuízos de R\$ xxxx milhões de
-reais anualmente. Tais dados mostram como ainda existe espaço para se buscar
-melhorias para os sistemas de transporte, de maneira
-a melhorar a qualidade de vida dos cidadãos e reduzir custos.
+volumosos, aumentando também os desafios para as questões de mobilidade urbana.
+\cite{Zhang2011} mostram em seu estudo uma estimativa de que cerca de 40\% da
+população mundial passa pelo menos uma hora no trânsito todos os dias
+\citep{Zhang2011}. Os impactos negativos de uma infraestrutura de transporte
+ineficiente também geram perdas econômicas, como mostra um estudo de \cite{ricardo:18}, que
+calcula que os gargalos em mobilidade no Brasil geram perdas de R\$ 7.33
+bilhões de reais anualmente. Tais dados mostram como ainda existe espaço para se
+buscar melhorias para os sistemas de transporte, de maneira a melhorar a
+qualidade de vida dos cidadãos e reduzir custos.
 
 Para isso, a tecnologia tem sido amplamente empregada como um agente
 facilitador de coleta e disponibilização de várias fontes de informação que
@@ -23,8 +23,8 @@ de GPS, câmeras de tráfego, e mesmo coletados manualmente. Na administração
 pública, essas fontes de informação podem ser utilizadas para prover serviços
 melhores para a população, melhorar a gestão da infraestrutura urbana e dar
 suporte para a tomada de decisão baseada em evidências. Dentro desse
-contexto, nós focamos nosso estudo em dados de mobilidade urbana da região
-metropolitana de S\~ao Paulo (RMSP).
+contexto, nós focamos nosso estudo em dados de mobilidade urbana da Região
+Metropolitana de S\~ao Paulo (RMSP).
 
 A cada dez anos, desde 1967, a Companhia Metropolitano de São Paulo (Metrô),
 que gerencia o sistema de metrô da cidade, conduz um estudo censitário de
@@ -47,31 +47,54 @@ do sistema de transporte público ao longo dos anos, ou o número de homens ${X}
 que saem diariamente a trabalho. Técnicas de visualização, como mapas de densidade,
 podem ajudar a responder questões geoespaciais, como encontrar regiões que concentram
 os maiores fluxos de mobilidade durante o dia ou quais os pares de origem e destino
-mais comuns. No entando, considerando a grande quantidade de dados (e atributos) gerados
+mais comuns. No entanto, considerando a grande quantidade de dados (e atributos) gerados
 nas cidades, traduzir dados geolocalizados em imagens significativas não é uma tarefa simples.
+Neste contexto, buscamos responder a seguinte questão de pesquisa (QP):
 
-Um estudo recente sobre métodos de visualização de fluxos de mobilidade indica um
-uso comun de visualizações baseadas em linhas para estudar a estrutura desses dados,
-o que geralmente inclui descoberta de padrões e agrupamentos \cite{Chen2015}. Cores e texturas
-podem ser utilizados para dar informações adicionais sobre os objetos estudados, como sua velocidade, direção,
-meio de transporte utilizado, etc. Porém, desenhar diretamente linhas das trajetórias em um mapa
-torna-se pouco efetivo em cenários com uma grande quantidade de dados. Uma visualização das 42 milhões de trajetórias,
-como os registrados pela última pesquisa OD, resulta em uma imagem completamente ofuscada
-pela sobreposição e cruzamento dos fluxos, como mostramos mais adiante na Figura \cite{fig:cluttered-graph}.
-Para isso, técnicas de \emph{bundling} aprimoram as visualizações baseadas em linha e podem
-representar grandes volumes de dados de trajetórias.
+\begin{itemize}
+  \item \textbf{Como oferecer uma visualização de grandes quantidades de
+dados de mobilidade de uma grande região metropolitana?}
+\end{itemize}
 
-Neste trabalho nos propomos o uso de um conjunto de técnicas de visualização
-para explorar as características de uma grande quantidade de dados de
-mobilidade urbana. Para isso, nós adaptamos uma técnica que revelou resultados
-interessantes na visualização de trajetórias em outros cenários como o do
-tráfego aéreo e rastreamento do movimento da visão para o nosso contexto.
-Nosso estudo permitiu a visualização dos dados em diferentes níveis de
-granularidade espaço temporal, ajudando a encontrar padrões de mobilidade e
-revelar novos insights a respeito do sistema de transporte de S\~ao Paulo e da
-infraestrutura da cidade. Em contraste a outros trabalhos que utilizam técnicas
-similares, nossa pesquisa ainda se destaca pela grande quantidade de dados
-analisada. Para isso, apresentamos também uma metodologia para reduzir o tamanho
-do conjunto de dados com impacto mínimo na sua significância estatística.
+De maneira geral buscamos em nosso estudo uma proposta de solução que: também
+forneça informações visuais claras para gestores urbanos, pesquisadores e o
+grande público; permita a visualização clara de milhões de fluxos de mobilidade
+em uma única imagem; seja ajustável, permitindo facilmente a visualização de
+diferentes parâmetros.
 
-.....continua
+Um estudo recente sobre métodos de visualização de fluxos de mobilidade indica
+um uso comum de visualizações baseadas em linhas para estudar a estrutura desses
+dados, o que geralmente inclui descoberta de padrões e agrupamentos
+\cite{Chen2015}. Cores e texturas podem ser utilizados para dar informações
+adicionais sobre os objetos estudados, como sua velocidade, direção, meio de
+transporte utilizado, etc. Porém, desenhar diretamente linhas das trajetórias em
+um mapa torna-se pouco efetivo em cenários com uma grande quantidade de dados.
+Uma visualização das 42 milhões de trajetórias, como os registrados pela última
+pesquisa OD, resulta em uma imagem completamente ofuscada pela sobreposição e
+cruzamento dos fluxos, como mostramos mais adiante na
+Figura~\ref{fig:cluttered-graph}. Para isso, técnicas de \emph{bundling}
+aprimoram as visualizações baseadas em linha e podem representar grandes volumes
+de dados de trajetórias.
+
+Neste trabalho nós propomos o uso de um conjunto de técnicas de visualização
+baseadas em \emph{bundling} para explorar as características de uma grande
+quantidade de dados de mobilidade urbana. Para isso, nós adaptamos uma técnica
+que revelou resultados interessantes na visualização de trajetórias em outros
+cenários, como o do tráfego aéreo, para o nosso contexto. Nosso estudo permitiu
+a visualização dos dados em diferentes níveis de granularidade espaço temporal,
+ajudando a encontrar padrões de mobilidade a respeito do sistema de transporte
+de S\~ao Paulo e da infraestrutura da cidade. Em contraste a outros trabalhos
+que utilizam técnicas similares, nossa pesquisa ainda se destaca pela grande
+quantidade de dados e atributos analisados. Para isso, apresentamos também uma
+metodologia para reduzir o tamanho do conjunto de dados com impacto mínimo na
+sua significância estatística.
+
+Desenvolvemos esta pesquisa no contexto do consórcio
+InterSCity\footnote{\url{http://interscity.org}} - INCT da Internet do Futuro
+para Cidades Inteligentes. O objetivo do projeto InterSCity é desenvolver
+pesquisas multidisciplinares em infraestrutura de software para cidades
+inteligentes, produzindo contribuições científicas e técnicas para a comunidade
+\cite{Daniel2016}. O desenvolvimento desta dissertação de mestrado seguiu as
+diretrizes dos projetos do InterSCity com o objetivo de produzir resultados
+científicos reproduzíveis e de alto impacto, bem como software de código aberto
+que pode ser mantido posteriormente pela comunidade do projeto.

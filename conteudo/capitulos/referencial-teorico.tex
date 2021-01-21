@@ -292,7 +292,7 @@ O cálculo de um \emph{bundle} não possui uma definição precisa, e por isso h
 uma grande variedade de algoritmos e abordagens para modelar problemas de
 agrupamento de arestas com \emph{bundling}, que podem variar significativamente
 de um para outro em questões de complexidade e aplicação dos algoritmos.
-\citet{Lhuillier2017} fizeram um estudo sobre o estado da arte das técnicas de
+\cite{Lhuillier2017} fizeram um estudo sobre o estado da arte das técnicas de
 \emph{bundling} e suas aplicações para a análise de dados de trajetórias (como
 nossos dados de OD) e dados representados por grafos, mostrando os melhores
 métodos para âmbos os casos. Deste estudo, uma classe de algoritmos em particular
@@ -460,7 +460,7 @@ uma ampla gama de opções para a análise dos dados, como a possibilidade de
 enfatizar áreas de alta densidade e mapear atributos das trajetórias
 em cores (\emph{e.g. direção e distância}).
  
-De todos os métodos de \emph{bundling} levantados em \cite{lhuillier:17},
+De todos os métodos de \emph{bundling} levantados em \cite{Lhuillier2017},
 \emph{CUBu} é o mais robusto e oferece a maior quantidade de opções para codificar
 dados das trajetórias, caracterizando-se como um \emph{framework} capaz de realizar
 vários tipos de visualizações com \emph{bundling}.
@@ -504,44 +504,4 @@ Bundling (RAEB)}. Sua técnica foi demonstrada em dados contendo
 trabalho que utiliza \emph{bundling} com dados de mobilidade de que estamos cientes.
 No entanto, ele requer dados detalhados das trajetórias (não apenas OD) e também
 dados do leiaute das vias da cidade.
-
-% \emph{Kernel Density Estimation Edge Bundling} (KDEEB) é um algoritmo proposto
-% por \citet{Hurter2012}. Eles observaram que ao aplicar uma operação de \emph{bundling} $B$ qualquer sobre um
-% grafo $G$, o resultado são áreas de maior densidade (dentro dos \emph{bundles})
-% e áreas de menor densidade fora deles, em comparação ao grafo original. Assim,
-% essa operação \emph{bundling} $B$ pode ser moldada em função de uma operação
-% sobre a densidade dos pontos do grafo, similar ao que faz o algoritmo de
-% clusterização \emph{Mean Shift} \citep{Comaniciu2012}. A partir disso, a heurística
-% desse algoritmo de \emph{bundling} consiste em computar repetidamente o
-% gradiente dos pontos em relação à uma função de densidade, e então movendo-os
-% para regiões mais densas apontadas pelo gradiente. O maior benefício do método
-% é sua implementação paralela com o uso do poder computacional de placas
-% gráficas (GPUs), o que levou a ganhos de desempenho de uma ordem de magnitude
-% em relação a métodos anteriores. KDEEB representou uma abertura para uma área
-% chamada \emph{image-based bundling}, ou métodos baseados em imagem, onde $B$ é
-% implementado via operações de processamento de imagem, diferentemente de
-% métodos puramente geométricos existentes até então. O algoritmo consiste nos
-% seguintes passos:
-
-% \begin{enumerate}
-%   \item Converte o grafo $G$ em um mapa de densidade usando uma função de
-% densidade. A função utilizada é um estimador baseado em núcleos, geralmente um
-% estimador Gaussiano ou Epanechnikov.
-
-%   \item Computar o gradiente da função de densidade para cada ponto/nó do
-% grafo. O cálculo do gradiente indica a direção onde há maior quantidade
-% de nós/arestas aglomeradas no grafo.
-
-%   \item Mover os nós na direção do gradiente (áreas mais densas). Essa etapa é
-% suavizada movendo-se os nós pela norma do gradiente, ou seja, em apenas uma unidade
-% a cada iteração. Isso evita que as arestas dêem grandes saltos.
-
-%   \item Corrigir distorções causadas pela movimentação dos nós com filtro
-% Laplaciano (opcional).  O passo anterior pode causar pequenas distorções, como
-% por exemplo, a sobreposição de nós. Esta é uma forma de se corrigir essas
-% distorções sem que se perca a estrutura geral do grafo.
-
-%   Repetir a partir do passo 1 até a convergência do algoritmo, o que leva cerca de 8..10
-% iterações.
-% \end{enumerate}
 

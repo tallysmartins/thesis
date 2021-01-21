@@ -1,33 +1,59 @@
 \chapter{Considerações Finais}
 \label{cap:plano-de-trabalho}
 
-\section{Resultados Alcançados}
-  
-\section{Esforço Técnico}
+Neste trabalho, exploramos o uso do \emph{bundling} para criar
+visualizações de vários atributos dos dados de mobilidade urbana da Região
+Metropolitana de São Paulo. Nossas análises sobre as características da pesquisa
+OD 2017 mostram que o \emph{bundling} pode ser usado para identificar e comparar
+diferentes padrões de mobilidade implícitos em diferentes subconjuntos de dados
+e subconjuntos de atributos disponíveis. Combinando adequadamente a filtragem
+(para reduzir a quantidade de dados e/ou atributos a serem explorados) com o
+\emph{bundling} (para simplificar as visualizações criadas e reduzir a oclusão
+visual) e com os canais visuais disponíveis (opacidade, cor, direção),
+destacamos diferentes padrões no conjunto de dados OD17 que não teria sido
+facilmente obtido por ferramentas clássicas de mineração de dados e análise de
+dados.
 
-\section{Trabalhos Futuros}
+Nossos resultados sobre a visualização das trajetórias com \emph{bundling}
+destacaram sua estrutura centralizada sobre a área estudada da RMSP. Além disso,
+essa estrutura condiz com a infraestrutura metroviária e ferroviária de São
+Paulo. Embora não tenha sido uma surpresa, a correlação sugere que nossos
+parâmetros foram bem ajustados para a visualização na escala metropolitana.
+Nossa metodologia para reduzir a complexidade do conjunto de dados de 42 milhões
+de viagens para menos de um milhão, e também nossa adaptação de um
+\emph{framework} de uso geral (CUBu) para agrupar subconjuntos específicos de
+dados e/ou atributos foram os pontos principais que tornaram essa análise
+possível. Desta forma conseguimos responder a nossa questão de pesquisa, pois
+conseguimos obter um método de visualização de grandes conjuntos de dados de
+mobilidade sob diferentes perspectivas e explorar seus múltiplos atributos.
 
+Como trabalho futuro, pretendemos explorar melhorias no uso e usabilidade de
+visualizações agregadas com \emph{bundling}. Do ponto de vista da visualização,
+melhorias no mapa para mostrar as divisões das regiões no topo das trajetórias,
+conforme proposto em \cite{Klein2014}, podem ajudar a identificar melhor as
+conexões entre as regiões. Além disso, seria interessante testar uma abordagem
+diferente para transmitir a informação de densidade dos \emph{bundles} alterando
+a espessura das trajetórias proporcionalmente ao fator de expansão de cada
+registro da OD17 em vez de usar cores, de forma semelhante a
+\cite{lhuillier-fft:17}. Desta maneira não haveria a necessidade de replicar as
+trajetórias como fizemos e, portanto, isso reduziria significativamente o
+tamanho do conjunto de dados. Essas são etapas importantes para permitir o uso
+de \emph{bundling} para análise em tempo real.
 
-%   Bibliotecas abertas com implementações de algoritmos de \emph{bundling} ainda
-% não são algo bem estabelecido, diferente de algoritmos de clusterização, que
-% possuem vários pacotes disponíveis (e.g. Sklearn, Theano, Keras, TensorFlow). 
+Da perspectiva da aplicação da técnica de \emph{bundling}, existem ainda muitas
+outras possibilidades para análise da mobilidade urbana usando dados da própria
+pesquisa OD e ainda a possibilidades de agregar outros conjuntos de dados, como
+aqueles de empresas privadas de mobilidade, dispositivos IoT e sistemas de
+compartilhamento de bicicletas. Há ainda espaço para se fazer uma análise
+temporal mais profunda comparando a evolução da mobilidade urbana utilizando
+dados das pesquisas OD anteriores. Por último, mas não menos importante, também
+seria interessante complementar os resultados de nosso estudo com a avaliação de
+usuários reais, como gestores de tráfego, para verificar a utilidade das
+visualizações com \emph{bundling}.
 
+% \section{Esforço Técnico}
 
-%  Um outro aspecto técnico importante a ser considero, é que os trabalhos
-%recentes sobre as técnicas de \emph{bundling} apresentam abordagens com
-%técnicas para paralelismo e uso de recursos gráficos em placas de vídeo
-%dedicadas (GPUs), como é o caso de \citet{Hurter2012} e \citet{ADEB}. Dada a
-%nossa análise prévia dos trabalhos, consideramos isso se encaixa como uma
-%otimização da nossa proposta, e que por questões de tempo e complexidade, não
-%farão parte de nosso escopo.  Uma discussão sobre acelerações de vídeo é
-%apresentada em \citet{}. O uso de tecnologias como Cuda, OpenCL, requerem
-%hardware específico e conhecimento específico sobre essas tecnologias. Eles
-%propõe o uso de uma solução mais genérica propõe uma solução mais genérica que
-%usa tecnologia OpenGL, amplamente disponível em diversos dispositivos
-%computacionais, e utilizada também na biblioteca Geoplotlib. O custo benefício,
-%é que a diferença no cálculo do \emph{bundling} para um grafo com 2000 nós é
-%relativamente grande. Mas, dadas as limitações de tempo na elaboração deste
-%trabalho, este é um tópico que pode ser abordado em trabalhos futuros.
+% As colaborações deste trabalho envolveram também resultados técnic
 
 
 
