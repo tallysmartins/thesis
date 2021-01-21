@@ -2,9 +2,9 @@
 \label{cap:mobilidade-rmsp}
 
 Para fornecer uma melhor compreensão do cenário de nossa análise, esta seção
-descreve as características da Região Metropolitana de S\~ao Paulo e os dados da
+descreve as características da Região Metropolitana de S\~ao Paulo (RMSP) e os dados da
 última pesquisa OD realizada na região. Para evitar antagonismos entre a
-Região Metropolitana de S\~ao Paulo Área (RMSP) e a cidade de S\~ao Paulo, vamos nos
+Região Metropolitana de S\~ao Paulo Área e a cidade de S\~ao Paulo, vamos nos
 referir à cidade como capital ou simplesmente S\~ao Paulo e vamos nos referir à
 área metropolitana como RMSP ou simplesmente área metropolitana. 
 
@@ -48,10 +48,10 @@ metropolitano que atende várias cidades do entorno e que é integrado ao sistem
 metroviário da capital.
 
 Cada cidade tem seu próprio sistema de ônibus e há um sistema de ônibus
-intermunicipal para ligar o cidades vizinhas. Durante o século 20 até o final da
+intermunicipal para ligar cidades vizinhas. Durante o século 20, até o final da
 década de 1990, a maioria dos investimentos no transporte foram guiados por uma
 abordagem focada no transporte individual de carros em detrimento do transporte
-público \cite{rolnik2011}. Os objetivos eram ampliar estradas e ruas para
+público \citep{rolnik2011}. Os objetivos eram ampliar estradas e ruas para
 atender à crescente demanda por carros particulares. Nas últimas duas décadas,
 os governos locais têm investido mais em políticas de incentivo ao transporte
 público, como implantação de corredores de ônibus e substituição da frota de
@@ -59,7 +59,7 @@ público, como implantação de corredores de ônibus e substituição da frota 
 ferroviário. Além disso, há uma crescente infraestrutura de ciclismo na capital
 que vem sendo expandida na última década. Embora esses investimentos tenham
 aumentado nos últimos anos, a RMSP ainda sofre com o congestionamento do
-tráfego, principalmente nos horários de pico \cite{rolnik2011,ricardo:18}.
+tráfego, principalmente nos horários de pico \citep{rolnik2011,ricardo:18}.
 Assim, é necessário um melhor entendimento do o comportamento do trânsito na
 RMSP para propor novas políticas de melhoria da mobilidade para seus cidadãos.
 
@@ -69,15 +69,22 @@ RMSP para propor novas políticas de melhoria da mobilidade para seus cidadãos.
 \label{sec:pesquisa-od}
 
 A pesquisa Origem-Destino (OD) é a principal fonte de informações de mobilidade
-sobre a RMSP. Ela é realizada pela Companhia Metropolitana de São Paulo (Metrô) a cada
-dez anos, tendo a primeira aplicação em 1967. A última pesquisa OD de 2017 (OD17) tem informações sobre
-\num{157992} viagens de pessoas registradas aleatoriamente na RMSP. Os dados representam
-uma ampla amostragem da população total e possuem resultados sólidos com uma pequena
-margem de erro de 6\% e intervalo de confiança de 92\% \cite[p.18]{odmanual:17}. As viagens ocorrem por diferentes motivos, como
+sobre a RMSP. Ela é realizada pela Companhia Metropolitana de São Paulo (Metrô)
+a cada dez anos, tendo a primeira aplicação em 1967. A última pesquisa OD de
+2017 (OD17) tem informações sobre \num{157992} viagens de pessoas registradas
+aleatoriamente na RMSP. Cada viagem possui um fator de expansão associado, que é
+a extrapolação estatística para o tamanho da população que cada viagem
+representa. O fator de expansão somado de todas as entradas da pesquisa resulta
+no total de 42 milhões de viagens em um dia útil típico. Os dados representam
+uma ampla amostragem da população total e possuem resultados sólidos com uma
+pequena margem de erro de 6\% e intervalo de confiança de 92\%
+\citep[p.18]{odmanual:17}. As viagens ocorrem por diferentes motivos, como
 trabalho, casa, estudo e lazer e diferentes modos de viagem, como caminhada,
-carro, metrô e trem. Figura~\ref{fig:reason_mode} mostra a distribuição das viagens por meio de
-transporte e por motivação. Figura~\ref{fig:trips_by_hour} mostra a distribuição das viagens pelas
-horas do dia.
+carro, metrô e trem. A Figura~\ref{fig:reason_mode} mostra a distribuição das
+viagens por meio de transporte e por motivação e a
+Figura~\ref{fig:trips_by_hour} mostra a distribuição das viagens pelas horas do
+dia. Os gráficos foram construidos a partir dos dados extraídos da OD17
+aplicando-se o fator de expansão de cada viagem.
 
 \begin{figure}[ht]
 \captionsetup[subfigure]{justification=centering}
@@ -191,16 +198,14 @@ na hora do almoço (meio-dia) e no início da noite (17h às 19h).
 
 Os \num{157992} registros da pesquisa OD possuem inúmeros atributos sobre as
 viagens. Os mais relevantes para nosso estudo, no entanto, são as coordenadas de
-origem e destino (quantitativo) e o fator de expansão da viagem (quantitativo),
-que é a extrapolação estatística para o tamanho da população que cada viagem
-pesquisada representa. Ou seja, o fator de expansão somado a todas as entradas
-da pesquisa resulta em 42 milhões de viagens em um dia útil típico. Outros
-atributos são o horário de saída (quantitativo), o meio de transporte
-(categórico, 17 valores: trem, metrô, motorista de carro, passageiro de carro,
-ônibus da cidade de São Paulo e de outras cidades, ônibus intermunicipal,
-monotrilho, veículo fretado, ônibus escolar, táxi regular, táxi não regular,
-motorista de motociclista, passageiro de motociclista, pedestre, bicicleta e
-outros) e o motivo da viagem (categórico: trabalho, casa, estudo e lazer).
+origem e destino e o fator de expansão da viagem. Outros atributos são o horário
+de saída, o meio de transporte (17 categorias: trem, metrô, motorista
+de carro, passageiro de carro, ônibus da cidade de São Paulo e de outras
+cidades, ônibus intermunicipal, monotrilho, veículo fretado, ônibus escolar,
+táxi regular, táxi não regular, motorista de motociclista, passageiro de
+motociclista, pedestre, bicicleta e outros) e o motivo da viagem (9 categorias:
+casa, trabalho, estudo, assuntos pessoais, compras, saúde, lazer, alimentação e
+busca por emprego).
 
 A Figura~\ref{fig:cluttered-graph} mostra as viagens da pesquisa OD desenhadas sobre o mapa do
 RMSP, onde cada linha representa uma trajetória da OD. A extrema oclusão na figura

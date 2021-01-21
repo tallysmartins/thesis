@@ -2,7 +2,7 @@
 \chapter{Referencial Teórico e Trabalhos Relacionados}
 \label{cap:referencial-teorico}
 
-  A seguir nós discutimos conceitos e trabalhos relacionados sobre a visualização de
+  A seguir discutimos conceitos e trabalhos relacionados sobre a visualização de
 trajetórias com foco em dados de Origem-Destino. Apresentamos inicialmente as propriedades
 desse tipo de dado juntamente com uma taxonomia que os divide conforme os diferentes cenários para
 sua visualização e exploração. Em seguida, destacamos o \emph{bundling},
@@ -41,17 +41,17 @@ capta a movimentação e orientação de um veículo assim que ele passa pela á
 monitoramento.
 
   \item \textbf{Baseado em ações:} as informações sobre um objeto podem estar
-associadas a certas atividades. O usuário de um aparelho celular por exemplo,
+associadas a certas atividades. O usuário de um aparelho celular, por exemplo,
 tem sua atividade e localização registradas pela rede da operadora
-quando o mesmo efetua uma chamada.
+quando efetua uma chamada.
 
 \item \textbf{Baseado em sinais de dispositivos:} um dispositivo de localização,
-como aparelhos de GPS, grava e envia a trajetória de um objeto para uma central
+como um aparelho de GPS, grava e envia a trajetória de um objeto para uma central
 \end{itemize}
 
 A frequência de armazenamento dessas informações também impacta a análise.
 Capturar e armazenar essas informações com um intervalo de tempo muito pequeno
-pode ser algo bastante custoso, por isso, algumas aplicações acabam por
+pode ser algo bastante custoso; Por isso, algumas aplicações acabam por
 armazenar apenas a Origem e o Destino (OD). Outro fator de impacto é a precisão
 das informações a qual depende de questões relacionadas ao hardware utilizado na
 coleta. Muitas vezes é necessária uma etapa de pré-processamento para extrair
@@ -155,7 +155,7 @@ determinado momento, permitindo observar sua distribuição no espaço e explora
 mais ocupadas. Para entender mudanças contínuas ao longo do tempo, técnicas de animação podem
 ser empregadas para mostrar uma transição entre os estados. Porém, com um grande número de partículas
 - alguns milhares de pontos - esse tipo de visualização começa a sofrer
-de um efeito conhecido como como movimento Browniano - onde o movimento dos pontos parecem ser movimentos
+de um efeito conhecido como movimento Browniano - onde o movimento dos pontos parecem ser movimentos
 aleatórios - o que torna difícil identificar a trajetória dos objetos. O projeto \emph{Trains of Data},
 ilustrado na Figura \ref{fig:trains-of-data}, utiliza esse tipo de visualização para
 representar a movimentação dos trens na França. O tamanho dos pontos indica a quantidade de passageiros e a cor
@@ -221,25 +221,33 @@ Visualização abstrata, baseada na proximidade.  Fonte: \citet{Tarik2009}.
 \label{fig:tarik}}
 \end{figure}
 
-No entanto, a medida que o número de linhas cresce, aumenta também os
-problemas de oclusão, o que acaba afetando a estética da visualização e a
-obtenção de informações sobre os dados \citep{Zhou2013}. \textbf{Visualizações baseadas
-em regiões} (agregação de segunda ordem) são uma forma de reduzir
-a complexidade de análise de um grande conjunto trajetórias. Os dados 
-são então agrupados em um nível de macro regiões, geralmente determinado por divisões administrativas.
-\citet{Zeng2013} apresentam um diagrama em círculos para mostrar padrões de movimentação de
-pessoas entre as regiões da cidade. O círculo representa a junção ou conexão
-entre as diferentes regiões e o fluxo entre elas. A densidade do fluxo é medido
-pela espessura, bem como a direção é destacada dentro do círculo, como é
-ilustrado na Figura \ref{fig:interchange-circo}. Esse tipo de agrupamento
-troca as informações individuais de cada trajetória  (como na representação de linhas e pontos)
-em favor de uma visão condensada, tornando possível a exploração de maiores quantidades de dados, porém
-sob uma macro visão da informação.
+No entanto, a medida que o número de linhas cresce, aumenta também os problemas
+de oclusão, o que acaba afetando a estética da visualização e a obtenção de
+informações sobre os dados \citep{Zhou2013}. \textbf{Visualizações baseadas em
+regiões} (agregação de segunda ordem) são uma forma de reduzir a complexidade de
+análise de um grande conjunto trajetórias. Os dados são então agrupados em um
+nível de macro regiões, geralmente determinado por divisões administrativas.
+Esse tipo de agrupamento troca as informações individuais de cada trajetória
+(como na representação de linhas e pontos) em favor de uma visão condensada,
+tornando possível a exploração de maiores quantidades de dados, porém sob uma
+macro visão da informação. \citet{Zeng2013} apresentam um diagrama em círculos
+para mostrar padrões de movimentação de pessoas na cidade de Singapura. Seu
+método permite ainda a agregação dos dados em diferentes níveis, na escala da
+cidade (Figura~\ref{fig:interchange-circo}a), na escala de sub-regiões
+(Figura~\ref{fig:interchange-circo}b) e na escala de cruzamento entre vias
+(Figura~\ref{fig:interchange-circo}c). Para isso eles agregam os dados em uma
+etapa de pré-processamento. O círculo representa a junção ou conexão entre as
+diferentes regiões e o fluxo entre elas. A densidade do fluxo é medida pela
+espessura, bem como a direção é destacada com um pequeno corte no círculo, como
+é ilustrado na Figura~\ref{fig:interchange-circo}a. Uma boa visualização oferece
+parâmetros para controlar a perspectiva de análise dos dados, embora nem sempre
+isso seja uma tarefa viável e efetiva (quando se tem milhares de dados). Uma solução, como a utilizada por \citet{Zeng2013},
+é executar essa agregação em uma etapa anterior à visualização.
 
 \begin{figure}[!h]
   \centering
-  \includegraphics[width=0.97\textwidth]{../figuras/region-based.png}
-  \caption[Exemplo de visualização baseada em regiões do sistema de metrô na França]{Exemplo de visualização baseada em regiões: padrões regionais de movimentação no sistema de metrô na França. Fonte: \citet{Zeng2013}.}
+  \includegraphics[width=0.97\textwidth]{../figuras/zeng2013-region.png}
+  \caption[Exemplo de visualização baseada em regiões]{Exemplo de visualização baseada em regiões: padrões regionais de movimentação com dados do sistema público de transporte de Singapura. Fonte: \citet{Zeng2013}.}
   \label{fig:interchange-circo}
 \end{figure}
 
@@ -249,13 +257,15 @@ dificultando a identificação até mesmo dos padrões mais simples que se possa
 há também o desafio de representar os múltiplos atributos, muito comuns nesse tipo de conjunto de dados,
 tais como velocidade, direção, tipo de veículo, posição. 
 
-Uma maneira de contornar os problemas de oclusão é através de filtros que determinam
-a quantidade de itens na visualização. Porém, como consequência do filtro, perde-se a visão
-global de todos os itens ao mesmo tempo, o que pode ser necessário para a identificação das
-correlações e padrões entre eles. Uma outra técnica conhecida como \emph{bundling} busca resolver
-tais problemas de escalabilidade visual, trazendo um outro tipo de abstração que permite
-criar visualizações baseadas em linhas com um grande número de elementos de uma forma simplificada,
-que destaca grupos de trajetórias espacialmente próximas, e opcionalmente, que possuam atributos similares.
+Uma maneira de contornar os problemas de oclusão é limitar a quantidade de itens
+na visualização, seja por filtragem dos dados ou por agregação. Porém, como
+consequência disso, perde-se a visão global de todos os itens ao mesmo tempo, o
+que pode ser necessário para a identificação das correlações e padrões entre
+eles. Uma outra técnica conhecida como \emph{bundling} busca resolver tais
+problemas de escalabilidade visual, trazendo um outro tipo de abstração que
+permite criar visualizações baseadas em linhas com um grande número de elementos
+de uma forma simplificada, que destaca grupos de trajetórias espacialmente
+próximas, e opcionalmente, que possuam atributos similares.
 
 
 
@@ -292,10 +302,10 @@ O cálculo de um \emph{bundle} não possui uma definição precisa, e por isso h
 uma grande variedade de algoritmos e abordagens para modelar problemas de
 agrupamento de arestas com \emph{bundling}, que podem variar significativamente
 de um para outro em questões de complexidade e aplicação dos algoritmos.
-\cite{Lhuillier2017} fizeram um estudo sobre o estado da arte das técnicas de
+\citet{Lhuillier2017} fizeram um estudo sobre o estado da arte das técnicas de
 \emph{bundling} e suas aplicações para a análise de dados de trajetórias (como
 nossos dados de OD) e dados representados por grafos, mostrando os melhores
-métodos para âmbos os casos. Deste estudo, uma classe de algoritmos em particular
+métodos para âmbos os casos. Desse estudo, uma classe de algoritmos em particular
 se destaca por oferecer vários parâmetros para um maior controle do processo de \emph{bundling}
 e também por ser computacionalmente mais eficiente em relação a outros métodos. Conhecidos
 como \emph{modelos baseados em imagem}, esses algoritmos são, pelo que conhecemos,
@@ -307,7 +317,7 @@ o que há de mais recente no campo de visualização com \emph{bundling}.
 Modelos de \emph{bundling} baseados em imagem (ou \emph{image based bundling
 (IBB)}) explorarm, em sua essência, o algoritmo de clusterização \emph{mean
 shift} \citep{comaniciu02}, bem conhecido na área de processamento de imagem.
-Nós mostramos este processo para uma técnica em particular conhecida como
+Nós mostramos esse processo para uma técnica em particular conhecida como
 \emph{Kernel Density Estimation Edge Bundling (KDEEB)}, \citep{hurter:12},
 reconhecendo que outras técnicas baseadas em imagem presentes na literatura
 funcionam de maneira similar e compartilham as mesmas propriedades.
@@ -417,7 +427,7 @@ algoritmo, o número de iterações deve ser grande o suficiente para que o
 \emph{bundling} possa convergir para uma estrutura estável.
 
 \item{\textbf{Resolução da imagem \emph{I}:}} O tamanho da imagem de saída controla a
-acurácia dos estimadores de densidade, e consequentemente o cálculo do
+acurácia dos estimadores de densidade e, consequentemente, o cálculo do
 gradiente. Imagens com resolução maior geram imagens com maior nível de
 qualidade e detalhes, porém aumentam também o custo computacional do algoritmo KDEEB.
 
@@ -447,7 +457,7 @@ utiliza os recursos da biblioteca de processamento paralelo
 CUDA\footnote{\url{developer.nvidia.com/cuda-zone}} para implementar todos os
 passos do processo de \emph{bundling} na \emph{GPU}, trazendo uma notável
 capacidade de computar grandes conjuntos de dados em relação ao \emph{KDEEB}
-e outros métodos \emph{IBB}, \citet{adeb,lhuillier-fft:17}.
+e outros métodos \emph{IBB}, \citep{adeb,lhuillier-fft:17}.
 
 Além dos parâmetros citados anteriormente, o Cubu suporta vários
 outros para dar um maior suporte à visualizações com bundling. Como por
@@ -460,23 +470,22 @@ uma ampla gama de opções para a análise dos dados, como a possibilidade de
 enfatizar áreas de alta densidade e mapear atributos das trajetórias
 em cores (\emph{e.g. direção e distância}).
  
-De todos os métodos de \emph{bundling} levantados em \cite{Lhuillier2017},
+De todos os métodos de \emph{bundling} levantados em \citet{Lhuillier2017},
 \emph{CUBu} é o mais robusto e oferece a maior quantidade de opções para codificar
 dados das trajetórias, caracterizando-se como um \emph{framework} capaz de realizar
 vários tipos de visualizações com \emph{bundling}.
 
 
-Apesar dessas opções serem detalhadas em \cite{zwan:16},
-elas não foram, pelo que conhecemos até o presente momento desta pesquisa, ajustadas para
-grandes conjuntos de dados de trajetórias, especialmente em dados de mobilidade urbana.
-Essa etapa de ajuste dos parâmetros no processo de exploração fica a cargo de usuários e pesquisadores
-que desejam aplicar a técnica. Em nosso trabalho nos mostramos como modificamos
-o \emph{CUBu} para analisar nosso conjunto de dados de mobilidade urbana nas seguintes
-dimensões:
+Apesar dessas opções serem detalhadas em \citet{zwan:16}, elas não haviam sido
+ajustadas para grandes conjuntos de dados de trajetórias, especialmente em dados
+de mobilidade urbana. Essa etapa de ajuste dos parâmetros no processo de
+exploração fica a cargo de usuários e pesquisadores que desejam aplicar a
+técnica. Em nosso trabalho, mostramos como modificamos o \emph{CUBu} para
+analisar nosso conjunto de dados de mobilidade urbana nas seguintes dimensões:
 
 \begin{itemize}
 \item\emph{Mapa de densidade:} Nós usamos o mapa de densidade $\rho$,
-calculado pelo processo KDE e implementado pelo \emph{CUBu}, para mostrar a densidade de
+calculado pelo processo KDE e implementado pelo \emph{CUBu}, para mostrar a densidade
 local nos \emph{bundles} produzidos. Dessa forma, pode-se separar visualmente
 fluxos de tráfego de alta densidade (importantes) dos de menor densidade; O \emph{CUBu}
 possui ainda um outro parâmetro $\alpha$ (modulação alfa) que varia de $[0 - 1]$
@@ -496,7 +505,7 @@ correlacionar os \emph{bundles} com as localidades da cidade.
 \end{itemize}
 
 
-\cite{zeng:19} adaptaram o método KDEEB para restringir o \emph{bundling}
+\citet{zeng:19} adaptaram o método KDEEB para restringir o \emph{bundling}
 ao longo da rede de vias da cidade as quais os dados das trajetórias forma
 coletados no que eles denominaram \emph{Road Aware Edge
 Bundling (RAEB)}. Sua técnica foi demonstrada em dados contendo

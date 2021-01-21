@@ -2,8 +2,8 @@
 \label{cap:metodologia}
 
 Para explorar a visualização dos fluxos de mobilidade urbana utilizamos em nosso
-estudo dados públicos da pesquisa OD17. Estes dados representam milhões de viagens
-que ocorrem diariamente em um dia normal de trabalho sobre a Região Metropolitana
+estudo dados públicos da pesquisa OD17. Esses dados representam milhões de viagens
+que ocorrem diariamente em um dia normal de trabalho na Região Metropolitana
 de São Paulo (RMSP). Parametrizamos e adaptamos o \emph{framework} de visualização \emph{CUBu} para explorar várias
 propriedades do tráfego com diferentes usos do \emph{bundling}. A seguir
 detalhamos cada uma das etapas que seguimos.
@@ -68,7 +68,7 @@ viagens replicadas a partir de um registro da OD com ID 50 e fator de expansão 
 
 \section{Pré-processamento dos dados}
 
-Como mencionado na Seção~\ref{sec:pesquisa-od} o conjunto de dados possui \num{157992} viagens,
+Como mencionado na Seção~\ref{sec:pesquisa-od}, o conjunto de dados possui \num{157992} viagens,
 e que ao considerarmos o fator de expansão, esse número cresce para pouco mais de 42 milhões.
 Embora \emph{CUBu} seja - de acordo com seus autores e também com nosso conhecimento - a
 solução mais rápida existente para agrupamento com \emph{bundling}, ele ainda não
@@ -132,7 +132,7 @@ o que resultou em menos de 2,5\% de perda de informações.
 Além do processo de redução de dados explicado acima, também aplicamos dois
 outros métodos de simplificação, \emph{filtragem} e \emph{particionamento}. Tais
 técnicas permitem um outro olhar para características específicas do conjunto de
-dados e funcionam de maneira complementar. Com as duas abordagens
+dados e funcionam de maneira complementar. Com as duas abordagens,
 exploramos duas diferentes utilizações do \emph{bundling}, o que permitiu uma
 experiência maior para avaliar o potencial da técnica na análise
 de grandes conjuntos de dados de mobilidade urbana com múltiplos atributos.
@@ -164,7 +164,7 @@ configurações de parâmetros. No entanto, como eles também mencionam, essas
 configurações são válidas para seu método de \emph{bundling} (RAEB) e não
 generalizam diretamente para outros métodos, como o \emph{CUBu}. Portanto,
 tivemos que encontrar bons parâmetros para nosso estudo empiricamente. Os
-parâmetros obtidos desta forma foram: resolução da imagem $I = 512 x 512$
+parâmetros obtidos dessa forma foram: resolução da imagem $I = 512 x 512$
 pixels; taxa de preenchimento $S = 10$ pixels (de acordo com a recomendação de
 \cite{zwan:16} de usar 1\% da diagonal da imagem); raio do kernel $k = 18$
 pixels; e número de iterações do \emph{bundling} $N = 15$. Em nosso maior
