@@ -16,11 +16,11 @@ Seções~\ref{sec:strata},~\ref{sec:students},~\ref{sec:peak-hours},~\ref{sec:di
 Na Seção~\ref{sec:bundling} explicamos como a operação de \emph{bundling}
 faz o agrupamento de trajetórias simplificando a visualização e reduzindo a oclusão
 da imagem. No entanto, tal operação não nos diz quantas trajetórias foram agrupadas em
-um \emph{bundle}. A solução para isso, primeiramente apresentada por \cite{holten06},
+um \emph{bundle}. A solução para isso, primeiramente apresentada por \citet{holten06},
 é desenhar linhas semi-transparentes, cada uma com uma transparência fixa $\alpha < 1$.
 Assim, a combinação mostrará trajetórias de alta densidade como mais opacas e as de baixa
 densidade como mais transparentes. Apesar da transparência ajudar na diferenciação
-de áreas densas, ela por si só não é uma variável visual quantitativa forte \cite{slocum09}.
+de áreas densas, ela por si só não é uma variável visual quantitativa forte \citep{slocum09}.
 Então, codificamos também a densidade das trajetórias em cores, utilizando
 os valores estimados pelo KDE durante o processo de \emph{bundling} (ver Seção~\ref{sec:bundling}).
 A Figura~\ref{fig:bundled-graph-density}a mostra uma visualização obtida usando codificação
@@ -108,7 +108,7 @@ também indica boas configurações de parâmetros para esse tipo de visualizaç
 escala da região metropolitana.
 
 Ressaltamos que que este tipo de correlação (de \emph{bundles} com estradas) não
-é o mesmo que o utilizado no método RAEB, \cite{zeng:19}. No método RAEB, o
+é o mesmo que o utilizado no método RAEB, \citet{zeng:19}. No método RAEB, o
 agrupamento foi feito explicitamente para seguir estradas. Em nosso caso, as
 linhas são sobrepostas sobre \emph{bundles}, que foram gerados unicamente a partir dos
 dados da OD. Pode-se argumentar que RAEB, neste sentido, produz \emph{bundles}
@@ -264,7 +264,7 @@ atributos dos dados - neste caso, modos de transporte.
 
 Usamos nossa visualização com \emph{bundling} para estudar como os cidadãos com diferentes
 condições econômicas se deslocam na RMSP. O Critério de Classificação Econômica
-Brasileira (CCEB), \cite{cceb2008} é o índice socioeconômico oficial utilizado no Censo
+Brasileira (CCEB), \citet{cceb2008} é o índice socioeconômico oficial utilizado no Censo
 Demográfico Brasileiro, realizado pelo Instituto Brasileiro de Geografia e
 Estatística (IBGE). Ele mede o poder de compra da sociedade brasileira. O CCEB é
 dividido em seis níveis (ou classes) (Tabela~\ref{tab:becc}). Este índice é usado na pesquisa
@@ -420,7 +420,7 @@ Podemos observar que há muito mais trilhas para os alunos de alta renda
 grandes distâncias para estudar, o que indica que podem escolher com mais
 flexibilidade onde estudar. Este fato é corroborado por estudos de mobilidade
 urbana que indicam que pessoas com melhores condições financeiras têm mais
-mobilidade do que aquelas com condições mais precárias \cite{carruthers2005,
+mobilidade do que aquelas com condições mais precárias, como em \citet{carruthers2005,
 lucas2016}.
 
 Vale ressaltar que as escolas públicas da RMSP estão distribuídas pela região
