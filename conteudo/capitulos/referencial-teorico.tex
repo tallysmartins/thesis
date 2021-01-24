@@ -1,12 +1,13 @@
 
-\chapter{Referencial Teórico e Trabalhos Relacionados}
+\chapter{Referencial Teórico}
 \label{cap:referencial-teorico}
 
-  A seguir discutimos conceitos e trabalhos relacionados sobre a visualização de
-trajetórias com foco em dados de Origem-Destino. Apresentamos inicialmente as propriedades
-desse tipo de dado juntamente com uma taxonomia que os divide conforme os diferentes cenários para
-sua visualização e exploração. Em seguida, destacamos o \emph{bundling},
-uma técnica bastante usada na visualização de grandes quantidades de dados de trajetórias.
+  A seguir discutimos conceitos sobre a visualização de trajetórias com foco em
+dados de Origem-Destino. Apresentamos inicialmente as propriedades desse tipo de
+dado juntamente com uma taxonomia que os divide conforme os diferentes cenários
+para sua visualização e exploração. Em seguida, destacamos o \emph{bundling},
+uma técnica bastante usada na visualização de grandes quantidades de dados de
+trajetórias.
 
 \section{Visualização de Trajetórias}
 \label{sec:dados-de-trajetorias}
@@ -457,15 +458,12 @@ utiliza os recursos da biblioteca de processamento paralelo
 CUDA\footnote{\url{developer.nvidia.com/cuda-zone}} para implementar todos os
 passos do processo de \emph{bundling} na \emph{GPU}, trazendo uma notável
 capacidade de computar grandes conjuntos de dados em relação ao \emph{KDEEB}
-e outros métodos \emph{IBB}, \citep{adeb,lhuillier-fft:17}.
+e outros métodos \emph{IBB} \citep{adeb,lhuillier-fft:17}.
 
-Além dos parâmetros citados anteriormente, o Cubu suporta vários
-outros para dar um maior suporte à visualizações com bundling. Como por
-exemplo separação de direções opostas. Sombras, distâncias, etc.
-
-Adicionalmente, \emph{CUBu} suporta vários estilos de \emph{bundling},
-como \emph{bundling} direcional, \citep{adeb}, que separa trajetórias
-em direções opostas. Diferentes parâmetros para renderização da imagem oferecem
+Além dos parâmetros citados anteriormente, o \emph{Cubu} suporta vários
+outros para dar um maior suporte à visualizações com \emph{bundling}. Como por
+exemplo separação das trajetórias em direções opostas,\cite{adeb}, visualização
+das distâncias, sombras, etc. Múltiplos parâmetros para renderização da imagem oferecem
 uma ampla gama de opções para a análise dos dados, como a possibilidade de
 enfatizar áreas de alta densidade e mapear atributos das trajetórias
 em cores (\emph{e.g. direção e distância}).
@@ -474,7 +472,6 @@ De todos os métodos de \emph{bundling} levantados em \citet{Lhuillier2017},
 \emph{CUBu} é o mais robusto e oferece a maior quantidade de opções para codificar
 dados das trajetórias, caracterizando-se como um \emph{framework} capaz de realizar
 vários tipos de visualizações com \emph{bundling}.
-
 
 Apesar dessas opções serem detalhadas em \citet{zwan:16}, elas não haviam sido
 ajustadas para grandes conjuntos de dados de trajetórias, especialmente em dados
@@ -503,14 +500,3 @@ presentes nos dados;
 o resultado do \emph{bundling} sobre o mapa da RMSP onde o tráfego é analisado. Isso nos permite
 correlacionar os \emph{bundles} com as localidades da cidade.
 \end{itemize}
-
-
-\citet{zeng:19} adaptaram o método KDEEB para restringir o \emph{bundling}
-ao longo da rede de vias da cidade as quais os dados das trajetórias forma
-coletados no que eles denominaram \emph{Road Aware Edge
-Bundling (RAEB)}. Sua técnica foi demonstrada em dados contendo
-166 mil viagens de táxi da cidade de Nova Iorque. RAEB é o único o único
-trabalho que utiliza \emph{bundling} com dados de mobilidade de que estamos cientes.
-No entanto, ele requer dados detalhados das trajetórias (não apenas OD) e também
-dados do leiaute das vias da cidade.
-
