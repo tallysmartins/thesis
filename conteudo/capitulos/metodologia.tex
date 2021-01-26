@@ -165,23 +165,23 @@ configurações são válidas para seu método de \emph{bundling} (RAEB) e não
 generalizam diretamente para outros métodos, como o \emph{CUBu}. Portanto,
 tivemos que encontrar bons parâmetros para nosso estudo empiricamente. Os
 parâmetros obtidos dessa forma foram: resolução da imagem $I = 512 x 512$
-pixels; taxa de preenchimento $S = 10$ pixels (de acordo com a recomendação de
+pixels; taxa de amostragem $S = 10$ pixels (de acordo com a recomendação de
 \cite{zwan:16} de usar 1\% da diagonal da imagem); raio do \emph{kernel} $k = 18$
 pixels; e número de iterações do \emph{bundling} $N = 15$. Em nosso maior
 conjunto de dados, representado por todas as \num{685115} viagens, esta
 configuração gerou cerca de 3,2 milhões de pontos, que foram agrupados em cerca
 de 52 milissegundos por iteração em um PC com uma placa de vídeo NVidia GeForce
 940MX de 4 GB. Usamos esse conjunto de parâmetros para criar a maioria das
-visualizações agrupadas mostradas a seguir na Seção~\ref{sec:results}, exceto para as da Seção~\ref{sec:classes},
+visualizações agrupadas mostradas a seguir na Seção~\ref{sec:results}, exceto para as da Seção~\ref{sec:strata},
 onde mostramos os padrões de deslocamento de diferentes classes sociais.
-Para esses subconjuntos específicos, reduzimos a taxa de preenchimento $S$ para
+Para esses subconjuntos específicos, reduzimos a taxa de amostragem $S$ para
 5 pixels e modulamos a transparência $alpha$ do mapa de densidade para 0,15. Na
 prática, ao utilizarmos metade do valor de $S$ dobramos o número de pontos na
-visualização;  Observamos que as mudanças desse dois parâmetros ajudam a
+visualização. Observamos que as mudanças desse dois parâmetros ajudam a
 destacar os pontos de densidade que buscamos em nossa análise sem impacto na
 estrutura da visualização.
 
-% TODO arrumar referencias das seções 5 e 5.6 no paragrafo anterior
+% TODO  arrumar referencias das seções 5 e 5.6 no paragrafo anterior
 
 \section{Melhorias na visualização}
 

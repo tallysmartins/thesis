@@ -3,17 +3,18 @@
 
 Essa seção apresenta os resultados das análises que desenvolvemos sobre os dados
 da pesquisa OD 17. Começamos com a exploração dos recursos de visualização
-suportados pelo \emph{CUBu}, com ênfase na codificação visual de atributos
+oferecidos pelo \emph{CUBu}, com ênfase na codificação visual dos atributos
 densidade, distância e direção das viagens. Esses aspectos são apresentados a
-seguir nas Seções~\ref{sec:density},~\ref{sec:trail-overlap},~\ref{sec:length-direction},~and~\ref{sec:coloring}.
+seguir nas
+Seções~\ref{sec:density},~\ref{sec:trail-overlap},~\ref{sec:length-direction},~e~\ref{sec:coloring}.
 Posteriormente, utilizando tais recursos visuais analisamos outros padrões de
-mobilidade específicos a subconjuntos dos dados, os quais são detalhados nas
-Seções~\ref{sec:strata},~\ref{sec:students},~\ref{sec:peak-hours},~\ref{sec:dist_reasons},~and~\ref{sec:mode}.
+mobilidade específicos a subconjuntos dos dados, detalhados nas
+Seções~\ref{sec:strata},~\ref{sec:students},~\ref{sec:peak-hours},~\ref{sec:dist_reasons},~e~\ref{sec:mode}.
 
 \section{Visualizando a densidade dos \emph{bundles}}
 \label{sec:density}
 
-Na Seção~\ref{sec:bundling} explicamos como a operação de \emph{bundling}
+Na Seção~\ref{sec:bundling}, explicamos como a operação de \emph{bundling}
 faz o agrupamento de trajetórias simplificando a visualização e reduzindo a oclusão
 da imagem. No entanto, tal operação não nos diz quantas trajetórias foram agrupadas em
 um \emph{bundle}. A solução para isso, primeiramente apresentada por \citet{holten06},
@@ -39,7 +40,7 @@ Para resolver este problema, mapeamos a densidade $\rho$ de duas maneiras,
 transparência e cor. Já que $\rho$ é calculado precisamente como um número
 de ponto flutuante durante a estimação do KDE, nenhum valor é truncado ou arredondado.
 Essa estimativa da densidade permite modular a transparência para destacar ainda
-mais as áreas de alta densidade e reduzir a oclusão da imagem -- uma outra alternativa
+mais as áreas de alta densidade e reduzir a oclusão da imagem. Uma outra alternativa
 seria utilizar valores maiores de \emph{kernel} $k$, o que agruparia ainda mais as trajetórias, gerando
 \emph{bundles} mais fortes, porém também iria causar uma maior distorção das linhas.
 A Figura~\ref{fig:bundled-graph-density}b mostra o \emph{bundling} aplicado nos mesmos
@@ -86,7 +87,7 @@ cruzam o centro da capital, incluindo linhas de metrô, trem, e as principais vi
 % % Not relevant for the text, just a curiosity:
 % % the percentage in relation to all motorized trips is 5672*100/28280=20.05%
 
-\section{Infraestrutura de metrô e trem \emph{vs} \emph{bundling}}
+\section{Infraestrutura de metrô e trem \emph{vs.} \emph{bundling}}
 \label{sec:trail-overlap}
 
 O sistema de transporte público é o mais utilizado pelos moradores da RMSP. O
@@ -108,7 +109,7 @@ também indica boas configurações de parâmetros para esse tipo de visualizaç
 escala da região metropolitana.
 
 Ressaltamos que que este tipo de correlação (de \emph{bundles} com estradas) não
-é o mesmo que o utilizado no método RAEB, \citet{zeng:19}. No método RAEB, o
+é o mesmo que o utilizado no método RAEB \citep{zeng:19}. No método RAEB, o
 agrupamento foi feito explicitamente para seguir estradas. Em nosso caso, as
 linhas são sobrepostas sobre \emph{bundles}, que foram gerados unicamente a partir dos
 dados da OD. Pode-se argumentar que RAEB, neste sentido, produz \emph{bundles}
@@ -163,8 +164,8 @@ em dois \emph{bundles} quase paralelos. Podemos ver claramente a existência de
 trajetórias paralelas ao longo dos \emph{bundles}, o que não é surpreendente
 porque a pesquisa OD registra o trajeto típico das pessoas que inclui os
 deslocamentos de ida e vinda de volta para suas origens. No entanto, essa
-simetria das trajetórias possivelmente não seria observada se analisássemos um
-curto período do dia.
+simetria das trajetórias não é observada quando analisamos períodos
+específicos do dia, como mostramos na Seção~\ref{sec:peak-hours}.
 
 \begin{figure}[!htb] \centering \captionsetup{justification=centering}
   \includegraphics[width=0.98\textwidth]{../figuras/distances.png}
@@ -178,7 +179,7 @@ curto período do dia.
   \caption{Mapeamento da direção das viagens em cores. \label{fig:attributes-direction}}
 \end{figure}
 
-\section{Visualização dos modos de transporte: ônibus locais \emph{vs} intermunicipais}
+\section{Visualização dos modos de transporte: ônibus locais \emph{vs.} intermunicipais}
 \label{sec:coloring}
 
 Como mostramos na Seção~\ref{sec:pesquisa-od}, o conjunto de dados OD17 contém
@@ -192,7 +193,7 @@ Figura~\ref{fig:bus-integration} mostra como nos aplicamos tais filtros para
 visualizar a integração entre os ônibus da cidade de São Paulo (ônibus locais) e
 os ônibus intermunicipais. As trajetórias originais e agrupadas com \emph{bundling}
 são apresentadas lado a lado. Cada meio de transporte tem uma coloração distinta -
-oliva para ônibus locais e azul para ônibus intermunicipais.
+verde para ônibus locais e azul para ônibus intermunicipais.
 
 Podemos ver mais claramente na Figura~\ref{fig:bus-integration-zoom} que esses diferentes sistemas
 de transporte parecem se complementar. A cidade de São Paulo tem um comércio e
@@ -256,7 +257,7 @@ atributos dos dados - neste caso, modos de transporte.
   \centering
   \captionsetup{justification=centering}
   \includegraphics[width=0.98\textwidth]{../figuras/local-intercity-buses}
-  \caption{Viagens filtradas pelo modo de transporte: ônibus locais e intermunicipais (ZOOM). \label{fig:bus-integration-zoom}}
+  \caption{Viagens filtradas pelo modo de transporte: ônibus locais e intermunicipais (zoom). \label{fig:bus-integration-zoom}}
 \end{figure}
 
 \section{Visualização das diferentes classes sociais}
@@ -264,7 +265,7 @@ atributos dos dados - neste caso, modos de transporte.
 
 Usamos nossa visualização com \emph{bundling} para estudar como os cidadãos com diferentes
 condições econômicas se deslocam na RMSP. O Critério de Classificação Econômica
-Brasileira (CCEB), \citet{cceb2008} é o índice socioeconômico oficial utilizado no Censo
+Brasileira (CCEB), \citep{cceb2008} é o índice socioeconômico oficial utilizado no Censo
 Demográfico Brasileiro, realizado pelo Instituto Brasileiro de Geografia e
 Estatística (IBGE). Ele mede o poder de compra da sociedade brasileira. O CCEB é
 dividido em seis níveis (ou classes) (Tabela~\ref{tab:becc}). Este índice é usado na pesquisa
@@ -298,7 +299,7 @@ aplicamos \emph{bundling} nas viagens de cada classe separadamente, como
 mostrado nas Figuras~\ref{fig:becc-axd-e}~até~\ref{fig:becc-d-e}. Observamos
 diferenças significativas nos padrões de mobilidade entre os níveis de renda
 mais altos e mais baixos, como mostra a Figura~\ref{fig:becc-axd-e}. O nível $A$
-Figuras~\ref{fig:becc-a} apresenta alta densidade no centro da RMSP, que inclui
+(Figura~\ref{fig:becc-a}) apresenta alta densidade no centro da RMSP, que inclui
 o entorno do centro da capital. A maior densidade está localizada nos bairros
 oeste, sudoeste e nordeste próximos ao centro. Existem fluxos de densidade entre
 a capital e as cidades de Barueri e Cotia, que possuem áreas residenciais de
@@ -363,7 +364,7 @@ Quando comparamos todos os mapas do nível $A$ ao $D-E$
 densos (em vermelho) tendem a se deslocar do centro da capital para a região
 leste da cidade. A concentração de fluxos de alta densidade está se espalhando
 cada vez mais do centro para as regiões periféricas da RMSP. Mesmo os fluxos
-menos densos também se espalhando pela RMSP. No entanto, o mapa $D-E$ mostra que
+menos densos também se espalham pela RMSP. No entanto, o mapa $D-E$ mostra que
 esses fluxos diminuem consideravelmente (podemos ver pelas linhas menos densas)
 para essas classes sociais. Isso pode indicar que os cidadãos de baixa renda
 têm menos acesso ao sistema de mobilidade urbana. Com isso, essas pessoas teriam
@@ -423,16 +424,17 @@ urbana que indicam que pessoas com melhores condições financeiras têm mais
 mobilidade do que aquelas com condições mais precárias, como em \citet{carruthers2005,
 lucas2016}.
 
-Vale ressaltar que as escolas públicas da RMSP estão distribuídas pela região
+Vale ressaltar que as escolas de ensino públicas   da RMSP estão distribuídas pela região
 central e periférica das cidades. Em geral, o sistema público busca alocar as
 matrículas dos alunos nessas escolas de acordo com a proximidade de suas
 residências. Assim, eles não precisam viajar longas distâncias para chegar às
 suas escolas. Além disso, as escolas públicas apresentam desempenho educacional
 inferior ao das escolas particulares de São Paulo. Assim, cidadãos com melhores
-condições financeiras costumam colocar seus filhos em escolas particulares.
+condições financeiras costumam colocar seus filhos em escolas particulares,
+padrão que se inverte no ensino superior.
 
-A escassez de fluxos de alunos de baixa renda ascende questionamentos. Ela pode
-ser uma indicação de que esta classe da população não têm oportunidades iguais
+A escassez de fluxos de alunos de baixa renda levanta questionamentos. Ela pode
+ser uma indicação de que essa classe da população não tem oportunidades iguais
 de estudo. Também não costumam ir para a região central da cidade e, portanto,
 têm menos acesso a universidades e faculdades complementares. Essa desigualdade
 de oportunidades provavelmente afetará os empregos e as condições econômicas
@@ -442,14 +444,14 @@ desses alunos.
 \label{sec:peak-hours}
 
 Conforme mostramos anteriormente na Figura~\ref{fig:trips_by_hour} da
-Seção~\ref{sec:pesquisa-od}, distribuição das viagens por hora do dia tem dois picos
-principais, entre 6 e 9h e entre 17 e 20h. No entanto, essa tabela agregada não
-fornece informações sobre como os padrões de mobilidade nos horários de pico
-podem ser diferentes. Para visualizar esses dados, criamos dois conjuntos de
-dados, um pra cada intervalo, e aplicamos \emph{bundling} em cada conjunto
-separadamente. Codificamos a direção a das viagens em cores, similar ao
-apresentado na Figura~\ref{fig:attributes-direction}, da
-Seção~\ref{sec:length-direction}.
+Seção~\ref{sec:pesquisa-od}, distribuição das viagens por hora do dia tem dois
+picos principais, entre 6 e 9h e entre 17 e 20h. No entanto, essa tabela
+agregada não fornece informações sobre como os padrões de mobilidade nos
+horários de pico podem ser diferentes. Para visualizar esses dados aplicamos o
+\emph{bundling} no conjunto de dados e então aplicamos um filtro que para
+alterar a transparência das viagens fora do horário selecionado. Codificamos a
+direção a das viagens em cores, similar ao apresentado na
+Figura~\ref{fig:attributes-direction}, da Seção~\ref{sec:length-direction}.
 
 \begin{figure}[!htb]
   \centering
@@ -469,7 +471,7 @@ Comparando as horas de pico, podemos ver que os fluxos matinais indo para o
 centro da RMSP (Figura~\ref{fig:peak-hours-6h-9h}, fluxo ciano vindo do leste)
 são geralmente mais densos e mais longos do que os fluxos vindos do Centro RMSP
 durante o pico da tarde/noite (Figura~\ref{fig:peak-hours-17h-20h}, fluxo
-vermelho). Isso sugere que na da manhã as pessoas têm pressa para chegar ao
+vermelho). Isso sugere que na manhã as pessoas têm um comportamento na ida ao
 trabalho, ao passo que têm menos pressa para voltar para casa (ou para outros
 destinos como escolas ou academia) no período da tarde/noite.
 
@@ -513,7 +515,7 @@ mapa de densidade é calculado com os valores daquela única classe de atributos
   \centering
   \captionsetup{justification=centering}
   \includegraphics[width=0.98\textwidth]{../figuras/mode-subway-density-leg.png}
-  \caption{Densidade das viagens de metrô. \label{fig:mode-subway}}
+  \caption{Densidade das viagens de metrô e trem. \label{fig:mode-subway}}
 \end{figure}
 
 As viagens de pedestres (Figura~\ref{fig:mode-pedestrian}) formam várias
@@ -537,14 +539,14 @@ cidade sem utilização do \emph{bundling}; podemos ver que são quase idêntica
 aos resultados com \emph{bundling} aplicado.
 
 Com uma média de menos de três quilômetros, as viagens de bicicleta
-(Figura~\ref{fig:mode-bike}) exibem padrões semelhantes aos de pedestres.  Nesta
+(Figura~\ref{fig:mode-bike}) exibem padrões semelhantes aos de pedestres.  Nessa
 figura, vemos alguns fluxos estreitos na área central da capital. Existem também
 alguns fluxos mais salientes no Nordeste da capital e nas cidades vizinhas de
 Suzano e Guarulhos. No entanto, comparando a Figura~\ref{fig:mode-bike} com
 todos os outros meios de transporte, vemos imediatamente que as viagens de
 bicicleta são de longe as menos numerosas e exibem um padrão muito mais esparso,
 com poucos caminhos em forma de estrela onde muitas trajetórias se encontram.
-Isso sugere que a infraestrutura de ciclismo é bastante limitada e fragmentada.
+Isso sugere que a infraestrutura de ciclismo em 2017 ainda era bastante limitada e fragmentada.
 No canto superior esquerdo da Figura~\ref{fig:mode-bike} também mostramos
 as viagens sem utilização do \emph{bundling}.
 
@@ -558,14 +560,14 @@ indo e vindo das cidades de Guarulhos, Barueri, Cotia, São Bernardo do Campo,
 Santo André, Mauá, e Mogi das Cruzes. Em comparação com todos os outros
 modos de transporte, os carros mostram um padrão muito mais ``espalhado'' que
 cobre áreas muito grandes, indicando que os carros são o modo de transporte
-predominante na maioria das partes da RMSP.
+predominante na maioria das regiões da RMSP.
 
-Por fim, as viagens de metrô (Figura~\ref{fig:mode-subway}) apresentam um forte
-padrão em forma de estrela, com fluxos de alta densidade que ligam a capital às
-cidades vizinhas, devido à integração do sistema metroviário com o trem sistema
-(vide Seção~\ref{sec:trail-overlap}). Comparado aos outros quatro modos de
-transporte, o metrô apresenta uma estrutura de padrão de viagem mais clara e
-simples.
+Por fim, as viagens de metrô e trem (Figura~\ref{fig:mode-subway}) apresentam um
+forte padrão em forma de estrela, com fluxos de alta densidade que ligam a
+capital às cidades vizinhas, devido à integração dos dois sistemas (vide
+Seção~\ref{sec:trail-overlap}). Comparado aos outros modos de transporte, o
+sistema de transporte de trilhos apresenta uma estrutura de padrão de viagem
+mais clara e simples.
 
 \section{Visualização por motivo da viagem}
 \label{sec:dist_reasons}
@@ -578,8 +580,7 @@ dados OD17 particionados por trabalho, saúde, educação e compras. As
 figuras~\ref{fig:reason-work}~a~\ref{fig:reason-shopping} mostram os resultados.
 
 As viagens de trabalho (Figura~\ref{fig:reason-work}) são geralmente mais longas
-do que as outras razões de viagens e também cobrem uma área maior (veja a
-aglomeração central na figura). Curiosamente, as viagens mais longas, entre o
+do que as outras razões de viagens e também cobrem uma área maior. Curiosamente, as viagens mais longas, entre o
 lado leste e o centro da cidade (feixe vermelho), são um padrão semelhante às
 viagens mais longas para saúde e educação. As viagens por motivos de saúde
 (Figura~\ref{fig:reason-health}) são mais esparsas do que as relacionadas com o
@@ -597,9 +598,8 @@ saúde, educação e trabalho, os estabelecimentos comerciais (que na verdade s�
 da iniciativa privada) estão mais bem distribuídos na RMSP. Isso mostra que as
 visualizações agregadas - como as feitas com \emph{bundling} - são úteis não
 apenas quando mostram a \emph{presença} de certos dados, \emph{por exemplo}
-viagens ligando regiões distantes; a \emph{ausência} de padrões também é
-igualmente interessante, como no caso da falta de longas viagens por motivo de
-compras.
+viagens ligando regiões distantes; mas evidenciar a \emph{ausência} de padrões também
+pode ser igualmente interessante.
 
 \begin{figure}[!htb]
 \centering

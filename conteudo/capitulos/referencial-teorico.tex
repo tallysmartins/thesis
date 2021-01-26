@@ -47,7 +47,7 @@ tem sua atividade e localização registradas pela rede da operadora
 quando efetua uma chamada.
 
 \item \textbf{Baseado em sinais de dispositivos:} um dispositivo de localização,
-como um aparelho de GPS, grava e envia a trajetória de um objeto para uma central
+como um aparelho de GPS, grava e envia a trajetória de um objeto para uma central.
 \end{itemize}
 
 A frequência de armazenamento dessas informações também impacta a análise.
@@ -216,7 +216,7 @@ no eixo X e as informações espaciais no eixo Y.
     \caption{Visualização abstrata da movimentação ao longo do tempo. \label{fig:viz-abstrata}}
   \end{subfigure}
 
-  \caption[Visualização espacial vs abstrata da movimentação de pessoas]{Simulação de uma evacuação de um escritório depois de uma explosão.
+  \caption[Visualização espacial \emph{vs.} abstrata da movimentação de pessoas]{Simulação de uma evacuação de um escritório depois de uma explosão.
 (a) Visualização da movimentação da trajetória das pessoas no espaço. (b)
 Visualização abstrata, baseada na proximidade.  Fonte: \citet{Tarik2009}.
 \label{fig:tarik}}
@@ -366,7 +366,7 @@ de imagem mapeiam muito bem para computação paralela em placas gráficas (\emp
 %nodes
 \node[](n1){};
 \node[flnodevoid,below=3.0em of n1, xshift=1.0em,yshift=0.25em](input){dados\\de entrada};
-\node[flnode,right=1.0em of n1] (edge-resamp) {preenchimento\\(\emph{resampling})};
+\node[flnode,right=1.0em of n1] (edge-resamp) {amostragem\\(\emph{sampling})};
 \node[flnodesmall,right=1.75em of edge-resamp] (splatting) {desidade\\(\emph{splatting})};
 \node[flnode,right=1.75em of splatting] (gradient-est) {estimação do\\gradiente};
 \node[flnode,right=1.5em of gradient-est] (edge-adv) {aproximar do\\gradiente\\(\emph{advection})};
@@ -432,8 +432,8 @@ acurácia dos estimadores de densidade e, consequentemente, o cálculo do
 gradiente. Imagens com resolução maior geram imagens com maior nível de
 qualidade e detalhes, porém aumentam também o custo computacional do algoritmo KDEEB.
 
-\item{\textbf{Taxa de preenchimento \emph{S}:}} A taxa de preenchimento (ou \emph{sampling size})
-controla a quantidade de pontos que serão adicionados na etapa de preenchimento.
+\item{\textbf{Taxa de amostragem \emph{S}:}} A taxa de amostragem (ou \emph{sampling size})
+controla a quantidade de pontos que serão adicionados na etapa de amostragem.
 Sua interpretação é que a cada \emph{S} pixels da imagem, um
 ponto é adicionado à trajetória. Valores pequenos desse parâmetro acabam
 por gerar mais pontos, capturando mais detalhes no
@@ -453,50 +453,79 @@ comparação à uma visualização em nível de bairros e ruas.
 \subsection{Cubu}
 
 \emph{CUBu}, (que significa CUDA \emph{bundling}), é apresentado em
-\citet{zwan:16} como uma implementação mais robusta do \emph{KDEEB}. Ela
-utiliza os recursos da biblioteca de processamento paralelo
+\citet{zwan:16} como um \emph{framework} de visualização de propósito geral
+que implementa uma versão mais robusta do algoritmo de \emph{bundling}
+\emph{KDEEB}. Essa ferramenta foi desenvolvida pelo grupo de pesquisa em
+visualização do Professor Alexandru Telea, da Universidade de Utrecht, na
+Holanda. Eles utilizaram os recursos da biblioteca de processamento paralelo
 CUDA\footnote{\url{developer.nvidia.com/cuda-zone}} para implementar todos os
 passos do processo de \emph{bundling} na \emph{GPU}, trazendo uma notável
-capacidade de computar grandes conjuntos de dados em relação ao \emph{KDEEB}
-e outros métodos \emph{IBB} \citep{adeb,lhuillier-fft:17}.
+capacidade de computar grandes conjuntos de dados em relação ao \emph{KDEEB} e
+outros métodos \emph{IBB} \citep{adeb,lhuillier-fft:17}.
 
 Além dos parâmetros citados anteriormente, o \emph{Cubu} suporta vários
-outros para dar um maior suporte à visualizações com \emph{bundling}. Como por
-exemplo separação das trajetórias em direções opostas,\cite{adeb}, visualização
+outros para dar um maior suporte à visualizações com \emph{bundling}, como por
+exemplo separação das trajetórias em direções opostas, \citep{adeb}, visualização
 das distâncias, sombras, etc. Múltiplos parâmetros para renderização da imagem oferecem
 uma ampla gama de opções para a análise dos dados, como a possibilidade de
 enfatizar áreas de alta densidade e mapear atributos das trajetórias
-em cores (\emph{e.g. direção e distância}).
- 
+em cores (\emph{e.g. direção e distância}). 
+
 De todos os métodos de \emph{bundling} levantados em \citet{Lhuillier2017},
-\emph{CUBu} é o mais robusto e oferece a maior quantidade de opções para codificar
-dados das trajetórias, caracterizando-se como um \emph{framework} capaz de realizar
-vários tipos de visualizações com \emph{bundling}.
+a implementação do \emph{CUBu} é a mais robusta e oferece a maior quantidade de opções para
+codificar dados das trajetórias, caracterizando-se como um \emph{framework}
+capaz de realizar vários tipos de visualizações com \emph{bundling}. A
+Figura~\ref{fig:cubu1} mostra a tela de parâmetros. Na aba ``\emph{Bundling}'' temos
+os parâmetors do algoritmo, sendo os mais importantes para o nosso trabalho o
+número de iterações (\emph{iterations}), tamanho do \emph{kernel} (\emph{kernel
+size}), e taxa de amostragem (\emph{edge sampling}). Na aba ``\emph{Drawing}'' à
+direita temos parâmetros que alteram a imagem e não requerem uma nova execução do
+algoritmo para modificar os resultados (chamamos isso de parâmetros do espaço
+da imagem). Eles incluem filtros que permitem mostrar e ocultar as linhas das
+trajetórias, modificar a espessura das linhas, aplicar sombras e modular os
+parâmetros do mapa de densidade para dar ênfase às áreas mais densas da imagem.
+Além disso, também contemplam as opções de cores para colorir as trajetórias
+conforme os atributos desejados, como distância e direção.
 
 Apesar dessas opções serem detalhadas em \citet{zwan:16}, elas não haviam sido
 ajustadas para grandes conjuntos de dados de trajetórias, especialmente em dados
 de mobilidade urbana. Essa etapa de ajuste dos parâmetros no processo de
 exploração fica a cargo de usuários e pesquisadores que desejam aplicar a
 técnica. Em nosso trabalho, mostramos como modificamos o \emph{CUBu} para
-analisar nosso conjunto de dados de mobilidade urbana nas seguintes dimensões:
+analisar nosso conjunto de dados de mobilidade urbana com ajustes nos parâmetros e
+adicionando novos recursos (ver Figura~\ref{fig:cubu2}) nas seguintes dimensões:
 
 \begin{itemize}
-\item\emph{Mapa de densidade:} Nós usamos o mapa de densidade $\rho$,
+\item\emph{Mapa de densidade:} Usamos o mapa de densidade $\rho$,
 calculado pelo processo KDE e implementado pelo \emph{CUBu}, para mostrar a densidade
 local nos \emph{bundles} produzidos. Dessa forma, pode-se separar visualmente
 fluxos de tráfego de alta densidade (importantes) dos de menor densidade; O \emph{CUBu}
-possui ainda um outro parâmetro $\alpha$ (modulação alfa) que varia de $[0 - 1]$
+possui ainda um outro parâmetro $\alpha$ (modulação alfa) que varia de 0 a 1
 e permite modular a transparência do mapa de densidade para reduzir a quantidade de detalhes
 na visualização e destacar ainda mais as áreas de maior densidade;
  
 \item\emph{Filtragem de atributos e cores:} Usamos a capacidade do \emph{CUBu} de
 codificar as direções ou os comprimentos das trajetórias para
-estudar o comportamento de mobilidade. Nós também extendemos o \emph{framework} \emph{CUBu}
+estudar o comportamento de mobilidade. Também extendemos o \emph{framework} \emph{CUBu}
 para filtrar intervalos de atributos específicos e selecionar combinações de atributos a
 serem exibidos. Isso permite que o analista pesquise diferentes tipos de padrões
 presentes nos dados;
 
-\item\emph{Mapa da cidade:} Nós modificamos o \emph{CUBu} para desenhar
+\item\emph{Mapa da cidade:} Modificamos o \emph{CUBu} para desenhar
 o resultado do \emph{bundling} sobre o mapa da RMSP onde o tráfego é analisado. Isso nos permite
 correlacionar os \emph{bundles} com as localidades da cidade.
 \end{itemize}
+
+ \begin{figure}[!htb]
+  \centering
+  \includegraphics[width=\textwidth]{../figuras/cubu1.png}
+  \caption{Tela de parâmetros do \emph{CUBu} antes das modificações.}
+   \label{fig:cubu1}
+ \end{figure}
+
+\begin{figure}[!tb]
+  \centering
+  \includegraphics[width=\textwidth]{../figuras/cubu2.png}
+  \caption{Tela de parâmetros do \emph{CUBu} após as modificações.}
+   \label{fig:cubu2}
+ \end{figure}
