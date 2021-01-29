@@ -1,13 +1,13 @@
 \chapter{Trabalhos Relacionados}
 \label{cap:trabalhos-relacionados}
 
-  A visualização de dados de tráfego é um tópico amplo e se divide em
-algumas sub-áreas. As pesquisas que julgamos relevantes tocam as áreas de
-visualização da informação - \emph{InfoViz}, cujo foco é desvendar novos métodos
-para visualizar uma informação, como \emph{bundling}, e também a área de análise
+  A visualização de dados de tráfego é um tópico amplo e se divide em algumas
+sub-áreas. As pesquisas que julgamos relevantes tocam as áreas de visualização
+da informação - \emph{InfoViz}, cujo foco é desvendar novos métodos para
+visualizar uma informação, como \emph{bundling}, e também a área de análise
 visual aplicada - \emph{Visual Analytics}, que se aproxima mais a sistemas e
-aplicações e não a novas técnicas propriamente ditas. Ambos trabalhos trazem
-contribuições em diferentes níveis para a nossa pesquisa.
+aplicações que facilitam a interação homem-máquina na realização de tarefas.
+Ambos trabalhos trazem contribuições em diferentes níveis para a nossa pesquisa.
 
 O primeiro trabalho que destacamos é o de \citet{Zhou2013}. Sua pesquisa é uma
 revisão teórica sobre diferentes modelos de \emph{bundling}, dentre eles, os
@@ -15,17 +15,15 @@ primeiros métodos baseados em algoritmos de processamento de imagem (linhagem
 que gerou o \emph{KDEEB} utilizado no \emph{CUBu}). Esse trabalho reforça o
 \emph{bundling} como uma técnica promissora para a visualização de grandes
 quantidades de dados em várias aplicações, como na visualização de mapas de
-fluxos (com dados de mobilidade), grafos e redes de conexão,
-gráficos de coordenadas paralelas e basicamente qualquer tipo de visualização
-baseadas em linhas.
-
-\citet{Lhuillier2017} traz uma revisão mais recente sobre o \emph{bundling}. Os
-autores sugerem ainda uma definição formal sobre a operação de \emph{bundling}
-em um conjunto de dados; e, a partir daí, listam as características, objetivos e
-limitações de uso ao lidar com dados espaciais (como dados de mobilidade) e
-também outros tipos de dados sem relação espacial (grafos, gráficos de
-coordenadas paralelas). O resultado é uma visão do estado da arte em
-cada um desses segmentos.
+fluxos (com dados de mobilidade), grafos e redes de conexão, gráficos de
+coordenadas paralelas e basicamente qualquer tipo de visualização baseadas em
+linhas. Mais recentemente, \citet{Lhuillier2017} também fizeram uma revisão de
+estudos sobre o \emph{bundling}. Em sua revisão, os autores ainda
+sugerem uma definição formal sobre a operação de \emph{bundling} e listam as
+diferenças e limitações de múltiplos algoritmos ao lidar com dados espaciais
+(como dados de mobilidade) e também outros tipos de dados sem relação espacial
+(grafos, gráficos de coordenadas paralelas). O resultado é uma visão do estado
+da arte em cada um desses segmentos.
 
 Igualmente relevante, \citet{Telea2018} apresenta também um rico estudo que traz
 detalhes da história evolutiva das técnicas de \emph{bundling} até o estado da
@@ -75,8 +73,8 @@ de computar a similaridade das trajetórias que deveriam ser agrupadas no
 visualização em algumas aplicações, como dados do tráfego aéreo, onde seu método
 foi capaz de identificar com mais detalhes as diferenças de rotas de entrada e
 saída utilizadas pelas aeronaves nos aeroportos, e também em dados de
-rastreamento da visão, identificando padrões de leitura visual que as pessoas
-exercem ao visualizar obras de arte.
+rastreamento da visão, identificando padrões de leitura visual exercido
+por pessoas ao observarem obras de arte.
 
 \begin{figure}[ht!]
   \centering
@@ -192,16 +190,16 @@ preenchidas em relação ao uso de \emph{bundling} na visualização de fluxos d
 mobilidade urbana e entender também técnicas alternativas existentes na
 literatura. Entendemos que nossa abordagem contribui com um novo cenário para
 utilização das técnicas de \emph{bundling} na análise de fluxos de mobilidade
-urbana. Trazemos também uma análise singular do contexto de
-mobilidade urbana na Região Metropolitana de São Paulo e avançamos na
-investigação do \emph{CUBu} ao adaptá-lo para esse contexto. Vale ressaltar
-ainda que os ajustes de parâmetros desse tipo de técnica não generalizam para
-todas as aplicações. Outro ponto em favor do uso do \emph{bundling} em nossa
-análise é que ele foi testado de maneira relevante em grandes conjuntos de dados
-com centenas de milhares de dados, como posto em \citet{Telea2018,
-Lhuillier2017}, o que não necessariamente é atestado para outros métodos que
-citamos, segundo a nossa revisão da literatura. Além disso, a aplicação do
-\emph{bundling} para visualizar um cenário de 42 milhões de trajetórias (que em
-nossa metodologia reduzimos para \num{685115}) é algo que parece ser inédito
-na literatura. No próximo capítulo apresentamos a metodologia para o
-desenvolvimento de nossa proposta.
+urbana. Oferecemos uma análise singular da mobilidade na Região Metropolitana de
+São Paulo e avançamos na investigação do \emph{CUBu} ao adaptá-lo para esse
+contexto, tanto com relação aos seus parâmetros, quanto com novos recursos que
+adicionamos para visualização de diferentes atributos dos dados. Além disso, a
+aplicação do \emph{bundling} para visualizar um cenário de 42 milhões de
+trajetórias (que em nossa metodologia reduzimos para \num{685115}) é algo que
+parece ser inédito na literatura. Nesse quesito, um ponto adicional em favor do
+uso do \emph{bundling} em nossa análise é que ele foi testado de maneira
+relevante em grandes conjuntos de dados com centenas de milhares de dados, como
+posto em \citet{Telea2018, Lhuillier2017}, o que não necessariamente é atestado
+para outros métodos que citamos, segundo a nossa revisão da literatura.  No
+próximo capítulo apresentamos a metodologia para o desenvolvimento de nossa
+proposta.

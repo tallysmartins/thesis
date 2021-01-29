@@ -188,20 +188,30 @@ mesmo tempo em nossa visualização com \emph{bundling}, isso não seria fácil 
 se obter, uma vez que exigiria a codificação simultânea de 17 diferentes
 categorias de transporte. Então, nós utilizamos a transparência para esconder
 trajetórias de acordo com seletores que podem ser configurados na interface para
-filtrar as trajetórias pelo modo de transporte. A
-Figura~\ref{fig:bus-integration} mostra como nos aplicamos tais filtros para
-visualizar a integração entre os ônibus da cidade de São Paulo (ônibus locais) e
-os ônibus intermunicipais. As trajetórias originais e agrupadas com \emph{bundling}
-são apresentadas lado a lado. Cada meio de transporte tem uma coloração distinta -
-verde para ônibus locais e azul para ônibus intermunicipais.
+filtrar as trajetórias pelo modo de transporte, como mostra a Figura~\ref{fig:filtros-modes}
+a seguir.
 
-Podemos ver mais claramente na Figura~\ref{fig:bus-integration-zoom} que esses diferentes sistemas
-de transporte parecem se complementar. A cidade de São Paulo tem um comércio e
-uma indústria muito ativa, que recebe muitos trabalhadores advindos das cidades
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=.27\textwidth]{../figuras/filtros-modes.png}
+  \caption{Filtros de transparência na interface do \emph{CUBu} para seleção dos modos de transporte.}
+   \label{fig:filtros-modes}
+ \end{figure}
+
+Assim, na Figura~\ref{fig:bus-integration} mostramos como utilizamos tais
+filtros que utilizamos para visualizar a integração entre os ônibus da cidade de
+São Paulo (ônibus locais) e os ônibus intermunicipais. As trajetórias originais
+e agrupadas com \emph{bundling} são apresentadas lado a lado. Cada meio de
+transporte tem uma coloração distinta - verde para ônibus locais e azul para
+ônibus intermunicipais. Podemos ver mais claramente na
+Figura~\ref{fig:bus-integration-zoom} (zoom) que esses diferentes sistemas de
+transporte parecem se complementar. A cidade de São Paulo tem um comércio e uma
+indústria muito ativa, que recebe muitos trabalhadores advindos das cidades
 vizinhas. Assim, a disponibilidade de transporte público e sua integração é
 muito importante para essas pessoas. Esse tipo de filtragem juntamente com as
 técnicas de \emph{bundling} ajudam a entender melhor as correlações entre os
 atributos dos dados - neste caso, modos de transporte.
+
 
 \begin{figure}[!htb]
   %\centering
@@ -272,13 +282,15 @@ dividido em seis níveis (ou classes) (Tabela~\ref{tab:becc}). Este índice é u
 OD17 para complementar os dados de mobilidade. A Tabela~\ref{tab:becc} também mostra a renda
 média mensal (em reais), e o número de viagens na RMSP para cada nível do CCEB considerando toda a população e apenas
 os cidadãos com idade entre 6 e 18 anos que se deslocam para fins de estudos (consulte a
-Seção~\ref{sec:students}).
+Seção~\ref{sec:students}). O motivo pelo qual o total de viagens na tabela ser abaixo de 42 milhões
+é que muitos registros do conjunto de dados não tinham a informação da sua classificação no CCEB, e por isso
+não foram considerados no cálculo.
 
 \begin{table}[!htb]
   \small
   \newcommand{\hdr}[1]{\bfseries#1}
   \centering
-  \caption{Quantidade de viagens pelo índice CCEB, renda mensal e idade.\label{tab:becc}}
+  \caption{Quantidade de viagens pelo índice CCEB (2017), renda mensal e idade. \label{tab:becc}}
   \begin{tabular}{>{\footnotesize}c>{\footnotesize}r>{\footnotesize}r>{\footnotesize}r>{\footnotesize}r}
     \toprule
     \multirow{2}[2]{*}{\hdr{Nível CCEB}} & \hdr{Renda mensal} & \hdr{Viagens} & \hdr{Viagens de estudantes}\\
@@ -290,6 +302,7 @@ Seção~\ref{sec:students}).
     C1  & 2,965     & 11,277,159 &   976,745\\
     C2  & 1,691     & 7,852,806  &   721,218\\
     D-E & 708       & 2,233,801  &   219,612\\
+    \textbf{Total}& n/a & 411,368,80 &  3,326,241\\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -472,8 +485,14 @@ centro da RMSP (Figura~\ref{fig:peak-hours-6h-9h}, fluxo ciano vindo do leste)
 são geralmente mais densos e mais longos do que os fluxos vindos do Centro RMSP
 durante o pico da tarde/noite (Figura~\ref{fig:peak-hours-17h-20h}, fluxo
 vermelho). Isso sugere que na manhã as pessoas têm um comportamento na ida ao
-trabalho, ao passo que têm menos pressa para voltar para casa (ou para outros
-destinos como escolas ou academia) no período da tarde/noite.
+trabalho, ao passo que esse fluxo se distribui de maneira diferente na volta
+para casa, possivelmente se designando para outros destinos (como escolas ou
+academia) no período da tarde/noite. Um recurso interessante para esse tipo de
+visualização é a separação das trajetórias em direções opostas alterando-se
+diretamente o algoritmo de \emph{bundling}, como sugere \citet{adeb}. Em teoria,
+sua técnica seria capaz de gerar agrupamentos mais nítidos levando em
+consideração esse atributo. Porém, por questões de limite tempo e escopo deste
+trabalho, não nos aprofundamos nesse tópico.
 
 \section{Densidade das viagens por modo de transporte}
 \label{sec:mode}
