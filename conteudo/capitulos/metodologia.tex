@@ -18,7 +18,7 @@ diretamente do conjunto de dados da OD17 e representa uma entrada única no conj
 de dados. O modo de transporte é armazenado como um número inteiro no intervalo
 de 1 a 17 e corresponde a cada um dos diferentes modos presentes na pesquisa OD17.
 Os horários de partida e chegada são armazenado como um número de ponto
-flutuante no intervalo de [0.0 - 23:59]. Por último, temos as coordenadas de
+flutuante representando os horários no intervalo de [0:00 - 23:59]. Por último, temos as coordenadas de
 origem e destino, o principal atributo do conjunto de dados. Em se tratando de
 coordenadas, diversos sistemas podem ser utilizados; em nossa pesquisa
 transformamos todas as coordenadas para o sistema de latitude / longitude para a
@@ -59,9 +59,9 @@ viagens replicadas a partir de um registro da OD com ID 50 e fator de expansão 
     \multirow{2}[2]{*}{\hdr{ID}} & \multirow{2}[2]{*}{\hdr{Modo}} & \hdr{Saída} & \hdr{Chegada} & \multicolumn{2}{c}{\hdr{Origem}}   & \multicolumn{2}{c}{\hdr{Destino}}\\
      &  & \hdr{hora} & \hdr{hora} & \hdr{Longitude}   & \hdr{Latitude}    & \hdr{Longitude}     & \hdr{Latitude}\\
     \midrule
-    50         & 1   & 6.45 & 7.10  & -46.62809376987491 & -23.551691865840347 & -47.00348104352116 & -23.39356328288028\\
-    50         & 1   & 6.45 & 7.10  & -46.62809376987491 & -23.551691865840347 & -47.00348104352116 & -23.39356328288028\\
-    51         & 4   & 8.30 & 9.05  & -47.00187231236886 & -23.39846860627696  & -47.00348104352116 & -23.39356328288028\\
+    50         & 1   & 6:45 & 7:10  & -46.62809376987491 & -23.551691865840347 & -47.00348104352116 & -23.39356328288028\\
+    50         & 1   & 6:45 & 7:10  & -46.62809376987491 & -23.551691865840347 & -47.00348104352116 & -23.39356328288028\\
+    51         & 4   & 8:30 & 9:05  & -47.00187231236886 & -23.39846860627696  & -47.00348104352116 & -23.39356328288028\\
     \bottomrule
   \end{tabular}
 \end{table}

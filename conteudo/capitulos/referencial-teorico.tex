@@ -416,7 +416,7 @@ responsáveis por oferecer tais ajustes na exploração dos dados com \emph{bund
 
 \begin{itemize}
 
-\item{\textbf{Raio do kernel \emph{k}:}} O tamanho inicial do kernel, especificado em
+\item{\textbf{Raio do \emph{kernel} \emph{k}:}} O tamanho inicial do \emph{kernel}, especificado em
 pixels, controla o grau de agrupamento das linhas. Esse parâmetro diz respeito a
 distância máxima a qual duas trajetórias ``enxergam'' uma a outra para que
 possam ser agrupadas. Valores pequenos desse parâmetro resultam em
@@ -450,7 +450,7 @@ objetivos de quem faz o uso da técnica. Visualizar padrões em um grande
 região metropolitana, por exemplo, requer imagens com menos detalhes em
 comparação à uma visualização em nível de bairros e ruas.
 
-\subsection{Cubu}
+\subsection{\emph{CUBu}}
 
 \emph{CUBu} (CUDA \emph{bundling}), é apresentado em
 \citet{zwan:16} como um \emph{framework} de visualização de propósito geral
@@ -463,7 +463,7 @@ passos do processo de \emph{bundling} na \emph{GPU}, trazendo uma notável
 capacidade de computar grandes conjuntos de dados em relação ao \emph{KDEEB} e
 outros métodos baseados em imagem \citep{adeb,lhuillier-fft:17}.
 
-Além dos parâmetros citados anteriormente, o \emph{Cubu} suporta vários
+Além dos parâmetros citados anteriormente, o \emph{CUBu} suporta vários
 outros para dar um maior suporte à visualizações com \emph{bundling}, como por
 exemplo separação das trajetórias em direções opostas, \citep{adeb}, visualização
 das distâncias, sombras, etc. Múltiplos parâmetros para renderização da imagem oferecem
@@ -477,7 +477,7 @@ codificar dados das trajetórias, caracterizando-se como um \emph{framework}
 capaz de realizar vários tipos de visualizações com \emph{bundling}. A
 Figura~\ref{fig:cubu1} mostra a tela de parâmetros. Na aba ``\emph{Bundling}'' temos
 os parâmetors do algoritmo, sendo os mais importantes para o nosso trabalho o
-número de iterações (\emph{iterations}), tamanho do \emph{kernel} (\emph{kernel
+número de iterações (\emph{iterations}), tamanho do núcleo (\emph{kernel
 size}), e taxa de amostragem (\emph{edge sampling}). Na aba ``\emph{Drawing}'' à
 direita temos parâmetros que alteram a imagem e não requerem uma nova execução do
 algoritmo para modificar os resultados (chamamos isso de parâmetros do espaço
