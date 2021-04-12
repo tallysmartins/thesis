@@ -55,7 +55,7 @@ Capturar e armazenar essas informações com um intervalo de tempo muito pequeno
 pode ser algo bastante custoso; Por isso, algumas aplicações acabam por
 armazenar apenas a Origem e o Destino (OD). Outro fator de impacto é a precisão
 das informações a qual depende de questões relacionadas ao hardware utilizado na
-coleta. Muitas vezes é necessária uma etapa de pré-processamento para extrair
+coleta. Muitas vezes é necessária uma etapa de pré-processamento para remover
 dados inconsistentes da análise.
 
 \subsection{Quanto ao Objetivo da Visualização}
@@ -87,7 +87,7 @@ do transporte. Várias soluções existem com esse propósito, que podem envolve
 monitoramento em tempo real ou análise histórica no processo de recomendação.
 \end{itemize}
 
-\subsection{Visualização das Propriedades Temporais}
+\subsection{Quanto à Exibição das Propriedades Temporais}
 
 Dados do tráfego podem conter uma série de variáveis, das quais as mais
 importantes são o tempo e espaço. Visualizações orientadas ao tempo enfatizam
@@ -100,7 +100,7 @@ tempo que considera a informação desde um ponto de início até um ponto final
 Uma maneira comum de projeções que enfatizam as informações temporais
 são gráficos de linhas, onde o tempo é colocado ao longo do eixo X e outra variável
 é representada no eixo Y, como mostra a Figura \ref{fig:linear-time}. Esse tipo
-de visualização é fácil de representar, porém limitam-se na quantidade de
+de visualização é fácil de representar, porém limitada na quantidade de
 variáveis que podem ser visualizadas.
 
 \begin{figure}[!htb]
@@ -119,7 +119,7 @@ mostrado no eixo circular e cada anel do círculo representa um dia da semana. O
 representam uma hora, com 24 setores no total que mostram a quantidade de tráfego em
 um determinado ponto da cidade, mapeada em cores. A vantagem de um leiaute radial
 é que ele evidencia esses padrões recorrentes e a desvantagem é que ele possui pouca
-eficiência espacial, \citep{Chen2015}.
+eficiência na representação das propriedades espaciais, \citep{Chen2015}.
 
 \begin{figure}[!htb]
   \centering
@@ -133,13 +133,13 @@ direita, onde vermelho representa o maior tráfego. Fonte: \citet{Pu2013} \label
 
 Os aspectos temporais dos dados não se limitam a apenas essas visualizações, existe
 um grande arcabouço de projeções que se desenvolveram no campo da visualização da
-informação onde o tempo é uma variável de destaque. \citet{Cairo2016} mostra uma série
+informação em que o tempo é uma variável de destaque. \citet{Cairo2016} mostra uma série
 dessas projeções em seu livro, complementando ainda que uma análise linear ou periódica
 são dois paradigmas que levam a decisões diferentes durante o processo de criação da visualização
 para comunicar uma determinada informação.
 
 
-\subsection{Visualização das Propriedades Espaciais}
+\subsection{Quanto à Exibição das Propriedades Espaciais}
 
 As propriedades espaciais de localização referem-se aos locais onde ações, incidentes e
 eventos ocorrem. Diferentes níveis de agregação dessa informação levam à categorização
@@ -150,7 +150,7 @@ da visualização em três classes, segundo \citet{Chen2015}: \textbf{visualiza�
 \textbf{Visualizações baseada em pontos} (nenhuma agregação)
 consideram as informações do tráfego como pontos discretos e usam sua forma
 pura como representação em um leiaute espacial, como pontos individuais em um mapa 2D.
-Essa tipo de visualização mostra a posição instantânea dos objetos em um certo momento
+Esse tipo de visualização mostra a posição instantânea dos objetos em um certo momento
 no tempo. A vantagem desse método é que ele mostra um retrato dos estados de cada objeto em um
 determinado momento, permitindo observar sua distribuição no espaço e explorar regiões que estejam
 mais ocupadas. Para entender mudanças contínuas ao longo do tempo, técnicas de animação podem
@@ -222,8 +222,8 @@ Visualização abstrata, baseada na proximidade.  Fonte: \citet{Tarik2009}.
 \label{fig:tarik}}
 \end{figure}
 
-No entanto, a medida que o número de linhas cresce, aumenta também os problemas
-de oclusão, o que acaba afetando a estética da visualização e a obtenção de
+No entanto, à medida que o número de linhas cresce, aumenta também a
+oclusão, o que acaba afetando a estética da visualização e a obtenção de
 informações sobre os dados \citep{Zhou2013}. \textbf{Visualizações baseadas em
 regiões} (agregação de segunda ordem) são uma forma de reduzir a complexidade de
 análise de um grande conjunto trajetórias. Os dados são então agrupados em um
@@ -239,8 +239,8 @@ cidade (Figura~\ref{fig:interchange-circo}a), na escala de sub-regiões
 (Figura~\ref{fig:interchange-circo}c). Para isso eles agregam os dados em uma
 etapa de pré-processamento. O círculo representa a junção ou conexão entre as
 diferentes regiões e o fluxo entre elas. A densidade do fluxo é medida pela
-espessura, bem como a direção é destacada com um pequeno corte no círculo, como
-é ilustrado na Figura~\ref{fig:interchange-circo}a. Uma boa visualização oferece
+espessura, bem como a direção é representada com um pequeno corte no desenho que indica o destino
+dos fluxos, como é ilustrado na Figura~\ref{fig:interchange-circo}a. Uma boa visualização oferece
 parâmetros para controlar a perspectiva de análise dos dados, embora nem sempre
 isso seja uma tarefa viável e efetiva (quando se tem milhares de dados). Uma solução, como a utilizada por \citet{Zeng2013},
 é executar essa agregação em uma etapa anterior à visualização.
@@ -261,14 +261,12 @@ tais como velocidade, direção, tipo de veículo, posição.
 Uma maneira de contornar os problemas de oclusão é limitar a quantidade de itens
 na visualização, seja por filtragem dos dados ou por agregação. Porém, como
 consequência disso, perde-se a visão global de todos os itens ao mesmo tempo, o
-que pode ser necessário para a identificação das correlações e padrões entre
-eles. Uma outra técnica conhecida como \emph{bundling} busca resolver tais
+que pode ser necessário para a identificação das correlações e padrões.
+Uma outra técnica conhecida como \emph{bundling} busca resolver tais
 problemas de escalabilidade visual, trazendo um outro tipo de abstração que
 permite criar visualizações baseadas em linhas com um grande número de elementos
 de uma forma simplificada, que destaca grupos de trajetórias espacialmente
 próximas, e opcionalmente, que possuam atributos similares.
-
-
 
 \section{\emph{Bundling}}
 \label{sec:bundling}
